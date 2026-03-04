@@ -134,17 +134,60 @@
             </div>
         </section>
 
-        <!-- PART 2: THE VIDEO -->
-        <section id="video" class="card p-6 md:p-8 border-blue-300 border-2">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-4xl">📺</span>
-                <h2 class="text-2xl font-bold text-gray-800">2. Market News</h2>
-                 <div class="flex gap-2">
-                    <button onclick="speak('Market News')" class="btn-icon">🔊</button>
+        <!-- PART 2: LEAD-IN -->
+        <section id="leadin" class="card p-6 md:p-8 border-orange-400 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🗣️</span>
+                <h2 class="text-2xl font-bold text-gray-800">2. Let's Talk! (Lead-in)</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Let\'s Talk! Lead in')" class="btn-icon">🔊</button>
                     <button onclick="toggleThai('h2-2-th')" class="btn-icon">🇹🇭</button>
                 </div>
             </div>
-            <p id="h2-2-th" class="hidden text-gray-500 mb-6 text-center font-bold">2. ข่าวตลาดการลงทุน</p>
+            <p id="h2-2-th" class="hidden text-gray-500 mb-6 text-center font-bold">2. มาคุยกันเถอะ! (นำเข้าสู่บทเรียน)</p>
+
+            <div class="bg-orange-50 p-6 rounded-xl">
+                <h3 class="font-bold text-orange-800 text-lg mb-4">Instructions: Discuss in Breakout Rooms 👥</h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">1. Is everything expensive today? (Food, gas, clothes)</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('Is everything expensive today? Food, gas, clothes.')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-1-th" class="hidden text-orange-600 text-sm">1. ทุกวันนี้ของแพงไหม? (อาหาร, น้ำมัน, เสื้อผ้า)</p>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">2. Do you like to save money or spend money?</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('Do you like to save money or spend money?')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-2-th" class="hidden text-orange-600 text-sm">2. คุณชอบเก็บเงิน หรือ ใช้เงิน?</p>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">3. Where do you keep your money? (Bank, Gold, Piggy bank...)</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('Where do you keep your money? Bank, Gold...')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-3-th" class="hidden text-orange-600 text-sm">3. คุณเก็บเงินไว้ที่ไหน? (ธนาคาร, ทองคำ, กระปุกออมสิน...)</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PART 3: THE VIDEO -->
+        <section id="video" class="card p-6 md:p-8 border-blue-300 border-2">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📺</span>
+                <h2 class="text-2xl font-bold text-gray-800">3. Market News</h2>
+                 <div class="flex gap-2">
+                    <button onclick="speak('Market News')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-3-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-3-th" class="hidden text-gray-500 mb-6 text-center font-bold">3. ข่าวตลาดการลงทุน</p>
 
             <div class="mb-6 text-center">
                 <a href="https://drive.google.com/file/d/19_UmZXdy9mP0EN7tzO8X-Dlsi5r9v6YW/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-bold shadow-md">
@@ -210,17 +253,17 @@
             </div>
         </section>
 
-        <!-- PART 3: COMPREHENSION CHECK -->
+        <!-- PART 4: COMPREHENSION CHECK -->
         <section id="comprehension" class="card p-6 md:p-8 bg-slate-50 border-slate-300 border-2">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-4xl">📝</span>
-                <h2 class="text-2xl font-bold text-gray-800">3. Comprehension Check</h2>
+                <h2 class="text-2xl font-bold text-gray-800">4. Comprehension Check</h2>
                  <div class="flex gap-2">
                     <button onclick="speak('Comprehension Check')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-3-th')" class="btn-icon">🇹🇭</button>
+                    <button onclick="toggleThai('h2-4-th')" class="btn-icon">🇹🇭</button>
                 </div>
             </div>
-            <p id="h2-3-th" class="hidden text-gray-500 mb-6 text-center font-bold">3. ตรวจสอบความเข้าใจ</p>
+            <p id="h2-4-th" class="hidden text-gray-500 mb-6 text-center font-bold">4. ตรวจสอบความเข้าใจ</p>
 
             <div class="space-y-4">
                 <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
@@ -270,17 +313,17 @@
             </div>
         </section>
 
-        <!-- PART 4: ACCOUNTANT TALK & GAME -->
+        <!-- PART 5: ACCOUNTANT TALK & GAME -->
         <section id="accountant" class="card p-6 md:p-8 border-yellow-400 border-4 bg-yellow-50">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-4xl">📊</span>
-                <h2 class="text-2xl font-bold text-gray-800">4. Accountant Talk & Game</h2>
+                <h2 class="text-2xl font-bold text-gray-800">5. Accountant Talk & Game</h2>
                 <div class="flex gap-2">
                     <button onclick="speak('Accountant Talk and Game')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-4-th')" class="btn-icon">🇹🇭</button>
+                    <button onclick="toggleThai('h2-5-th')" class="btn-icon">🇹🇭</button>
                 </div>
             </div>
-            <p id="h2-4-th" class="hidden text-gray-500 mb-6 text-center font-bold">4. พูดคุยฉบับนักบัญชี และเกม</p>
+            <p id="h2-5-th" class="hidden text-gray-500 mb-6 text-center font-bold">5. พูดคุยฉบับนักบัญชี และเกม</p>
 
             <div class="space-y-6">
                 <!-- Discussion -->
@@ -358,17 +401,17 @@
             </div>
         </section>
 
-        <!-- PART 5: GRAMMAR CORNER -->
+        <!-- PART 6: GRAMMAR CORNER -->
         <section id="grammar" class="card p-6 md:p-8 border-pink-400 border-4">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-4xl">📏</span>
-                <h2 class="text-2xl font-bold text-gray-800">5. Grammar Corner: Up & Down</h2>
+                <h2 class="text-2xl font-bold text-gray-800">6. Grammar Corner: Up & Down</h2>
                 <div class="flex gap-2">
                     <button onclick="speak('Grammar Corner: Up and Down')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-5-th')" class="btn-icon">🇹🇭</button>
+                    <button onclick="toggleThai('h2-6-th')" class="btn-icon">🇹🇭</button>
                 </div>
             </div>
-            <p id="h2-5-th" class="hidden text-gray-500 mb-6 text-center font-bold">5. มุมไวยากรณ์: กริยา ขึ้น และ ลง (อดีต)</p>
+            <p id="h2-6-th" class="hidden text-gray-500 mb-6 text-center font-bold">6. มุมไวยากรณ์: กริยา ขึ้น และ ลง (อดีต)</p>
 
             <div class="bg-pink-50 rounded-xl p-6 mb-6">
                 <div class="flex items-center gap-2 mb-4">
@@ -441,18 +484,18 @@
             </div>
         </section>
 
-        <!-- PART 6: EXTENSION ACTIVITIES (1-on-1) -->
+        <!-- PART 7: EXTENSION ACTIVITIES (1-on-1) -->
         <section id="extension" class="card p-6 md:p-8 border-orange-400 border-4">
              <div class="flex flex-col mb-6">
                 <div class="flex items-center gap-3">
                     <span class="text-4xl">🚀</span>
-                    <h2 class="text-2xl font-bold text-gray-800">6. Extension Activities</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">7. Extension Activities</h2>
                     <div class="flex gap-2">
                         <button onclick="speak('Extension Activities')" class="btn-icon">🔊</button>
-                        <button onclick="toggleThai('h2-6-th')" class="btn-icon">🇹🇭</button>
+                        <button onclick="toggleThai('h2-7-th')" class="btn-icon">🇹🇭</button>
                     </div>
                 </div>
-                <p id="h2-6-th" class="hidden text-gray-500 mb-6 text-center font-bold">6. กิจกรรมเสริม (สำหรับเรียนตัวต่อตัว หรือจับคู่)</p>
+                <p id="h2-7-th" class="hidden text-gray-500 mb-6 text-center font-bold">7. กิจกรรมเสริม (สำหรับเรียนตัวต่อตัว หรือจับคู่)</p>
             </div>
 
             <div class="space-y-6">
@@ -528,7 +571,7 @@
     </main>
 
     <script>
-        // Massive Vocabulary List
+        // Standard Vocab List
         const vocabData = [
             { emoji: "🌍📍✈️", en: "Experiences", th: "ประสบการณ์" },
             { emoji: "🇵🇱🏰❄️", en: "I have traveled to Poland.", th: "ฉันเคยไปเที่ยวที่โปแลนด์" },
@@ -1180,45 +1223,33 @@
         function pickRandomWord() {
             const display = document.getElementById('wordDisplay');
             
+            // Combine all vocab for the randomizer
+            const combinedVocab = vocabData;
+            
             // Animation start
             display.style.opacity = '0';
             
             setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * vocabData.length);
-                const item = vocabData[randomIndex];
+                const randomIndex = Math.floor(Math.random() * combinedVocab.length);
+                const item = combinedVocab[randomIndex];
                 const uniqueId = 'rand-' + Math.random().toString(36).substr(2, 9);
-                const randomEmoji = item.emoji || '✨';
+                const randomEmoji = item.emoji ? item.emoji.split('	')[0] : '✨';
                 
                 display.innerHTML = `
-                    <div class="vocab-card-content flex flex-col items-center gap-2">
+                    <div class="flex flex-col items-center gap-2">
                         <div class="text-4xl animate-bounce">${randomEmoji}</div>
-                        <div class="text-xl md:text-2xl font-bold text-green-900 text-center px-4">${item.en}</div>
+                        <div class="text-2xl font-bold text-blue-900 px-4">${item.en}</div>
                         <div class="flex gap-2 mt-2">
-                            <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon bg-white">🔊 Listen</button>
-                            <button onclick="toggleThai('${uniqueId}')" class="btn-icon bg-white">🇹🇭 TH</button>
+                            <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon">🔊 Listen</button>
+                            <button onclick="toggleThai('${uniqueId}')" class="btn-icon">🇹🇭 TH</button>
                         </div>
-                        <div id="${uniqueId}" class="hidden text-lg text-gray-600 font-bold mt-2 text-center">${item.th}</div>
+                        <div id="${uniqueId}" class="hidden text-lg text-gray-500 font-bold mt-2">${item.th}</div>
                     </div>
                 `;
                 
                 // Animation end
                 display.style.opacity = '1';
             }, 200);
-        }
-
-                card.innerHTML = `
-                    <div class="flex-1">
-                        <div class="text-2xl mb-1">${item.emoji || '✨'}</div>
-                        <h3 class="font-bold text-gray-800 text-lg leading-tight mb-1">${item.en}</h3>
-                        <p id="${thId}" class="hidden text-teal-600 font-bold text-sm mt-1 animate-pulse">${item.th}</p>
-                    </div>
-                    <div class="flex flex-col gap-1 shrink-0">
-                         <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🔊</button>
-                         <button onclick="toggleThai('${thId}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🇹🇭</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
         }
     </script>
 </body>
