@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Speak English! 🌟</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for English and Thai -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0fdf4;
+            background-image: radial-gradient(#dcfce7 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .thai-text {
+            font-family: 'Kanit', sans-serif;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .task-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen pb-16">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-emerald-400 to-teal-500 text-white py-12 px-4 shadow-md mb-10 rounded-b-[3rem]">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Let's Speak English! 🌟</h1>
+            <p class="text-lg md:text-xl font-medium opacity-90">Get ready to talk about Fashion 👗, Music 🎵, Films 🎬, Food 🍔, and Travel ✈️!</p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-3xl mx-auto px-4" id="lesson-container">
+        <!-- Content will be injected here by JavaScript -->
+    </main>
+
+    <script>
+        // Lesson Content Data Structure
+        const lessonData = [
+            {
+                sectionType: "main",
+                title: { eng: "Icebreaking Questions 🧊", th: "คำถามละลายพฤติกรรม 🧊" },
+                description: { eng: "Let's warm up and get to know each other!", th: "มาเตรียมความพร้อมและทำความรู้จักกันเถอะ!" },
+                items: [
+                    { 
+                        eng: "If you could only eat one Thai food for the rest of your life while watching your favorite TV series, what would it be? 🍜📺", 
+                        th: "ถ้าคุณต้องกินอาหารไทยได้แค่เมนูเดียวไปตลอดชีวิตพร้อมกับดูซีรีส์เรื่องโปรด คุณจะเลือกกินอะไร?" 
+                    },
+                    { 
+                        eng: "What is a fashion trend you think is absolutely hilarious? 👗😂", 
+                        th: "เทรนด์แฟชั่นอะไรที่คุณคิดว่าตลกสุดๆ?" 
+                    },
+                    { 
+                        eng: "If you had to sing one song perfectly to get a free flight anywhere, what song and where? 🎤✈️", 
+                        th: "ถ้าคุณต้องร้องเพลงหนึ่งเพลงให้สมบูรณ์แบบเพื่อแลกกับตั๋วเครื่องบินฟรีไปที่ไหนก็ได้ คุณจะร้องเพลงอะไรและไปที่ไหน?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Funny Role-play 🎭", th: "บทบาทสมมติสุดฮา 🎭" },
+                description: { eng: "Let's act it out!", th: "มาแสดงบทบาทสมมติกันเถอะ!" },
+                items: [
+                    { 
+                        eng: "Scenario: You are a famous fashion designer, but your new clothing line is made entirely of snacks! 👗🍿", 
+                        th: "สถานการณ์: คุณเป็นนักออกแบบแฟชั่นชื่อดัง แต่เสื้อผ้าคอลเลกชันใหม่ของคุณทำมาจากขนมทั้งหมด!" 
+                    },
+                    { 
+                        eng: "I am a reporter interviewing you. Tell me about your delicious designs! 🎤", 
+                        th: "ฉันเป็นนักข่าวที่มาสัมภาษณ์คุณ เล่าเรื่องการออกแบบสุดอร่อยของคุณให้ฟังหน่อย!" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Speaking Game: Two Truths and a Lie 🎲", th: "เกมการพูด: เรื่องจริงสอง เรื่องโกหกหนึ่ง 🎲" },
+                description: { eng: "Can I guess your lie?", th: "ฉันจะทายเรื่องโกหกของคุณได้ไหม?" },
+                items: [
+                    { 
+                        eng: "Tell me three crazy things about your past travels or weird food you've eaten. ✈️🍣", 
+                        th: "บอกเรื่องสุดแปลกเกี่ยวกับการเดินทางหรืออาหารประหลาดที่คุณเคยกินมา 3 เรื่อง" 
+                    },
+                    { 
+                        eng: "Two must be true, one is a lie. I will guess which one is the lie! 🤥", 
+                        th: "สองเรื่องต้องเป็นความจริง และอีกหนึ่งเรื่องเป็นเรื่องโกหก ฉันจะทายเองว่าเรื่องไหนโกหก!" 
+                    }
+                ]
+            },
+            {
+                sectionType: "divider",
+                title: { eng: "🌟 Extension Activities 🌟", th: "🌟 กิจกรรมเสริม 🌟" },
+                description: { eng: "Finished early? Let's keep the fun going!", th: "เสร็จเร็วเหรอ? มาสนุกกันต่อเถอะ!" }
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Debate 🗣️", th: "โต้วาทีสุดฮา 🗣️" },
+                items: [
+                    { 
+                        eng: "Which is better: having a personal chef who only cooks spicy food 🌶️ or a personal stylist who only dresses you in neon colors 🟢?", 
+                        th: "แบบไหนดีกว่ากัน ระหว่างมีเชฟส่วนตัวที่ทำแต่อาหารรสจัด กับมีสไตลิสต์ส่วนตัวที่แต่งตัวให้คุณด้วยสีนีออนเท่านั้น?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Discussion 🤔", th: "การสนทนาสุดฮา 🤔" },
+                items: [
+                    { 
+                        eng: "If your life was a TV series, what would the theme song be and who would play the main villain? 🎬😈", 
+                        th: "ถ้าชีวิตของคุณเป็นซีรีส์ เพลงประกอบจะเป็นเพลงอะไร และใครจะรับบทเป็นตัวร้ายหลัก?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Interview 🎤", th: "สัมภาษณ์สุดฮา 🎤" },
+                items: [
+                    { 
+                        eng: "You are applying for the job of 'Professional Netflix Watcher'. Sell yourself! 📺💼", 
+                        th: "คุณกำลังสมัครงานในตำแหน่ง 'นักดู Netflix มืออาชีพ' จงนำเสนอตัวเอง!" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Story-telling 📖", th: "เล่าเรื่องสุดฮา 📖" },
+                items: [
+                    { 
+                        eng: "Tell me a story about a time a beauty product or makeup routine went terribly wrong. 💄🤡", 
+                        th: "เล่าเรื่องตอนที่การใช้ผลิตภัณฑ์ความงามหรือการแต่งหน้าผิดพลาดอย่างมหันต์ให้ฟังหน่อย" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Presentation 📊", th: "นำเสนอสุดฮา 📊" },
+                items: [
+                    { 
+                        eng: "Pitch a crazy new music festival idea where the tickets are free but the rules are ridiculous. 🎶🎪", 
+                        th: "นำเสนอไอเดียเทศกาลดนตรีสุดแหวกแนวที่ตั๋วฟรีแต่มีกฎสุดแปลกประหลาด" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Additional Vocabulary 📚", th: "คำศัพท์เพิ่มเติม 📚" },
+                description: { eng: "Useful words for our lesson!", th: "คำศัพท์ที่เป็นประโยชน์สำหรับบทเรียนของเรา!" },
+                items: [
+                    { eng: "recycling materials ♻️", th: "วัสดุรีไซเคิล" },
+                    { eng: "eels 🐟", th: "ปลาไหล" },
+                    { eng: "stir-fried basil 🌿", th: "ผัดกะเพรา" },
+                    { eng: "papaya salad 🥗", th: "ส้มตำ" },
+                    { eng: "spicy soup 🌶️🥣", th: "ต้มยำ / ซุปเผ็ด" }
+                ]
+            }
+        ];
+
+        // Helper to clean text for TTS
+        function cleanTextForTTS(text) {
+            return text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').replace(/"/g, '&quot;');
+        }
+
+        // Function to handle Text-to-Speech
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; // Use standard English
+                utterance.rate = 0.9;     // Slightly slower for learners
+                utterance.pitch = 1.0;
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Sorry, your browser does not support Text-to-Speech.");
+            }
+        }
+
+        // Function to toggle Thai translation visibility
+        function toggleThai(elementId) {
+            const thaiElement = document.getElementById(elementId);
+            if (thaiElement.style.display === "none" || thaiElement.style.display === "") {
+                thaiElement.style.display = "block";
+            } else {
+                thaiElement.style.display = "none";
+            }
+        }
+
+        // Helper to generate mini buttons for titles/descriptions
+        function getControlsHtml(cleanText, thaiId) {
+            return `
+                <div class="flex flex-row gap-2 flex-shrink-0 items-center">
+                    <button onclick="speakText('${cleanText}')" 
+                            class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            title="Listen to English">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" />
+                        </svg>
+                    </button>
+                    <button onclick="toggleThai('${thaiId}')" 
+                            class="flex items-center justify-center h-8 px-2 rounded-lg bg-pink-100 text-pink-600 text-xs font-bold hover:bg-pink-200 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-400"
+                            title="Show/Hide Thai Translation">
+                        TH
+                    </button>
+                </div>
+            `;
+        }
+
+        // Render the UI
+        function renderLesson() {
+            const container = document.getElementById('lesson-container');
+            let htmlContent = '';
+            let itemCounter = 0;
+
+            lessonData.forEach((section, index) => {
+                if (section.sectionType === "divider") {
+                    const titleThaiId = `thai-title-div-${index}`;
+                    const descThaiId = `thai-desc-div-${index}`;
+                    const cleanTitle = cleanTextForTTS(section.title.eng);
+                    const cleanDesc = cleanTextForTTS(section.description.eng);
+
+                    htmlContent += `
+                        <div class="mt-16 mb-8 text-center flex flex-col items-center">
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-1">
+                                <h2 class="text-3xl font-extrabold text-teal-600">${section.title.eng}</h2>
+                                ${getControlsHtml(cleanTitle, titleThaiId)}
+                            </div>
+                            <div id="${titleThaiId}" class="thai-text mb-4">
+                                <p class="text-xl text-teal-500 font-bold">${section.title.th}</p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-1">
+                                <p class="text-gray-500 font-medium">${section.description.eng}</p>
+                                ${getControlsHtml(cleanDesc, descThaiId)}
+                            </div>
+                            <div id="${descThaiId}" class="thai-text mb-2">
+                                <p class="text-[1.05rem] text-gray-400 font-medium">${section.description.th}</p>
+                            </div>
+                            <div class="w-24 h-1 bg-teal-200 mx-auto mt-4 rounded-full"></div>
+                        </div>
+                    `;
+                } else {
+                    const titleThaiId = `thai-title-sec-${index}`;
+                    const cleanTitle = cleanTextForTTS(section.title.eng);
+                    let descHtml = '';
+
+                    if (section.description) {
+                        const descThaiId = `thai-desc-sec-${index}`;
+                        const cleanDesc = cleanTextForTTS(section.description.eng);
+                        descHtml = `
+                            <div class="flex flex-col mb-6">
+                                <div class="flex items-start justify-between gap-4 mb-1">
+                                    <p class="text-emerald-500 font-semibold">${section.description.eng}</p>
+                                    ${getControlsHtml(cleanDesc, descThaiId)}
+                                </div>
+                                <div id="${descThaiId}" class="thai-text">
+                                    <p class="text-[1.05rem] text-emerald-600 font-medium">${section.description.th}</p>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        descHtml = '<div class="mb-4"></div>';
+                    }
+
+                    htmlContent += `
+                        <div class="task-card bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-emerald-50 mb-8">
+                            <div class="flex flex-col mb-4">
+                                <div class="flex items-start justify-between gap-4 mb-1">
+                                    <h2 class="text-2xl font-bold text-gray-800">${section.title.eng}</h2>
+                                    ${getControlsHtml(cleanTitle, titleThaiId)}
+                                </div>
+                                <div id="${titleThaiId}" class="thai-text">
+                                    <p class="text-[1.15rem] text-gray-600 font-bold">${section.title.th}</p>
+                                </div>
+                            </div>
+                            ${descHtml}
+                            
+                            <div class="space-y-6">
+                    `;
+
+                    section.items.forEach(item => {
+                        const thaiId = `thai-${itemCounter}`;
+                        const cleanEngText = cleanTextForTTS(item.eng);
+
+                        htmlContent += `
+                            <div class="bg-gray-50 rounded-2xl p-4 md:p-5 border border-gray-100">
+                                <div class="flex items-start justify-between gap-4">
+                                    <p class="text-lg md:text-xl text-gray-800 font-medium leading-relaxed">${item.eng}</p>
+                                    
+                                    <div class="flex flex-col sm:flex-row gap-2 flex-shrink-0">
+                                        <!-- TTS Button -->
+                                        <button onclick="speakText('${cleanEngText}')" 
+                                                class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                                title="Listen to English">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" />
+                                            </svg>
+                                        </button>
+                                        
+                                        <!-- Thai Toggle Button -->
+                                        <button onclick="toggleThai('${thaiId}')" 
+                                                class="flex items-center justify-center h-10 px-3 rounded-xl bg-pink-100 text-pink-600 font-bold hover:bg-pink-200 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-400"
+                                                title="Show/Hide Thai Translation">
+                                            TH
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Hidden Thai Text -->
+                                <div id="${thaiId}" class="thai-text mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-[1.1rem] text-gray-600 leading-relaxed">${item.th}</p>
+                                </div>
+                            </div>
+                        `;
+                        itemCounter++;
+                    });
+
+                    htmlContent += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', renderLesson);
+
+    </script>
+</body>
+</html>
