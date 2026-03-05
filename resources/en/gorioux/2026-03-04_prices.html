@@ -197,7 +197,7 @@
             </div>
 
             <div class="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
-                <h3 class="font-bold text-blue-800 mb-2">Simplified Script 📝</h3>
+                <h3 class="font-bold text-blue-800 mb-2">Simplified Script 📝 (A1-A2 Level)</h3>
                 <div class="flex gap-2 mb-4">
                     <button onclick="speak('Simplified Script')" class="btn-icon text-xs">🔊</button>
                     <button onclick="toggleThai('ss-th')" class="btn-icon text-xs">🇹🇭</button>
@@ -568,10 +568,27 @@
             </div>
         </section>
 
+        <!-- PART 8: ADDITIONAL VOCABULARY -->
+        <section id="additional-vocab" class="card p-6 md:p-8 border-teal-500 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">➕</span>
+                <h2 class="text-2xl font-bold text-gray-800">8. Additional Vocabulary</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Additional Vocabulary')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-8-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-8-th" class="hidden text-gray-500 mb-6 text-center font-bold">8. คำศัพท์เพิ่มเติม</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="additional-vocab-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
     </main>
 
     <script>
-        // Standard Vocab List
+        // Massive Vocabulary List (Combined from Review + Additional lists)
         const vocabData = [
             { emoji: "🌍📍✈️", en: "Experiences", th: "ประสบการณ์" },
             { emoji: "🇵🇱🏰❄️", en: "I have traveled to Poland.", th: "ฉันเคยไปเที่ยวที่โปแลนด์" },
@@ -1217,7 +1234,50 @@
             { emoji: "💰❌🤝", en: "I don't have money to pay for the tax. Can you lend me some?", th: "ไม่มีเงินจ่ายภาษี ให้ยืมได้ไหม" },
             { emoji: "💰🤝📄", en: "loan", th: "เงินกู้" },
             { emoji: "💰🤝📄", en: "borrow", th: "ยืม" },
-            { emoji: "💰❓🤝", en: "Do you have money to give me?", th: "มีเงินให้ฉันไหม" }
+            { emoji: "💰❓🤝", en: "Do you have money to give me?", th: "มีเงินให้ฉันไหม" },
+            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
+            { emoji: "🎸🎤🎶", en: "live music", th: "ดนตรีสด" },
+            { emoji: "🍹❄️🍸", en: "Slushy Cocktail", th: "เหล้าปั่น" },
+            { emoji: "🗓️🗓️🗓️", en: "long weekend", th: "หยุดยาว" },
+            { emoji: "📜🎶🎤", en: "lyrics", th: "เนื้อเพลง" },
+            { emoji: "⏳📉📅", en: "lately", th: "ช่วงนี้" },
+            { emoji: "📝🕒⏱️", en: "briefly", th: "สั้นๆ / คร่าวๆ" },
+            { emoji: "🎖️🏰🛡️", en: "military base", th: "ฐานทัพทหาร" },
+            { emoji: "👤👑🎖️", en: "leader", th: "ผู้นำ" },
+            { emoji: "🤤👑🔥", en: "power-hungry", th: "บ้าอำนาจ" },
+            { emoji: "⚖️🏛️📜", en: "law", th: "กฎหมาย" },
+            { emoji: "🧠📚✨", en: "experience", th: "เจอ(ประสบการณ์) - v" },
+            { emoji: "📲💰⚡", en: "top up", th: "เติม" },
+            { emoji: "🪫🚫❌", en: "run out", th: "หมด" },
+            { emoji: "🐷💰🪙", en: "piggy bank", th: "กระปุกออมสิน" },
+            { emoji: "🐢📈✨", en: "gradually", th: "เรื่อยๆ / อย่างต่อเนื่อง" },
+            { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
+            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
+            { emoji: "⛽🏭⚙️", en: "Oil refining machine", th: "เครื่องกลั่นน้ำมัน" },
+            { emoji: "🌊🗺️🚢", en: "the Strait of Hormuz", th: "ช่องแคบฮอร์มุซ" },
+            { emoji: "🔩⛓️🏗️", en: "metal", th: "โลหะ" },
+            { emoji: "⛓️💰🟡", en: "It's tied to the gold value.", th: "ผูกกับมูลค่าทองคำ" },
+            { emoji: "📈🟡📈", en: "The gold price jumped on the line graph.", th: "ราคาทองพุ่งในกราฟเส้น" },
+            { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
+            { emoji: "💵💵💵", en: "bills / bank notes", th: "แบงค์" },
+            { emoji: "💸💳🤲", en: "cash", th: "เงินสด" },
+            { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
+            { emoji: "🤲🟡🏃‍♂️", en: "carry gold", th: "ถือทอง" },
+            { emoji: "🛡️🧠✅", en: "It's not at risk of being lost or forgotten.", th: "ไม่เสี่ยงหายหรือลืม" },
+            { emoji: "🌐🚫❌", en: "The internet is down.", th: "เน็ตล่ม" },
+            { emoji: "🧽🍽️✨", en: "wash dishes", th: "ล้างจาน" },
+            { emoji: "💰📈🏭", en: "invest", th: "ลงทุน" },
+            { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
+            { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
+            { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
+            { emoji: "🦠🤒💊", en: "disease", th: "โรค" },
+            { emoji: "🐔🥩🍴", en: "chicken meat", th: "เนื้อไก่" },
+            { emoji: "🌱🧪🌿", en: "fertiliser", th: "ปุ๋ย" },
+            { emoji: "🌳🍎🍊", en: "Fruit trees", th: "ต้นไม้ที่กินผล" },
+            { emoji: "🥬🥦🌿", en: "Leafy greens", th: "ต้นไม้ที่กินใบ" },
+            { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
+            { emoji: "🎡🎢🎬", en: "There is Universal Studio.", th: "มียูนิเวอร์แซล" },
+            { emoji: "💰📈🏢", en: "She invested in a company.", th: "เธอเคยลงทุนกับบริษัทนึง" }
         ];
 
         function pickRandomWord() {
