@@ -6,7 +6,6 @@
     <title>บทเรียนภาษาไทย: โฆษณา</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <style>
       body { margin: 0; padding: 0; background-color: #f8fafc; min-height: 100vh; }
       #root:empty::before {
@@ -19,6 +18,9 @@
         font-family: sans-serif;
       }
     </style>
+  </head>
+  <body>
+    <div id="root"></div>
 
     <script type="importmap">
       {
@@ -29,153 +31,35 @@
         }
       }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
 
     <script type="text/babel" data-type="module">
-      import React, { useState, useEffect } from 'react';
+      import React from 'react';
       import { createRoot } from 'react-dom/client';
-      import { Play, Volume2, Languages, RefreshCcw, Tv, MessageSquare, Users, BookOpen, Star, HelpCircle } from 'lucide-react';
 
-      const App = () => {
-        const [showIpaGlobal, setShowIpaGlobal] = useState(false);
-        const [showEnGlobal, setShowEnGlobal] = useState(false);
-        const [randomVocab, setRandomVocab] = useState(null);
-        const [currentSection, setCurrentSection] = useState('review');
+      const loadApp = async () => {
+        try {
+          const appUrl = './src/2569-03-08_koht-sa-naa.js';
+          console.log("กำลังโหลดไฟล์จาก:", appUrl);
 
-        const vocabList = [
-          { th: "ปิ้งนานไม่พอ", ipa: "bpîng naan mâi pɔɔ", en: "Not toast long enough", emoji: "🍞🔥" },
-          { th: "ก็ได้", ipa: "kɔ̂ɔ-dâay", en: "Can also be / Whatever", emoji: "🤷‍♂️" },
-          { th: "สีอ่อน", ipa: "sǐi ɔ̀ɔn", en: "Light colour", emoji: "🎨" },
-          { th: "ตลอด", ipa: "dtà-lɔ̀ɔt", en: "Always / Throughout", emoji: "⏳🔁" },
-          { th: "กลับจากฟิตเนส", ipa: "glàp jàak fít-nêet", en: "Return from the gym", emoji: "🏋️‍♂️🏠" },
-          { th: "ก็เลย", ipa: "gɔ̂ɔ-ləəi", en: "So", emoji: "➡️" },
-          { th: "การเงิน", ipa: "gaan ngən", en: "Finance", emoji: "💰📊" },
-          { th: "กิจกรรม", ipa: "kìt-cà-kam", en: "Activities", emoji: "🎯🎲" },
-          { th: "เกี๊ยว", ipa: "gíao", en: "Dumplings", emoji: "🥟" },
-          { th: "เกี่ยวกับ", ipa: "kìaw-kàp", en: "About", emoji: "ℹ️" },
-          { th: "ของฝาก", ipa: "khɔ̌ɔng fàak", en: "Souvenirs", emoji: "🎁🛍️" },
-          { th: "เบา", ipa: "bao", en: "Light", emoji: "💡🪶" },
-          { th: "ขับรถ", ipa: "khàp-rót", en: "Drive", emoji: "🚗" },
-          { th: "หุ้น", ipa: "hûn", en: "Stocks", emoji: "📈💹" },
-          { th: "ขาย", ipa: "khǎai", en: "Sell", emoji: "💰🛒" },
-          { th: "ครึ่ง", ipa: "krʉ̂ng", en: "Half", emoji: "½" },
-          { th: "ทำความสะอาด", ipa: "tam kwaam sà àat", en: "To clean", emoji: "🧹🧼" },
-          { th: "เงียบ", ipa: "ngîap", en: "Quiet", emoji: "🤫🔇" },
-          { th: "จำ", ipa: "cam", en: "Remember", emoji: "🧠💭" },
-          { th: "สนุก", ipa: "sà-nùk", en: "Fun", emoji: "🎉😄" }
-        ];
+          const module = await import(appUrl);
+          const App = module.default;
 
-        const targetVocab = [
-          { th: "พากย์", ipa: "pâak", en: "To dub / To voiceover", emoji: "🎙️🎬" },
-          { th: "ทน", ipa: "ton", en: "To endure / To stand", emoji: "🧘‍♀️⏳" },
-          { th: "เสีย", ipa: "sǐa", en: "To lose / Waste", emoji: "📉🗑️" },
-          { th: "รูปแบบใหม่", ipa: "rûup-bɛ̀ɛp mài", en: "New format / Style", emoji: "🆕✨" },
-          { th: "สะดวก", ipa: "sà-dùak", en: "Convenient", emoji: "🚀✅" }
-        ];
-
-        const speak = (text) => {
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.lang = 'th-TH';
-          window.speechSynthesis.speak(utterance);
-        };
-
-        const ThaiText = ({ th, ipa, en, className = "" }) => {
-          const [showIpa, setShowIpa] = useState(false);
-          const [showEn, setShowEn] = useState(false);
-
-          return (
-            <span className={`inline-flex flex-col align-middle mb-1 p-1 rounded-lg bg-white shadow-sm border border-gray-100 ${className}`}>
-              <span className="flex items-center gap-1">
-                <span className="text-lg font-bold text-slate-800">{th}</span>
-                <button onClick={() => speak(th)} className="p-1 hover:bg-blue-100 rounded-full text-blue-500 transition-colors">
-                  <Volume2 size={16} />
-                </button>
-                <button
-                  onClick={() => setShowIpa(!showIpa)}
-                  className={`px-1.5 py-0.5 text-[10px] font-mono rounded ${showIpa || showIpaGlobal ? 'bg-amber-500 text-white' : 'bg-gray-200 text-gray-600'}`}
-                >
-                  IPA
-                </button>
-                <button
-                  onClick={() => setShowEn(!showEn)}
-                  className={`px-1.5 py-0.5 text-[10px] font-mono rounded ${showEn || showEnGlobal ? 'bg-emerald-500 text-white' : 'bg-gray-200 text-gray-600'}`}
-                >
-                  EN
-                </button>
-              </span>
-              {(showIpa || showIpaGlobal) && <span className="text-[11px] text-amber-700 font-mono block leading-tight">{ipa}</span>}
-              {(showEn || showEnGlobal) && <span className="text-[11px] text-emerald-700 italic block leading-tight">{en}</span>}
-            </span>
-          );
-        };
-
-        const SectionTitle = ({ th, ipa, en, icon: Icon }) => (
-          <div className="flex items-center gap-3 mb-6 border-b pb-4">
-            {Icon && <Icon className="text-blue-600" size={32} />}
-            <ThaiText th={th} ipa={ipa} en={en} className="bg-transparent shadow-none border-none p-0" />
-          </div>
-        );
-
-        const pickRandomVocab = () => {
-          const randomIndex = Math.floor(Math.random() * vocabList.length);
-          setRandomVocab(vocabList[randomIndex]);
-        };
-
-        useEffect(() => {
-          pickRandomVocab();
-        }, []);
-
-        return (
-          <div className="max-w-4xl mx-auto p-4 md:p-8 bg-slate-50 min-h-screen font-sans text-slate-900 overflow-x-hidden">
-            <header className="mb-8 text-center flex flex-col items-center">
-              <h1 className="text-3xl font-extrabold text-blue-800 mb-4 flex items-center gap-2">
-                โฆษณา 📺✨
-              </h1>
-              <div className="flex gap-3 justify-center bg-white p-2 rounded-2xl shadow-md border border-slate-200">
-                <button
-                  onClick={() => setShowIpaGlobal(!showIpaGlobal)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm transition-all ${showIpaGlobal ? 'bg-amber-500 text-white' : 'bg-slate-100'}`}
-                >
-                  <Languages size={16} /> IPA {showIpaGlobal ? 'ON' : 'OFF'}
-                </button>
-                <button
-                  onClick={() => setShowEnGlobal(!showEnGlobal)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm transition-all ${showEnGlobal ? 'bg-emerald-500 text-white' : 'bg-slate-100'}`}
-                >
-                  <BookOpen size={16} /> EN {showEnGlobal ? 'ON' : 'OFF'}
-                </button>
-              </div>
-            </header>
-
-            <nav className="flex flex-wrap gap-2 mb-6 justify-center">
-              {[
-                { id: 'review', th: 'ทบทวน', icon: RefreshCcw },
-                { id: 'video', th: 'วิดีโอ', icon: Tv },
-                { id: 'vocab', th: 'คำศัพท์ใหม่', icon: Star },
-                { id: 'tasks', th: 'กิจกรรม', icon: MessageSquare }
-              ].map(nav => (
-                <button
-                  key={nav.id}
-                  onClick={() => setCurrentSection(nav.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition-all shadow-sm text-sm ${currentSection === nav.id ? 'bg-blue-600 text-white scale-105' : 'bg-white hover:bg-blue-50'}`}
-                >
-                  <nav.icon size={16} />
-                  {nav.th}
-                </button>
-              ))}
-            </nav>
-
-            <main className="bg-white rounded-3xl p-5 md:p-8 shadow-xl border border-slate-100">
-              <div>App loaded successfully.</div>
-            </main>
-          </div>
-        );
+          const rootElement = document.getElementById('root');
+          const root = createRoot(rootElement);
+          root.render(<App />);
+        } catch (error) {
+          console.error("เกิดข้อผิดพลาดในการโหลด App:", error);
+          document.getElementById('root').innerHTML = `
+            <div style="padding: 40px; color: #ef4444; text-align: center; font-family: sans-serif;">
+              <h3 style="font-size: 1.5rem; margin-bottom: 10px;">❌ เกิดข้อผิดพลาดในการโหลดระบบ</h3>
+              <p style="color: #64748b;">ไม่สามารถโหลดไฟล์: ./src/2569-03-08_koht-sa-naa.js</p>
+              <pre style="margin-top:20px; font-size:0.9rem; background:#fee2e2; padding:15px; border-radius:8px; display:inline-block; text-align:left; max-width:80%; white-space:pre-wrap;">${String(error)}</pre>
+            </div>
+          `;
+        }
       };
 
-      const root = createRoot(document.getElementById('root'));
-      root.render(<App />);
+      loadApp();
     </script>
   </body>
 </html>
