@@ -50,6 +50,7 @@
             hot: "./hot.mp3",
             glass: "./glass.mp3",
             sugar: "./sugar.mp3",
+            sweet: "./sweet.mp3",
             no_sugar: "./no-sugar.mp3",
             numbers: {
                 1: "./1.mp3", 2: "./2.mp3", 3: "./3.mp3", 4: "./4.mp3", 5: "./5.mp3",
@@ -317,7 +318,7 @@
                     isHot ? audioBank.hot : null,
                     audioBank.numbers[amount],
                     audioBank.glass, 
-                    sugar === 'no' ? audioBank.no_sugar : (sugar === 'yes' ? audioBank.sugar : null)
+                    sugar === 'no' ? audioBank.no_sugar : (sugar === 'yes' ? audioBank.sweet : null)
                 ];
                 playSequence(sequence);
             };
@@ -371,7 +372,7 @@
                                 <button onClick={() => {setSugar('no'); playAudio(audioBank.no_sugar);}} className={`flex-1 p-2 rounded border text-xs btn-press ${sugar === 'no' ? 'bg-purple-50 border-purple-400 text-purple-600' : 'border-gray-200'}`}>
                                     🚫🍬 ไม่ใส่น้ำตาล
                                 </button>
-                                <button onClick={() => {setSugar('yes'); playAudio(audioBank.sugar);}} className={`flex-1 p-2 rounded border text-xs btn-press ${sugar === 'yes' ? 'bg-purple-50 border-purple-400 text-purple-600' : 'border-gray-200'}`}>
+                                <button onClick={() => {setSugar('yes'); playAudio(audioBank.sweet);}} className={`flex-1 p-2 rounded border text-xs btn-press ${sugar === 'yes' ? 'bg-purple-50 border-purple-400 text-purple-600' : 'border-gray-200'}`}>
                                     🍬 หวาน
                                 </button>
                             </div>
