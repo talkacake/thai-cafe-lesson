@@ -14,11 +14,6 @@
         body { font-family: 'Sarabun', sans-serif; background-color: #fffbeb; }
         .thai-font { font-family: 'Sarabun', sans-serif; }
         .btn-press:active { transform: scale(0.95); }
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .animate-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     </style>
 </head>
 <body>
@@ -52,50 +47,42 @@
         };
 
         const audioBank = {
-            hot: "https://docs.google.com/uc?export=open&id=17BEeZb103upSlae1nklzH6evTaZP9duO",
-            glass: "https://docs.google.com/uc?export=open&id=1efVcpE-vsEjkhtxH5zOXuEaGFqMRJgLH",
-            sugar: "https://docs.google.com/uc?export=open&id=1ekEByr7UJqxKwFH-rjLYQq577i2-1smB",
-            no_sugar: "https://docs.google.com/uc?export=open&id=1t4ucYjYsY0NagpErXbeYKy32D9k-qDrO",
+            hot: "./hot.mp3",
+            glass: "./glass.mp3",
+            sugar: "./sugar.mp3",
+            no_sugar: "./no-sugar.mp3",
             numbers: {
-                1: "https://docs.google.com/uc?export=open&id=1HTfxhkaj8o5vxY25JsDqkKWweQe2hi79",
-                2: "https://docs.google.com/uc?export=open&id=1UP6oKTTek1qZ7bdLmkjg_eqXcorPjLXt",
-                3: "https://docs.google.com/uc?export=open&id=1Y6EC8SGpxoUC0fejjHct8vFrSI34oX5e",
-                4: "https://docs.google.com/uc?export=open&id=1lwpSjZLfkkE5IKVU_3-Gp9h6yJpXSnMu",
-                5: "https://docs.google.com/uc?export=open&id=1_4Tgaf-Nqhv-hHcSjXTx5PhGJinTDp3x",
-                6: "https://docs.google.com/uc?export=open&id=11A6ybRUNmfYzCEifv23c10p6lWOxdPyO",
-                7: "https://docs.google.com/uc?export=open&id=1ZJdujErf5cl2nS4xROEcYr1IAqrihm0n",
-                8: "https://docs.google.com/uc?export=open&id=1GNHs1qN2YGMXezufBAMgzMKh5QgI_JXn",
-                9: "https://docs.google.com/uc?export=open&id=14-BdC-P6n8i-1rB5IYcoS1CtFWspbPvy",
-                10: "https://docs.google.com/uc?export=open&id=1LDM89eTItDe5IsKje1onqvkgfEwbVH86"
+                1: "./1.mp3", 2: "./2.mp3", 3: "./3.mp3", 4: "./4.mp3", 5: "./5.mp3",
+                6: "./6.mp3", 7: "./7.mp3", 8: "./8.mp3", 9: "./9.mp3", 10: "./10.mp3"
             }
         };
 
         const newVocab = [
             { thai: "แก้ว", ipa: "gâeo", en: "glass / cup (classifier)", emoji: "🥤", audio: audioBank.glass },
             { thai: "ร้อน", ipa: "rón", en: "hot", emoji: "🔥", audio: audioBank.hot },
-            { thai: "น้ำตาล", ipa: "nám-dtaan", en: "sugar", emoji: "🍬", audio: "https://docs.google.com/uc?export=open&id=1ZOhRFYt-_F2i6pl6n40O0TAHgLb5dcUZ" },
-            { thai: "บาท", ipa: "bàat", en: "Baht (currency)", emoji: "฿", audio: "https://docs.google.com/uc?export=open&id=1egQ8xNATKrYOQqq2CftbPNthTxyZaOLT" },
-            { thai: "รับ", ipa: "ráp", en: "receive / accept (formal 'want')", emoji: "🤲", audio: "https://docs.google.com/uc?export=open&id=1lAIzXH6r8bctsNTS3P0H5vcZm0-ziEHJ" },
+            { thai: "น้ำตาล", ipa: "nám-dtaan", en: "sugar", emoji: "🍬", audio: audioBank.sugar },
+            { thai: "บาท", ipa: "bàat", en: "Baht (currency)", emoji: "฿", audio: "./baht.mp3" },
+            { thai: "รับ", ipa: "ráp", en: "receive / accept (formal 'want')", emoji: "🤲", audio: "./receive.mp3" },
         ];
 
         const dialogueScript = [
-            { speaker: speakers.staff, thai: "สวัสดีค่ะ รับอะไรดีคะ", ipa: "sà-wàt-dii khâ, ráp à-rai dii khá", en: "Hello, what would you like?", emoji: "👩‍🍳", audio: "https://docs.google.com/uc?export=open&id=13JL_2lWb3oQYP1pbRjHSosp4yTe9xsqk" },
-            { speaker: speakers.lin, thai: "เอาอเมริกาโน่ร้อน 2 แก้ว", ipa: "ao a-mee-ri-gaa-nôo rón sǒong gâeo", en: "I want 2 hot Americanos.", emoji: "☕🔥", audio: "https://docs.google.com/uc?export=open&id=1uo_hFlnoCdnXh9iO-rvreCPN4jDnfO54" },
-            { speaker: speakers.lin, thai: "ไม่น้ำตาลค่ะ", ipa: "mâi nám-dtaan khâ", en: "No sugar.", emoji: "🚫🍬", audio: "https://docs.google.com/uc?export=open&id=1l26mgL4JgP3nM2t2wLmAlSj5EMDLXG_S" },
-            { speaker: speakers.staff, thai: "ได้ค่ะ", ipa: "dâai khâ", en: "Okay.", emoji: "👌", audio: "https://docs.google.com/uc?export=open&id=1X0E-FjcVKffkSgMxGWZnrSbMKBE66b7c" },
-            { speaker: speakers.staff, thai: "ของคุณ...", ipa: "khǒong khun...", en: "For Khun... (Your name?)", emoji: "❓", audio: "https://docs.google.com/uc?export=open&id=1dGSzDiQyu5Ns-0QcP3Rh5I0feEYxzJyK" },
-            { speaker: speakers.lin, thai: "คุณลินค่ะ", ipa: "khun lin khâ", en: "Khun Lin.", emoji: "👩", audio: "https://docs.google.com/uc?export=open&id=1b_E5c6KvY_D8nxOrfvM9ZVwVErCHqTO7" },
-            { speaker: speakers.staff, thai: "คุณลินนะคะ", ipa: "khun lin ná khá", en: "Khun Lin, right/okay.", emoji: "📝", audio: "https://docs.google.com/uc?export=open&id=1LBj8VMfpYz2i2e_Ly0nCP7YVHEE_e9s2" },
-            { speaker: speakers.staff, thai: "ทั้งหมด 155 บาท", ipa: "tháng-mòt nùeng-róoi hâa-sìp-hâa bàat", en: "Total 155 Baht.", emoji: "💰", audio: "https://docs.google.com/uc?export=open&id=1qSSmzApp27T45DGxSRJb1afyG5EDH9SL" },
-            { speaker: speakers.staff, thai: "สแกนตรงนี้ได้เลยค่ะ", ipa: "sà-gaen dtrong-níi dâai loei khâ", en: "You can scan right here.", emoji: "📱", audio: "https://docs.google.com/uc?export=open&id=1Ghj1ll_3nWCnQeggXJSckIvogB9csAmR" },
-            { speaker: speakers.lin, thai: "เรียบร้อยนะคะ", ipa: "rîap-róoi ná khá", en: "Done/Finished.", emoji: "✅", audio: "https://docs.google.com/uc?export=open&id=1KY_HjfsLb2gwvEKU4aMKW_dTOuUq9D5c" },
-            { speaker: speakers.staff, thai: "ขอบคุณค่ะ", ipa: "khòop-khun khâ", en: "Thank you.", emoji: "🙏", audio: "https://docs.google.com/uc?export=open&id=1n5IwWKDV6ofszRFnu19hlctf1PkO7EXT" },
+            { speaker: speakers.staff, thai: "สวัสดีค่ะ รับอะไรดีคะ", ipa: "sà-wàt-dii khâ, ráp à-rai dii khá", en: "Hello, what would you like?", emoji: "👩‍🍳", audio: "./s1.mp3" },
+            { speaker: speakers.lin, thai: "เอาอเมริกาโน่ร้อน 2 แก้ว", ipa: "ao a-mee-ri-gaa-nôo rón sǒong gâeo", en: "I want 2 hot Americanos.", emoji: "☕🔥", audio: "./s2.mp3" },
+            { speaker: speakers.lin, thai: "ไม่น้ำตาลค่ะ", ipa: "mâi nám-dtaan khâ", en: "No sugar.", emoji: "🚫🍬", audio: "./s3.mp3" },
+            { speaker: speakers.staff, thai: "ได้ค่ะ", ipa: "dâai khâ", en: "Okay.", emoji: "👌", audio: "./s4.mp3" },
+            { speaker: speakers.staff, thai: "ของคุณ...", ipa: "khǒong khun...", en: "For Khun... (Your name?)", emoji: "❓", audio: "./s5.mp3" },
+            { speaker: speakers.lin, thai: "คุณลินค่ะ", ipa: "khun lin khâ", en: "Khun Lin.", emoji: "👩", audio: "./s6.mp3" },
+            { speaker: speakers.staff, thai: "คุณลินนะคะ", ipa: "khun lin ná khá", en: "Khun Lin, right/okay.", emoji: "📝", audio: "./s7.mp3" },
+            { speaker: speakers.staff, thai: "ทั้งหมด 155 บาท", ipa: "tháng-mòt nùeng-róoi hâa-sìp-hâa bàat", en: "Total 155 Baht.", emoji: "💰", audio: "./s8.mp3" },
+            { speaker: speakers.staff, thai: "สแกนตรงนี้ได้เลยค่ะ", ipa: "sà-gaen dtrong-níi dâai loei khâ", en: "You can scan right here.", emoji: "📱", audio: "./s9.mp3" },
+            { speaker: speakers.lin, thai: "เรียบร้อยนะคะ", ipa: "rîap-róoi ná khá", en: "Done/Finished.", emoji: "✅", audio: "./s10.mp3" },
+            { speaker: speakers.staff, thai: "ขอบคุณค่ะ", ipa: "khòop-khun khâ", en: "Thank you.", emoji: "🙏", audio: "./s11.mp3" },
         ];
 
         const drinks = [
-            { id: 'americano', thai: "อเมริกาโน่", emoji: "☕", audio: "https://docs.google.com/uc?export=open&id=1k72ESn-9KRln8xnu5jxiOinVMjiDIs2A" },
-            { id: 'cocoa', thai: "ช็อกโกแล็ต", emoji: "🍫", audio: "https://docs.google.com/uc?export=open&id=18aRobpOkjpc9HjQBEV2tIF-CLAMoiGDx" },
-            { id: 'matcha', thai: "มัทฉะ", emoji: "🍵", audio: "https://docs.google.com/uc?export=open&id=1ZLC1RsPTSqm_1sRllwoT9wTAk1eqZIdf" },
+            { id: 'americano', thai: "อเมริกาโน่", emoji: "☕", audio: "./americano.mp3" },
+            { id: 'chocolate', thai: "ช็อกโกแล็ต", emoji: "🍫", audio: "./chocolate.mp3" },
+            { id: 'matcha', thai: "มัทฉะ", emoji: "🍵", audio: "./matcha.mp3" },
         ];
 
         const uiText = {
@@ -270,7 +257,6 @@
 
             const handleGuess = (isCorrect, id) => {
                 setGuess(id);
-                // Can add a "correct/wrong" sound effect later if you want!
             };
 
             return (
@@ -401,7 +387,7 @@
                     <header className="bg-amber-500 text-white p-6 rounded-b-3xl shadow-md mb-6 sticky top-0 z-50">
                         <div className="flex justify-between items-start">
                             <div className="flex-1">
-                                <InteractiveText textObj={uiText.mainTitle} size="xl" color="text-white" audio="https://docs.google.com/uc?export=open&id=13ZuiGkQFkXHbpRDaTZDG4wiuhLzI3UnB" />
+                                <InteractiveText textObj={uiText.mainTitle} size="xl" color="text-white" audio="./title.mp3" />
                             </div>
                             <div className="text-4xl filter drop-shadow-md">🥤</div>
                         </div>
