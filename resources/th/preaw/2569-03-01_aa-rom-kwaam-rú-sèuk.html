@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทเรียนการพูดภาษาไทย (Thai Speaking Lesson)</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun for highly readable Thai text -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0fdf4; /* Light green background */
+        }
+        /* Smooth transitions for toggles */
+        .slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar for cleaner look if embedded in iframe */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased p-4 sm:p-6 md:p-8 min-h-screen pb-24">
+
+    <div class="max-w-3xl mx-auto space-y-8" id="app">
+        <!-- Header will be injected here -->
+        <div id="header-container"></div>
+
+        <!-- Section 1: Review -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-green-100 p-6 sm:p-8">
+            <div id="review-header"></div>
+            
+            <button onclick="rollRandomVocab()" class="w-full py-4 mt-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1 active:translate-y-0 touch-manipulation flex items-center justify-center gap-3 mb-6">
+                <span class="text-3xl">🎲</span> สุ่มคำศัพท์
+            </button>
+            
+            <div id="randomizer-result" class="min-h-[120px] flex items-center justify-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 p-4">
+                <!-- Result injected here -->
+            </div>
+        </div>
+
+        <!-- Section 2: Dialogue -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-blue-100 p-6 sm:p-8">
+            <div id="dialogue-header"></div>
+            <div id="dialogue-content" class="mt-6 space-y-4"></div>
+        </div>
+
+        <!-- Section 3: Target Vocab -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-purple-100 p-6 sm:p-8">
+            <div id="vocab-header"></div>
+            <div id="vocab-content" class="mt-6 space-y-4"></div>
+        </div>
+
+        <!-- Section 4: Main Activities -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-orange-100 p-6 sm:p-8">
+            <div id="main-activity-header"></div>
+            <div id="main-activity-content" class="mt-6 space-y-4"></div>
+        </div>
+
+        <!-- Section 5: Extension Activities -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-pink-100 p-6 sm:p-8">
+            <div id="extension-header"></div>
+            <div id="extension-content" class="mt-6 space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Data Structure for all text content to enforce the required format
+        const lessonData = {
+            header: { emoji: '🇹🇭', th: 'อารมณ์ความรู้สึก', ipa: 'aa-rom kwaam ráng-sèuk', en: 'Emotions' },
+            
+            review: {
+                header: { emoji: '🔄', th: 'ทบทวนคำศัพท์', ipa: 'tóp-tuan kam-sàp', en: 'Vocabulary Review' },
+                instruction: { emoji: '🗣️', th: 'สุ่มคำศัพท์ด้านล่างและแต่งประโยคให้สมบูรณ์', ipa: 'sùm kam-sàp dâan lâang láe dtàeng bprà-yòhk hâi sŏm-buun', en: 'Randomize a vocabulary word below and make a complete sentence.' },
+                words: [
+                    { emoji: '🐔', th: 'ไก่', ipa: 'gài', en: 'chicken' },
+                    { emoji: '🐦🪶', th: 'จิก', ipa: 'jìk', en: 'to peck' },
+                    { emoji: '🧒', th: 'เด็ก', ipa: 'dèk', en: 'child' },
+                    { emoji: '⚰️', th: 'ตาย', ipa: 'dtaai', en: 'to die' },
+                    { emoji: '🔛', th: 'บน', ipa: 'bon', en: 'on' },
+                    { emoji: '👄', th: 'ปาก', ipa: 'bpàak', en: 'mouth' },
+                    { emoji: '🏺', th: 'โอ่ง', ipa: 'òng', en: 'water jar' },
+                    { emoji: '👻', th: 'ผี', ipa: 'pĕe', en: 'ghost' },
+                    { emoji: '🏦🤝📦', th: 'ฝาก', ipa: 'fàak', en: 'to deposit / to leave with' },
+                    { emoji: '👜', th: 'ถุง', ipa: 'tŭng', en: 'bag' },
+                    { emoji: '🍚', th: 'ข้าว', ipa: 'kâao', en: 'rice' },
+                    { emoji: '🧪🧫', th: 'สาร', ipa: 'săan', en: 'substance / milled rice' },
+                    { emoji: '🎁', th: 'ให้', ipa: 'hâi', en: 'to give' },
+                    { emoji: '🧍‍♀️', th: 'ฉัน', ipa: 'chăn', en: 'I / me' },
+                    { emoji: '🗣️✨', th: 'คล่อง', ipa: 'klông', en: 'fluently' }
+                ]
+            },
+
+            dialogue: {
+                header: { emoji: '💬', th: 'บทสนทนา: คุยกับแม่', ipa: 'bòt sŏn-tá-naa: kui gàp mâe', en: 'Dialogue: Talking to Mom' },
+                lines: [
+                    { emoji: '👩🏽', speaker: 'แม่', th: 'ลูกทำงานหนักไปหรือเปล่า แม่เป็นห่วงนะ', ipa: 'lûuk tam ngaan nàk bpai rĕu bplào? mâe bpĕn hùang ná', en: 'Are you working too hard? Mom is worried.' },
+                    { emoji: '👧🏽', speaker: 'ลูก', th: 'ไม่เป็นไรค่ะแม่ แต่หนูหงุดหงิดเจ้านายนิดหน่อย', ipa: 'mâi bpĕn rai kâ mâe. dtàe nŭu ngùt ngìt jâo naai nít nòi', en: 'It is okay mom. But I am a bit frustrated with my boss.' },
+                    { emoji: '👩🏽', speaker: 'แม่', th: 'ใจเย็นๆ นะลูก อย่าเพิ่งน้อยใจไป', ipa: 'jai yen yen ná lûuk. yàa pêung nói jai bpai', en: 'Calm down, dear. Do not feel slighted just yet.' },
+                    { emoji: '👧🏽', speaker: 'ลูก', th: 'ขอบคุณค่ะแม่ หนูซึ้งใจที่แม่คอยฟังหนู', ipa: 'kòp kun kâ mâe. nŭu séung jai tîi mâe koi fang nŭu', en: 'Thank you mom. I am touched that you always listen to me.' },
+                    { emoji: '👩🏽', speaker: 'แม่', th: 'แม่ภูมิใจในตัวลูกเสมอนะ', ipa: 'mâe puum jai nai dtua lûuk sà-mĕr ná', en: 'Mom is always proud of you.' }
+                ]
+            },
+
+            targetVocab: {
+                header: { emoji: '🎯', th: 'คำศัพท์ใหม่', ipa: 'kam-sàp mài', en: 'New Vocabulary' },
+                words: [
+                    { emoji: '🥺', th: 'เป็นห่วง', ipa: 'bpĕn hùang', en: 'worried / concerned' },
+                    { emoji: '😔', th: 'น้อยใจ', ipa: 'nói jai', en: 'feel slighted / hurt feelings' },
+                    { emoji: '😌✨', th: 'ภูมิใจ', ipa: 'puum jai', en: 'proud' },
+                    { emoji: '😤', th: 'หงุดหงิด', ipa: 'ngùt ngìt', en: 'irritable / frustrated' },
+                    { emoji: '🥹❤️', th: 'ซึ้งใจ', ipa: 'séung jai', en: 'touched / deeply appreciative' }
+                ]
+            },
+
+            mainActivities: {
+                header: { emoji: '🎭', th: 'กิจกรรมการพูด', ipa: 'gìt-jà-gam gaan pûut', en: 'Speaking Activities' },
+                tasks: [
+                    { emoji: '📱', th: 'บทบาทสมมติ: คุณคุยโทรศัพท์กับแม่เกี่ยวกับงานที่เครียด ให้ใช้คำศัพท์ใหม่ 3 คำ', ipa: 'bòt-bàat sŏm-mút: kun kui toh-rá-sàp gàp mâe gìao gàp ngaan tîi krîat. hâi chái kam-sàp mài săam kam', en: 'Role-play: You are on the phone with mom about a stressful job. Use 3 new vocabulary words.' },
+                    { emoji: '❓', th: 'คำถามอภิปราย: อะไรทำให้คุณรู้สึกหงุดหงิดมากที่สุดในวันทำงาน?', ipa: 'kam-tăam à-pí-bpraai: à-rai tam hâi kun ráng-sèuk ngùt ngìt mâak tîi sùt nai wan tam ngaan?', en: 'Discussion Question: What makes you feel the most frustrated during a workday?' },
+                    { emoji: '🧩', th: 'เกมการพูด: ใบ้คำศัพท์เกี่ยวกับอารมณ์โดยห้ามพูดคำนั้นออกมา', ipa: 'gaym gaan pûut: bâi kam-sàp gìao gàp aa-rom doy hâam pûut kam nán òhk maa', en: 'Speaking Game: Hint the emotion vocabulary without saying the actual word.' }
+                ]
+            },
+
+            extensionActivities: {
+                header: { emoji: '🌟', th: 'กิจกรรมเสริม', ipa: 'gìt-jà-gam sĕrm', en: 'Extension Activities' },
+                instruction: { emoji: '⏱️', th: 'หากมีเวลาเหลือ ให้ทำกิจกรรมเหล่านี้', ipa: 'hàak mee way-laa lĕua, hâi tam gìt-jà-gam lào née', en: 'If there is time left, do these activities.' },
+                tasks: [
+                    { emoji: '📖', th: 'เล่าเรื่อง: เล่าเหตุการณ์ที่คุณทำให้ครอบครัวภูมิใจ', ipa: 'lâo rêuang: lâo hàyt-gaan tîi kun tam hâi krôp-krua puum jai', en: 'Story-telling: Tell a story of an event where you made your family proud.' },
+                    { emoji: '🎤', th: 'สัมภาษณ์: ถามคำถามครูเกี่ยวกับเรื่องที่ทำให้ครูเป็นห่วงในช่วงนี้', ipa: 'săm-pâat: tăam kam-tăam kruu gìao gàp rêuang tîi tam hâi kruu bpĕn hùang nai chûang née', en: 'Interview: Ask the teacher questions about what makes them worried recently.' },
+                    { emoji: '⚖️', th: 'โต้วาที: การบอกความรู้สึกตรงๆ ดีกว่าการเก็บความรู้สึกน้อยใจไว้เสมอ', ipa: 'dtôh-waa-tee: gaan bòk kwaam ráng-sèuk dtrong dtrong dee gwàa gaan gèp kwaam ráng-sèuk nói jai wái sà-mĕr', en: 'Debate: Telling feelings directly is always better than keeping hurt feelings inside.' },
+                    { emoji: '📊', th: 'นำเสนอ: นำเสนอ 1 นาทีเกี่ยวกับวิธีจัดการความหงุดหงิดของคุณ', ipa: 'nam sà-nĕr: nam sà-nĕr nèung naa-tee gìao gàp wí-tee jàt gaan kwaam ngùt ngìt kŏng kun', en: 'Presentation: A 1-minute presentation on how you manage your frustration.' }
+                ]
+            }
+        };
+
+        // UI Generation Functions
+        function createInteractiveBlock(item, styleClass = "bg-white") {
+            const speakerTag = item.speaker ? `<span class="font-bold text-teal-700 mr-2 border-b-2 border-teal-200 pb-1">${item.speaker}:</span>` : '';
+            const emojiTag = item.emoji ? `<span class="mr-3 text-2xl shrink-0 drop-shadow-sm">${item.emoji}</span>` : '';
+            
+            // Generate a unique ID for targeting toggles
+            const uniqueId = Math.random().toString(36).substr(2, 9);
+            const ipaId = `ipa-${uniqueId}`;
+            const enId = `en-${uniqueId}`;
+
+            // Ensure single quotes don't break JS function arguments
+            const safeThaiText = item.th.replace(/'/g, "\\'");
+
+            return `
+            <div class="interactive-block ${styleClass} rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-5 transition-all hover:shadow-md w-full">
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                    <div class="text-gray-800 font-medium text-lg leading-relaxed flex-1 flex items-start">
+                        ${emojiTag}
+                        <div class="pt-0.5">${speakerTag}${item.th}</div>
+                    </div>
+                    <div class="flex items-center gap-2 self-start shrink-0">
+                        <button onclick="speakThai('${safeThaiText}')" class="flex items-center justify-center w-11 h-11 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition shadow-sm touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-400" title="Play Audio">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z"/><path d="M15.932 7.757a.75.75 0 011.061 0 4.5 4.5 0 010 6.364.75.75 0 01-1.06-1.06 3 3 0 000-4.243.75.75 0 010-1.061z"/></svg>
+                        </button>
+                        <button onclick="toggleVisibility('${ipaId}')" class="px-3.5 py-2.5 text-sm font-bold tracking-wide bg-purple-50 text-purple-700 rounded-xl hover:bg-purple-100 transition shadow-sm touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-400">IPA</button>
+                        <button onclick="toggleVisibility('${enId}')" class="px-3.5 py-2.5 text-sm font-bold tracking-wide bg-emerald-50 text-emerald-700 rounded-xl hover:bg-emerald-100 transition shadow-sm touch-manipulation focus:outline-none focus:ring-2 focus:ring-emerald-400">EN</button>
+                    </div>
+                </div>
+                <div id="${ipaId}" class="hidden mt-4 px-4 py-3 bg-purple-50 text-purple-800 rounded-xl text-md font-medium tracking-wide border border-purple-100 w-full slide-down"><span class="text-purple-400 mr-2 font-bold">IPA</span> ${item.ipa}</div>
+                <div id="${enId}" class="hidden mt-3 px-4 py-3 bg-emerald-50 text-emerald-800 rounded-xl text-md border border-emerald-100 w-full slide-down"><span class="text-emerald-400 mr-2 font-bold">EN</span> ${item.en}</div>
+            </div>
+            `;
+        }
+
+        // Action Functions
+        function toggleVisibility(elementId) {
+            const el = document.getElementById(elementId);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        function speakThai(text) {
+            if (!window.speechSynthesis) {
+                alert("อุปกรณ์ของคุณไม่รองรับระบบเสียง (Your device does not support Text-to-Speech).");
+                return;
+            }
+            
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.85; // Slightly slower for language learners
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function rollRandomVocab() {
+            const words = lessonData.review.words;
+            const randomIndex = Math.floor(Math.random() * words.length);
+            const selectedWord = words[randomIndex];
+            
+            const container = document.getElementById('randomizer-result');
+            container.innerHTML = createInteractiveBlock(selectedWord, "bg-white border-2 border-emerald-200");
+            
+            // Auto play audio on selection for convenience
+            setTimeout(() => speakThai(selectedWord.th), 100);
+        }
+
+        // Initialization / Render Page
+        function initializePage() {
+            // Header
+            document.getElementById('header-container').innerHTML = 
+                `<div class="text-center py-6">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 flex items-center justify-center gap-3">
+                        <span class="text-4xl sm:text-5xl">${lessonData.header.emoji}</span>
+                        ${lessonData.header.th}
+                    </h1>
+                    <div class="mt-4 flex justify-center gap-3">
+                        <button onclick="speakThai('${lessonData.header.th}')" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold hover:bg-blue-200 transition">🔊 ฟังชื่อบทเรียน</button>
+                        <button onclick="toggleVisibility('header-ipa')" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold hover:bg-purple-200 transition">IPA</button>
+                        <button onclick="toggleVisibility('header-en')" class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold hover:bg-emerald-200 transition">EN</button>
+                    </div>
+                    <div id="header-ipa" class="hidden mt-4 text-purple-700 font-medium">${lessonData.header.ipa}</div>
+                    <div id="header-en" class="hidden mt-2 text-emerald-700">${lessonData.header.en}</div>
+                </div>`;
+
+            // Review Section
+            document.getElementById('review-header').innerHTML = createInteractiveBlock(lessonData.review.header, "bg-green-50/50");
+            document.getElementById('review-header').innerHTML += `<div class="mt-4">` + createInteractiveBlock(lessonData.review.instruction) + `</div>`;
+            
+            // Generate initial empty state text for randomizer
+            document.getElementById('randomizer-result').innerHTML = `<p class="text-gray-400 font-medium text-lg">คำศัพท์จะปรากฏที่นี่ (Word will appear here)</p>`;
+
+            // Dialogue Section
+            document.getElementById('dialogue-header').innerHTML = createInteractiveBlock(lessonData.dialogue.header, "bg-blue-50/50");
+            document.getElementById('dialogue-content').innerHTML = lessonData.dialogue.lines.map(line => createInteractiveBlock(line)).join('');
+
+            // Target Vocab Section
+            document.getElementById('vocab-header').innerHTML = createInteractiveBlock(lessonData.targetVocab.header, "bg-purple-50/50");
+            document.getElementById('vocab-content').innerHTML = lessonData.targetVocab.words.map(word => createInteractiveBlock(word)).join('');
+
+            // Main Activities Section
+            document.getElementById('main-activity-header').innerHTML = createInteractiveBlock(lessonData.mainActivities.header, "bg-orange-50/50");
+            document.getElementById('main-activity-content').innerHTML = lessonData.mainActivities.tasks.map(task => createInteractiveBlock(task)).join('');
+
+            // Extension Activities Section
+            document.getElementById('extension-header').innerHTML = createInteractiveBlock(lessonData.extensionActivities.header, "bg-pink-50/50");
+            document.getElementById('extension-header').innerHTML += `<div class="mt-4">` + createInteractiveBlock(lessonData.extensionActivities.instruction) + `</div>`;
+            document.getElementById('extension-content').innerHTML = lessonData.extensionActivities.tasks.map(task => createInteractiveBlock(task)).join('');
+        }
+
+        // Run initialization on load
+        window.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>
