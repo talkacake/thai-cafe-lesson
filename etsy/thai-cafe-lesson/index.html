@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thai Lesson: สั่งน้ำ</title>
+    <title>TalkACake: Thai Cafe Lesson</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -14,6 +14,11 @@
         body { font-family: 'Sarabun', sans-serif; background-color: #fffbeb; }
         .thai-font { font-family: 'Sarabun', sans-serif; }
         .btn-press:active { transform: scale(0.95); }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     </style>
 </head>
 <body>
@@ -22,21 +27,22 @@
     <script type="text/babel">
         const { useState } = React;
 
-        // ฟังก์ชันเล่นเสียงทีละไฟล์ (Sequence)
         const playSequence = async (urls) => {
-            for (const url of urls.filter(u => u)) {
+            const validUrls = urls.filter(u => u);
+            for (const url of validUrls) {
                 await new Promise((resolve) => {
                     const audio = new Audio(url);
                     audio.onended = resolve;
-                    audio.onerror = resolve; // ข้ามถ้าโหลดไม่สำเร็จ
-                    audio.play().catch(e => { console.error(e); resolve(); });
+                    audio.onerror = resolve; 
+                    audio.play().catch(e => { console.error("Sequence playback error:", e); resolve(); });
                 });
             }
         };
 
         const playAudio = (url) => {
             if (!url) return;
-            new Audio(url).play().catch(e => console.error(e));
+            const audio = new Audio(url);
+            audio.play().catch(e => console.error("Audio playback failed:", e));
         };
 
         // --- DATA ---
@@ -48,24 +54,41 @@
         const audioBank = {
             hot: "https://docs.google.com/uc?export=open&id=17BEeZb103upSlae1nklzH6evTaZP9duO",
             glass: "https://docs.google.com/uc?export=open&id=1efVcpE-vsEjkhtxH5zOXuEaGFqMRJgLH",
-            order: "https://docs.google.com/uc?export=open&id=13ZuiGkQFkXHbpRDaTZDG4wiuhLzI3UnB",
             sugar: "https://docs.google.com/uc?export=open&id=1ekEByr7UJqxKwFH-rjLYQq577i2-1smB",
-            no_sugar: "https://docs.google.com/uc?export=open&id=1t4ucYjYsY0NagpErXbeYKy32D9k-qDrO"
+            no_sugar: "https://docs.google.com/uc?export=open&id=1t4ucYjYsY0NagpErXbeYKy32D9k-qDrO",
+            numbers: {
+                1: "https://docs.google.com/uc?export=open&id=1HTfxhkaj8o5vxY25JsDqkKWweQe2hi79",
+                2: "https://docs.google.com/uc?export=open&id=1UP6oKTTek1qZ7bdLmkjg_eqXcorPjLXt",
+                3: "https://docs.google.com/uc?export=open&id=1Y6EC8SGpxoUC0fejjHct8vFrSI34oX5e",
+                4: "https://docs.google.com/uc?export=open&id=1lwpSjZLfkkE5IKVU_3-Gp9h6yJpXSnMu",
+                5: "https://docs.google.com/uc?export=open&id=1_4Tgaf-Nqhv-hHcSjXTx5PhGJinTDp3x",
+                6: "https://docs.google.com/uc?export=open&id=11A6ybRUNmfYzCEifv23c10p6lWOxdPyO",
+                7: "https://docs.google.com/uc?export=open&id=1ZJdujErf5cl2nS4xROEcYr1IAqrihm0n",
+                8: "https://docs.google.com/uc?export=open&id=1GNHs1qN2YGMXezufBAMgzMKh5QgI_JXn",
+                9: "https://docs.google.com/uc?export=open&id=14-BdC-P6n8i-1rB5IYcoS1CtFWspbPvy",
+                10: "https://docs.google.com/uc?export=open&id=1LDM89eTItDe5IsKje1onqvkgfEwbVH86"
+            }
         };
 
         const newVocab = [
-            { thai: "แก้ว", ipa: "gâeo", en: "glass/cup", emoji: "🥤", audio: audioBank.glass },
+            { thai: "แก้ว", ipa: "gâeo", en: "glass / cup (classifier)", emoji: "🥤", audio: audioBank.glass },
             { thai: "ร้อน", ipa: "rón", en: "hot", emoji: "🔥", audio: audioBank.hot },
             { thai: "น้ำตาล", ipa: "nám-dtaan", en: "sugar", emoji: "🍬", audio: "https://docs.google.com/uc?export=open&id=1ZOhRFYt-_F2i6pl6n40O0TAHgLb5dcUZ" },
-            { thai: "บาท", ipa: "bàat", en: "Baht", emoji: "฿", audio: "https://docs.google.com/uc?export=open&id=1egQ8xNATKrYOQqq2CftbPNthTxyZaOLT" },
-            { thai: "รับ", ipa: "ráp", en: "receive", emoji: "🤲", audio: "https://docs.google.com/uc?export=open&id=1lAIzXH6r8bctsNTS3P0H5vcZm0-ziEHJ" },
+            { thai: "บาท", ipa: "bàat", en: "Baht (currency)", emoji: "฿", audio: "https://docs.google.com/uc?export=open&id=1egQ8xNATKrYOQqq2CftbPNthTxyZaOLT" },
+            { thai: "รับ", ipa: "ráp", en: "receive / accept (formal 'want')", emoji: "🤲", audio: "https://docs.google.com/uc?export=open&id=1lAIzXH6r8bctsNTS3P0H5vcZm0-ziEHJ" },
         ];
 
         const dialogueScript = [
-            { speaker: speakers.staff, thai: "สวัสดีค่ะ รับอะไรดีคะ", ipa: "sà-wàt-dii khâ...", en: "Hello, what would you like?", emoji: "👩‍🍳", audio: "https://docs.google.com/uc?export=open&id=13JL_2lWb3oQYP1pbRjHSosp4yTe9xsqk" },
-            { speaker: speakers.lin, thai: "เอาอเมริกาโน่ร้อน 2 แก้ว", ipa: "ao a-mee-ri-gaa-nôo...", en: "I want 2 hot Americanos.", emoji: "☕🔥", audio: "https://docs.google.com/uc?export=open&id=1uo_hFlnoCdnXh9iO-rvreCPN4jDnfO54" },
+            { speaker: speakers.staff, thai: "สวัสดีค่ะ รับอะไรดีคะ", ipa: "sà-wàt-dii khâ, ráp à-rai dii khá", en: "Hello, what would you like?", emoji: "👩‍🍳", audio: "https://docs.google.com/uc?export=open&id=13JL_2lWb3oQYP1pbRjHSosp4yTe9xsqk" },
+            { speaker: speakers.lin, thai: "เอาอเมริกาโน่ร้อน 2 แก้ว", ipa: "ao a-mee-ri-gaa-nôo rón sǒong gâeo", en: "I want 2 hot Americanos.", emoji: "☕🔥", audio: "https://docs.google.com/uc?export=open&id=1uo_hFlnoCdnXh9iO-rvreCPN4jDnfO54" },
             { speaker: speakers.lin, thai: "ไม่น้ำตาลค่ะ", ipa: "mâi nám-dtaan khâ", en: "No sugar.", emoji: "🚫🍬", audio: "https://docs.google.com/uc?export=open&id=1l26mgL4JgP3nM2t2wLmAlSj5EMDLXG_S" },
             { speaker: speakers.staff, thai: "ได้ค่ะ", ipa: "dâai khâ", en: "Okay.", emoji: "👌", audio: "https://docs.google.com/uc?export=open&id=1X0E-FjcVKffkSgMxGWZnrSbMKBE66b7c" },
+            { speaker: speakers.staff, thai: "ของคุณ...", ipa: "khǒong khun...", en: "For Khun... (Your name?)", emoji: "❓", audio: "https://docs.google.com/uc?export=open&id=1dGSzDiQyu5Ns-0QcP3Rh5I0feEYxzJyK" },
+            { speaker: speakers.lin, thai: "คุณลินค่ะ", ipa: "khun lin khâ", en: "Khun Lin.", emoji: "👩", audio: "https://docs.google.com/uc?export=open&id=1b_E5c6KvY_D8nxOrfvM9ZVwVErCHqTO7" },
+            { speaker: speakers.staff, thai: "คุณลินนะคะ", ipa: "khun lin ná khá", en: "Khun Lin, right/okay.", emoji: "📝", audio: "https://docs.google.com/uc?export=open&id=1LBj8VMfpYz2i2e_Ly0nCP7YVHEE_e9s2" },
+            { speaker: speakers.staff, thai: "ทั้งหมด 155 บาท", ipa: "tháng-mòt nùeng-róoi hâa-sìp-hâa bàat", en: "Total 155 Baht.", emoji: "💰", audio: "https://docs.google.com/uc?export=open&id=1qSSmzApp27T45DGxSRJb1afyG5EDH9SL" },
+            { speaker: speakers.staff, thai: "สแกนตรงนี้ได้เลยค่ะ", ipa: "sà-gaen dtrong-níi dâai loei khâ", en: "You can scan right here.", emoji: "📱", audio: "https://docs.google.com/uc?export=open&id=1Ghj1ll_3nWCnQeggXJSckIvogB9csAmR" },
+            { speaker: speakers.lin, thai: "เรียบร้อยนะคะ", ipa: "rîap-róoi ná khá", en: "Done/Finished.", emoji: "✅", audio: "https://docs.google.com/uc?export=open&id=1KY_HjfsLb2gwvEKU4aMKW_dTOuUq9D5c" },
             { speaker: speakers.staff, thai: "ขอบคุณค่ะ", ipa: "khòop-khun khâ", en: "Thank you.", emoji: "🙏", audio: "https://docs.google.com/uc?export=open&id=1n5IwWKDV6ofszRFnu19hlctf1PkO7EXT" },
         ];
 
@@ -75,7 +98,226 @@
             { id: 'matcha', thai: "มัทฉะ", emoji: "🍵", audio: "https://docs.google.com/uc?export=open&id=1ZLC1RsPTSqm_1sRllwoT9wTAk1eqZIdf" },
         ];
 
+        const uiText = {
+            mainTitle: { thai: "สั่งน้ำ", ipa: "sàng nám", en: "Ordering Drinks" },
+            sectionVocab: { thai: "คำศัพท์ใหม่", ipa: "kham-sàp mài", en: "New Vocabulary" },
+            sectionDialogue: { thai: "บทสนทนา", ipa: "bòt sǒn-thá-naa", en: "Dialogue" },
+            gameTitle: { thai: "ทายสิ! บทสนทนานี้มาจากซีรีส์เรื่องอะไร?", ipa: "thaai sì! bòt sǒn-thá-naa níi maa jàak sii-rîi rûeang à-rai?", en: "Guess! Which series is this dialogue from?" },
+            gameHint: { thai: "คำใบ้: ลินกำลังสั่งกาแฟให้เจนนั่นเอง! ☕", ipa: "kham-bâi: lin gam-lang sàng gaa-fae hâi jen nân-eeng!", en: "Hint: It's Lin ordering coffee for Jane! ☕" },
+            sectionPractice: { thai: "ฝึกสั่งน้ำ", ipa: "fùek sàng nám", en: "Practice Ordering" },
+        };
+
+        const dbTexts = {
+            menu: { thai: "1. เมนู", ipa: "mee-nuu", en: "1. Menu" },
+            hot: { thai: "2. ร้อน", ipa: "róon", en: "2. Hot" },
+            amount: { thai: "3. จำนวน", ipa: "jam-nuan", en: "3. Amount" },
+            sugar: { thai: "4. ความหวาน", ipa: "khwaam-wǎan", en: "4. Sweetness" }
+        };
+
+        const cnTexts = {
+            title: { thai: "คู่มือวงในฉบับคาเฟ่", ipa: "khûu-mue wong-nai chà-bàp khaa-fêe", en: "The Insider's Guide to the Cafe" },
+            sec1Title: { thai: "1. สิทธิพิเศษของลูกค้า (รับ vs. เอา)", ipa: "sìt-thí-pí-sèet khǒong lûuk-kháa (ráp vs ao)", en: "1. The 'Customer Privilege' (รับ vs. เอา)" },
+            sec1Intro: { thai: "สังเกตความแตกต่างในการใช้คำว่า 'ต้องการ' ของทั้งสองตัวละครไหม?", ipa: "sǎng-gèet khwaam dtàek-dtàang nai gaan chái kham wâa 'dtông-gaan' khǒong tháng sǒong dtua-lá-khoon mǎi?", en: "Did you notice the difference in how the two characters say 'want'?" },
+            sec1P1: { thai: "พนักงาน: พูดว่า 'รับอะไรดีคะ' คำว่า 'รับ' มีความสุภาพสูงและมักใช้ในงานบริการลูกค้า", ipa: "phá-nák-ngaan: phûut wâa 'ráp à-rai dii khá'. kham wâa 'ráp' mii khwaam sù-phâap sǔung láe mák chái nai ngaan bo-ri-gaan lûuk-kháa.", en: "The Staff: Says 'รับอะไรดีคะ' (Ráp à-rai dii khá). 'รับ' (Ráp) means 'to receive.' It is highly polite and used in customer service." },
+            sec1P2: { thai: "ลิน: พูดว่า 'เอาอเมริกาโน่...' คำว่า 'เอา' แปลว่าต้องการหรือหยิบ", ipa: "lin: phûut wâa 'ao a-mee-ri-gaa-nôo...'. kham wâa 'ao' bplae wâa dtông-gaan rǔe yìp.", en: "Lin: Says 'เอาอเมริกาโน่...' (Ao a-mee-ri-gaa-nôo...). 'เอา' (Ao) means 'to take/want.'" },
+            sec1Vibe: { thai: "ข้อควรระวัง: หากคุณใช้คำว่า 'รับ' ในฐานะลูกค้า คุณจะฟังดูเหมือนหุ่นยนต์ และถ้าบาริสต้าใช้คำว่า 'เอา' กับคุณ จะถือว่าไม่สุภาพ เพื่อให้ฟังดูเป็นธรรมชาติเหมือนคนท้องถิ่นเวลาสั่งเครื่องดื่ม ให้ใช้คำว่า 'เอา' เสมอ!", ipa: "khôo khuan rá-wang: hàak khun chái kham wâa 'ráp' nai thǎa-ná lûuk-kháa, khun jà fang duu mǔean hùn-yon. láe thâa baa-rít-dtâa chái kham wâa 'ao' gàp khun, jà thǔe wâa mâi sù-phâap. phûea hâi fang duu bpen tham-má-châat mǔean khon thóong-thìn wee-laa sàng khrûeang-dùem, hâi chái kham wâa 'ao' sǎ-mǒo!", en: "The Vibe Check: If you use 'รับ' as a customer, you sound like a robot. If a barista uses 'เอา' to you, they are being rude. To sound like a cool, native local ordering a drink, always use 'เอา' (Ao)!" },
+            sec2Title: { thai: "2. คำลงท้ายเพื่อความนุ่มนวล: 'นะคะ'", ipa: "kham long-tháai phûea khwaam nûm-nuan: 'ná khá'", en: "2. The Softener: 'นะคะ' (Na Kha)" },
+            sec2Intro: { thai: "ทั้งสองตัวละครใช้คำว่า 'นะคะ' แทนที่จะใช้แค่ 'ค่ะ'", ipa: "tháng sǒong dtua-lá-khoon chái kham wâa 'ná khá' thaen thîi jà chái khâe 'khâ'.", en: "Both characters use 'นะคะ' instead of just 'ค่ะ'." },
+            sec2P1: { thai: "พนักงานพูดว่า: 'คุณลินนะคะ' ในที่นี้หมายถึง 'ขออนุญาตยืนยันนะคะ คุณลินใช่ไหมคะ?'", ipa: "phá-nák-ngaan phûut wâa: 'khun lin ná khá'. nai thîi níi mǎai thǔeng 'khǒo à-nú-yâat yuen-yan ná khá, khun lin châi mǎi khá?'", en: "The staff says: 'คุณลินนะคะ' (Khun Lin, na kha). Here, it means 'Let me confirm, it's Khun Lin, right?'" },
+            sec2P2: { thai: "ลินพูดว่า: 'เรียบร้อยนะคะ' ในที่นี้เธอยื่นโทรศัพท์ให้สแกนและหมายความว่า 'จ่ายเงินเรียบร้อยแล้วนะคะ'", ipa: "lin phûut wâa: 'rîap-róoi ná khá'. nai thîi níi thoe yûen thoo-rá-sàp hâi sà-gaen láe mǎai khwaam wâa 'jàai ngen rîap-róoi láeo ná khá'.", en: "Lin says: 'เรียบร้อยนะคะ' (Rîap-róoi na kha). Here, she is handing over her phone to scan and saying, 'All paid and finished, okay?'" },
+            sec2Vibe: { thai: "ข้อควรระวัง: การเติมคำว่า 'นะ' จะทำให้บทสนทนาดูนุ่มนวล เป็นมิตร และมีเสน่ห์มากขึ้น ซึ่งเหมาะมากสำหรับฉากน่ารักๆ ในซีรีส์ GL!", ipa: "khôo khuan rá-wang: gaan dteem kham wâa 'ná' jà tham hâi bòt sǒn-thá-naa duu nûm-nuan, bpen mít, láe mii sà-nèe mâak khûen. sûeng mòa mâak sǎm-ràp chàak nâa rák nâa rák nai sii-rîi GL!", en: "The Vibe Check: Adding 'Na' makes the interaction significantly softer, friendlier, and more charming—perfect for a GL meet-cute!" }
+        };
+
         // --- COMPONENTS ---
+        const InteractiveText = ({ textObj, size = "lg", color = "text-gray-800", icon = null, audio = null }) => {
+            const [showIPA, setShowIPA] = useState(false);
+            const [showEN, setShowEN] = useState(false);
+            const txtSize = size === "xl" ? "text-2xl" : (size === "lg" ? "text-xl" : (size === "md" ? "text-lg" : "text-sm"));
+            const isHeader = color.includes("white"); 
+            
+            return (
+                <div className="flex flex-col gap-1 mb-4">
+                    <div className="flex items-center gap-2">
+                        {icon && <i className={`ph ${icon} text-2xl text-amber-600`}></i>}
+                        {audio && (
+                            <button onClick={() => playAudio(audio)} className={`flex-shrink-0 ${isHeader ? 'text-white/80 hover:text-white' : 'text-amber-600 hover:text-amber-800'}`}>
+                                <i className="ph ph-speaker-high text-xl"></i>
+                            </button>
+                        )}
+                        <h3 className={`${txtSize} font-bold ${color} thai-font leading-snug`}>{textObj.thai}</h3>
+                    </div>
+                    <div className="flex gap-2 ml-9">
+                        <button onClick={() => setShowIPA(!showIPA)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showIPA ? (isHeader ? 'bg-white/30 text-white border-white/50' : 'bg-purple-100 border-purple-300 text-purple-700') : (isHeader ? 'border-white/40 text-white/60' : 'border-gray-300 text-gray-400')}`}>IPA</button>
+                        <button onClick={() => setShowEN(!showEN)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showEN ? (isHeader ? 'bg-white/30 text-white border-white/50' : 'bg-blue-100 border-blue-300 text-blue-700') : (isHeader ? 'border-white/40 text-white/60' : 'border-gray-300 text-gray-400')}`}>EN</button>
+                    </div>
+                    {(showIPA || showEN) && (
+                        <div className={`ml-9 space-y-1 ${isHeader ? 'bg-black/10 p-2 rounded' : ''}`}>
+                            {showIPA && <div className={`text-sm font-mono ${isHeader ? 'text-white' : 'text-purple-600'}`}>/{textObj.ipa}/</div>}
+                            {showEN && <div className={`text-sm italic ${isHeader ? 'text-white' : 'text-gray-600'}`}>"{textObj.en}"</div>}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const ToggleParagraph = ({ textObj, isVibe = false }) => {
+            const [showIPA, setShowIPA] = useState(false);
+            const [showEN, setShowEN] = useState(false);
+
+            return (
+                <div className={`mb-4 ${isVibe ? 'bg-pink-50 p-3 rounded-lg border-l-4 border-pink-400' : ''}`}>
+                    <div className="flex items-start gap-2">
+                        <div className="flex-grow">
+                            <p className={`text-sm ${isVibe ? 'font-bold text-gray-800' : 'text-gray-700'} thai-font leading-relaxed`}>
+                                {textObj.thai}
+                            </p>
+                            <div className="flex gap-2 mt-1.5">
+                                <button onClick={() => setShowIPA(!showIPA)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showIPA ? 'bg-purple-100 border-purple-300 text-purple-700' : 'border-gray-300 text-gray-400'}`}>IPA</button>
+                                <button onClick={() => setShowEN(!showEN)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showEN ? 'bg-blue-100 border-blue-300 text-blue-700' : 'border-gray-300 text-gray-400'}`}>EN</button>
+                            </div>
+                            {(showIPA || showEN) && (
+                                <div className="mt-2 space-y-1 bg-white/60 p-2 rounded">
+                                    {showIPA && <div className="text-xs text-purple-600 font-mono">/{textObj.ipa}/</div>}
+                                    {showEN && <div className="text-xs text-gray-500 italic">"{textObj.en}"</div>}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const VocabCard = ({ item }) => {
+            const [showIPA, setShowIPA] = useState(false);
+            const [showEN, setShowEN] = useState(false);
+
+            return (
+                <div className="bg-white p-3 rounded-lg shadow-sm border border-amber-100 mb-2">
+                    <div className="flex items-center gap-3">
+                        <span className="text-3xl">{item.emoji}</span>
+                        <div className="flex-grow flex items-center gap-2">
+                            <span className="font-bold text-lg thai-font">{item.thai}</span>
+                            <button onClick={() => playAudio(item.audio)} className="text-amber-500 hover:text-amber-700">
+                                <i className="ph ph-speaker-high text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="flex gap-2 mt-2 ml-12">
+                        <button onClick={() => setShowIPA(!showIPA)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showIPA ? 'bg-purple-100 border-purple-300 text-purple-700' : 'border-gray-200 text-gray-400'}`}>IPA</button>
+                        <button onClick={() => setShowEN(!showEN)} className={`text-[10px] px-1.5 py-0.5 rounded border ${showEN ? 'bg-blue-100 border-blue-300 text-blue-700' : 'border-gray-200 text-gray-400'}`}>EN</button>
+                    </div>
+                    {(showIPA || showEN) && (
+                        <div className="ml-12 mt-1 space-y-1">
+                            {showIPA && <div className="text-xs text-purple-600 font-mono">/{item.ipa}/</div>}
+                            {showEN && <div className="text-xs text-gray-500 italic">"{item.en}"</div>}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const ScriptItem = ({ item }) => {
+            const [showIPA, setShowIPA] = useState(false);
+            const [showEN, setShowEN] = useState(false);
+            const [showSpeakerIPA, setShowSpeakerIPA] = useState(false);
+            const [showSpeakerEN, setShowSpeakerEN] = useState(false);
+            const isLin = item.speaker.en === 'Lin';
+
+            return (
+                <div className={`rounded-xl shadow-sm p-3 mb-3 border-l-4 ${isLin ? 'bg-blue-50 border-blue-400' : 'bg-white border-amber-500'}`}>
+                    <div className="flex items-start gap-3">
+                        <button onClick={() => playAudio(item.audio)} className="p-2 rounded-full bg-amber-100 text-amber-700 mt-1">
+                            <i className="ph ph-speaker-high text-lg"></i>
+                        </button>
+                        <div className="flex-grow">
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                                <span className={`text-sm font-bold ${isLin ? 'text-blue-600' : 'text-amber-600'} thai-font`}>{item.speaker.thai}</span>
+                                <button onClick={() => setShowSpeakerIPA(!showSpeakerIPA)} className={`px-1.5 py-0.5 rounded text-[10px] border ${showSpeakerIPA ? 'bg-purple-100 border-purple-300 text-purple-700' : 'border-gray-300 text-gray-400'}`}>IPA</button>
+                                <button onClick={() => setShowSpeakerEN(!showSpeakerEN)} className={`px-1.5 py-0.5 rounded text-[10px] border ${showSpeakerEN ? 'bg-blue-100 border-blue-300 text-blue-700' : 'border-gray-300 text-gray-400'}`}>EN</button>
+                                {(showSpeakerIPA || showSpeakerEN) && (
+                                    <span className="flex gap-2 ml-1">
+                                        {showSpeakerIPA && <span className="text-purple-600 font-mono text-xs">/{item.speaker.ipa}/</span>}
+                                        {showSpeakerEN && <span className="text-blue-600 italic text-xs">"{item.speaker.en}"</span>}
+                                    </span>
+                                )}
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-800 thai-font leading-relaxed mt-1">
+                                {item.thai} <span className="ml-1">{item.emoji}</span>
+                            </h3>
+                            <div className="flex gap-2 mt-2">
+                                <button onClick={() => setShowIPA(!showIPA)} className={`px-1.5 py-0.5 rounded text-[10px] border ${showIPA ? 'bg-purple-100 border-purple-300 text-purple-700' : 'border-gray-300 text-gray-500'}`}>IPA</button>
+                                <button onClick={() => setShowEN(!showEN)} className={`px-1.5 py-0.5 rounded text-[10px] border ${showEN ? 'bg-blue-100 border-blue-300 text-blue-700' : 'border-gray-300 text-gray-500'}`}>EN</button>
+                            </div>
+                            {(showIPA || showEN) && (
+                                <div className="mt-2 space-y-1 bg-white/50 p-2 rounded">
+                                    {showIPA && <div className="text-purple-800 font-mono text-sm">/{item.ipa}/</div>}
+                                    {showEN && <div className="text-blue-800 italic text-sm">"{item.en}"</div>}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const GuessTheSeries = () => {
+            const [guess, setGuess] = useState(null);
+            const options = [
+                { id: 'gap', name: "GAP The Series", correct: false },
+                { id: 'blank', name: "Blank The Series", correct: false },
+                { id: 'mysafezone', name: "MySafeZone", correct: true } 
+            ];
+
+            const handleGuess = (isCorrect, id) => {
+                setGuess(id);
+                // Can add a "correct/wrong" sound effect later if you want!
+            };
+
+            return (
+                <div className="mt-6 bg-purple-50 p-5 rounded-xl border-2 border-purple-200 shadow-sm">
+                    <InteractiveText textObj={uiText.gameTitle} size="md" color="text-purple-800" icon="ph-detective" />
+                    <InteractiveText textObj={uiText.gameHint} size="sm" color="text-gray-600" />
+                    <div className="flex flex-col gap-3 mt-4">
+                        {options.map((opt) => (
+                            <button key={opt.id} onClick={() => handleGuess(opt.correct, opt.id)}
+                                className={`py-3 px-4 rounded-lg font-bold text-left transition-all flex justify-between items-center
+                                    ${guess === opt.id && opt.correct ? 'bg-green-500 text-white' : ''}
+                                    ${guess === opt.id && !opt.correct ? 'bg-red-100 text-red-500 border border-red-200' : ''}
+                                    ${guess !== opt.id ? 'bg-white text-purple-700 hover:bg-purple-100 border border-purple-100' : ''}`}>
+                                <span>{opt.name}</span>
+                                {guess === opt.id && opt.correct && <i className="ph ph-check-circle text-xl"></i>}
+                                {guess === opt.id && !opt.correct && <i className="ph ph-x-circle text-xl"></i>}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const CultureNote = () => {
+            return (
+                <div className="bg-white p-5 rounded-xl border border-pink-200 shadow-md mt-6 mb-8">
+                    <div className="border-b border-pink-100 mb-4 pb-2">
+                        <InteractiveText textObj={cnTexts.title} size="md" color="text-pink-700" icon="ph-book-open-text" />
+                    </div>
+                    <div className="mb-6">
+                        <InteractiveText textObj={cnTexts.sec1Title} size="sm" color="text-gray-800" />
+                        <ToggleParagraph textObj={cnTexts.sec1Intro} />
+                        <ToggleParagraph textObj={cnTexts.sec1P1} />
+                        <ToggleParagraph textObj={cnTexts.sec1P2} />
+                        <ToggleParagraph textObj={cnTexts.sec1Vibe} isVibe={true} />
+                    </div>
+                    <div>
+                        <InteractiveText textObj={cnTexts.sec2Title} size="sm" color="text-gray-800" />
+                        <ToggleParagraph textObj={cnTexts.sec2Intro} />
+                        <ToggleParagraph textObj={cnTexts.sec2P1} />
+                        <ToggleParagraph textObj={cnTexts.sec2P2} />
+                        <ToggleParagraph textObj={cnTexts.sec2Vibe} isVibe={true} />
+                    </div>
+                </div>
+            );
+        };
+
         const DrinkBuilder = () => {
             const [drink, setDrink] = useState(null);
             const [isHot, setIsHot] = useState(false);
@@ -87,7 +329,7 @@
                 const sequence = [
                     drink.audio,
                     isHot ? audioBank.hot : null,
-                    // Note: สำหรับเลข 1-10 จะใช้เสียง Google TTS จนกว่าจะอัพโหลดไฟล์เพิ่ม
+                    audioBank.numbers[amount],
                     audioBank.glass, 
                     sugar === 'no' ? audioBank.no_sugar : (sugar === 'yes' ? audioBank.sugar : null)
                 ];
@@ -98,77 +340,124 @@
                 <div className="bg-white rounded-xl shadow-lg border-2 border-orange-100 p-4">
                     <div className="bg-orange-50 rounded-lg p-4 text-center mb-4 min-h-[100px] flex flex-col justify-center items-center">
                         <div className="text-xl font-bold text-gray-800 thai-font">
-                            {drink ? `${drink.thai}${isHot ? ' ร้อน' : ''} ${amount} แก้ว ${sugar==='no'?'ไม่ใส่น้ำตาล':(sugar==='yes'?'หวาน':'')}` : "ลองสั่งเครื่องดื่มดูค่ะ"}
+                            {drink ? `${drink.thai}${isHot ? ' ร้อน' : ''} ${amount} แก้ว ${sugar==='no'?' ไม่ใส่น้ำตาล':(sugar==='yes'?' หวาน':'')}` : "ลองสั่งเครื่องดื่มดูค่ะ"}
                         </div>
                         {drink && (
-                            <button onClick={handlePlayOrder} className="mt-2 bg-orange-200 text-orange-800 p-2 rounded-full hover:bg-orange-300">
+                            <button onClick={handlePlayOrder} className="mt-2 bg-orange-200 text-orange-800 p-2 rounded-full hover:bg-orange-300 btn-press">
                                 <i className="ph ph-speaker-high text-xl"></i>
                             </button>
                         )}
                     </div>
 
                     <div className="space-y-4">
-                        <div className="flex gap-2">
-                            {drinks.map(d => (
-                                <button key={d.id} onClick={() => {setDrink(d); playAudio(d.audio);}} className={`flex-1 p-2 rounded border text-sm flex flex-col items-center ${drink?.id === d.id ? 'bg-orange-100 border-orange-400' : 'border-gray-200'}`}>
-                                    <span className="text-xl">{d.emoji}</span>
-                                    <span className="text-xs">{d.thai}</span>
-                                </button>
-                            ))}
-                        </div>
-                        <div className="flex gap-2">
-                            <button onClick={() => {setIsHot(!isHot); playAudio(audioBank.hot);}} className={`flex-1 p-2 rounded border ${isHot ? 'bg-red-100 border-red-400 text-red-600' : 'border-gray-200'}`}>🔥 ร้อน</button>
-                            <div className="flex-1 flex items-center justify-around border rounded bg-gray-50">
-                                <button onClick={() => setAmount(Math.max(1, amount-1))} className="p-1">-</button>
-                                <span className="font-bold">{amount}</span>
-                                <button onClick={() => setAmount(amount+1)} className="p-1">+</button>
+                        <div>
+                            <InteractiveText textObj={dbTexts.menu} size="sm" color="text-gray-600" />
+                            <div className="flex gap-2 mt-1">
+                                {drinks.map(d => (
+                                    <button key={d.id} onClick={() => {setDrink(d); playAudio(d.audio);}} className={`flex-1 p-2 rounded border text-sm flex flex-col items-center gap-1 btn-press ${drink?.id === d.id ? 'bg-orange-100 border-orange-400' : 'border-gray-200'}`}>
+                                        <span className="text-xl">{d.emoji}</span>
+                                        <span className="text-xs">{d.thai}</span>
+                                    </button>
+                                ))}
                             </div>
                         </div>
-                        <div className="flex gap-2">
-                            <button onClick={() => {setSugar('no'); playAudio(audioBank.no_sugar);}} className={`flex-1 p-2 rounded border text-xs ${sugar === 'no' ? 'bg-purple-100 border-purple-400' : 'border-gray-200'}`}>🚫 ไม่ใส่น้ำตาล</button>
-                            <button onClick={() => {setSugar('yes'); playAudio(audioBank.sugar);}} className={`flex-1 p-2 rounded border text-xs ${sugar === 'yes' ? 'bg-purple-100 border-purple-400' : 'border-gray-200'}`}>🍬 หวาน</button>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <div>
+                                <InteractiveText textObj={dbTexts.hot} size="sm" color="text-gray-600" />
+                                <button onClick={() => {setIsHot(!isHot); if(!isHot) playAudio(audioBank.hot);}} className={`w-full mt-1 p-2 rounded border text-sm flex items-center justify-center gap-2 btn-press ${isHot ? 'bg-red-50 border-red-400 text-red-600' : 'border-gray-200'}`}>
+                                    <span>🔥</span> ร้อน
+                                </button>
+                            </div>
+                            <div>
+                                <InteractiveText textObj={dbTexts.amount} size="sm" color="text-gray-600" />
+                                <div className="flex items-center justify-center gap-3 border rounded p-1 bg-gray-50 mt-1">
+                                    <button onClick={() => setAmount(Math.max(1, amount-1))} className="w-6 h-6 bg-white rounded shadow text-gray-600 btn-press">-</button>
+                                    <span className="font-bold text-lg w-4 text-center">{amount}</span>
+                                    <button onClick={() => setAmount(Math.min(10, amount+1))} className="w-6 h-6 bg-white rounded shadow text-blue-600 btn-press">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div>
+                            <InteractiveText textObj={dbTexts.sugar} size="sm" color="text-gray-600" />
+                             <div className="flex gap-2 mt-1">
+                                <button onClick={() => {setSugar('no'); playAudio(audioBank.no_sugar);}} className={`flex-1 p-2 rounded border text-xs btn-press ${sugar === 'no' ? 'bg-purple-50 border-purple-400 text-purple-600' : 'border-gray-200'}`}>
+                                    🚫🍬 ไม่ใส่น้ำตาล
+                                </button>
+                                <button onClick={() => {setSugar('yes'); playAudio(audioBank.sugar);}} className={`flex-1 p-2 rounded border text-xs btn-press ${sugar === 'yes' ? 'bg-purple-50 border-purple-400 text-purple-600' : 'border-gray-200'}`}>
+                                    🍬 หวาน
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        const App = () => (
-            <div className="max-w-md mx-auto min-h-screen pb-20 bg-gray-50">
-                <header className="bg-amber-500 text-white p-6 rounded-b-3xl shadow-md mb-6">
-                    <h1 className="text-2xl font-bold thai-font">🥤 สั่งน้ำ (Ordering Drinks)</h1>
-                </header>
-                <div className="px-4 space-y-8">
-                    <section>
-                        <h2 className="text-lg font-bold mb-3 flex items-center gap-2 text-amber-600"><i className="ph ph-lightbulb"></i> คำศัพท์ใหม่</h2>
-                        <div className="grid grid-cols-2 gap-2">
-                            {newVocab.map((item, idx) => (
-                                <div key={idx} className="bg-white p-3 rounded-lg border border-amber-100 flex items-center justify-between">
-                                    <span className="thai-font">{item.emoji} {item.thai}</span>
-                                    <button onClick={() => playAudio(item.audio)} className="text-amber-500"><i className="ph ph-speaker-high"></i></button>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-                    <section>
-                        <h2 className="text-lg font-bold mb-3 flex items-center gap-2 text-amber-600"><i className="ph ph-chats-circle"></i> บทสนทนา</h2>
-                        {dialogueScript.map((item, idx) => (
-                            <div key={idx} className={`p-3 rounded-lg mb-2 border-l-4 ${item.speaker.en === 'Lin' ? 'bg-blue-50 border-blue-400' : 'bg-white border-amber-500'}`}>
-                                <div className="flex justify-between items-center mb-1">
-                                    <span className="text-xs font-bold text-gray-400">{item.speaker.thai}</span>
-                                    <button onClick={() => playAudio(item.audio)} className="text-amber-500"><i className="ph ph-speaker-high"></i></button>
-                                </div>
-                                <div className="thai-font font-bold">{item.thai} {item.emoji}</div>
+        const App = () => {
+            return (
+                <div className="max-w-md mx-auto min-h-screen pb-20 bg-gray-50">
+                    <header className="bg-amber-500 text-white p-6 rounded-b-3xl shadow-md mb-6 sticky top-0 z-50">
+                        <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                                <InteractiveText textObj={uiText.mainTitle} size="xl" color="text-white" audio="https://docs.google.com/uc?export=open&id=13ZuiGkQFkXHbpRDaTZDG4wiuhLzI3UnB" />
                             </div>
-                        ))}
-                    </section>
-                    <section>
-                        <h2 className="text-lg font-bold mb-3 flex items-center gap-2 text-orange-600"><i className="ph ph-coffee"></i> ฝึกสั่งน้ำ</h2>
-                        <DrinkBuilder />
-                    </section>
+                            <div className="text-4xl filter drop-shadow-md">🥤</div>
+                        </div>
+                    </header>
+
+                    <div className="px-4 space-y-8">
+                        
+                        <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl shadow-sm text-sm text-amber-800 mb-2">
+                            <div className="flex items-center gap-2 mb-2 font-bold text-amber-900">
+                                <i className="ph ph-info text-lg"></i> วิธีใช้งาน (How to use)
+                            </div>
+                            <ul className="space-y-2 text-xs">
+                                <li className="flex items-center gap-2">
+                                    <button className="text-amber-600 bg-amber-100 p-1 rounded-full pointer-events-none">
+                                        <i className="ph ph-speaker-high text-base"></i>
+                                    </button>
+                                    <span>คลิกเพื่อฟังเสียง (Click to hear audio)</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="px-1.5 py-0.5 rounded border border-purple-300 bg-purple-100 text-purple-700 text-[10px] font-bold">IPA</span>
+                                    <span>คลิกเพื่อดูคำอ่าน (See phonetics)</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="px-1.5 py-0.5 rounded border border-blue-300 bg-blue-100 text-blue-700 text-[10px] font-bold">EN</span>
+                                    <span>คลิกเพื่อดูคำแปล (See translation in English)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <section>
+                            <InteractiveText textObj={uiText.sectionVocab} icon="ph-lightbulb" size="lg" />
+                            <div className="grid grid-cols-2 gap-2">
+                                {newVocab.map((item, idx) => (
+                                    <VocabCard key={idx} item={item} />
+                                ))}
+                            </div>
+                        </section>
+
+                        <section>
+                            <InteractiveText textObj={uiText.sectionDialogue} icon="ph-chats-circle" size="lg" />
+                            {dialogueScript.map((item, idx) => (
+                                <ScriptItem key={idx} item={item} />
+                            ))}
+                            <GuessTheSeries />
+                            <CultureNote />
+                        </section>
+
+                         <section>
+                            <InteractiveText textObj={uiText.sectionPractice} icon="ph-coffee" size="lg" />
+                            <DrinkBuilder />
+                        </section>
+
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
