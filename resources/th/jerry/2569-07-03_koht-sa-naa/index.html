@@ -1,1 +1,84 @@
-<div id="root"></div>
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>บทเรียนภาษาไทย: โฆษณา</title>
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. Babel Standalone สำหรับประมวลผล JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+      body { margin: 0; padding: 0; background-color: #f8fafc; min-height: 100vh; }
+      /* ป้องกันหน้าจอขาวระหว่างโหลด */
+      #root:empty::before {
+        content: "กำลังโหลดบทเรียน... (Loading...)";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #64748b;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- 3. Import Map เพื่อจัดการ Library -->
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18.2.0",
+          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+          "lucide-react": "https://esm.sh/lucide-react@0.344.0"
+        }
+      }
+    </script>
+
+    <!-- 4. ส่วนการโหลด App -->
+    <script type="text/babel" data-type="module">
+      import React from 'react';
+      import ReactDOM from 'react-dom/client';
+      
+      /**
+       * แก้ไข: เปลี่ยนวิธีสร้าง URL จากการใช้ new URL() เป็นการใช้ string manipulation 
+       * เพื่อหลีกเลี่ยงข้อผิดพลาด "Invalid URL" ในบาง Browser Environment
+       */
+      const loadApp = async () => {
+        try {
+          // คำนวณ Base Path จากตำแหน่งปัจจุบัน
+          const currentPath = window.location.pathname;
+          const basePath = window.location.origin + currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+          const appUrl = basePath + 'src/2569-03-08_koht-sa-naa.js';
+          
+          console.log("กำลังโหลดไฟล์จาก:", appUrl);
+          
+          // ใช้ dynamic import เพื่อโหลดไฟล์ Component
+          const module = await import(appUrl);
+          const App = module.default;
+
+          const rootElement = document.getElementById('root');
+          const root = ReactDOM.createRoot(rootElement);
+          root.render(<App />);
+        } catch (error) {
+          console.error("เกิดข้อผิดพลาดในการโหลด App:", error);
+          document.getElementById('root').innerHTML = `
+            <div style="padding: 40px; color: #ef4444; text-align: center; font-family: sans-serif;">
+              <h3 style="font-size: 1.5rem; margin-bottom: 10px;">❌ เกิดข้อผิดพลาดในการโหลดระบบ</h3>
+              <p style="color: #64748b;">ไม่สามารถโหลดไฟล์: 2569-03-08_koht-sa-naa.js</p>
+              <div style="margin-top: 20px; font-size: 0.9rem; background: #fee2e2; padding: 15px; border-radius: 8px; display: inline-block; text-align: left; max-width: 80%;">
+                <strong>วิธีแก้ไข:</strong><br/>
+                1. ตรวจสอบว่ามีไฟล์ชื่อ <code>2569-03-08_koht-sa-naa.js</code> อยู่ในโฟลเดอร์ <code>src</code> หรือไม่<br/>
+                2. ตรวจสอบว่าในไฟล์ <code>.js</code> มีคำว่า <code>export default App;</code> อยู่ท้ายไฟล์หรือไม่
+              </div>
+            </div>
+          `;
+        }
+      };
+
+      loadApp();
+    </script>
+  </body>
+</html>
