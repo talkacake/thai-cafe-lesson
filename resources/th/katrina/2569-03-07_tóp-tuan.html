@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทบทวน</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0fdfa; /* Light teal background */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .thai-text {
+            font-family: 'Kanit', sans-serif;
+        }
+        .btn-press {
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .btn-press:active {
+            transform: translateY(2px);
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body class="pb-16 text-gray-800">
+
+    <!-- Sticky Header -->
+    <div class="bg-teal-600 text-white p-4 sticky top-0 z-50 shadow-lg flex justify-between items-center">
+        <div id="main-title-container" class="flex items-center gap-2 cursor-pointer" onclick="speakThai('ทบทวน')">
+            <span class="text-2xl">📚</span>
+            <h1 class="thai-text text-2xl font-bold tracking-wide">ทบทวน</h1>
+        </div>
+        <button onclick="hideAllToggles()" class="btn-press bg-teal-800 text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-[0_3px_0_rgb(17,94,89)]">
+            Hide All 🙈
+        </button>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-xl mx-auto p-4 space-y-10 mt-2" id="app-content">
+        <!-- Content will be injected by JavaScript -->
+    </div>
+
+    <script>
+        // --- DIALOGUE DATA STRUCTURE ---
+        const tasksData = [
+            {
+                id: "task1",
+                header: { th: "สัมภาษณ์", ipa: "sǎm-pâat", en: "Real-life Interview", emoji: "🎙️" },
+                instruction: { th: "ถามเพื่อนใหม่", ipa: "tǎam pûeuan mài", en: "Dialogue: Asking a new friend", emoji: "🙋" },
+                dialogues: [
+                    { speaker: "A", th: "ยินดีที่ได้รู้จัก", ipa: "yin-dii tîi dâai rúu-jàk", en: "Nice to meet you.", emoji: "🤝" },
+                    { speaker: "B", th: "ยินดีที่ได้รู้จักเหมือนกัน", ipa: "yin-dii tîi dâai rúu-jàk mĕuan gan", en: "Nice to meet you too.", emoji: "😊" },
+                    { speaker: "A", th: "คุณชื่ออะไร", ipa: "khun chûe à-rai", en: "What's your name?", emoji: "📛" },
+                    { speaker: "B", th: "ฉันชื่อแคท", ipa: "chǎn chʉ̂ʉ kɛ̂ɛt", en: "My name is Kat.", emoji: "👩" },
+                    { speaker: "A", th: "มาจากประเทศอะไร", ipa: "maa-jàak prà-thêt à-rai", en: "What country do you come from?", emoji: "🌎" },
+                    { speaker: "B", th: "มาจากประเทศแคนาดา", ipa: "maa jàak bprà têet kɛɛ naa daa", en: "I come from Canada.", emoji: "🇨🇦" },
+                    { speaker: "A", th: "นอนหลับไหม", ipa: "nɔɔn làp mái", en: "Did you sleep well?", emoji: "🛌" },
+                    { speaker: "B", th: "นอนหลับ สบายดี", ipa: "nɔɔn làp sà baai dii", en: "I could sleep well. I'm good.", emoji: "👍" }
+                ]
+            },
+            {
+                id: "task3",
+                header: { th: "บทบาทสมมติ", ipa: "bòt-bàat sǒm-mút", en: "Real-life Role-play", emoji: "🎭" },
+                instruction: { th: "ร้านอาหารเกาหลี", ipa: "ráan aa-hǎan gao-lǐi", en: "Dialogue: At a Korean Restaurant", emoji: "🥢" },
+                dialogues: [
+                    { speaker: "A", th: "กินอะไรเผ็ดได้", ipa: "gin à rai pèt dâi", en: "What can you eat that is spicy?", emoji: "🌶️" },
+                    { speaker: "B", th: "ได้นิดหน่อย", ipa: "dâi nít-nòi", en: "I can a little bit.", emoji: "🤏" },
+                    { speaker: "A", th: "กินหมูกระทะไหม", ipa: "gin mǔu grà tá mǎi", en: "Do you want to eat Thai BBQ?", emoji: "🥓" },
+                    { speaker: "B", th: "กิน เอาอันนี้", ipa: "gin aw an-níi", en: "I'll eat. I want this one.", emoji: "👈" },
+                    { speaker: "A", th: "เอาอะไรอีกไหม", ipa: "aw à-rai ìik mǎi", en: "Do you want anything more?", emoji: "❓" },
+                    { speaker: "B", th: "น้ำเปล่า", ipa: "náam bplàaw", en: "Plain water.", emoji: "💧" },
+                    { speaker: "B", th: "อันนี้เท่าไร", ipa: "an-níi thâo-rài", en: "How much is this?", emoji: "🏷️" },
+                    { speaker: "A", th: "จ่ายได้นะ", ipa: "jàai dâai ná", en: "I can pay.", emoji: "💳" }
+                ]
+            },
+            {
+                id: "task4",
+                header: { th: "ถกเถียง", ipa: "tòk-tǐang", en: "Real-life Debate", emoji: "⚖️" },
+                instruction: { th: "ชอบอะไรมากกว่า", ipa: "chɔ̂ɔp à-rai mâak gwàa", en: "Dialogue: Debating what you like more", emoji: "🤔" },
+                dialogues: [
+                    { speaker: "A", th: "อากาศ ร้อน หรือ หนาว", ipa: "aa-gàat rɔ́ɔn rĕu nǎao", en: "Weather: hot or cold?", emoji: "🌡️" },
+                    { speaker: "B", th: "ชอบหนาวมากกว่า", ipa: "chɔ̂ɔp nǎao mâak gwàa", en: "I like cold more.", emoji: "❄️" },
+                    { speaker: "A", th: "ทำอาหาร หรือ ร้านอาหาร", ipa: "tam aa-hǎan rĕu ráan aa-hǎan", en: "Cook food or Restaurant?", emoji: "🍳" },
+                    { speaker: "B", th: "ร้านอาหารบาร์บีคิวเกาหลี", ipa: "ráan aa hǎan baa bii kiu gao lǐi", en: "Korean BBQ restaurant.", emoji: "🥩" },
+                    { speaker: "A", th: "เรียนภาษาไทย ยาก หรือ ไม่ยาก", ipa: "rian paa-săa thai yâak rĕu mâi yâak", en: "Is learning Thai difficult or not?", emoji: "🇹🇭" },
+                    { speaker: "B", th: "ยาก บางครั้ง", ipa: "yâak baang kráng", en: "Difficult, sometimes.", emoji: "😅" }
+                ]
+            },
+            {
+                id: "task5",
+                header: { th: "พรีเซนต์", ipa: "pree-sen", en: "Real-life Presentation", emoji: "📊" },
+                instruction: { th: "บอกทางไปมหาลัย", ipa: "bɔ̀ɔk taang bpai má-hǎa-lai", en: "Dialogue/Monologue: Giving directions to the university", emoji: "🗺️" },
+                dialogues: [
+                    { speaker: "A", th: "ไปมหาลัยยังไง", ipa: "bpai má hǎa lai yang-ngai", en: "How to go to uni?", emoji: "🚶" },
+                    { speaker: "B", th: "ไปตรงนั้น ตรงไป", ipa: "bpai dtrong nán dtrong bpai", en: "Go that way. Go straight.", emoji: "👉" },
+                    { speaker: "B", th: "เลี้ยวซ้าย แล้วก็ เลี้ยวขวา", ipa: "líao sáai láew-gâw líao kwǎa", en: "Turn left and then turn right.", emoji: "↪️" },
+                    { speaker: "B", th: "อยู่ซ้าย ติดกับ โรงพยาบาล", ipa: "yùu sáai dtìt-kàp Rong-phá-yaa-baan", en: "It's on the left, next to the hospital.", emoji: "🏥" },
+                    { speaker: "A", th: "อะไรนะ พูดอีกรอบ", ipa: "à rai ná pûut ìik rɔ̂ɔp", en: "What, come again? Speak another round.", emoji: "👂" }
+                ]
+            },
+            {
+                id: "task2",
+                header: { th: "เล่าเรื่อง", ipa: "lâo rʉ̂ang", en: "Real-life Story-telling", emoji: "📖" },
+                instruction: { th: "เล่าเรื่องตอนเช้า", ipa: "lâo rʉ̂ang dton cháao", en: "Monologue: Telling a story about your morning", emoji: "🌅" },
+                dialogues: [
+                    { speaker: "A", th: "สวัสดีตอนเช้า", ipa: "sà-wàt-dii dton cháao", en: "Good morning.", emoji: "☀️" },
+                    { speaker: "A", th: "ตอนนี้ตื่นแล้ว", ipa: "dtorn-níi dtèun láaew", en: "Now I'm already awake.", emoji: "🥱" },
+                    { speaker: "A", th: "กินข้าวเช้า กินผลไม้มา", ipa: "gin khâao-cháo gin pǒn-lá-mái maa", en: "Ate breakfast. Ate fruit and came.", emoji: "🍎" },
+                    { speaker: "A", th: "จากบ้านไปฟิตเนสสามนาที", ipa: "jàak bâan bpai fít nêet sǎam naa tii", en: "From house to gym is 3 minutes.", emoji: "🏃" },
+                    { speaker: "A", th: "เดิน แล้วก็ เล่นเวท", ipa: "doen láew-gâw lên wêt", en: "Walk, and then lift weights.", emoji: "🏋️" }
+                ]
+            },
+            {
+                id: "task6",
+                header: { th: "กิจกรรมเสริม", ipa: "gìt-jà-gam sə̌əm", en: "Extension Activities", emoji: "⭐" },
+                instruction: { th: "ซื้อเสื้อผ้า", ipa: "súe sûea-phâa", en: "Dialogue: Buying clothes (Role-play)", emoji: "🛍️" },
+                dialogues: [
+                    { speaker: "A", th: "เสื้อสีแดง หรือ สีน้ำเงิน", ipa: "sûea sǐi daeng rĕu sǐi náam-ngern", en: "Red shirt or dark blue shirt?", emoji: "👕" },
+                    { speaker: "B", th: "เอาสีน้ำเงิน ลองได้ไหม", ipa: "aw sǐi náam-ngern lawng dâi mái", en: "I want dark blue. Can I try it on?", emoji: "👗" },
+                    { speaker: "A", th: "ได้", ipa: "dâi", en: "Can.", emoji: "✅" },
+                    { speaker: "B", th: "เท่าไร", ipa: "Thôa-rài", en: "How much?", emoji: "💵" },
+                    { speaker: "A", th: "ร้อย", ipa: "róy", en: "Hundred.", emoji: "💯" },
+                    { speaker: "B", th: "มีโปรโมชั่นไหม ลดได้ไหม", ipa: "mii pro-mo-chân mái lót dâi mái", en: "Are there any promotions? Can you lower the price?", emoji: "📉" }
+                ]
+            },
+            {
+                id: "task7",
+                header: { th: "เกมพูด", ipa: "geem pûut", en: "Speaking Game", emoji: "🎲" },
+                instruction: { th: "ทายตัวเลข", ipa: "taai dtua lêek", en: "Dialogue: Guess the Numbers", emoji: "🔢" },
+                dialogues: [
+                    { speaker: "A", th: "อายุเท่าไร ทายตัวเลข", ipa: "aa-yú tâo-rài taai dtua lêek", en: "How old? Guess the numbers.", emoji: "🤔" },
+                    { speaker: "B", th: "ยี่สิบ ใช่ไหม", ipa: "yîi-sìp châi mái", en: "Twenty, right?", emoji: "2️⃣0️⃣" },
+                    { speaker: "A", th: "ไม่ได้ มากกว่า", ipa: "mâi dâi mâak gwàa", en: "Cannot (No). More than.", emoji: "⬆️" },
+                    { speaker: "B", th: "สามสิบเอ็ด ใช่ไหม", ipa: "sǎam-sìp-èt châi mái", en: "Thirty-one, right?", emoji: "3️⃣1️⃣" },
+                    { speaker: "A", th: "ใช่", ipa: "châi", en: "Yes.", emoji: "🎉" }
+                ]
+            }
+        ];
+
+        // --- RENDER ENGINE ---
+
+        function createHeaderBlock(item, idPrefix) {
+            return `
+            <div class="bg-teal-50 border-teal-200 rounded-2xl shadow-sm border overflow-hidden mb-2">
+                <div class="p-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3 w-full pr-2">
+                        <span class="text-3xl shrink-0">${item.emoji}</span>
+                        <span class="thai-text text-xl font-bold text-teal-800 break-words">${item.th}</span>
+                    </div>
+                    <button onclick="speakThai('${item.th}')" class="btn-press shrink-0 bg-teal-100 text-teal-700 w-12 h-12 rounded-full flex items-center justify-center shadow-[0_3px_0_rgb(153,246,228)] active:shadow-none border border-teal-200" aria-label="Listen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+                    </button>
+                </div>
+                <div class="bg-gray-50 border-t border-gray-100">
+                    <div id="${idPrefix}-ipa" class="toggle-content hidden p-2 text-center text-blue-600 font-mono text-base border-b border-gray-100">/${item.ipa}/</div>
+                    <div id="${idPrefix}-en" class="toggle-content hidden p-2 text-center text-gray-700 font-medium bg-green-50">${item.en}</div>
+                </div>
+                <div class="flex divide-x divide-gray-200 border-t border-gray-200">
+                    <button onclick="toggleView('${idPrefix}-ipa', this)" class="toggle-btn btn-press flex-1 py-2 text-xs font-bold text-blue-500 bg-white shadow-[0_3px_0_rgb(229,231,235)] active:shadow-none rounded-bl-2xl">IPA</button>
+                    <button onclick="toggleView('${idPrefix}-en', this)" class="toggle-btn btn-press flex-1 py-2 text-xs font-bold text-green-600 bg-white shadow-[0_3px_0_rgb(229,231,235)] active:shadow-none rounded-br-2xl">EN</button>
+                </div>
+            </div>`;
+        }
+
+        function createDialogueBubble(item, idPrefix) {
+            const isSpeakerA = item.speaker === "A";
+            const bubbleColor = isSpeakerA ? "bg-white border-gray-200" : "bg-teal-50 border-teal-200";
+            const speakerIcon = isSpeakerA ? "🧑‍🦰" : "👱‍♂️";
+            const alignClass = isSpeakerA ? "flex-row" : "flex-row-reverse";
+            
+            return `
+            <div class="flex ${alignClass} gap-3 w-full mb-4">
+                <!-- Avatar -->
+                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl shrink-0 shadow-sm border border-gray-300">
+                    ${speakerIcon}
+                </div>
+                
+                <!-- Chat Bubble Container -->
+                <div class="${bubbleColor} rounded-2xl shadow-sm border overflow-hidden flex-1 max-w-[90%]">
+                    <div class="p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3 w-full pr-2">
+                            <span class="text-2xl shrink-0">${item.emoji}</span>
+                            <span class="thai-text text-lg font-medium text-gray-800 break-words">${item.th}</span>
+                        </div>
+                        
+                        <button onclick="speakThai('${item.th}')" class="btn-press shrink-0 bg-gray-100 text-teal-700 w-10 h-10 rounded-full flex items-center justify-center shadow-[0_2px_0_rgb(209,213,219)] active:shadow-none border border-gray-200" aria-label="Listen">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /></svg>
+                        </button>
+                    </div>
+
+                    <!-- Hidden Content -->
+                    <div class="bg-gray-50 border-t border-gray-100">
+                        <div id="${idPrefix}-ipa" class="toggle-content hidden p-3 text-center text-blue-600 font-mono text-base border-b border-gray-100">
+                            /${item.ipa}/
+                        </div>
+                        <div id="${idPrefix}-en" class="toggle-content hidden p-3 text-center text-gray-700 font-medium bg-green-50">
+                            ${item.en}
+                        </div>
+                    </div>
+
+                    <!-- Toggle Buttons -->
+                    <div class="flex divide-x divide-gray-200 border-t border-gray-200">
+                        <button onclick="toggleView('${idPrefix}-ipa', this)" class="toggle-btn btn-press flex-1 py-2.5 text-sm font-bold text-blue-500 bg-white shadow-[0_2px_0_rgb(229,231,235)] active:shadow-none rounded-bl-2xl">
+                            IPA
+                        </button>
+                        <button onclick="toggleView('${idPrefix}-en', this)" class="toggle-btn btn-press flex-1 py-2.5 text-sm font-bold text-green-600 bg-white shadow-[0_2px_0_rgb(229,231,235)] active:shadow-none rounded-br-2xl">
+                            EN
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderApp() {
+            const container = document.getElementById('app-content');
+            let html = '';
+
+            tasksData.forEach((task, tIndex) => {
+                // Extension visual separator
+                if(task.id === 'task6') {
+                    html += `<div class="pt-6 pb-6"><div class="border-t-4 border-dashed border-teal-300 relative"><span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#f0fdfa] px-4 text-teal-600 font-bold text-sm rounded-full border border-teal-200">Extra Time</span></div></div>`;
+                }
+
+                html += `<section class="mb-12 bg-white/50 p-3 rounded-3xl border border-teal-100 shadow-sm" id="${task.id}">`;
+                
+                // Headers (Interactive)
+                html += createHeaderBlock(task.header, `head-${tIndex}`);
+                html += `<div class="text-sm font-semibold text-gray-500 mb-4 px-2 flex items-center gap-2"><span>${task.instruction.emoji}</span> ${task.instruction.en}</div>`;
+
+                // Render Dialogue Bubbles
+                html += `<div class="space-y-2 mt-4 px-1">`;
+                task.dialogues.forEach((item, iIndex) => {
+                    html += createDialogueBubble(item, `dial-${tIndex}-${iIndex}`);
+                });
+                html += `</div></section>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // --- INTERACTION LOGIC ---
+
+        function toggleView(elementId, btnElement) {
+            const el = document.getElementById(elementId);
+            const isHidden = el.classList.contains('hidden');
+            
+            if (isHidden) {
+                el.classList.remove('hidden');
+                btnElement.classList.add('bg-gray-100', 'shadow-inner');
+                btnElement.classList.remove('bg-white', 'shadow-[0_2px_0_rgb(229,231,235)]', 'shadow-[0_3px_0_rgb(229,231,235)]');
+            } else {
+                el.classList.add('hidden');
+                btnElement.classList.remove('bg-gray-100', 'shadow-inner');
+                // Re-add appropriate shadow based on button location (header vs bubble)
+                const shadowClass = btnElement.closest('.bg-teal-50.border-teal-200.mb-2') ? 'shadow-[0_3px_0_rgb(229,231,235)]' : 'shadow-[0_2px_0_rgb(229,231,235)]';
+                btnElement.classList.add('bg-white', shadowClass);
+            }
+        }
+
+        function hideAllToggles() {
+            document.querySelectorAll('.toggle-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-100', 'shadow-inner');
+                const shadowClass = btn.closest('.bg-teal-50.border-teal-200.mb-2') ? 'shadow-[0_3px_0_rgb(229,231,235)]' : 'shadow-[0_2px_0_rgb(229,231,235)]';
+                btn.classList.add('bg-white', shadowClass);
+            });
+        }
+
+        function speakThai(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Prevent queuing
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.85; // Slower speed for A1
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported on this device/browser.");
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderApp);
+
+    </script>
+</body>
+</html>
