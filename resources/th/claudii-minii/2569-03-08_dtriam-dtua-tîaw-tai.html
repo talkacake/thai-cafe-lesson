@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Interactive Travel Lesson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0f9ff; /* Soft light blue/beach vibe */
+        }
+        .reveal {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e0f2fe; }
+        ::-webkit-scrollbar-thumb { background: #7dd3fc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased pb-20">
+
+    <div id="app" class="max-w-2xl mx-auto px-4 pt-8">
+        <!-- Content injected here by JS -->
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 1. DATA: Vocab Review List (Updated with all provided words)
+        // ----------------------------------------------------
+        const reviewVocab = [
+            { emoji: "🆕✨", thai: "ใหม่", ipa: "mày", en: "New" },
+            { emoji: "📖", thai: "อ่าน", ipa: "àan", en: "Read" },
+            { emoji: "🎶❤️", thai: "เพลงรัก", ipa: "pleeng rák", en: "Love songs" },
+            { emoji: "👻🎬😱", thai: "หนังผี", ipa: "nǎng phǐi", en: "Ghost movies / horrors" },
+            { emoji: "📚", thai: "หนังสือ", ipa: "nang sʉ̌ʉ", en: "Books" },
+            { emoji: "🛠️", thai: "ทำ", ipa: "tam", en: "Do/make" },
+            { emoji: "🥚🍳", thai: "ไข่", ipa: "khày", en: "Eggs" },
+            { emoji: "🏋️‍♂️💪", thai: "ฟิตเนส", ipa: "fítnèt", en: "gym" },
+            { emoji: "🥾🌲", thai: "เดินป่า", ipa: "dəən bpàa", en: "To hike (walk, forest)" },
+            { emoji: "🫴✅", thai: "มี", ipa: "mii", en: "Have" },
+            { emoji: "🔢", thai: "กี่", ipa: "gìi", en: "How many?" },
+            { emoji: "👥", thai: "คน", ipa: "kon", en: "people / person" },
+            { emoji: "👦", thai: "น้องชาย", ipa: "nɔ́ɔng chaay", en: "Younger brother" },
+            { emoji: "🍚🥣", thai: "ข้าวต้ม", ipa: "khâao dtôm", en: "porridge / boiled rice" },
+            { emoji: "🍎🍌", thai: "ผลไม้", ipa: "phǒn la máy", en: "Fruit" },
+            { emoji: "🤧", thai: "แพ้", ipa: "pɛ́ɛ", en: "allergic to" },
+            { emoji: "😋🍽️", thai: "อิ่ม", ipa: "ìm", en: "Full (stomach)" },
+            { emoji: "🛒📝", thai: "สั่ง", ipa: "sàng", en: "order" },
+            { emoji: "🍽️", thai: "ร้านอาหาร", ipa: "ráan aa hǎan", en: "Restaurant" },
+            { emoji: "🧂", thai: "เค็ม", ipa: "khem", en: "Salty" },
+            { emoji: "🎸🎧", thai: "ชอบฟังเพลงร็อค", ipa: "chɔ̂ɔp fang pleeng rɔ́k", en: "I like to listen to rock songs." },
+            { emoji: "⏰", thai: "บ่อย", ipa: "bɔ̀y", en: "often" },
+            { emoji: "🎁🤲", thai: "ให้", ipa: "hây", en: "Give" },
+            { emoji: "👩‍👧‍👦🤝", thai: "เพื่อนแม่", ipa: "phʉ̂an mɛ̂ɛ", en: "Mum's friend" },
+            { emoji: "🗣️👍", thai: "พูดง่าย", ipa: "phûut ŋâay", en: "Easy to say" },
+            { emoji: "🦷🏥", thai: "ผ่าตัดฟัน", ipa: "pàa-dtàt fan", en: "tooth surgery" },
+            { emoji: "✍️📝", thai: "เขียน", ipa: "kǐian", en: "to write" },
+            { emoji: "⏱️🔁", thai: "แต่ละครั้ง", ipa: "dtàe là kráng", en: "each time" },
+            { emoji: "📅", thai: "อาทิตย์", ipa: "aa-thít", en: "week" },
+            { emoji: "⏳", thai: "เมื่อวาน", ipa: "mʉ̂a-waan", en: "yesterday" },
+            { emoji: "🥬", thai: "ผัก", ipa: "pàk", en: "vegetable" },
+            { emoji: "📥", thai: "รับ", ipa: "ráp", en: "Receive" },
+            { emoji: "🍚", thai: "ข้าวเปล่า", ipa: "khâao-plàao", en: "plain rice" },
+            { emoji: "🔄🔁", thai: "เปลี่ยน", ipa: "bplìian", en: "to change, to alter, to exchange" },
+            { emoji: "🍚🍙", thai: "เปลี่ยนข้าวเปล่าเป็นข้าวเหนียว", ipa: "pliian khâao plàao pen khâao nǐaw", en: "Change plain rice into sticky rice." },
+            { emoji: "🥤🍹", thai: "มีน้ำอะไร", ipa: "mii náam a-rai", en: "What drinks are there?" },
+            { emoji: "🙋‍♂️➕", thai: "เอาอีกไหม", ipa: "ao-ìik-mǎi", en: "Want more?" },
+            { emoji: "🍰🍨", thai: "ของหวาน", ipa: "kǎawng wǎan", en: "dessert; sweets" },
+            { emoji: "📦", thai: "แพ็กได้ไหม", ipa: "páek dâai mǎi", en: "Can it be packed?" },
+            { emoji: "😓🧩", thai: "ยาก", ipa: "yâak", en: "difficult" },
+            { emoji: "🏖️🤫", thai: "ชอบไปทะเล แต่เงียบ", ipa: "châwp bpai tá-lay dtàae ngîap", en: "I like to go to the sea, but it's quiet." },
+            { emoji: "🌊😌", thai: "ชอบไปทะเล เพราะเงียบ", ipa: "châwp bpai tá-lay práw ngîap", en: "I like going to the sea because it's quiet." },
+            { emoji: "⏳", thai: "เคย", ipa: "khəəy", en: "ever" },
+            { emoji: "⬇️🧭", thai: "ใต้", ipa: "dtâi", en: "south; under; below" },
+            { emoji: "🎶🎤", thai: "ดนตรีสด", ipa: "don-dtree sòt", en: "live music" },
+            { emoji: "🍋", thai: "เปรี้ยว", ipa: "bprîao", en: "sour" },
+            { emoji: "😴", thai: "ขี้เกียจ", ipa: "khee-gìat", en: "lazy" },
+            { emoji: "⏱️", thai: "ครั้ง", ipa: "kráng", en: "time; occasion" },
+            { emoji: "⏳", thai: "ชั่วโมง", ipa: "chûa-moong", en: "hour" },
+            { emoji: "✈️🧳", thai: "เที่ยว", ipa: "tîaw", en: "to travel; a trip" },
+            { emoji: "🚗", thai: "ขับรถ", ipa: "khàp rót", en: "to drive" },
+            { emoji: "🏠🔑", thai: "เช่า", ipa: "châo", en: "to rent" },
+            { emoji: "🆚", thai: "แตกต่าง", ipa: "dtàek-dtàang", en: "different" },
+            { emoji: "🥥", thai: "มะพร้าว", ipa: "má-práao", en: "coconut" },
+            { emoji: "🤔💭", thai: "คิด", ipa: "kít", en: "to think" },
+            { emoji: "⏱️", thai: "กี่โมง", ipa: "gèe mohng", en: "What time is it?" },
+            { emoji: "🕛", thai: "เที่ยง", ipa: "tîang", en: "noon" },
+            { emoji: "📇", thai: "ชื่อ", ipa: "chʉ̂ʉ", en: "name" },
+            { emoji: "🗣️", thai: "เกี่ยวกับ", ipa: "gīao-gàp", en: "about" },
+            { emoji: "⌨️", thai: "พิมพ์", ipa: "pim", en: "To type" },
+            { emoji: "🧑‍🧑‍🧒‍🧒", thai: "เหมือน", ipa: "mʉ̌an", en: "like; similar" },
+            { emoji: "👅", thai: "รสชาติ", ipa: "rót châat", en: "taste; flavor" },
+            { emoji: "🌆", thai: "เที่ยวกรุงเทพฯบ่อย", ipa: "tîeao grung-têp bòi", en: "I often travel to Bangkok." },
+            { emoji: "☄️", thai: "มา", ipa: "maa", en: "Come" },
+            { emoji: "🧓", thai: "แม่", ipa: "mâae", en: "mother" },
+            { emoji: "🧳", thai: "นักท่องเที่ยว", ipa: "nák thɔ̂ng-thîaw", en: "tourists" },
+            { emoji: "☀️", thai: "วัน", ipa: "wan", en: "Days" },
+            { emoji: "⏳", thai: "โมง", ipa: "mohng", en: "o'clock" },
+            { emoji: "💗", thai: "หลาย", ipa: "lǎai", en: "many" },
+            { emoji: "👍", thai: "ดีกว่า", ipa: "dii-gwà", en: "better" },
+            { emoji: "🌅", thai: "วันอาทิตย์", ipa: "wan-aa-tít", en: "Sunday" },
+            { emoji: "🤑", thai: "ล้าน", ipa: "láan", en: "million" },
+            { emoji: "🍳", thai: "ง่าย", ipa: "ngâai", en: "easy" },
+            { emoji: "➖", thai: "ลบ", ipa: "lóp", en: "minus; to delete" },
+            { emoji: "👯📼", thai: "เหมือนเดิม", ipa: "mʉ̌an dəəm", en: "as usual" },
+            { emoji: "🥛", thai: "นม", ipa: "nom", en: "milk" },
+            { emoji: "🏃", thai: "ตื่น", ipa: "dtʉ̀ʉn", en: "wake up" },
+            { emoji: "📱", thai: "มือถือ", ipa: "mʉʉ-thʉ̌ʉ", en: "mobile phone" },
+            { emoji: "🎇", thai: "พลุ", ipa: "plú", en: "firework" },
+            { emoji: "💉", thai: "ต้องการ", ipa: "dtâawng-gaan", en: "to want; to need" },
+            { emoji: "🕣", thai: "เวลา", ipa: "wee-laa", en: "time" },
+            { emoji: "💆", thai: "นวด", ipa: "nûat", en: "massage" },
+            { emoji: "⏭️🆓🤔", thai: "พรุ่งนี้ว่างให้เราไหม", ipa: "phrûng-née wâang hâi rao mái", en: "Are you free for us tomorrow?" },
+            { emoji: "🏢", thai: "บริษัท", ipa: "bɔɔ-rí-sàt", en: "company" },
+            { emoji: "🔒🏬", thai: "ปิดร้าน", ipa: "bpìt ráan", en: "to close the shop" },
+            { emoji: "🤲📞", thai: "ขอเบอร์หน่อยค่ะ", ipa: "kɔ̌ɔ bəə nɔ̀ɔi kâ", en: "Can I have your number, please?" },
+            { emoji: "✔️❌", thai: "บางครั้ง", ipa: "baang kráng", en: "sometimes" },
+            { emoji: "🌅", thai: "บ่าย", ipa: "bàai", en: "afternoon" },
+            { emoji: "🌓", thai: "ครึ่ง", ipa: "krʉ̂ng", en: "half" },
+            { emoji: "🕐", thai: "บ่ายโมงครึ่ง", ipa: "bàai-moong krûng", en: "1:30 PM" },
+            { emoji: "📚", thai: "จอง", ipa: "jɔɔng", en: "to book" },
+            { emoji: "🍽️", thai: "โต๊ะ", ipa: "dtó", en: "table" },
+            { emoji: "🕒", thai: "ตีสาม", ipa: "dtii sǎam", en: "03:00" },
+            { emoji: "🍳🔥🍤", thai: "ทอด", ipa: "tɔ̂ɔt", en: "to fry" },
+            { emoji: "🍳🥘🔥", thai: "ทำอาหาร", ipa: "tam aa-hăan", en: "to cook" },
+            { emoji: "🤏⏳🏁", thai: "เกือบ", ipa: "gùeap", en: "almost" },
+            { emoji: "😢💧😭", thai: "ร้องไห้", ipa: "rɔ́ɔng-hâi", en: "cry" },
+            { emoji: "✍️🇹🇭🔄", thai: "คนไทยเขียนแตกต่างกัน", ipa: "kon Tai kǐan dtàek-dtàang gan", en: "Thais write differently." },
+            { emoji: "🤫🔇😶", thai: "เงียบ", ipa: "ngîap", en: "quiet" },
+            { emoji: "😨👻😱", thai: "กลัว", ipa: "glua", en: "scared" },
+            { emoji: "👤🆔✨", thai: "ตน", ipa: "dton", en: "classifier for ghosts" },
+            { emoji: "🍊🍊🍊", thai: "ส้ม", ipa: "sôm", en: "orange" },
+            { emoji: "🔢📱📞", thai: "เบอร์", ipa: "bəə", en: "number" },
+            { emoji: "💰💎🤑", thai: "รวย", ipa: "ruai", en: "rich" },
+            { emoji: "🧼🫧🥚", thai: "ฟอง", ipa: "fɔɔng", en: "classifier for eggs" },
+            { emoji: "🐈🐕🧸", thai: "ตัว", ipa: "dtua", en: "classifier for animals/tables" },
+            { emoji: "📈🍴🈵", thai: "เยอะ", ipa: "yə́", en: "a lot" },
+            { emoji: "🥭🍋💯", thai: "มะม่วง 1 ล้านลูก", ipa: "ma-mûang nùeng láan lûuk", en: "One million mangoes" },
+            { emoji: "🍓🔴🌳", thai: "เงาะ", ipa: "ngɔ́", en: "rambutan" },
+            { emoji: "👁️🤝📍", thai: "เจอ", ipa: "jəə", en: "meet; see" },
+            { emoji: "🗣️📖💬", thai: "เล่า", ipa: "lâo", en: "tell stories" },
+            { emoji: "💭🧠🤔", thai: "คิดว่า", ipa: "kít wâa", en: "think that" },
+            { emoji: "❓🔗✨", thai: "ถ้า", ipa: "tâa", en: "If" },
+            { emoji: "🌭", thai: "ไส้กรอก", ipa: "sâi-gròk", en: "sausage" },
+            { emoji: "⚡💨", thai: "เร็ว", ipa: "rêo", en: "fast" },
+            { emoji: "🕒", thai: "ช่วงนี้", ipa: "chûang-níi", en: "Recently" },
+            { emoji: "📝", thai: "อธิบาย", ipa: "à-tí-baai", en: "explain" },
+            { emoji: "🖼️", thai: "รูป", ipa: "rôop", en: "picture" },
+            { emoji: "🏙️", thai: "เมือง", ipa: "mʉʉang", en: "city; town" },
+            { emoji: "➕", thai: "บวก", ipa: "bùak", en: "positive; plus" },
+            { emoji: "👕🧺", thai: "เก็บผ้า", ipa: "gèp pâa", en: "to collect clothes" },
+            { emoji: "🔙", thai: "หลัง", ipa: "lăng", en: "back; behind" },
+            { emoji: "😂", thai: "หัวเราะ", ipa: "hǔa-rɔ́", en: "laugh" },
+            { emoji: "⏰", thai: "เมื่อไร", ipa: "mʉ̂a-rài", en: "When?" },
+            { emoji: "🚫✋", thai: "อย่า", ipa: "yàa", en: "Don't" },
+            { emoji: "🚪➡️", thai: "เข้า", ipa: "kâo", en: "to enter" },
+            { emoji: "🚫🚪", thai: "อย่าเข้ามา", ipa: "yàa kâo maa", en: "Don't come in" },
+            { emoji: "➡️", thai: "งั้น", ipa: "ngán", en: "So / Then" },
+            { emoji: "🤝➡️", thai: "มา...กัน(เถอะ)", ipa: "maa...gan (thə̀)", en: "Let's ..." },
+            { emoji: "❓🗣️", thai: "ถาม", ipa: "thǎam", en: "ask questions" },
+            { emoji: "🏁", thai: "จบ", ipa: "jòp", en: "the end" },
+            { emoji: "🙏💭", thai: "อยาก", ipa: "yàak", en: "to want" },
+            { emoji: "😵‍💫😰", thai: "คิดมาก", ipa: "kít mâak", en: "to overthink" },
+            { emoji: "💪", thai: "แข็งแรง", ipa: "khěng-raeng", en: "strong" },
+            { emoji: "🐷", thai: "อ้วน", ipa: "ûan", en: "fat" },
+            { emoji: "🚶", thai: "เดิน", ipa: "doen", en: "to walk" },
+            { emoji: "🤰", thai: "พุง", ipa: "phung", en: "belly" },
+            { emoji: "📅", thai: "อาทิตย์นี้", ipa: "aa-tít-née", en: "this week" },
+            { emoji: "🧊❄️", thai: "แช่แข็ง", ipa: "châe-kǎeng", en: "frozen" },
+            { emoji: "⏳", thai: "นาน", ipa: "naan", en: "long (time)" },
+            { emoji: "🔎🚶", thai: "ไปหา", ipa: "bpai-hǎa", en: "to go see/find" },
+            { emoji: "👀", thai: "เห็น", ipa: "hěn", en: "to see" },
+            { emoji: "😰😣", thai: "เครียด", ipa: "krîat", en: "stressed" },
+            { emoji: "😞", thai: "ท้อ", ipa: "tɔ́ɔ", en: "discouraged" },
+            { emoji: "😞🌧️", thai: "มองโลกในแง่ร้าย", ipa: "mɔɔng-lôhk-nai-ngâe-ráai", en: "pessimistic" },
+            { emoji: "👉", thai: "สิ", ipa: "sì", en: "particle for urging" },
+            { emoji: "😒🙄", thai: "บ่น", ipa: "bòn", en: "to complain" },
+            { emoji: "🤔", thai: "แต่", ipa: "dtàe", en: "but" },
+            { emoji: "⚖️😡", thai: "โทษ", ipa: "tôht", en: "to blame" },
+            { emoji: "🧑‍💼", thai: "เจ้านาย", ipa: "jâao-naai", en: "boss" },
+            { emoji: "🏨", thai: "โรงแรม", ipa: "roong-raem", en: "hotel" },
+            { emoji: "🏠🚪", thai: "ห้อง", ipa: "hɔ̂ng", en: "room" },
+            { emoji: "🛠️👨‍🔧", thai: "ช่าง", ipa: "châang", en: "mechanic" },
+            { emoji: "🛠️🔧", thai: "ซ่อม", ipa: "sɔ̂m", en: "to repair" },
+            { emoji: "🌍🇩🇪", thai: "ที่แฮมเบิร์ก ไม่มีคนมองโลกในแง่ร้าย", ipa: "têe-haem-bêrk mâi-mee-kon-mɔɔng-lôhk-nai-ngâe-ráai", en: "In Hamburg, no pessimistic people." },
+            { emoji: "🙅‍♂️⚖️", thai: "ไม่อยากโทษใคร", ipa: "mai-yàak thôot khrai", en: "I don't want to blame anyone." }
+        ];
+
+        // ----------------------------------------------------
+        // 2. DATA: New Target Vocab (Travel / Local interaction)
+        // ----------------------------------------------------
+        const targetVocab = [
+            { emoji: "🇹🇭🤝", thai: "มาจากไหน", ipa: "maa jàak nǎi", en: "Where are you from?" },
+            { emoji: "🛍️💰", thai: "อันนี้เท่าไร", ipa: "an-níi thâo-rài", en: "How much is this?" },
+            { emoji: "🙏📉", thai: "ลดได้ไหม", ipa: "lót dâai mǎi", en: "Can you give a discount?" },
+            { emoji: "🚶‍♂️❓", thai: "ไปไหน", ipa: "bpai nǎi", en: "Where are you going?" },
+            { emoji: "😋👍", thai: "อร่อยมาก", ipa: "a-rɔ̀y mâak", en: "Very delicious" }
+        ];
+
+        // ----------------------------------------------------
+        // 3. UI GENERATOR FUNCTIONS
+        // ----------------------------------------------------
+        let synth = window.speechSynthesis;
+
+        function speakText(text) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.85;
+            synth.speak(utterance);
+        }
+
+        function toggleVisibility(button, type) {
+            const container = button.closest('.thai-block');
+            const content = container.querySelector(`.${type}-content`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('reveal');
+                button.classList.replace('bg-opacity-20', 'bg-opacity-100');
+                if(type === 'ipa') button.classList.add('ring-2', 'ring-green-400');
+                if(type === 'en') button.classList.add('ring-2', 'ring-blue-400');
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('reveal');
+                if(type === 'ipa') button.classList.remove('ring-2', 'ring-green-400');
+                if(type === 'en') button.classList.remove('ring-2', 'ring-blue-400');
+            }
+        }
+
+        function createBlock(emoji, thaiText, ipaText, enText, isTitle = false, isSmall = false) {
+            const textSize = isTitle ? 'text-3xl md:text-4xl' : (isSmall ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl');
+            const bgColor = isTitle ? 'bg-blue-100 border-blue-300' : 'bg-white border-blue-100';
+            const safeThai = thaiText.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+            return `
+            <div class="thai-block ${bgColor} rounded-2xl p-5 shadow-sm border mb-4 transition-all hover:shadow-md">
+                <div class="flex items-start gap-3 mb-4">
+                    ${emoji ? `<span class="${textSize}">${emoji}</span>` : ''}
+                    <span class="font-bold text-gray-800 ${textSize} leading-snug" lang="th">${thaiText}</span>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mb-2">
+                    <button onclick="speakText('${safeThai}')" class="flex items-center gap-1 bg-red-100 text-red-700 px-4 py-2 rounded-xl font-semibold text-sm hover:bg-red-200 transition shadow-sm active:scale-95">
+                        🔊 ฟัง
+                    </button>
+                    <button onclick="toggleVisibility(this, 'ipa')" class="flex items-center gap-1 bg-green-100 text-green-700 px-4 py-2 rounded-xl font-semibold text-sm hover:bg-green-200 transition shadow-sm active:scale-95">
+                        🗣️ IPA
+                    </button>
+                    <button onclick="toggleVisibility(this, 'en')" class="flex items-center gap-1 bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-semibold text-sm hover:bg-blue-200 transition shadow-sm active:scale-95">
+                        🇬🇧 EN
+                    </button>
+                </div>
+
+                <div class="ipa-content hidden text-green-800 text-lg md:text-xl font-medium italic mt-3 bg-green-50 p-3 rounded-xl border border-green-100 w-full">
+                    ${ipaText}
+                </div>
+                <div class="en-content hidden text-blue-800 text-lg md:text-xl font-medium mt-2 bg-blue-50 p-3 rounded-xl border border-blue-100 w-full">
+                    ${enText}
+                </div>
+            </div>`;
+        }
+
+        // ----------------------------------------------------
+        // 4. RANDOMIZER LOGIC
+        // ----------------------------------------------------
+        function randomizeWord() {
+            const randomIndex = Math.floor(Math.random() * reviewVocab.length);
+            const word = reviewVocab[randomIndex];
+            
+            const resultDiv = document.getElementById('randomizer-result');
+            resultDiv.innerHTML = `<div class="text-center p-8 text-gray-400">🎲 สุ่ม... (sùm... / randomizing...)</div>`;
+            
+            setTimeout(() => {
+                resultDiv.innerHTML = `
+                    <div class="mt-4 mb-2 text-center text-sm font-bold text-gray-500 uppercase tracking-widest">คำศัพท์ของคุณ (Your Word)</div>
+                    ${createBlock(word.emoji, word.thai, word.ipa, word.en, false)}
+                    <div class="text-center mt-2 mb-4">
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full font-bold">✨ แต่งประโยคเลย! (dtɛ̀ng bprà-yòok ləəy! / Make a sentence!)</span>
+                    </div>
+                `;
+            }, 300);
+        }
+
+        // ----------------------------------------------------
+        // 5. RENDER ENTIRE PAGE
+        // ----------------------------------------------------
+        function renderPage() {
+            const app = document.getElementById('app');
+            let html = '';
+
+            // --- PAGE TITLE ---
+            html += createBlock('✈️🏖️', 'เตรียมตัวเที่ยวไทย', 'dtriam dtua tîaw tai', 'Preparing to travel in Thailand', true);
+
+            // --- SECTION 1: VOCAB REVIEW ---
+            html += `<div class="mt-10 mb-4 flex items-center gap-2 border-b-2 border-blue-200 pb-2">
+                        <span class="text-2xl">🔄</span><h2 class="text-2xl font-bold text-gray-700">ส่วนที่ 1 (sùan thîi 1 / Part 1)</h2>
+                     </div>`;
+            html += createBlock('🎲', 'ทบทวนคำศัพท์เก่า', 'tóp-tuan kam-sàp gào', 'Review old vocabulary');
+            html += createBlock('🗣️😂', 'กดปุ่มเพื่อสุ่มคำศัพท์ แล้วแต่งประโยคตลกๆ!', 'gòt bpùm pʉ̂a sùm kam-sàp, lɛ́ɛo dtɛ̀ng bprà-yòok dtà-lòk dtà-lòk!', 'Click to randomize a word, then make a funny sentence!');
+            
+            html += `
+            <div class="bg-blue-50 p-6 rounded-2xl mb-8 border-2 border-dashed border-blue-300 text-center">
+                <button onclick="randomizeWord()" class="bg-blue-500 hover:bg-blue-600 text-white text-xl font-bold py-4 px-8 rounded-full shadow-lg transform transition active:scale-90">
+                    🎲 สุ่มคำศัพท์ (Randomize Vocab)
+                </button>
+                <div id="randomizer-result" class="mt-6"></div>
+            </div>`;
+
+            // --- SECTION 2: NEW VOCABULARY & CONTEXT ---
+            html += `<div class="mt-10 mb-4 flex items-center gap-2 border-b-2 border-blue-200 pb-2">
+                        <span class="text-2xl">🆕</span><h2 class="text-2xl font-bold text-gray-700">ส่วนที่ 2 (sùan thîi 2 / Part 2)</h2>
+                     </div>`;
+            html += createBlock('🗣️🇹🇭', 'คำศัพท์ใหม่: คุยกับคนไทย', 'kam-sàp mài: kui gàp kon tai', 'New Vocab: Talking with Thai people');
+
+            // 2.1 Dialogue (Shopping in Chiang Mai)
+            html += `<div class="mt-6 border-l-4 border-teal-400 pl-4">`;
+            html += `<h3 class="text-xl font-bold text-teal-700 mb-4">💬 2.1 บทสนทนา (bòt sǒn-thá-naa / Dialogue)</h3>`;
+            html += createBlock('📍🏔️', 'ซื้อของที่เชียงใหม่', 'sʉ́ʉ kɔ̌ɔng tîi chiang mài', 'Buying things in Chiang Mai', false, true);
+            html += createBlock('👦', 'สวัสดีครับ อันนี้เท่าไรครับ?', 'sà-wàt-dii kráp, an-níi thâo-rài kráp?', 'Hello, how much is this?', false, true);
+            html += createBlock('👩', 'หนึ่งร้อยบาทค่ะ', 'nʉ̀ng rɔ́ɔi bàat kâ', 'One hundred baht.', false, true);
+            html += createBlock('👦', 'ลดได้ไหมครับ?', 'lót dâai mǎi kráp?', 'Can you give a discount?', false, true);
+            html += createBlock('👩', 'ลดได้เหลือแปดสิบบาทค่ะ', 'lót dâai lʉ̌a bpɛ̀ɛt-sìp bàat kâ', 'I can reduce it to eighty baht.', false, true);
+            html += `</div>`;
+
+            // 2.2 Dialogue (Making friends in Krabi)
+            html += `<div class="mt-8 border-l-4 border-orange-400 pl-4">`;
+            html += `<h3 class="text-xl font-bold text-orange-700 mb-4">🤝 2.2 บทสนทนา (bòt sǒn-thá-naa / Dialogue): หาเพื่อนใหม่</h3>`;
+            html += createBlock('📍🏖️', 'หาเพื่อนใหม่ที่ทะเลกระบี่', 'hǎa phʉ̂an mài thîi thá-lee grà-bìi', 'Making new friends at Krabi beach', false, true);
+            html += createBlock('🙋‍♂️', 'สวัสดีครับ คุณมาจากไหนครับ?', 'sà-wàt-dii kráp, khun maa jàak nǎi kráp?', 'Hello, where are you from?', false, true);
+            html += createBlock('👦', 'สวัสดีครับ ผมมาจากแฮมเบิร์กครับ', 'sà-wàt-dii kráp, phǒm maa jàak haem-bə̀ək kráp', 'Hello, I come from Hamburg.', false, true);
+            html += createBlock('🙋‍♂️', 'ยินดีที่ได้รู้จักครับ ไปกินข้าวด้วยกันไหม?', 'yin-dii thîi dâai rúu-jàk kráp. bpai gin khâao dǔay gan mǎi?', 'Nice to meet you. Do you want to go eat together?', false, true);
+            html += createBlock('👦', 'ไปครับ อาหารใต้ที่นี่อร่อยมาก!', 'bpai kráp. aa-hǎan dtâai thîi nîi a-rɔ̀y mâak!', 'Let\'s go. Southern food here is very delicious!', false, true);
+            html += `</div>`;
+
+            // 2.3 Dialogue (Everyday conversation with locals in Phuket)
+            html += `<div class="mt-8 border-l-4 border-indigo-400 pl-4">`;
+            html += `<h3 class="text-xl font-bold text-indigo-700 mb-4">🛺 2.3 บทสนทนา (bòt sǒn-thá-naa / Dialogue): คุยกับคนท้องถิ่น</h3>`;
+            html += createBlock('📍🛣️', 'นั่งรถตุ๊กตุ๊กที่ภูเก็ต', 'nǎng rót dtúk-dtúk thîi phuu-gèt', 'Sitting in a Tuk-Tuk in Phuket', false, true);
+            html += createBlock('🛺', 'สวัสดีครับ จะไปไหนครับ?', 'sà-wàt-dii kráp, jà bpai nǎi kráp?', 'Hello, where are you going?', false, true);
+            html += createBlock('👦', 'ไปหาดป่าตองครับ อากาศร้อนมาก', 'bpai hàat bpàa-dtɔɔng kráp. aa-gàat rɔ́ɔn mâak', 'Going to Patong beach. The weather is very hot.', false, true);
+            html += createBlock('🛺', 'จริงครับ พรุ่งนี้ไปเที่ยวไหนต่อไหม?', 'jing kráp. phrûng-níi bpai thîaw nǎi dtɔ̀ɔ mǎi?', 'That\'s true. Are you going anywhere else tomorrow?', false, true);
+            html += createBlock('👦', 'พรุ่งนี้ว่าจะไปเดินป่าครับ', 'phrûng-níi wâa jà bpai dəən bpàa kráp', 'Tomorrow I think I will go hiking.', false, true);
+            html += `</div>`;
+
+            // --- SECTION 3: ACTIVITIES ---
+            html += `<div class="mt-10 mb-4 flex items-center gap-2 border-b-2 border-blue-200 pb-2">
+                        <span class="text-2xl">🎭</span><h2 class="text-2xl font-bold text-gray-700">ส่วนที่ 3 (sùan thîi 3 / Part 3)</h2>
+                     </div>`;
+            html += createBlock('🎮💬', 'กิจกรรมพูดคุย (บทบาทสมมติ)', 'gìt-jà-gam phûut-khui (bòt-bàat sǒm-mút)', 'Speaking Activities (Role-plays)');
+
+            // Activity 1: Roleplay Selling Stuff
+            html += `<div class="mt-6 border-l-4 border-pink-400 pl-4">`;
+            html += createBlock('🛍️🇹🇭', 'กิจกรรมที่ 1: ซื้อของที่ตลาด', 'gìt-jà-gam thîi 1: sʉ́ʉ khɔ̌ɔng thîi dtà-làat', 'Activity 1: Buying things at the market');
+            html += createBlock('🥥', 'คุณอยู่ตลาดที่เชียงใหม่ อยากซื้อของแปลกๆ คุยกับแม่ค้า ถามราคาและขอลดราคา', 'khun yûu dtà-làat thîi chiang mài. yàak sʉ́ʉ khɔ̌ɔng bplɛ̀ɛk bplɛ̀ɛk. khui gàp mɛ̂ɛ-kháa, thǎam raa-khaa lɛ́ khɔ̌ɔ lót raa-khaa', 'You are at a market in Chiang Mai. You want to buy weird things. Talk to the seller, ask the price, and ask for a discount.', false, true);
+            html += `</div>`;
+
+            // Activity 2: Roleplay Making Friends
+            html += `<div class="mt-8 border-l-4 border-green-400 pl-4">`;
+            html += createBlock('🏖️🤝', 'กิจกรรมที่ 2: หาเพื่อนใหม่ที่ทะเล', 'gìt-jà-gam thîi 2: hǎa phʉ̂an mài thîi thá-lee', 'Activity 2: Making new friends at the beach');
+            html += createBlock('🙋‍♂️', 'คุณอยู่กระบี่ เจอคนไทยใจดี แนะนำตัว ถามว่ามาจากไหน และชวนไปกินข้าว', 'khun yûu grà-bìi. jəə khon thai jai-dii. nɛ́-nam dtua, thǎam wâa maa jàak nǎi, lɛ́ chuan bpai gin khâao', 'You are in Krabi. You meet a kind Thai person. Introduce yourself, ask where they are from, and invite them to eat.', false, true);
+            html += `</div>`;
+            
+            // Activity 3: Roleplay Everyday Conversation
+            html += `<div class="mt-8 border-l-4 border-teal-400 pl-4">`;
+            html += createBlock('🛺🗣️', 'กิจกรรมที่ 3: คุยกับคนท้องถิ่น', 'gìt-jà-gam thîi 3: khui gàp khon thɔ́ɔng-thìn', 'Activity 3: Talking with a local');
+            html += createBlock('☀️', 'คุณนั่งรถตุ๊กตุ๊กที่ภูเก็ต คนขับชวนคุย คุยเรื่องอากาศ อาหาร และคุณจะไปไหน', 'khun nǎng rót dtúk-dtúk thîi phuu-gèt. khon khàp chuan khui. khui rʉ̂ang aa-gàat, aa-hǎan, lɛ́ khun jà bpai nǎi', 'You sit in a Tuk-Tuk in Phuket. The driver chats with you. Talk about the weather, food, and where you are going.', false, true);
+            html += `</div>`;
+
+            // --- SECTION 4: EXTENSION ACTIVITIES ---
+            html += `<div class="mt-12 mb-4 flex items-center gap-2 border-b-2 border-blue-200 pb-2">
+                        <span class="text-2xl">🌟</span><h2 class="text-2xl font-bold text-gray-700">ส่วนเสริม (sùan sə̌əm / Extension)</h2>
+                     </div>`;
+            html += createBlock('⏳🚀', 'กิจกรรมเสริม (ถ้ามีเวลา)', 'gìt-jà-gam sə̌əm (thâa mii wee-laa)', 'Extension Activities (If there is time)');
+
+            // Ext 1: Mixed Roleplay
+            html += `<div class="mt-6 border-l-4 border-yellow-400 pl-4">`;
+            html += createBlock('🏨😂', 'กิจกรรมเสริม: บทบาทสมมติหลงทาง', 'gìt-jà-gam sə̌əm: bòt-bàat sǒm-mút lǒng thaang', 'Extension Activity: Getting lost role-play');
+            html += createBlock('🗺️', 'คุณหลงทางในโรงแรม คุยกับคนไทย ขอความช่วยเหลือ และทำความรู้จักกันแบบตลกๆ', 'khun lǒng thaang nai roong-rɛɛm. khui gàp khon thai. khɔ̌ɔ khwaam chûay-lʉ̌a lɛ́ tham khwaam rúu-jàk gan bɛ̀ɛp dtà-lòk dtà-lòk', 'You are lost in a hotel. Talk to a Thai person, ask for help, and get to know each other in a funny way.', false, true);
+            html += `</div>`;
+
+            // Outro
+            html += `<div class="mt-12 text-center">`;
+            html += createBlock('🎉👏', 'เดินทางปลอดภัยครับ! เจอกันครั้งหน้า', 'dəən taang bplɔ̀ɔt pai kráp! jəə gan kráng nâa', 'Have a safe trip! See you next time.', true);
+            html += `</div>`;
+
+            app.innerHTML = html;
+        }
+
+        // Initialize page
+        window.onload = renderPage;
+
+    </script>
+</body>
+</html>
