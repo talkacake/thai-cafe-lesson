@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Lesson: Numbers with Miu & Lena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font updated to Sarabun -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', 'Noto Color Emoji', sans-serif;
+            transition: background-color 0.3s;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+        .play-btn {
+            background-color: #ec4899; /* pink-500 */
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .play-btn:hover {
+            background-color: #d946ef; /* fuchsia-500 */
+        }
+        .play-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        .tts-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        /* Local toggles styles */
+        .toggle-local-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .toggle-btn-local {
+            background-color: #f1f5f9; /* gray-100 */
+            color: #ec4899; /* pink-500 */
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 99px;
+            cursor: pointer;
+            border: 1px solid #ec4899;
+            transition: all 0.2s ease;
+        }
+        .toggle-btn-local.active {
+            background-color: #ec4899;
+            color: white;
+        }
+        /* Default state for text (will be hidden by JS) */
+        .ipa-text, .en-text {
+            display: block;
+        }
+    </style>
+</head>
+<body id="page-body" class="bg-pink-50 min-h-screen text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto space-y-8">
+
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <div class="learning-item">
+                <div class="tts-wrapper justify-center">
+                    <h1 class="text-3xl md:text-4xl font-bold text-pink-600">🔢 ตัวเลข (1-50)</h1>
+                    <button class="play-btn" data-text="ตัวเลข หนึ่ง ถึง ห้าสิบ" aria-label="Play audio">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                    </button>
+                </div>
+                <div class="toggle-local-wrapper justify-center">
+                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                    <button class="toggle-btn-local" data-toggle="en">EN</button>
+                </div>
+                <p class="text-sm text-gray-500 italic ipa-text">(Dtua-lêk 1-50)</p>
+                <p class="text-lg md:text-xl text-gray-600 mt-2 en-text">Thai Lesson: Numbers (1-50)</p>
+            </div>
+            <div class="learning-item">
+                <div class="tts-wrapper justify-center">
+                    <p class="text-md text-pink-500 font-semibold">(💄 ธีม: นับลิปสติกกับหมิว-ลีน่า 👯‍♀️)</p>
+                    <button class="play-btn w-8 h-8" data-text="ธีม: นับลิปสติกกับหมิว-ลีน่า" aria-label="Play audio">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                    </button>
+                </div>
+                <div class="toggle-local-wrapper justify-center">
+                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                    <button class="toggle-btn-local" data-toggle="en">EN</button>
+                </div>
+                <p class="text-sm text-gray-500 italic ipa-text">(Theme: Náp líp-sà-dtìk gàp Miu-Lena)</p>
+                <p class="text-md text-pink-500 font-semibold en-text">(Theme: Counting lipsticks with Miu-Lena)</p>
+            </div>
+        </header>
+
+        <div class="space-y-6">
+
+            <!-- Part 1: Warmer -->
+            <section class="card">
+                <div class="mb-4 learning-item">
+                    <div class="tts-wrapper">
+                        <h2 class="text-2xl font-bold text-pink-600">🔄 ส่วนที่ 1: ทบทวน</h2>
+                        <button class="play-btn" data-text="ส่วนที่ 1: ทบทวน" aria-label="Play audio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                        </button>
+                    </div>
+                    <div class="toggle-local-wrapper">
+                        <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                        <button class="toggle-btn-local" data-toggle="en">EN</button>
+                    </div>
+                    <p class="text-sm text-gray-500 italic ipa-text">(Sùan Thîi 1: Thóp-thuan)</p>
+                    <p class="text-lg text-gray-600 en-text">(Part 1: Review)</p>
+                </div>
+                <p class="mb-4 text-gray-600 en-text">Let's check your memory from the last lesson.</p>
+                
+                <div class="space-y-4">
+                    <!-- Question 1 -->
+                    <div class="p-3 bg-gray-50 rounded-lg learning-item">
+                        <div class="tts-wrapper">
+                            <p class="text-lg font-semibold text-gray-800">🗣️ Q: แนะนำตัวหน่อย (ค่ะ / ครับ)</p>
+                            <button class="play-btn" data-text="แนะนำตัวหน่อย" aria-label="Play audio">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </button>
+                        </div>
+                        <div class="toggle-local-wrapper">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            <button class="toggle-btn-local" data-toggle="en">EN</button>
+                        </div>
+                        <p class="text-sm text-gray-500 italic ipa-text">Nae-nam tua nòi (ka / khrap)?</p>
+                        <p class="text-md text-gray-700 en-text">Please introduce yourself.</p>
+                    </div>
+                    <!-- Question 2 -->
+                    <div class="p-3 bg-gray-50 rounded-lg learning-item">
+                        <div class="tts-wrapper">
+                            <p class="text-lg font-semibold text-gray-800">🌏 Q: เป็นคนที่ไหน (คะ / ครับ)</p>
+                             <button class="play-btn" data-text="เป็นคนที่ไหน" aria-label="Play audio">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </button>
+                        </div>
+                        <div class="toggle-local-wrapper">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            <button class="toggle-btn-local" data-toggle="en">EN</button>
+                        </div>
+                        <p class="text-sm text-gray-500 italic ipa-text">Bpen khon thîi-năi (kha / khrap)?</p>
+                        <p class="text-md text-gray-700 en-text">Where are you from?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 2: Script -->
+            <section class="card">
+                <div class="mb-4 learning-item">
+                    <div class="tts-wrapper">
+                        <h2 class="text-2xl font-bold text-pink-600">📜 ส่วนที่ 2: สคริปต์วันนี้</h2>
+                        <button class="play-btn" data-text="ส่วนที่ 2: สคริปต์วันนี้" aria-label="Play audio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                        </button>
+                    </div>
+                    <div class="toggle-local-wrapper">
+                        <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                        <button class="toggle-btn-local" data-toggle="en">EN</button>
+                    </div>
+                    <p class="text-sm text-gray-500 italic ipa-text">(Sùan Thîi 2: Sà-khríp Wan-Níi)</p>
+                    <p class="text-lg text-gray-600 en-text">(Part 2: Today's Script)</p>
+                </div>
+                
+                <div class="mb-4">
+                    <a href="https://www.tiktok.com/@daisy.flower.88/video/7572505318983224584" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-pink-600 hover:text-pink-800 font-semibold transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                        🎬 Watch Video (0:11-0:31)
+                    </a>
+                </div>
+
+                <p class="mb-4 text-gray-600 en-text">Counting lipsticks (แท่ง 💄)...</p>
+
+                <div class="space-y-4">
+                    <!-- Miu counting -->
+                    <div class="p-4 border rounded-lg learning-item">
+                        <p class="font-semibold text-pink-700">👩🏻 หมิว (Miu):</p>
+                        <div class="tts-wrapper">
+                            <p class="text-xl font-semibold text-gray-800">หนึ่ง... สอง... สาม... สี่...</p>
+                            <button class="play-btn" data-text="หนึ่ง สอง สาม สี่" aria-label="Play audio">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </button>
+                        </div>
+                        <div class="toggle-local-wrapper">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            <button class="toggle-btn-local" data-toggle="en">EN</button>
+                        </div>
+                        <p class="text-md text-gray-500 italic ipa-text">Neung... Sŏng... Săam... Sìi...</p>
+                        <p class="text-lg text-gray-700 en-text">One... Two... Three... Four...</p>
+                    </div>
+
+                    <!-- Miu Jump to 20 -->
+                    <div class="p-4 border rounded-lg learning-item">
+                        <p class="font-semibold text-pink-700">👩🏻 หมิว (Miu):</p>
+                        <div class="tts-wrapper">
+                            <p class="text-xl font-semibold text-gray-800">ยี่สิบ... ช่วยถือหน่อย</p>
+                            <button class="play-btn" data-text="ยี่สิบ... ช่วยถือหน่อย" aria-label="Play audio">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </button>
+                        </div>
+                        <div class="toggle-local-wrapper">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            <button class="toggle-btn-local" data-toggle="en">EN</button>
+                        </div>
+                        <p class="text-md text-gray-500 italic ipa-text">Yîi-sìp... Chûay thǔe nòi</p>
+                        <p class="text-lg text-gray-700 en-text">Twenty... Help me hold this a bit.</p>
+                    </div>
+
+                    <!-- Miu 21 -->
+                    <div class="p-4 border rounded-lg learning-item">
+                        <p class="font-semibold text-pink-700">👩🏻 หมิว (Miu):</p>
+                        <div class="tts-wrapper">
+                            <p class="text-xl font-semibold text-gray-800">ยี่สิบเอ็ด... สี่สิบเจ็ด... สี่สิบแปด</p>
+                            <button class="play-btn" data-text="ยี่สิบเอ็ด... สี่สิบเจ็ด... สี่สิบแปด" aria-label="Play audio">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </button>
+                        </div>
+                        <div class="toggle-local-wrapper">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            <button class="toggle-btn-local" data-toggle="en">EN</button>
+                        </div>
+                        <p class="text-md text-gray-500 italic ipa-text">Yîi-sìp-èt... Sìi-sìp-jèt... Sìi-sìp-pàet</p>
+                        <p class="text-lg text-gray-700 en-text">Twenty-one... Forty-seven... Forty-eight.</p>
+                    </div>
+
+                    <!-- MC & Miu (Split into separate items for correct toggling) -->
+                    <div class="p-4 border rounded-lg">
+                        <!-- MC Block -->
+                        <div class="learning-item mb-4">
+                            <p class="font-semibold text-gray-700">🎤 MC:</p>
+                            <div class="tts-wrapper">
+                                <p class="text-xl font-semibold text-gray-800">หมดแล้ว 48</p>
+                                <button class="play-btn" data-text="หมดแล้ว สี่สิบแปด" aria-label="Play audio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                                </button>
+                            </div>
+                            <div class="toggle-local-wrapper">
+                                <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                <button class="toggle-btn-local" data-toggle="en">EN</button>
+                            </div>
+                            <p class="text-md text-gray-500 italic ipa-text">Mòt láew sìi-sìp-pàet</p>
+                            <p class="text-lg text-gray-700 en-text">All gone, 48.</p>
+                        </div>
+
+                        <!-- Miu Block -->
+                        <div class="learning-item">
+                            <p class="font-semibold text-pink-700 border-t pt-4">👩🏻 หมิว (Miu):</p>
+                            <div class="tts-wrapper mt-2">
+                                <p class="text-xl font-semibold text-gray-800">อีก 2 แท่ง ครบ 50</p>
+                                <button class="play-btn" data-text="อีก สอง แท่ง ครบ ห้าสิบ" aria-label="Play audio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                                </button>
+                            </div>
+                            <div class="toggle-local-wrapper">
+                                <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                <button class="toggle-btn-local" data-toggle="en">EN</button>
+                            </div>
+                            <p class="text-md text-gray-500 italic ipa-text">Ìik sŏng thâeng 💄, khróp hâa-sìp</p>
+                            <p class="text-lg text-gray-700 en-text">Another 2 sticks 💄, completes 50.</p>
+                        </div>
+                    </div>
+
+                    <!-- Lena & Miu (Split into separate items) -->
+                    <div class="p-4 border rounded-lg">
+                         <!-- Lena Block -->
+                        <div class="learning-item mb-4">
+                            <p class="font-semibold text-fuchsia-700">👧🏻 ลีน่า (Lena):</p>
+                            <div class="tts-wrapper">
+                                <p class="text-xl font-semibold text-gray-800">หนูพก 4 แท่ง</p>
+                                <button class="play-btn" data-text="หนูพก สี่ แท่ง" aria-label="Play audio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                                </button>
+                            </div>
+                            <div class="toggle-local-wrapper">
+                                <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                <button class="toggle-btn-local" data-toggle="en">EN</button>
+                            </div>
+                            <p class="text-md text-gray-500 italic ipa-text">Nǔu phók sìi thâeng 💄</p>
+                            <p class="text-lg text-gray-700 en-text">I carry 4 sticks 💄. (Nǔu = cute pronoun for 'I')</p>
+                        </div>
+
+                        <!-- Miu Block -->
+                        <div class="learning-item">
+                            <p class="font-semibold text-pink-700 border-t pt-4">👩🏻 หมิว (Miu):</p>
+                            <div class="tts-wrapper mt-2">
+                                <p class="text-xl font-semibold text-gray-800">สี่สิบเก้า</p>
+                                <button class="play-btn" data-text="สี่สิบเก้า" aria-label="Play audio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                                </button>
+                            </div>
+                            <div class="toggle-local-wrapper">
+                                <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                <button class="toggle-btn-local" data-toggle="en">EN</button>
+                            </div>
+                            <p class="text-md text-gray-500 italic ipa-text">Sìi-sìp-kâo</p>
+                            <p class="text-lg text-gray-700 en-text">Forty-nine.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Part 3: Grammar -->
+            <section class="card">
+                <div class="mb-4 learning-item">
+                    <div class="tts-wrapper">
+                        <h2 class="text-2xl font-bold text-pink-600">📏 ส่วนที่ 3: กฎตัวเลข</h2>
+                        <button class="play-btn" data-text="ส่วนที่ 3: กฎตัวเลข" aria-label="Play audio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                        </button>
+                    </div>
+                    <div class="toggle-local-wrapper">
+                        <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                        <button class="toggle-btn-local" data-toggle="en">EN</button>
+                    </div>
+                    <p class="text-sm text-gray-500 italic ipa-text">(Gòt Dtua-lêk)</p>
+                    <p class="text-lg text-gray-600 en-text">(Part 3: Number Rules)</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- 1-10 -->
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-lg text-gray-800 mb-2">1. Basic Numbers (1-5)</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- Item 1 -->
+                            <div class="learning-item bg-white p-2 rounded shadow-sm border">
+                                <div class="tts-wrapper">
+                                    <span>1 หนึ่ง</span>
+                                    <button class="play-btn w-5 h-5" data-text="หนึ่ง"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Neung</p>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="learning-item bg-white p-2 rounded shadow-sm border">
+                                <div class="tts-wrapper">
+                                    <span>2 สอง</span>
+                                    <button class="play-btn w-5 h-5" data-text="สอง"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Sŏng</p>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="learning-item bg-white p-2 rounded shadow-sm border">
+                                <div class="tts-wrapper">
+                                    <span>3 สาม</span>
+                                    <button class="play-btn w-5 h-5" data-text="สาม"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Săam</p>
+                            </div>
+                            <!-- Item 4 -->
+                            <div class="learning-item bg-white p-2 rounded shadow-sm border">
+                                <div class="tts-wrapper">
+                                    <span>4 สี่</span>
+                                    <button class="play-btn w-5 h-5" data-text="สี่"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Sìi</p>
+                            </div>
+                            <!-- Item 5 -->
+                            <div class="learning-item bg-white p-2 rounded shadow-sm border">
+                                <div class="tts-wrapper">
+                                    <span>5 ห้า</span>
+                                    <button class="play-btn w-5 h-5" data-text="ห้า"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Hâa</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rule 2: Tens -->
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-lg text-gray-800 mb-2">2. The "Special 2" and "Special 1"</h4>
+                        <div class="space-y-2">
+                            <div class="learning-item border-l-4 border-pink-400 pl-2 pr-2 pb-2">
+                                <p class="font-bold pt-2">✌️ For 20, 21, 22... Use "ยี่" (Yîi)</p>
+                                <div class="tts-wrapper mt-1">
+                                    <span>20 = ยี่สิบ <span class="text-red-500 line-through text-sm">สองสิบ</span></span>
+                                    <button class="play-btn w-5 h-5" data-text="ยี่สิบ"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Yîi-sìp</p>
+                            </div>
+                            <div class="learning-item border-l-4 border-blue-400 pl-2 pr-2 pb-2">
+                                <p class="font-bold pt-2">☝️ For 11, 21, 31... ending in 1, Use "เอ็ด" (Èt)</p>
+                                <div class="tts-wrapper mt-1">
+                                    <span>21 = ยี่สิบเอ็ด</span>
+                                    <button class="play-btn w-5 h-5" data-text="ยี่สิบเอ็ด"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                                </div>
+                                <div class="toggle-local-wrapper">
+                                    <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                                </div>
+                                <p class="text-sm text-gray-500 italic ipa-text">Yîi-sìp-èt</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Rule 3: Structure -->
+                     <div class="p-3 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-lg text-gray-800 mb-2">3. Big Numbers Structure 🏗️</h4>
+                        <p class="text-md font-semibold"><code class="bg-pink-100 p-1 rounded">[First Number] + สิบ (sìp) + [Second Number]</code></p>
+                        <div class="mt-2 learning-item bg-white p-2 rounded border">
+                            <div class="tts-wrapper">
+                                <span>48 = สี่ + สิบ + แปด</span>
+                                <button class="play-btn w-5 h-5" data-text="สี่สิบแปด"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                            </div>
+                            <div class="toggle-local-wrapper">
+                                <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                            </div>
+                            <p class="text-sm italic text-gray-600 ipa-text">Sìi-sìp-pàet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Part 4: Practice -->
+             <section class="card">
+                <div class="mb-4 learning-item">
+                    <div class="tts-wrapper">
+                        <h2 class="text-2xl font-bold text-pink-600">🗣️ ส่วนที่ 4: ฝึกพูด</h2>
+                        <button class="play-btn" data-text="ส่วนที่ 4: ฝึกพูด" aria-label="Play audio">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                        </button>
+                    </div>
+                    <div class="toggle-local-wrapper">
+                        <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                        <button class="toggle-btn-local" data-toggle="en">EN</button>
+                    </div>
+                    <p class="text-sm text-gray-500 italic ipa-text">(Sùan Thîi 4: Fèuk Phûut)</p>
+                    <p class="text-lg text-gray-600 en-text">(Part 4: Your Turn!)</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="learning-item">
+                        <p class="text-gray-700">⌨️ พิมพ์ตัวเลข (1-99) เพื่อดูคำอ่าน!</p>
+                        <div class="flex gap-2 mt-2">
+                            <input type="number" id="num-input" class="flex-1 rounded-md border-gray-300 shadow-sm border p-2" placeholder="e.g. 25" min="1" max="99">
+                            <button id="convert-btn" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 font-bold">Say it! 📣</button>
+                        </div>
+                    </div>
+
+                    <!-- Output -->
+                    <div id="num-output" class="p-4 bg-pink-50 rounded-lg border border-pink-200 hidden learning-item">
+                        <div class="tts-wrapper justify-center">
+                            <p id="thai-num" class="text-2xl font-bold text-pink-700 mr-2"></p>
+                            <button id="play-num-btn" class="play-btn" data-text=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg></button>
+                        </div>
+                         <div class="toggle-local-wrapper justify-center">
+                            <button class="toggle-btn-local" data-toggle="ipa">IPA</button>
+                        </div>
+                        <p id="rom-num" class="text-center text-gray-600 italic ipa-text mt-2"></p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Text-to-Speech Function ---
+        function playThai(text, lang = 'th-TH') {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.log("Sorry, your browser doesn't support Text-to-Speech.");
+            }
+        }
+
+        // --- Event Delegation ---
+        document.body.addEventListener('click', function(e) {
+            // Play Audio
+            const playBtn = e.target.closest('.play-btn');
+            if (playBtn) {
+                const textToSpeak = playBtn.dataset.text;
+                if (textToSpeak) {
+                    playThai(textToSpeak);
+                }
+                return;
+            }
+
+            // Toggle Local
+            const toggleBtn = e.target.closest('.toggle-btn-local');
+            if (toggleBtn) {
+                const toggleType = toggleBtn.dataset.toggle; // 'ipa' or 'en'
+                const parentItem = e.target.closest('.learning-item');
+                if (parentItem) {
+                    const textElement = parentItem.querySelector('.' + toggleType + '-text');
+                    if (textElement) {
+                        const isHidden = textElement.style.display === 'none';
+                        textElement.style.display = isHidden ? 'block' : 'none';
+                        toggleBtn.classList.toggle('active', isHidden);
+                    }
+                }
+            }
+        });
+
+        // --- Number Logic ---
+        const thaiNums = ["ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า"];
+        const thaiRom = ["Sǔun", "Neung", "Sŏng", "Săam", "Sìi", "Hâa", "Hòk", "Jèt", "Pàet", "Kâo"];
+
+        document.getElementById('convert-btn').addEventListener('click', () => {
+            const val = parseInt(document.getElementById('num-input').value);
+            if (!val || val < 0 || val > 99) return;
+
+            let thaiText = "";
+            let romText = "";
+
+            if (val < 10) {
+                thaiText = thaiNums[val];
+                romText = thaiRom[val];
+            } else {
+                const ten = Math.floor(val / 10);
+                const unit = val % 10;
+
+                // Tens part
+                if (ten === 1) {
+                    thaiText += "สิบ";
+                    romText += "Sìp";
+                } else if (ten === 2) {
+                    thaiText += "ยี่สิบ";
+                    romText += "Yîi-sìp";
+                } else {
+                    thaiText += thaiNums[ten] + "สิบ";
+                    romText += thaiRom[ten] + "-sìp";
+                }
+
+                // Unit part
+                if (unit === 1) {
+                    thaiText += "เอ็ด";
+                    romText += "-èt";
+                } else if (unit > 1) {
+                    thaiText += thaiNums[unit];
+                    romText += "-" + thaiRom[unit].toLowerCase();
+                }
+            }
+
+            document.getElementById('thai-num').textContent = thaiText;
+            document.getElementById('rom-num').textContent = romText;
+            document.getElementById('play-num-btn').dataset.text = thaiText;
+            
+            const output = document.getElementById('num-output');
+            output.classList.remove('hidden');
+            // Reset toggles in output
+             output.querySelectorAll('.ipa-text').forEach(el => el.style.display = 'none');
+             output.querySelectorAll('.toggle-btn-local').forEach(btn => btn.classList.remove('active'));
+        });
+
+        // Initial state: hide all toggleable text
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.ipa-text, .en-text').forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
