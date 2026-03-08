@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>บทเรียนภาษาไทยสุดสนุก</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Fonts: Kanit (Modern Thai Font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONS ---
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const icons = {
+                play: <path d="m6 3 14 9-14 9V3z"/>,
+                refresh: <><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></>,
+                message: <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>,
+                star: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>,
+                zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            };
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    {icons[name]}
+                </svg>
+            );
+        };
+
+        // --- DATA ---
+        // Target Vocab
+        const targetVocab = [
+            { t: "น่ากิน", i: "nâa-gin", e: "looks delicious", em: "🤤" },
+            { t: "ตื่นเช้า", i: "dtʉ̀ʉn-cháo", e: "wake up early", em: "🌅" },
+            { t: "ไม่ได้", i: "mâi dâi", e: "cannot / no", em: "🙅" },
+            { t: "บอก", i: "bɔ̀ɔk", e: "tell", em: "🗣️" },
+            { t: "ทำให้", i: "tam hâi", e: "make (for someone)", em: "🍳" }
+        ];
+
+        // Video Script
+        const scriptData = [
+            { speaker: "ลม", t: "โห น่ากินอ่ะ", i: "hǒo nâa-gin à", e: "Wow, looks delicious!", em: "🤤" },
+            { speaker: "ลม", t: "พี่ดินตื่นเช้ามาทำเลยเหรอ", i: "pîi-din dtʉ̀ʉn-cháo maa tam ləəi rɔ̌ɔ", e: "Did P'Din wake up early to make this?", em: "🌅" },
+            { speaker: "พี่ดิน", t: "เฮ้ย ไม่ได้ ของโรส", i: "hə́əi mâi dâi kɔ̌ɔng róot", e: "Hey, no, it's for Rose.", em: "🙅" },
+            { speaker: "พี่ดิน", t: "ลมจะกินอะไร ก็บอกป้าจันทร์ให้ทำให้ดิ", i: "Lom jà gin à-rai gɔ̂ bɔ̀ɔk bpâa-jan hâi tam hâi dì", e: "What do you want to eat, Lom? Just tell Aunt Chan to make it for you.", em: "🗣️" }
+        ];
+
+        // Massive Review List
+        const reviewVocabList = [
+            { t: "น้ำเปล่า", i: "náam-bplàao", e: "plain water", em: "💧" }, { t: "สั่ง", i: "sàng", e: "order", em: "📝" },
+            { t: "ตาม", i: "dtaam", e: "follow", em: "➡️" }, { t: "อาหารตามสั่ง", i: "aa-hăan-dtaam-sàng", e: "cooked-to-order food", em: "🍛" },
+            { t: "แนะนำ", i: "náe-nam", e: "recommend / introduce", em: "💡" }, { t: "รมควัน", i: "rom-kwan", e: "smoked", em: "🥓" },
+            { t: "หมัก", i: "màk", e: "marinate", em: "🥩" }, { t: "กะเพรา", i: "gà-prao", e: "basil", em: "🌿" },
+            { t: "รสชาติ", i: "rót-châat", e: "Tastes / Flavours", em: "😋" }, { t: "ยำ", i: "yam", e: "spicy salad", em: "🥗" },
+            { t: "รวม", i: "ruam", e: "mixed / combined", em: "🔀" }, { t: "ทะเล", i: "tá-lay", e: "sea", em: "🌊" },
+            { t: "เดือด", i: "deùat", e: "boiling", em: "🔥" }, { t: "น้ำแข็ง", i: "náam-kăeng", e: "ice", em: "🧊" },
+            { t: "มี", i: "mii", e: "have", em: "✅" }, { t: "ไม่เย็น", i: "mâi-yen", e: "room temp", em: "🥤" },
+            { t: "หมูกรอบ", i: "mǔu-grɔ̀ɔp", e: "crispy pork", em: "🐷" }, { t: "ร้อย", i: "rɔ́ɔi", e: "hundred", em: "💯" },
+            { t: "พิเศษ", i: "phí-sèet", e: "special / extra", em: "✨" }, { t: "ไข่ดาว", i: "khài-daao", e: "fried eggs", em: "🍳" },
+            { t: "ไข่กวน", i: "khài-guan", e: "scrambled eggs", em: "🍳" }, { t: "ปลาหมึก", i: "bplaa-mʉ̀k", e: "squid", em: "🦑" },
+            { t: "หนังสือ", i: "nǎng-sʉ̌ʉ", e: "books", em: "📚" }, { t: "ปลา", i: "bplaa", e: "fish", em: "🐟" },
+            { t: "แก้ว", i: "gɛ̂ɛo", e: "cup / glass", em: "🥛" }, { t: "ใหญ่", i: "yài", e: "large", em: "📏" },
+            { t: "หวาน", i: "wǎan", e: "sweet", em: "🍬" }, { t: "นี่", i: "nîi", e: "Here", em: "📍" },
+            { t: "บางครั้ง", i: "baang-khráng", e: "sometimes", em: "⏳" }, { t: "ปั่น", i: "bpàn", e: "blend / frappe", em: "🌀" },
+            { t: "กลาง", i: "glaang", e: "Medium", em: "🥤" }, { t: "เล็ก", i: "lék", e: "Small", em: "🔹" },
+            { t: "หวานน้อย", i: "wǎan-nɔ́ɔi", e: "Little sweet", em: "🍹" }, { t: "หวานปกติ", i: "wǎan bpòk-gà-dtì", e: "Regular sweet", em: "🍬" },
+            { t: "กลับบ้าน", i: "glàp-bâan", e: "Takeaway", em: "🏠" }, { t: "เครื่องดื่ม", i: "khrʉ̂ang-dʉ̀ʉm", e: "beverages", em: "🥤" },
+            { t: "โบราณ", i: "boo-raan", e: "ancient", em: "🏺" }, { t: "ไข่มุก", i: "khài-múk", e: "pearls", em: "🧋" },
+            { t: "เพิ่ม", i: "phɛ̂ɛm", e: "extra", em: "➕" }, { t: "นม", i: "nom", e: "milk", em: "🥛" },
+            { t: "ดูอร่อย", i: "duu à-rɔ̀i", e: "looks delicious", em: "😋" }, { t: "ช่วงนี้", i: "chûang-níi", e: "recently", em: "⏳" },
+            { t: "แปปนึง", i: "bpáeb-neung", e: "just a moment", em: "⏳" }, { t: "วันนี้", i: "wan-níi", e: "today", em: "📅" },
+            { t: "พรุ่งนี้", i: "prûng níi", e: "tomorrow", em: "📅" }, { t: "ลืม", i: "lʉ̄m", e: "to forget", em: "🤦" },
+            { t: "ทำ", i: "tam", e: "do / make", em: "🛠️" }, { t: "ครอบครัว", i: "krôp-krua", e: "family", em: "👨‍👩‍👧‍👦" },
+            { t: "ของ", i: "kŏng", e: "of", em: "🔗" }, { t: "กี่", i: "gèe", e: "How many", em: "🔢" },
+            { t: "คน", i: "kon", e: "people", em: "👥" }, { t: "ใคร", i: "krai", e: "who", em: "❓" },
+            { t: "บ้าง", i: "bâang", e: "used when expecting >1 answer", em: "🔢" }, { t: "พี่", i: "pêe", e: "older sibling", em: "👨‍👩‍👧‍👦" },
+            { t: "น้อง", i: "nóng", e: "younger sibling", em: "👶" }, { t: "พี่น้อง", i: "pêe-nóng", e: "siblings", em: "👫" },
+            { t: "อายุ", i: "aa-yú", e: "age", em: "🎂" }, { t: "ปี", i: "bpee", e: "year", em: "📅" },
+            { t: "ทำงาน", i: "tam-ngaan", e: "To work", em: "💼" }, { t: "เป็น", i: "bpen", e: "To be", em: "🔗" },
+            { t: "นักศึกษา", i: "nák-sùk-săa", e: "university student", em: "🎓" }, { t: "สี", i: "sĕe", e: "colour", em: "🎨" },
+            { t: "ผม", i: "pŏm", e: "hair / I", em: "👨" }, { t: "น่าตื่นเต้น", i: "nâa-dtùuen-dtên", e: "exciting", em: "🤩" },
+            { t: "ชมพู", i: "chom-puu", e: "pink", em: "🩷" }, { t: "เรียน", i: "rian", e: "learn", em: "📚" },
+            { t: "พูดอีกครั้งได้ไหม", i: "pôot ìik kráng dâi măi", e: "Can you say it again?", em: "🔁" }, { t: "ไส้กรอก", i: "sâi-gròk", e: "sausage", em: "🌭" },
+            { t: "ตลก", i: "dtà-lòk", e: "funny", em: "🤣" }, { t: "อยู่", i: "yùu", e: "live / stay", em: "📍" },
+            { t: "ยาย", i: "yaai", e: "maternal grandma", em: "🧓" }, { t: "ตา", i: "dtaa", e: "maternal grandpa", em: "👴" },
+            { t: "แฟน", i: "faen", e: "partner", em: "👨‍❤️‍💋‍👨" }, { t: "ภรรยา", i: "pan-rá-yaa", e: "wife", em: "👰‍♀️" },
+            { t: "สามี", i: "sǎa-mee", e: "husband", em: "🤵‍♂️" }, { t: "ลูก", i: "lûuk", e: "offspring", em: "👶" },
+            { t: "คนละพ่อ", i: "kon-lá-pɔ̂ɔ", e: "different dads", em: "👨‍🍼" }, { t: "ปู่ย่าตายาย", i: "bpùu-yâa-dtaa-yaai", e: "grandparents", em: "🧓" },
+            { t: "เพื่อน", i: "pêuan", e: "friends", em: "🧑‍🤝‍🧑" }, { t: "หมา", i: "mǎa", e: "dogs", em: "🐶" },
+            { t: "แมว", i: "maeo", e: "cats", em: "😺" }, { t: "ใหม่", i: "mài", e: "new", em: "🆕" },
+            { t: "ที่ไหน", i: "tîi nǎi", e: "where", em: "🪧" }, { t: "บ้าน", i: "bâan", e: "house", em: "🏠" },
+            { t: "เนื้อ", i: "nʉ́a", e: "beef", em: "🥩" }, { t: "ไป", i: "bpai", e: "Go", em: "🚶" },
+            { t: "รวย", i: "ruai", e: "rich", em: "🤑" }, { t: "เที่ยว", i: "tîao", e: "travel", em: "🚗" },
+            { t: "ขับรถ", i: "khàp rót", e: "Drive", em: "🚘" }, { t: "สอน", i: "sɔ̌ɔn", e: "teach", em: "👨‍🏫" },
+            { t: "ซื้อ", i: "sʉ́ʉ", e: "buy", em: "🛍️" }, { t: "แพง", i: "paaeng", e: "expensive", em: "💸" },
+            { t: "นักแสดง", i: "nák-sà-daeng", e: "actor", em: "🎭" }, { t: "ร้าน", i: "ráan", e: "shops", em: "🏪" },
+            { t: "เขา", i: "kǎo", e: "He/She", em: "👤" }, { t: "มะเขือเทศ", i: "má-kʉ̌a-thêt", e: "tomatoes", em: "🍅" },
+            { t: "เมื่อไร", i: "mʉ̂ʉa-rài", e: "When", em: "❓" }, { t: "เมื่อวาน", i: "mʉ̂ʉ waan", e: "yesterday", em: "⏪" },
+            { t: "ใกล้", i: "glâi", e: "near", em: "📍" }, { t: "เข้าใจ", i: "kâo-jai", e: "understand", em: "💡" },
+            { t: "รู้", i: "rúu", e: "know", em: "🧠" }, { t: "เห็น", i: "hěn", e: "see", em: "👁️" },
+            { t: "เล่น", i: "lên", e: "play", em: "⚽️" }, { t: "เดิน", i: "dəən", e: "walk", em: "🚶‍♂️" },
+            { t: "รู้สึก", i: "rúu-sùek", e: "To feel", em: "😊" }, { t: "เยอะ", i: "yér", e: "a lot", em: "🔢" },
+            { t: "ร้องไห้", i: "róng-hâi", e: "To cry", em: "😭" }, { t: "หอม", i: "hŏrm", e: "smell nice", em: "👃" },
+            { t: "เงินสด", i: "ngoen-ngòt", e: "cash", em: "💵" }, { t: "หรือ", i: "rĕu", e: "or", em: "🔀" },
+            { t: "ข้าว", i: "kâao", e: "rice", em: "🍚" }, { t: "โรงพยาบาล", i: "roong-pha-yaa-baan", e: "hospital", em: "🏥" },
+            { t: "ดื่ม", i: "dùuem", e: "drink", em: "🥤" }, { t: "เวลา", i: "way-laa", e: "time", em: "⏰" },
+            { t: "เรื่อยๆ", i: "rʉ̂ʉay-rʉ̂ʉay", e: "so so", em: "😐" }, { t: "เหนื่อย", i: "nèuuay", e: "tired", em: "😩" },
+            { t: "ทำไม", i: "tam-mai", e: "why", em: "❓" }, { t: "มา", i: "maa", e: "come", em: "👣" },
+            { t: "ติดงาน", i: "dtìt-ngaan", e: "stuck at work", em: "💼" }, { t: "หนาว", i: "năao", e: "cold", em: "🥶" },
+            { t: "ธรรมดา", i: "tam-ma-daa", e: "normal", em: "👌" }, { t: "เกี่ยวกับ", i: "gìeow-gàp", e: "about", em: "ℹ️" },
+            { t: "ตำรวจ", i: "tam-lùuat", e: "police", em: "👮‍♂️" }, { t: "แตกต่าง", i: "dtàek-dtàang", e: "different", em: "🆚" },
+            { t: "ลูกครึ่ง", i: "lôok-krêung", e: "mixed race", em: "🧬" }, { t: "ดาว", i: "daao", e: "star", em: "⭐️" },
+            { t: "ศิลปกรรม", i: "sǐn-lá-bpà-gam", e: "fine arts", em: "🎨" }, { t: "สาขา", i: "săa-kăa", e: "major/branch", em: "🌿" },
+            { t: "หมด", i: "mòt", e: "out of stock", em: "🚫" }, { t: "อื่น", i: "ùen", e: "other", em: "🆕" }
+        ];
+
+        // --- CORE COMPONENT: Interactive Thai Text ---
+        const ThaiText = ({ text, ipa, en, emoji = "", speaker = "", isHeader = false, isTitle = false, isBox = false }) => {
+            const [showIpa, setShowIpa] = useState(false);
+            const [showEn, setShowEn] = useState(false);
+
+            const handleSpeak = (e) => {
+                e.stopPropagation();
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'th-TH';
+                    utterance.rate = 0.85;
+                    window.speechSynthesis.speak(utterance);
+                }
+            };
+
+            let containerClass = "w-full rounded-2xl p-4 mb-3 transition-all relative ";
+            let textClass = "font-medium cursor-pointer group flex-1 flex flex-wrap items-center gap-2 ";
+
+            if (isTitle) {
+                containerClass += "bg-indigo-600 shadow-lg border border-indigo-400";
+                textClass += "text-2xl md:text-3xl font-bold text-white text-center justify-center";
+            } else if (isHeader) {
+                containerClass += "bg-indigo-50 border-2 border-indigo-200 shadow-sm";
+                textClass += "text-xl md:text-2xl font-bold text-indigo-800";
+            } else if (isBox) {
+                containerClass += "bg-white border-2 border-dashed border-slate-300 shadow-sm";
+                textClass += "text-lg text-slate-700 italic justify-center text-center";
+            } else {
+                containerClass += "bg-white border border-slate-200 shadow-sm hover:border-indigo-300 hover:shadow-md";
+                textClass += "text-lg text-slate-800";
+            }
+
+            return (
+                <div className={containerClass}>
+                    {speaker && <div className="text-xs font-bold text-indigo-500 uppercase mb-1">{speaker}</div>}
+                    
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div onClick={handleSpeak} className={textClass}>
+                            {emoji && <span>{emoji}</span>}
+                            <span className="hover:text-indigo-500 transition-colors">
+                                {text} <span className="text-xl opacity-30 group-hover:opacity-100 transition-opacity">🔊</span>
+                            </span>
+                        </div>
+                        
+                        <div className="flex gap-2 shrink-0 self-end sm:self-auto">
+                            <button 
+                                onClick={() => setShowIpa(!showIpa)}
+                                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${showIpa ? 'bg-amber-400 text-amber-900 shadow-inner' : (isTitle ? 'bg-indigo-800 text-indigo-200' : 'bg-slate-100 text-slate-500')}`}
+                            >
+                                IPA
+                            </button>
+                            <button 
+                                onClick={() => setShowEn(!showEn)}
+                                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${showEn ? 'bg-blue-500 text-white shadow-inner' : (isTitle ? 'bg-indigo-800 text-indigo-200' : 'bg-slate-100 text-slate-500')}`}
+                            >
+                                EN
+                            </button>
+                        </div>
+                    </div>
+
+                    {(showIpa || showEn) && (
+                        <div className={`mt-3 pt-3 flex flex-col gap-2 fade-in border-t border-dashed ${isTitle ? 'border-indigo-400/50' : 'border-slate-200'}`}>
+                            {showIpa && (
+                                <div className={`flex items-start gap-2 font-mono ${isTitle ? 'text-amber-200' : 'text-amber-600'}`}>
+                                    <span className="text-[10px] font-bold uppercase mt-1 opacity-60">IPA</span>
+                                    <span>{ipa}</span>
+                                </div>
+                            )}
+                            {showEn && (
+                                <div className={`flex items-start gap-2 ${isTitle ? 'text-blue-200' : 'text-blue-600'}`}>
+                                    <span className="text-[10px] font-bold uppercase mt-1 opacity-60">EN</span>
+                                    <span className="italic">{en}</span>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- SECTIONS ---
+
+        const ReviewSection = () => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+
+            useEffect(() => { pickRandom(); }, []);
+
+            const pickRandom = () => {
+                const randIndex = Math.floor(Math.random() * reviewVocabList.length);
+                setCurrentIndex(randIndex);
+            };
+
+            const word = reviewVocabList[currentIndex];
+            if (!word) return null;
+
+            return (
+                <div className="space-y-4 pb-8 fade-in">
+                    <ThaiText text="เกมทบทวนคำศัพท์" ipa="geem tób-tuan kam-sàp" en="Vocabulary Review Game" emoji="🎲" isHeader={true} />
+                    <ThaiText text="แต่งประโยคจากคำนี้!" ipa="dtɛ̀ng bprà-yòok jàak kam níi!" en="Make a sentence from this word!" emoji="🎯" />
+                    
+                    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 rounded-[2rem] shadow-xl text-center relative overflow-hidden mt-6">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Icon name="star" size={100} />
+                        </div>
+                        
+                        <div className="text-8xl mb-6 drop-shadow-xl">{word.em}</div>
+                        <ThaiText text={word.t} ipa={word.i} en={word.e} isTitle={true} />
+                        
+                        <button 
+                            onClick={pickRandom}
+                            className="mt-6 bg-white text-indigo-700 font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto w-full sm:w-auto"
+                        >
+                            <Icon name="refresh" size={20} /> <span>สุ่มคำใหม่</span>
+                        </button>
+                    </div>
+
+                    <div className="mt-8">
+                        <ThaiText text="ตัวอย่างตลกๆ" ipa="dtua-yàang dtà-lòk dtà-lòk" en="Funny Example" emoji="😂" isHeader={true} />
+                        <ThaiText text="หมูกรอบ อร่อย แต่ แพง... แฟน ร้องไห้" ipa="mǔu-grɔ̀ɔp à-rɔ̀i dtɛ̀ɛ paaeng... faen róng-hâi" en="Crispy pork is delicious but expensive... my partner cries." emoji="💸" isBox={true} />
+                    </div>
+                </div>
+            );
+        };
+
+        const VideoSection = () => (
+            <div className="space-y-4 pb-8 fade-in">
+                <ThaiText text="ดูวิดีโอคลิป" ipa="duu wí-dii-oo klíp" en="Watch the video clip" emoji="🎬" isHeader={true} />
+                
+                <div className="rounded-[2rem] overflow-hidden shadow-xl bg-black aspect-video relative border-4 border-indigo-100">
+                    <iframe 
+                        className="w-full h-full absolute top-0 left-0"
+                        src="https://www.youtube.com/embed/cRInMnuIxps?start=3&end=16&cc_load_policy=1" 
+                        title="YouTube video player" 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen>
+                    </iframe>
+                </div>
+
+                <div className="mt-8 space-y-2">
+                    <ThaiText text="บทสนทนา" ipa="bòt sǒn-tá-naa" en="Dialogue" emoji="💬" isHeader={true}/>
+                    {scriptData.map((line, i) => (
+                        <ThaiText key={i} text={line.t} ipa={line.i} en={line.e} emoji={line.em} speaker={line.speaker} />
+                    ))}
+                </div>
+            </div>
+        );
+
+        const VocabSection = () => (
+            <div className="space-y-4 pb-8 fade-in">
+                <ThaiText text="คำศัพท์น่ารู้ 5 คำ" ipa="kam-sàp nâa-rúu hâa kam" en="5 Useful Vocabulary Words" emoji="🧠" isHeader={true} />
+                <ThaiText text="เรียนคำศัพท์ใหม่เพื่อใช้พูดตลกๆ" ipa="rian kam-sàp mài pʉ̂a chái pûut dtà-lòk dtà-lòk" en="Learn new vocab to use in funny speaking" emoji="✨" />
+                
+                <div className="flex flex-col gap-2 mt-4">
+                    {targetVocab.map((v, i) => (
+                        <ThaiText key={i} text={v.t} ipa={v.i} en={v.e} emoji={v.em} />
+                    ))}
+                </div>
+            </div>
+        );
+
+        const SpeakingSection = () => (
+            <div className="space-y-6 pb-8 fade-in">
+                <ThaiText text="กิจกรรมพูดสุดฮา" ipa="gìt-jà-gam pûut sùt haa" en="Hilarious Speaking Activities" emoji="🤣" isHeader={true} />
+
+                {/* Roleplay 1 */}
+                <div className="bg-orange-50 p-5 rounded-[2rem] border-2 border-orange-200 shadow-sm">
+                    <ThaiText text="บทบาทสมมติ: ขโมยของกิน" ipa="bòt-bàat sǒm-mút: kà-mooi kɔ̌ɔng gin" en="Roleplay: Food Thief" emoji="🥷" isHeader={true}/>
+                    <ThaiText text="ใช้คำศัพท์: น่ากิน, ไม่ได้" ipa="chái kam-sàp: nâa-gin, mâi dâi" en="Use vocab: Looks delicious, Cannot" emoji="🎯" isBox={true} />
+                    
+                    <div className="mt-4 space-y-2">
+                        <ThaiText text="หมา: โห หมูกรอบ น่ากิน อ่ะ!" ipa="mǎa: hǒo mǔu-grɔ̀ɔp nâa-gin à!" en="Dog: Wow, crispy pork looks delicious!" emoji="🐶" speaker="A"/>
+                        <ThaiText text="เจ้าของ: เฮ้ย ไม่ได้! ของ แฟน!" ipa="jâo-kɔ̌ɔng: hə́əi mâi dâi! kɔ̌ɔng faen!" en="Owner: Hey, cannot! It belongs to my partner!" emoji="🙎‍♂️" speaker="B"/>
+                    </div>
+                </div>
+
+                {/* Funny Interview */}
+                <div className="bg-sky-50 p-5 rounded-[2rem] border-2 border-sky-200 shadow-sm">
+                    <ThaiText text="สัมภาษณ์: คนตื่นเช้า" ipa="sǎm-pâat: kon dtʉ̀ʉn-cháo" en="Interview: The Early Riser" emoji="🎤" isHeader={true}/>
+                    <ThaiText text="ใช้คำศัพท์: ตื่นเช้า, บอก, ทำให้" ipa="chái kam-sàp: dtʉ̀ʉn-cháo, bɔ̀ɔk, tam hâi" en="Use vocab: Wake up early, Tell, Make for someone" emoji="🎯" isBox={true} />
+                    
+                    <div className="mt-4 space-y-2">
+                        <ThaiText text="ทำไม ตื่นเช้า มาก?" ipa="tam-mai dtʉ̀ʉn-cháo mâak?" en="Why do you wake up so early?" emoji="🕵️‍♂️" speaker="A"/>
+                        <ThaiText text="เพราะ แฟน บอก ให้ ทำให้ กิน!" ipa="prɔ́ faen bɔ̀ɔk hâi tam hâi gin!" en="Because my partner told me to make it for them to eat!" emoji="🍳" speaker="B"/>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const ExtensionSection = () => (
+            <div className="space-y-6 pb-8 fade-in">
+                <ThaiText text="กิจกรรมเสริมเวลาเหลือ" ipa="gìt-jà-gam sə̌əm wee-laa lʉ̌a" en="Extension Activities (Extra Time)" emoji="🚀" isHeader={true} />
+
+                {/* Funny Debate */}
+                <div className="bg-rose-50 p-5 rounded-[2rem] border-2 border-rose-200 shadow-sm">
+                    <ThaiText text="โต้วาทีสุดฮา" ipa="dtôo-waa-tii sùt haa" en="Funny Debate" emoji="⚖️" isHeader={true}/>
+                    <ThaiText text="สั่ง อาหารตามสั่ง VS บอก แฟน ให้ ทำให้" ipa="sàng aa-hăan-dtaam-sàng VS bɔ̀ɔk faen hâi tam hâi" en="Order made-to-order food VS Tell partner to make it" emoji="🥊" isTitle={true}/>
+                    <ThaiText text="อะไรดีกว่ากัน? เพราะอะไร?" ipa="à-rai dii gwàa gan? prɔ́ à-rai?" en="Which is better? Why?" emoji="🤔" isBox={true} />
+                </div>
+
+                {/* Story Telling */}
+                <div className="bg-emerald-50 p-5 rounded-[2rem] border-2 border-emerald-200 shadow-sm">
+                    <ThaiText text="เล่าเรื่องตลก: อาหารที่หายไป" ipa="lâo rʉ̂ang dtà-lòk: aa-hǎan tîi hǎai bpai" en="Funny Story: The Missing Food" emoji="🕵️‍♀️" isHeader={true}/>
+                    <ThaiText text="ใช้คำศัพท์: น่ากิน, ตำรวจ, หมา, ไม่ได้, ตื่นเช้า" ipa="chái kam-sàp: nâa-gin, tam-lùuat, mǎa, mâi dâi, dtʉ̀ʉn-cháo" en="Use vocab: Looks delicious, Police, Dog, Cannot, Wake up early" emoji="🎯" isBox={true} />
+                    <ThaiText text="แต่งเรื่อง 3 ประโยคให้ตลกที่สุด!" ipa="dtɛ̀ng rʉ̂ang sǎam bprà-yòok hâi dtà-lòk tîi-sùt!" en="Make a 3-sentence story as funny as possible!" emoji="🤣" />
+                </div>
+            </div>
+        );
+
+        // --- MAIN APP ---
+        const App = () => {
+            const [currentTab, setCurrentTab] = useState('review');
+
+            const tabs = [
+                { id: 'review', icon: 'refresh', label: 'ทบทวน' },
+                { id: 'video', icon: 'play', label: 'วิดีโอ' },
+                { id: 'vocab', icon: 'star', label: 'คำศัพท์' },
+                { id: 'speak', icon: 'message', label: 'พูด' },
+                { id: 'ext', icon: 'zap', label: 'เสริม' }
+            ];
+
+            return (
+                <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-[#f8fafc] overflow-x-hidden">
+                    
+                    {/* Sticky Header */}
+                    <div className="bg-white p-5 shadow-sm sticky top-0 z-40 border-b border-slate-200">
+                        <ThaiText 
+                            text="วิวาห์ปฐพี" 
+                            ipa="wí-waa bpà-tà-pii" 
+                            en="The Earth Wedding" 
+                            emoji="💍" 
+                            isTitle={true} 
+                        />
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="px-5 pt-6 pb-28">
+                        {currentTab === 'review' && <ReviewSection />}
+                        {currentTab === 'video' && <VideoSection />}
+                        {currentTab === 'vocab' && <VocabSection />}
+                        {currentTab === 'speak' && <SpeakingSection />}
+                        {currentTab === 'ext' && <ExtensionSection />}
+                    </div>
+
+                    {/* Bottom Navigation */}
+                    <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] rounded-t-3xl z-50 pb-safe">
+                        <div className="flex justify-between px-2 py-3">
+                            {tabs.map(tab => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setCurrentTab(tab.id)}
+                                    className={`flex flex-col items-center justify-center w-[20%] py-2 rounded-2xl transition-all ${currentTab === tab.id ? 'text-indigo-600 scale-110' : 'text-slate-400 hover:text-indigo-400'}`}
+                                >
+                                    <Icon name={tab.icon} size={24} className={currentTab === tab.id ? 'drop-shadow-md' : ''} />
+                                    <span className={`text-[11px] mt-1 font-semibold ${currentTab === tab.id ? 'font-bold' : ''}`}>{tab.label}</span>
+                                    {currentTab === tab.id && <div className="w-1 h-1 bg-indigo-600 rounded-full mt-1"></div>}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
