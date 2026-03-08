@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Lesson: Ordering Drinks</title>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Prompt (Modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #fdfcf0;
+        }
+        .thai-font { font-family: 'Prompt', sans-serif; }
+        .btn-press:active { transform: scale(0.95); }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        
+        /* Smooth fade for toggles */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const speak = (text) => {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        };
+
+        // --- DATA ---
+
+        const uiText = {
+            mainTitle: { thai: "สั่งน้ำ", ipa: "sàng nám", en: "Ordering Drinks" },
+            leadInHeader: { thai: "คำถามนำเข้าสู่บทเรียน", ipa: "kham-thǎam nam khâo sùu bòt-rian", en: "Lead-in Questions" },
+            dialogueHeader: { thai: "บทสนทนา", ipa: "bòt sǒn-thá-naa", en: "Dialogue" },
+            comprehensionHeader: { thai: "ตรวจสอบความเข้าใจ", ipa: "dtrùat-sòop khwaam-khâo-jai", en: "Check Understanding" },
+            practiceHeader: { thai: "ฝึกสั่งน้ำ", ipa: "fùek sàng nám", en: "Practice Ordering" },
+            extensionHeader: { thai: "กิจกรรมเพิ่มเติม (ตลกๆ)", ipa: "gìt-jà-gam phêem-term (dtà-lòk)", en: "Extension Activities (Funny!)" },
+            yourOrder: { thai: "ออเดอร์ของคุณ", ipa: "oor-də̂ə khɔ̌ɔng khun", en: "Your Order" },
+            speakThis: { thai: "พูดประโยคนี้", ipa: "phûut bprà-yòok níi", en: "Speak This" },
+            chooseDrink: { thai: "1. เลือกเมนู", ipa: "lûeak mee-nuu", en: "1. Choose Menu" },
+            chooseTemp: { thai: "2. อุณหภูมิ", ipa: "un-hà-phuum", en: "2. Temperature" },
+            chooseSugar: { thai: "3. ความหวาน", ipa: "khwaam-wǎan", en: "3. Sweetness" }
+        };
+
+        const leadInQuestions = [
+            { id: 1, thai: "ปกติคุณชอบสั่งเครื่องดื่มอะไรเวลาไปคาเฟ่?", ipa: "bpòk-gà-dtì khun chôop sàng khrûang-dʉ̀ʉm à-rai wee-laa bpai khaa-fêe?", en: "What drink do you normally order at a cafe?", icon: "ph-coffee" },
+            { id: 2, thai: "คุณชอบดื่มแบบหวานปกติ หรือ หวานน้อย?", ipa: "khun chôop dʉ̀ʉm bàep wǎan bpòk-gà-dtì rʉ̌ʉ wǎan nóoi?", en: "Do you like regular sweet or little sweet?", icon: "ph-drop" },
+            { id: 3, thai: "ในหนึ่งวัน คุณดื่มน้ำกี่แก้ว?", ipa: "nai nùeng wan khun dʉ̀ʉm nám gìi gâeo?", en: "How many glasses of water do you drink in a day?", icon: "ph-number-circle-five" }
+        ];
+
+        const dialogueScript = [
+            { speaker: "Staff", thai: "สวัสดีค่ะ รับอะไรดีคะ", ipa: "sà-wàt-dii khâ, ráp à-rai dii khá", en: "Hello, what would you like?", emoji: "👩‍🍳" },
+            { speaker: "Lin", thai: "เอาอเมริกาโน่ร้อน 2 แก้ว", ipa: "ao a-mee-ri-gaa-nôo rón sǒong gâeo", en: "I want 2 hot Americanos.", emoji: "☕🔥" },
+            { speaker: "Lin", thai: "ไม่น้ำตาลค่ะ", ipa: "mâi nám-dtaan khâ", en: "No sugar.", emoji: "🚫🍬" },
+            { speaker: "Staff", thai: "ได้ค่ะ ทั้งหมด 155 บาท", ipa: "dâai khâ, tháng-mòt nùeng-róoi hâa-sìp-hâa bàat", en: "Okay. Total is 155 Baht.", emoji: "💰" },
+            { speaker: "Staff", thai: "สแกนตรงนี้ได้เลยค่ะ", ipa: "sà-gaen dtrong-níi dâai loei khâ", en: "You can scan right here.", emoji: "📱" },
+            { speaker: "Lin", thai: "เรียบร้อยนะคะ ขอบคุณค่ะ", ipa: "rîap-róoi ná khá, khòop-khun khâ", en: "Done. Thank you.", emoji: "✅" }
+        ];
+
+        const comprehensionQuestions = [
+            { 
+                q: { thai: "1. ลินสั่งเครื่องดื่มกี่แก้ว?", ipa: "lin sàng khrûang-dʉ̀ʉm gìi gâeo?", en: "How many drinks did Lin order?" },
+                a: "2 แก้ว", 
+                options: ["1 แก้ว", "2 แก้ว", "3 แก้ว"] 
+            },
+            { 
+                q: { thai: "2. ลินสั่งอเมริกาโน่แบบไหน?", ipa: "lin sàng a-mee-ri-gaa-nôo bàep nǎi?", en: "What type of Americano did Lin order?" },
+                a: "ร้อน", 
+                options: ["ร้อน", "เย็น", "ปั่น"] 
+            },
+            { 
+                q: { thai: "3. ลินใส่น้ำตาลไหม?", ipa: "lin sài nám-dtaan mǎi?", en: "Did Lin add sugar?" },
+                a: "ไม่ใส่", 
+                options: ["ใส่", "ไม่ใส่", "ใส่นิดหน่อย"] 
+            }
+        ];
+
+        const drinks = [
+            { id: 'americano', thai: "อเมริกาโน่", ipa: "a-mee-ri-gaa-nôo", emoji: "☕" },
+            { id: 'water', thai: "น้ำเปล่า", ipa: "nám-bplàao", emoji: "💧" },
+            { id: 'cocoa', thai: "โกโก้", ipa: "goo-gôo", emoji: "🍫" },
+            { id: 'tea', thai: "ชาไทย", ipa: "chaa-thai", emoji: "🧋" },
+        ];
+
+        const extensionData = [
+            {
+                title: { thai: "เกม: บาริสต้าผีขี้ลืม", ipa: "geem: baa-rít-dtâa phǐi khîi-lʉʉm", en: "Game: The Forgetful Ghost Barista" },
+                desc: { thai: "คนหนึ่งเป็นบาริสต้าที่เข้าใจแค่คำว่า 'หมูกรอบ' ลูกค้าต้องพยายามสั่ง 'มัทฉะ' โดยไม่ใช้คำปกติ!", ipa: "khon nùeng bpen baa-rít-dtâa thîi khâo-jai khâe kham wâa 'mǔu-grɔ̀ɔp'...", en: "One person is the Barista who only understands 'Crispy Pork'. Customer must try to order 'Matcha' without normal words!" },
+                color: "bg-purple-50 border-purple-100 text-purple-700",
+                icon: "ph-ghost"
+            },
+            {
+                title: { thai: "โต้วาทีฮาเฮ: สงครามเครื่องดื่ม", ipa: "dtôo-waa-thii haa-hee: sǒng-khraam khrûang-dʉ̀ʉm", en: "Funny Debate: Great Beverage War" },
+                desc: { thai: "หัวข้อ: 'เราควรใส่กะเพราในโกโก้เย็นไหม?'", ipa: "hǔa-khɔ̂ɔ: 'rao khuan sài gà-phrao nai goo-gôo yen mǎi?'", en: "Topic: 'Should we put Basil in Iced Cocoa?'" },
+                extra: [
+                    { label: "ทีมเห็นด้วย", text: "มันดีต่อสุขภาพและ 'หอม'!", en: "Team YES: Healthy and smells good!" },
+                    { label: "ทีมไม่เห็นด้วย", text: "รสชาติเหมือน 'อาหารตามสั่ง' ไม่ใช่ขนม!", en: "Team NO: Tastes like food, not dessert!" }
+                ],
+                color: "bg-red-50 border-red-100 text-red-700",
+                icon: "ph-scales"
+            },
+            {
+                title: { thai: "คำถามชวนคุย (ตลกๆ)", ipa: "kham-thǎam chuan khui (dtà-lòk)", en: "3 Funny Discussion Questions" },
+                items: [
+                    { thai: "ถ้าสั่ง 'น้ำเปล่า' แต่ราคา 'ร้อยบาท' คุณจะทำอย่างไร?", ipa: "thâa sàng 'nám-bplàao' dtàe raa-khaa 'rɔ́ɔi bàat'...", en: "If you order 'Water' but it costs '100 Baht', what would you do?" },
+                    { thai: "เราใช้ 'ปลาหมึก' เป็นท็อปปิ้งชาไข่มุกได้ไหม? ทำไม?", ipa: "rao chái 'bplaa-mʉ̀k' bpen thɔ́p-bpîng chaa-khài-múk dâai mǎi?...", en: "Can we use 'Squid' as Bubble Tea topping? Why?" },
+                    { thai: "เครื่องดื่มไหนดู 'พิเศษ' กว่ากัน: กาแฟใส่ทอง หรือ น้ำเปล่าใส่ 'เนย'?", ipa: "khrûang-dʉ̀ʉm nǎi duu 'phí-sèet' gwàa gan...", en: "Which is more 'Special': Coffee with Gold or Water with 'Butter'?" }
+                ],
+                color: "bg-blue-50 border-blue-100 text-blue-700",
+                icon: "ph-chat-centered-dots"
+            },
+            {
+                title: { thai: "สัมภาษณ์ขำๆ: บาริสต้าเอเลี่ยน", ipa: "sǎm-phâat khǎm-khǎm: baa-rít-dtâa ee-lîian", en: "Funny Interview: The Alien Barista" },
+                desc: { thai: "สัมภาษณ์เอเลี่ยนที่คิดว่า 'ไข่มุก' คือไข่เอเลี่ยนจริงๆ ลองเกลี้ยกล่อมให้เขาขายให้คุณ!", ipa: "sǎm-phâat ee-lîian thîi khít wâa 'khài-múk' khue khài ee-lîian jing-jing...", en: "Interview an Alien who thinks 'Pearls' are real alien eggs. Try to convince them to sell!" },
+                color: "bg-green-50 border-green-100 text-green-700",
+                icon: "ph-microphone"
+            },
+            {
+                title: { thai: "เล่าเรื่อง: ทะเลเดือด", ipa: "lâo rûeang: thá-lee dùeat", en: "Story-telling: The Boiling Sea" },
+                desc: { thai: "เล่าเรื่อง 1 นาทีเกี่ยวกับ 'ปลา' ที่อาศัยใน 'ทะเลเดือด' และอยากซื้อลาเต้ 'น้ำแข็ง' (ใช้คำว่า 'แพง' ด้วย!)", ipa: "lâo rûeang nùeng naa-thii gìiao-gàp 'bplaa'...", en: "Tell a 1-min story about a 'Fish' in 'Boiling Sea' wanting an 'Ice' latte (Use word 'Expensive'!)" },
+                color: "bg-orange-50 border-orange-100 text-orange-700",
+                icon: "ph-books"
+            },
+            {
+                title: { thai: "นำเสนอเมนูลับ", ipa: "nam-sà-nə̌ə mee-nuu láp", en: "Secret Menu Presentation" },
+                desc: { thai: "นำเสนอเครื่องดื่มใหม่ชื่อ 'The Smoked Squid Shake' (เชคปลาหมึกรมควัน)", ipa: "nam-sà-nə̌ə khrûang-dʉ̀ʉm mài chûe...", en: "Present new drink called 'The Smoked Squid Shake'" },
+                extraList: [
+                    { thai: "- ส่วนผสม: ปลาหมึก 'รมควัน', 'นม', และ 'น้ำตาล'", en: "- Ingredients: 'Smoked' squid, 'Milk', and 'Sugar'" },
+                    { thai: "- ราคา: 'ห้าร้อยบาท'", en: "- Price: '500 Baht'" },
+                    { thai: "- สโลแกน: 'ดูอร่อย'!", en: "- Catchphrase: 'Looks Delicious'!" }
+                ],
+                color: "bg-indigo-50 border-indigo-100 text-indigo-700",
+                icon: "ph-presentation-chart"
+            }
+        ];
+
+        // --- COMPONENTS ---
+
+        const InteractiveText = ({ textObj, size = "md", color = "text-gray-800", speaker = null, bold = true }) => {
+            const [showIPA, setShowIPA] = useState(false);
+            const [showEN, setShowEN] = useState(false);
+            
+            const sizeClass = size === "xl" ? "text-2xl" : (size === "lg" ? "text-xl" : (size === "sm" ? "text-sm" : "text-base"));
+            const weightClass = bold ? "font-bold" : "font-normal";
+
+            return (
+                <div className="flex flex-col mb-3">
+                    <div className="flex items-start gap-2">
+                        <button onClick={() => speak(textObj.thai)} className="mt-1 text-amber-500 hover:text-amber-700 flex-shrink-0 btn-press">
+                            <i className="ph ph-speaker-high text-lg"></i>
+                        </button>
+                        <div className="flex-grow">
+                            <div className="flex flex-wrap items-center gap-2">
+                                <span className={`thai-font ${sizeClass} ${weightClass} ${color} leading-snug`}>
+                                    {textObj.thai} {textObj.emoji && <span>{textObj.emoji}</span>}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Toggles Row */}
+                    <div className="flex gap-2 ml-8 mt-1">
+                        {textObj.ipa && (
+                            <button 
+                                onClick={() => setShowIPA(!showIPA)} 
+                                className={`text-[10px] px-2 py-0.5 rounded border transition-colors ${showIPA ? 'bg-purple-100 border-purple-300 text-purple-700' : 'bg-gray-50 border-gray-200 text-gray-400'}`}
+                            >
+                                IPA
+                            </button>
+                        )}
+                        {textObj.en && (
+                            <button 
+                                onClick={() => setShowEN(!showEN)} 
+                                className={`text-[10px] px-2 py-0.5 rounded border transition-colors ${showEN ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-gray-50 border-gray-200 text-gray-400'}`}
+                            >
+                                EN
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Hidden Content */}
+                    {(showIPA || showEN) && (
+                        <div className="ml-8 mt-1 space-y-1 fade-in">
+                            {showIPA && <div className="text-sm text-purple-600 font-mono tracking-tight">/{textObj.ipa}/</div>}
+                            {showEN && <div className="text-sm text-blue-600 italic">"{textObj.en}"</div>}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const SectionHeader = ({ textObj, icon }) => (
+            <div className="flex flex-col mb-4 border-b border-amber-200 pb-2">
+                <div className="flex items-center gap-2 mb-2">
+                    <i className={`ph ${icon} text-2xl text-amber-600`}></i>
+                    <h2 className="text-xl font-bold text-gray-800 thai-font">{textObj.thai}</h2>
+                    <button onClick={() => speak(textObj.thai)} className="text-amber-500 hover:text-amber-700 ml-1">
+                        <i className="ph ph-speaker-high"></i>
+                    </button>
+                </div>
+                <div className="flex gap-2 ml-9">
+                    <ToggleBtn label="IPA" text={textObj.ipa} color="purple" />
+                    <ToggleBtn label="EN" text={textObj.en} color="blue" />
+                </div>
+            </div>
+        );
+
+        // Helper for simple standalone toggles within headers
+        const ToggleBtn = ({ label, text, color }) => {
+            const [show, setShow] = useState(false);
+            const colorClasses = color === 'purple' 
+                ? (show ? 'bg-purple-100 border-purple-300 text-purple-700' : 'text-gray-400 border-gray-200')
+                : (show ? 'bg-blue-100 border-blue-300 text-blue-700' : 'text-gray-400 border-gray-200');
+                
+            return (
+                <div className="flex flex-col">
+                    <button onClick={() => setShow(!show)} className={`text-[10px] px-2 py-0.5 rounded border ${colorClasses}`}>
+                        {label}
+                    </button>
+                    {show && (
+                        <div className={`absolute mt-6 bg-white p-2 rounded shadow-lg border z-10 text-xs ${color === 'purple' ? 'text-purple-700' : 'text-blue-700'}`}>
+                            {text}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const DrinkBuilder = () => {
+            const [drink, setDrink] = useState(drinks[0]);
+            const [sugar, setSugar] = useState("หวานปกติ");
+            const [type, setType] = useState("ร้อน");
+
+            const currentOrder = `${drink.thai}${type} ${sugar}`;
+
+            return (
+                <div className="bg-white p-6 rounded-2xl card-shadow border border-orange-100">
+                    <div className="bg-orange-50 p-4 rounded-xl text-center mb-6 border-2 border-dashed border-orange-200">
+                        <InteractiveText textObj={uiText.yourOrder} size="sm" color="text-orange-400" bold={true} />
+                        
+                        <h3 className="text-2xl font-bold text-gray-800 mb-2 mt-2 thai-font">
+                            {drink.emoji} {drink.thai} {type} ({sugar})
+                        </h3>
+                        
+                        <div className="flex justify-center mt-3">
+                            <button onClick={() => speak(currentOrder)} className="bg-orange-500 text-white px-4 py-2 rounded-full flex items-center gap-2 btn-press shadow-md hover:bg-orange-600 transition-colors">
+                                <i className="ph ph-microphone-stage text-lg"></i>
+                                <span className="thai-font font-bold">{uiText.speakThis.thai}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        {/* 1. Menu */}
+                        <div>
+                            <InteractiveText textObj={uiText.chooseDrink} size="sm" color="text-gray-500" />
+                            <div className="grid grid-cols-4 gap-2 mt-[-10px]">
+                                {drinks.map(d => (
+                                    <button key={d.id} onClick={() => setDrink(d)} className={`p-2 rounded-lg border text-center transition-all btn-press ${drink.id === d.id ? 'bg-amber-100 border-amber-500' : 'bg-white border-gray-200'}`}>
+                                        <div className="text-2xl mb-1">{d.emoji}</div>
+                                        <div className="text-xs thai-font">{d.thai}</div>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* 2 & 3 Options */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <InteractiveText textObj={uiText.chooseTemp} size="sm" color="text-gray-500" />
+                                <div className="flex flex-col gap-2 mt-[-10px]">
+                                    {["ร้อน", "เย็น", "ปั่น"].map(t => (
+                                        <button key={t} onClick={() => setType(t)} className={`py-2 px-3 rounded-lg border text-sm thai-font text-left ${type === t ? 'bg-red-50 border-red-400 text-red-700 font-bold' : 'bg-white border-gray-200 text-gray-600'}`}>
+                                            {t}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div>
+                                <InteractiveText textObj={uiText.chooseSugar} size="sm" color="text-gray-500" />
+                                <div className="flex flex-col gap-2 mt-[-10px]">
+                                    {["หวานปกติ", "หวานน้อย", "ไม่ใส่น้ำตาล"].map(s => (
+                                        <button key={s} onClick={() => setSugar(s)} className={`py-2 px-3 rounded-lg border text-sm thai-font text-left ${sugar === s ? 'bg-blue-50 border-blue-400 text-blue-700 font-bold' : 'bg-white border-gray-200 text-gray-600'}`}>
+                                            {s}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [ansState, setAnsState] = useState({});
+
+            return (
+                <div className="max-w-md mx-auto min-h-screen bg-gray-50 pb-20">
+                    {/* Header */}
+                    <header className="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-b-[3rem] shadow-xl mb-8">
+                         <div className="flex flex-col items-center">
+                            <h1 className="text-3xl font-bold mb-2 thai-font">{uiText.mainTitle.thai}</h1>
+                             {/* Header Toggles */}
+                             <div className="flex gap-2">
+                                <ToggleBtn label="IPA" text={`/${uiText.mainTitle.ipa}/`} color="purple" />
+                                <ToggleBtn label="EN" text={`"${uiText.mainTitle.en}"`} color="blue" />
+                             </div>
+                             <div className="mt-4 text-4xl">🥤</div>
+                         </div>
+                    </header>
+
+                    <div className="px-5 space-y-12">
+                        
+                        {/* 1. Lead-in */}
+                        <section className="bg-white p-5 rounded-2xl card-shadow">
+                            <SectionHeader textObj={uiText.leadInHeader} icon="ph-question" />
+                            <div className="space-y-2">
+                                {leadInQuestions.map(q => (
+                                    <InteractiveText key={q.id} textObj={q} />
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* 2. Dialogue */}
+                        <section>
+                            <SectionHeader textObj={uiText.dialogueHeader} icon="ph-chats-circle" />
+                            <div className="bg-white rounded-2xl p-4 shadow-inner border border-gray-100 space-y-4 mb-6">
+                                {dialogueScript.map((line, idx) => (
+                                    <div key={idx} className={`p-3 rounded-xl transition-all ${line.speaker === 'Staff' ? 'bg-amber-50 mr-4' : 'bg-blue-50 ml-4 border-r-4 border-blue-300'}`}>
+                                        <div className="text-[10px] font-bold text-gray-400 mb-1 uppercase tracking-wider">{line.speaker}</div>
+                                        <InteractiveText textObj={line} size="lg" color="text-gray-800" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Comprehension Questions */}
+                            <div className="bg-white p-5 rounded-2xl border-2 border-blue-50 shadow-sm">
+                                <SectionHeader textObj={uiText.comprehensionHeader} icon="ph-check-square" />
+                                
+                                <div className="space-y-6">
+                                    {comprehensionQuestions.map((cq, i) => (
+                                        <div key={i}>
+                                            <InteractiveText textObj={cq.q} size="md" bold={true} />
+                                            <div className="flex gap-2 ml-8 mt-[-5px]">
+                                                {cq.options.map(opt => (
+                                                    <button 
+                                                        key={opt}
+                                                        onClick={() => setAnsState({...ansState, [i]: opt})}
+                                                        className={`px-3 py-1.5 rounded-full border text-sm thai-font transition-all ${ansState[i] === opt ? (opt === cq.a ? 'bg-green-500 text-white border-green-500 shadow-md transform scale-105' : 'bg-red-500 text-white border-red-500') : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+                                                    >
+                                                        {opt}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* 3. Practice */}
+                        <section>
+                            <SectionHeader textObj={uiText.practiceHeader} icon="ph-coffee" />
+                            <DrinkBuilder />
+                        </section>
+
+                        {/* 4. Extension Activities */}
+                        <section className="space-y-6">
+                            <SectionHeader textObj={uiText.extensionHeader} icon="ph-star" />
+                            
+                            {extensionData.map((activity, idx) => (
+                                <div key={idx} className={`p-5 rounded-2xl border ${activity.color} shadow-sm transition-transform hover:scale-[1.01]`}>
+                                    <div className="mb-3">
+                                        <InteractiveText textObj={activity.title} size="lg" bold={true} color="inherit" />
+                                    </div>
+                                    
+                                    {/* Description Body */}
+                                    {activity.desc && (
+                                        <div className="bg-white/60 p-3 rounded-lg">
+                                            <InteractiveText textObj={activity.desc} size="sm" color="text-gray-700" bold={false} />
+                                        </div>
+                                    )}
+
+                                    {/* Extra List Items (Debate/Presentation) */}
+                                    {activity.extra && (
+                                        <div className="mt-3 grid grid-cols-2 gap-3">
+                                            {activity.extra.map((ex, i) => (
+                                                <div key={i} className="bg-white p-2 rounded shadow-sm">
+                                                    <p className="font-bold text-xs mb-1">{ex.label}</p>
+                                                    <InteractiveText textObj={{thai: ex.text, en: ex.en, ipa: ""}} size="sm" />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Discussion Items */}
+                                    {activity.items && (
+                                        <ul className="mt-2 space-y-2">
+                                            {activity.items.map((item, i) => (
+                                                <li key={i} className="bg-white/50 p-2 rounded border border-blue-100">
+                                                    <span className="font-bold text-blue-300 text-xs mr-2">{i+1}.</span>
+                                                    <InteractiveText textObj={item} size="sm" />
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    
+                                    {/* Presentation List */}
+                                    {activity.extraList && (
+                                        <div className="mt-2 bg-white/50 p-3 rounded border border-indigo-100">
+                                            {activity.extraList.map((item, i) => (
+                                                 <InteractiveText key={i} textObj={{thai: item.thai, en: item.en, ipa: ""}} size="sm" />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </section>
+
+                    </div>
+
+                    <footer className="text-center py-10 text-gray-300 text-[10px] font-mono">
+                        Created for Fun Thai Learning • 2026
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
