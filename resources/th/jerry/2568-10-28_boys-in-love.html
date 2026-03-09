@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 Thai Lesson: Taking Photos</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts: Inter (for English) and Sarabun (for Thai) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light teal/gray background */
+        }
+        /* Ensure Thai text uses the correct font */
+        [lang="th"] {
+            font-family: 'Sarabun', sans-serif;
+        }
+        /* Class to hide IPA/EN content by default */
+        .hidden-content {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex justify-center p-4 sm:p-8">
+    <div class="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl sm:p-10">
+        
+        <!-- Lesson Header -->
+        <header class="border-b border-gray-200 pb-6">
+            <!-- Interactive Title -->
+            <div class="mb-4 rounded-lg bg-white p-3">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-3xl font-bold text-blue-900 sm:text-4xl" lang="th">ถ่ายรูปกับเพื่อน</h1>
+                    <button onclick="speak('ถ่ายรูปกับเพื่อน')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                    </button>
+                </div>
+                <div class="mt-3 flex gap-2">
+                    <button onclick="toggleVisibility('ipa-sH-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                    <button onclick="toggleVisibility('en-sH-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                </div>
+                <div id="ipa-sH-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                    <p class="font-mono">thàai-rûup gàp phûean</p>
+                </div>
+                <div id="en-sH-1" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                    <p>Taking Photos with Friends</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="mt-8">
+
+            <!-- Section 1: Warm-up (5-10 mins) -->
+            <section class="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <!-- Interactive Header -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">1. วอร์มอัพ</h3>
+                        <button onclick="speak('1. วอร์มอัพ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s1-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s1-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s1-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">nùeng. wâwm-áp</p>
+                    </div>
+                    <div id="en-s1-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>1. Warm-up</p>
+                    </div>
+                </div>
+
+                <!-- Warm-up questions (no bullets) -->
+                <div class="mt-4 space-y-4">
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800" lang="th">คุณชอบถ่ายรูปไหม</p>
+                            <button onclick="speak('คุณชอบถ่ายรูปไหม')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s1-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s1-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s1-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">khun châwp thàai-rûup mái</p>
+                        </div>
+                        <div id="en-s1-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(Do you like taking photos?)</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800" lang="th">คุณถ่ายรูปเพื่อนบ่อยไหม</p>
+                            <button onclick="speak('คุณถ่ายรูปเพื่อนบ่อยไหม')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s1-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s1-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s1-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">khun thàai-rûup phûean bàwi mái</p>
+                        </div>
+                        <div id="en-s1-2" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(Do you take photos of your friends often?)</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800" lang="th">เวลาถ่ายรูป คุณชอบ "ถ่าย" หรือ "ถูกถ่าย" มากกว่ากัน</p>
+                            <button onclick="speak('เวลาถ่ายรูป คุณชอบ ถ่าย หรือ ถูกถ่าย มากกว่ากัน')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s1-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s1-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s1-3" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">wee-laa thàai-rûup khun châwp "thàai" rʉ̌ue "thùuk-thàai" mâak gwàa gan</p>
+                        </div>
+                        <div id="en-s1-3" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(When taking photos, do you prefer "to take" or "to be taken"?)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Watch the Video (5-10 mins) -->
+            <section class="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <!-- Interactive Header -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">2. ดูวิดีโอ</h3>
+                        <button onclick="speak('2. ดูวิดีโอ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s2-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s2-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s2-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">sǎwng. duu wí-dii-oo</p>
+                    </div>
+                    <div id="en-s2-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>2. Watch the Video</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Instruction 1 -->
+                <div class="mb-4 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">ดูวิดีโอสั้นๆ นี้จาก GMMTV ไม่ต้องกังวลถ้าคุณไม่เข้าใจทั้งหมด! แค่พยายามจับใจความสำคัญ</p>
+                        <button onclick="speak('ดูวิดีโอสั้นๆ นี้จาก GMMTV ไม่ต้องกังวลถ้าคุณไม่เข้าใจทั้งหมด! แค่พยายามจับใจความสำคัญ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s2-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s2-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s2-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">duu wí-dii-oo sân-sân níi jàak GMMTV / mâi dtâwng gang-won thâa khun mâi khâo-jai tháng-mòt! / kâe phá-yaa-yaam jàp jai-khwaam sǎm-khan</p>
+                    </div>
+                    <div id="en-s2-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Watch this short video from GMMTV. Don't worry if you don't understand everything! Just try to get the main idea.</p>
+                    </div>
+                </div>
+                
+                <a href="https://www.tiktok.com/@gmmtvofficial/video/7519414312373423376" target="_blank" class="mt-4 inline-block rounded-lg bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700" lang="th">
+                    คลิกที่นี่เพื่อดูวิดีโอใน TikTok
+                </a>
+
+                <!-- Interactive Instructions 2 & 3 -->
+                <div class="mt-4 space-y-3">
+                    <div class="rounded-lg border border-gray-200 bg-white p-3">
+                        <div class="flex items-center justify-between">
+                            <p class="text-gray-700" lang="th"><strong class="font-semibold">ดูรอบแรก:</strong> พวกเขากำลังทำอะไร?</p>
+                            <button onclick="speak('ดูรอบแรก: พวกเขากำลังทำอะไร?')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s2-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s2-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s2-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">duu râwp-râek: phûak-kháo gam-lang tham à-rai?</p>
+                        </div>
+                        <div id="en-s2-2" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>First watch: What are they doing?</p>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg border border-gray-200 bg-white p-3">
+                        <div class="flex items-center justify-between">
+                            <p class="text-gray-700" lang="th"><strong class="font-semibold">ดูรอบสอง:</strong> พยายามจับคำศัพท์ที่คุณรู้จัก</p>
+                            <button onclick="speak('ดูรอบสอง: พยายามจับคำศัพท์ที่คุณรู้จัก')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s2-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s2-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s2-3" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">duu râwp-sǎwng: phá-yaa-yaam jàp kham-sàp thîi khun rúu-jàk</p>
+                        </div>
+                        <div id="en-s2-3" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>Second watch: Try to catch any words you know.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Script Breakdown (30 mins) -->
+            <section class="mb-8">
+                <!-- Interactive Header -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">3. อ่านสคริปต์</h3>
+                        <button onclick="speak('3. อ่านสคริปต์')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s3-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s3-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s3-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">săam. àan sà-kríp</p>
+                    </div>
+                    <div id="en-s3-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>3. Script Breakdown</p>
+                    </div>
+                </div>
+                
+                <!-- Interactive Instruction -->
+                <div class="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">มาอ่านสคริปต์ทีละบรรทัด คลิกที่ <strong class="text-blue-600">ไอคอนรูปลำโพง</strong> เพื่อฟังเสียง, <strong class="text-gray-800">'IPA'</strong> เพื่อดูการออกเสียง, และ <strong class="text-gray-800">'EN'</strong> เพื่อดูคำแปลภาษาอังกฤษ</p>
+                        <button onclick="speak(`มาอ่านสคริปต์ทีละบรรทัด คลิกที่ ไอคอนรูปลำโพง เพื่อฟังเสียง, 'IPA' เพื่อดูการออกเสียง, และ 'EN' เพื่อดูคำแปลภาษาอังกฤษ`)" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s3-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s3-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s3-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">maa àan sà-kríp thii-lá ban-thát / klík thîi ai-khâwn rûup lam-phoong phûea fang sĭang / 'IPA' phûea duu gaan-àwk-sĭang / láe 'EN' phûea duu kham-bplae phaa-săa ang-grìt</p>
+                    </div>
+                    <div id="en-s3-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Let's read the script line by line. Click the speaker icon to listen, 'IPA' for phonetics, and 'EN' for the English translation.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 1 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">ฟ้า: เหลือแค่กูกับมึงละ</p>
+                        <button onclick="speak('เหลือแค่กูกับมึงละ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">lʉ̌a kâe guu gàp mueng lá</p>
+                    </div>
+                    <div id="en-1" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>It's just you and me left.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 2 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">สลับกันถ่ายแล้วกัน</p>
+                        <button onclick="speak('สลับกันถ่ายแล้วกัน')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">sà-làp gan thàai láeo-gan</p>
+                    </div>
+                    <div id="en-2" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Let's take turns shooting (photos).</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 3 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">มึงนั่งไป</p>
+                        <button onclick="speak('มึงนั่งไป')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-3" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">mueng nâng bpai</p>
+                    </div>
+                    <div id="en-3" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>You go sit.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 4 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">กูถ่ายให้ก่อน</p>
+                        <button onclick="speak('กูถ่ายให้ก่อน')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-4" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">guu thàai hâi gàawn</p>
+                    </div>
+                    <div id="en-4" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>I'll take (the photo) for you first.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 5 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: โอเค</p>
+                        <button onclick="speak('โอเค')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-5" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">oo-kee</p>
+                    </div>
+                    <div id="en-5" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>OK.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 6 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">ฟ้า: ได้ละ</p>
+                        <button onclick="speak('ได้ละ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-6')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-6')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-6" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">dâai lá</p>
+                    </div>
+                    <div id="en-6" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Got it.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 7 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: เอ้ย ละมึงไม่นับอะไรหน่อยอะ</p>
+                        <button onclick="speak('เอ้ย ละมึงไม่นับอะไรหน่อยอะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-7')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-7')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-7" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">ə́əi lá mueng mâi náp à-rai nàawi à</p>
+                    </div>
+                    <div id="en-7" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Hey! And you didn't even count or anything?</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 8 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: มึงแกล้งกูป่ะเนี่ย</p>
+                        <button onclick="speak('มึงแกล้งกูป่ะเนี่ย')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-8')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-8')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-8" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">mueng glâeng guu bpà nîa</p>
+                    </div>
+                    <div id="en-8" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Are you teasing/pranking me?</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 9 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: มาดูดิ๊</p>
+                        <button onclick="speak('มาดูดิ๊')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-9')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-9')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-9" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">maa duu dí</p>
+                    </div>
+                    <div id="en-9" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Come look.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 10 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: ก็ดูดีนี่หว่าเราอ่ะ</p>
+                        <button onclick="speak('ก็ดูดีนี่หว่าเราอ่ะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-10')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-10')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-10" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">gâw duu-dii nîi-wàa rao à</p>
+                    </div>
+                    <div id="en-10" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>(I) actually look good, huh.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 11 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: นายแบบดีก็งี้แหละ</p>
+                        <button onclick="speak('นายแบบดีก็งี้แหละ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-11')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-11')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-11" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">naai-bàep dii gâw ngíi làe</p>
+                    </div>
+                    <div id="en-11" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>That's what happens when the model is good.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 12 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">ฟ้า: เออ กูถ่ายมึงหล่อละ</p>
+                        <button onclick="speak('เออ กูถ่ายมึงหล่อละ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-12')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-12')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-12" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">əə guu thàai mueng làw lá</p>
+                    </div>
+                    <div id="en-12" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Yeah, I took a handsome photo of you (already).</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 13 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-blue-900" lang="th">มึงถ่ายกูหล่อด้วยนะ</p>
+                        <button onclick="speak('มึงถ่ายกูหล่อด้วยนะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-13')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-13')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-13" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">mueng thàai guu làw dûai ná</p>
+                    </div>
+                    <div id="en-13" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>You have to take a handsome one of me, too, okay?</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 14 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: เออ ได้ๆๆ</p>
+                        <button onclick="speak('เออ ได้ๆๆ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-14')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-14')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-14" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">əə dâai dâai dâai</p>
+                    </div>
+                    <div id="en-14" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Yeah, sure, sure, sure.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 15 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: เดี๋ยวกูตั้งใจสุดฝีมือเลย</p>
+                        <button onclick="speak('เดี๋ยวกูตั้งใจสุดฝีมือเลย')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-15')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-15')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-15" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">dĭao guu dtâng-jai sùt-fĭi-muue ləəi</p>
+                    </div>
+                    <div id="en-15" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>I'll focus and use all my skill.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 16 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: ไปๆ ไปนั่งไป</p>
+                        <button onclick="speak('ไปๆ ไปนั่งไป')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-16')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-16')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-16" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">bpai bpai bpai nâng bpai</p>
+                    </div>
+                    <div id="en-16" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Go, go, go sit.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 17 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: หล่อๆเลยใช่ไหม</p>
+                        <button onclick="speak('หล่อๆเลยใช่ไหม')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-17')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-17')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-17" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">làw-làw ləəi châi-mái</p>
+                    </div>
+                    <div id="en-17" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>(You want it) really handsome, right?</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 18 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: กูว่ามึงต้องบิดนิดนึงว่ะ</p>
+                        <button onclick="speak('กูว่ามึงต้องบิดนิดนึงว่ะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-18')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-18')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-18" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">guu wâa mueng dtâwng bìt nít-nueng wà</p>
+                    </div>
+                    <div id="en-18" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>I think you need to twist a little.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 19 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: กูว่าบิดอีกๆ</p>
+                        <button onclick="speak('กูว่าบิดอีกๆ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-19')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-19')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-19" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">guu wâa bìt ìik ìik</p>
+                    </div>
+                    <div id="en-19" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>I think (you should) twist more, more.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 20 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: ไปอีกยาวๆไปยาวๆ</p>
+                        <button onclick="speak('ไปอีกยาวๆไปยาวๆ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-20')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-20')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-20" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">bpai ìik yaao-yaao bpai yaao-yaao</p>
+                    </div>
+                    <div id="en-20" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Go more, keep going, keep going.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 21 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: กูว่าต้องอีกว่ะ</p>
+                        <button onclick="speak('กูว่าต้องอีกว่ะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-21')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-21')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-21" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">guu wâa dtâwng ìik wà</p>
+                    </div>
+                    <div id="en-21" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>(I) think (you need) more.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 22 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: จริงเชื่อกู</p>
+                        <button onclick="speak('จริงเชื่อกู')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-22')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-22')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-22" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">jing chûea guu</p>
+                    </div>
+                    <div id="en-22" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Really, believe me.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 23 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: บิด บิดอีกๆ</p>
+                        <button onclick="speak('บิด บิดอีกๆ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-23')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-23')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-23" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">bìt bìt ìik ìik</p>
+                    </div>
+                    <div id="en-23" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Twist, twist more, more.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 24 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: มึงหันหน้าไปด้วย</p>
+                        <button onclick="speak('มึงหันหน้าไปด้วย')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-24')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-24')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-24" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">mueng hăn-nâa bpai dûai</p>
+                    </div>
+                    <div id="en-24" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Turn your face, too.</p>
+                    </div>
+                </div>
+
+                <!-- Dialogue Line 25 -->
+                <div class="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xl font-semibold text-amber-700" lang="th">เหลือง: เออ โห งี้แหละ โคตรหล่ออ่ะ</p>
+                        <button onclick="speak('เออ โห งี้แหละ โคตรหล่ออ่ะ')" title="Play TTS" class="rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-25')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-25')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-25" class="hidden-content mt-2 rounded-md bg-gray-50 p-3 text-gray-800">
+                        <p class="font-mono">əə hŏo ngíi làe kôot làw à</p>
+                    </div>
+                    <div id="en-25" class="hidden-content mt-2 rounded-md bg-green-50 p-3 text-green-800">
+                        <p>Yeah, whoa, like that. Extremely handsome.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Practice (10 mins) -->
+            <section class="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <!-- Interactive Header -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">4. ฝึกพูด</h3>
+                        <button onclick="speak('4. ฝึกพูด')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s4-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s4-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s4-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">sìi. fùek phûut</p>
+                    </div>
+                    <div id="en-s4-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>4. Practice</p>
+                    </div>
+                </div>
+
+                <!-- Activity 1 Title -->
+                <div class="mt-3 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th"><strong class="font-semibold">กิจกรรมที่ 1: เล่นบทบาทสมมติ (Role-play)</strong></p>
+                        <button onclick="speak('กิจกรรมที่ 1: เล่นบทบาทสมมติ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s4-A1-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s4-A1-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s4-A1-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">gìt-jà-gam thîi nùeng: lên bòt-bàat sŏm-mút</p>
+                    </div>
+                    <div id="en-s4-A1-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Activity 1: Role-play</p>
+                    </div>
+                </div>
+                
+                <!-- Activity 1 Instruction -->
+                <div class="mt-2 mb-4 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">มาฝึกสคริปต์กัน! ครูของคุณจะเป็น 'เหลือง' (Lueang) ส่วนคุณเป็น 'ฟ้า' (Fah) อ่านบทของคุณจากสคริปต์ด้านบน</p>
+                        <button onclick="speak(`มาฝึกสคริปต์กัน! ครูของคุณจะเป็น 'เหลือง' (Lueang) ส่วนคุณเป็น 'ฟ้า' (Fah) อ่านบทของคุณจากสคริปต์ด้านบน`)" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s4-A1-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s4-A1-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s4-A1-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">maa fùek sà-kríp gan! / khruu khǎwng khun ja bpen 'lʉ̌eang' / sùan khun bpen 'fáa' / àan bòt khǎwng khun jàak sà-kríp dâan-bon</p>
+                    </div>
+                    <div id="en-s4-A1-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Let's practice the script! Your teacher will be 'Lueang'. You will be 'Fah'. Read your lines from the script above.</p>
+                    </div>
+                </div>
+
+                <!-- Activity 2 Title -->
+                <div class="mt-4 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                         <p class="text-gray-700" lang="th"><strong class="font-semibold">กิจกรรมที่ 2: ฝึกพูดอิสระ (Free Practice)</strong></p>
+                        <button onclick="speak('กิจกรรมที่ 2: ฝึกพูดอิสระ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s4-A2-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s4-A2-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s4-A2-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">gìt-jà-gam thîi sǎwng: fùek phûut ìt-sà-rà</p>
+                    </div>
+                    <div id="en-s4-A2-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Activity 2: Free Practice</p>
+                    </div>
+                </div>
+
+                <!-- Activity 2 Instruction -->
+                <div class="mt-2 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                         <p class="text-gray-700" lang="th">ทีนี้ ลองพูดโดยไม่ใช้สคริปต์ จินตนาการว่าคุณกำลังถ่ายรูปให้ครูของคุณ คุณจะพูดว่าอะไร? ลองใช้คำเหล่านี้:</p>
+                        <button onclick="speak('ทีนี้ ลองพูดโดยไม่ใช้สคริปต์ จินตนาการว่าคุณกำลังถ่ายรูปให้ครูของคุณ คุณจะพูดว่าอะไร? ลองใช้คำเหล่านี้:')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s4-A2-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s4-A2-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s4-A2-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">thii-níi / lawng phûut dooi mâi chái sà-kríp / jin-dtà-naa-gaan wâa khun gam-lang thàai-rûup hâi khruu khǎwng khun / khun jà phûut wâa à-rai? / lawng chái kham lào-níi:</p>
+                    </div>
+                    <div id="en-s4-A2-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Now, let's try it without the script. Imagine you are taking a photo of your teacher. What would you say? Try to use these words:</p>
+                    </div>
+                </div>
+               
+                <!-- Vocab List -->
+                <div class="mt-4 space-y-3">
+                    <!-- นั่ง -->
+                    <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                        <div class="flex items-center">
+                            <p class="font-mono" lang="th">นั่ง</p>
+                            <button onclick="speak('นั่ง')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s5-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s5-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s5-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">nâng</p>
+                        </div>
+                        <div id="en-s5-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(sit)</p>
+                        </div>
+                    </div>
+                    <!-- ดูดี -->
+                    <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                        <div class="flex items-center">
+                            <p class="font-mono" lang="th">ดูดี</p>
+                            <button onclick="speak('ดูดี')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s5-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s5-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s5-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">duu-dii</p>
+                        </div>
+                        <div id="en-s5-2" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(look good)</p>
+                        </div>
+                    </div>
+                    <!-- โอเค -->
+                    <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                        <div class="flex items-center">
+                            <p class="font-mono" lang="th">โอเค</p>
+                            <button onclick="speak('โอเค')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s5-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s5-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s5-3" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">oo-kee</p>
+                        </div>
+                        <div id="en-s5-3" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(OK)</p>
+                        </div>
+                    </div>
+                    <!-- หล่อ -->
+                    <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                        <div class="flex items-center">
+                            <p class="font-mono" lang="th">หล่อ</p>
+                            <button onclick="speak('หล่อ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s5-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s5-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s5-4" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">làw</p>
+                        </div>
+                        <div id="en-s5-4" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(handsome)</p>
+                        </div>
+                    </div>
+                    <!-- สวย -->
+                    <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                        <div class="flex items-center">
+                            <p class="font-mono" lang="th">สวย</p>
+                            <button onclick="speak('สวย')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s5-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s5-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s5-5" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">sŭai</p>
+                        </div>
+                        <div id="en-s5-5" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>(beautiful)</p>
+                        </div>
+                    </div>
+                </div>
+                </p>
+            </section>
+
+            <!-- Section 5: Wrap-up (5 mins) -->
+            <section class="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <!-- Interactive Header -->
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">5. สรุป</h3>
+                        <button onclick="speak('5. สรุป')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s5-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s5-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s5-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">hâa. sà-rùp</p>
+                    </div>
+                    <div id="en-s5-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>5. Wrap-up</p>
+                    </div>
+                </div>
+
+                <div class="mt-3 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">เก่งมาก! วันนี้มีคำถามอะไรไหม</p>
+                        <button onclick="speak('เก่งมาก! วันนี้มีคำถามอะไรไหม')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s6-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s6-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s6-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">gèng mâak! wan-níi mii kham-thăam à-rai mái</p>
+                    </div>
+                    <div id="en-s6-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>(Good job today! Do you have any questions?)</p>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-gray-700" lang="th"><strong class="font-semibold">การบ้าน (Optional):</strong></p>
+                
+                <!-- Homework Instruction -->
+                <div class="mt-2 ml-4 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">ถ่ายรูปอะไรก็ได้ในห้องของคุณ (ต้นไม้, หนังสือ, สัตว์เลี้ยง) เขียน 3-5 ประโยคง่ายๆ เพื่ออธิบายรูปนั้น</p>
+                        <button onclick="speak('ถ่ายรูปอะไรก็ได้ในห้องของคุณ (ต้นไม้, หนังสือ, สัตว์เลี้ยง) เขียน 3-5 ประโยคง่ายๆ เพื่ออธิบายรูปนั้น')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s6-hw-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s6-hw-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s6-hw-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">thàai-rûup à-rai gâw dâai nai hâwng khǎwng khun (dtôn-mái, nǎng-sʉ̌ue, sàt-líang) / khĭan săam-hâa bprà-yòok ngâai-ngâai phûea à-thí-baai rûup nán</p>
+                    </div>
+                    <div id="en-s6-hw-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Take a photo of anything in your room (a plant, a book, your pet). Write 3-5 simple sentences to describe it.</p>
+                    </div>
+                </div>
+                
+                <!-- Example Label -->
+                <div class="mt-3 ml-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">ตัวอย่าง:</p>
+                        <button onclick="speak('ตัวอย่าง:')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s6-ex-L')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s6-ex-L')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s6-ex-L" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">dtua-yàang:</p>
+                    </div>
+                    <div id="en-s6-ex-L" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>Example:</p>
+                    </div>
+                </div>
+
+                <!-- Example Sentence -->
+                <div class="mt-2 ml-8 rounded-lg border border-gray-200 bg-white p-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-gray-700" lang="th">นี่คือหนังสือของฉัน มันสีฟ้า ฉันชอบอ่านหนังสือ</p>
+                        <button onclick="speak('นี่คือหนังสือของฉัน มันสีฟ้า ฉันชอบอ่านหนังสือ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s6-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s6-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s6-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">nîi khue nǎng-sʉ̌ue khǎwng chăn / man sĭi fáa / chăn châwp àan nǎng-sʉ̌ue</p>
+                    </div>
+                    <div id="en-s6-2" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>(This is my book. It is blue. I like to read books.)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: กิจกรรมเพิ่มเติม (Extension Activities) -->
+            <section class="mt-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <div class="mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-800" lang="th">6. กิจกรรมเพิ่มเติม</h3>
+                        <button onclick="speak('6. กิจกรรมเพิ่มเติม')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                        </button>
+                    </div>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="toggleVisibility('ipa-s6-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                        <button onclick="toggleVisibility('en-s6-H')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                    </div>
+                    <div id="ipa-s6-H" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                        <p class="font-mono">hòk. gìt-jà-gam phôoem-dtəəm</p>
+                    </div>
+                    <div id="en-s6-H" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                        <p>6. Extension Activities</p>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4 text-lg font-semibold text-gray-900" lang="th">กิจกรรมที่ 3: คำศัพท์สแลง (Slang Vocabulary)</h4>
+                <p class="mt-2 text-gray-700" lang="th">ในวิดีโอนี้มีคำสแลงเยอะมาก มาดูกันว่าคุณเข้าใจไหม:</p>
+                <ul class="mt-3 list-inside list-disc space-y-3" lang="th">
+                    <li>
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800">...ละ (lá)</p>
+                            <button onclick="speak('ละ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s7-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s7-1')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s7-1" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">lá</p>
+                        </div>
+                        <div id="en-s7-1" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>from ...แล้ว (láeo) - means "already" / "now" (e.g., <span class="font-mono" lang="th">ได้ละ</span> = ได้แล้ว)</p>
+                        </div>
+                        <span class="ml-8 text-gray-600">มาจาก ...แล้ว (láeo) - แปลว่า "already" / "now" (เช่น <span class="font-mono">ได้ละ</span> = ได้แล้ว)</span>
+                    </li>
+                    <li>
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800">...ป่ะ (bpà)</p>
+                            <button onclick="speak('ป่ะ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s7-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s7-2')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s7-2" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">bpà</p>
+                        </div>
+                        <div id="en-s7-2" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>from ...หรือเปล่า (rʉ̌e-bplào) - used as a "yes/no" question (e.g., <span class="font-mono" lang="th">แกล้งกูป่ะ</span> = แกล้งกูหรือเปล่า)</p>
+                        </div>
+                        <span class="ml-8 text-gray-600">มาจาก ...หรือเปล่า (rʉ̌e-bplào) - ใช้เป็นคำถาม "yes/no" (เช่น <span class="font-mono">แกล้งกูป่ะ</span> = แกล้งกูหรือเปล่า)</span>
+                    </li>
+                    <li>
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800">...ว่ะ (wà) / ...อ่ะ (à)</p>
+                            <button onclick="speak('ว่ะ, อ่ะ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s7-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s7-3')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s7-3" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">wà / à</p>
+                        </div>
+                        <div id="en-s7-3" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>Particles for casual tone with friends.</p>
+                        </div>
+                        <span class="ml-8 text-gray-600">เป็นคำลงท้าย (particle) ใช้น้ำเสียงสบายๆ กับเพื่อน</span>
+                    </li>
+                    <li>
+                        <div class="flex items-center justify-between">
+                            <p class="font-medium text-gray-800">โคตร (kôot)</p>
+                            <button onclick="speak('โคตร')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex gap-2">
+                            <button onclick="toggleVisibility('ipa-s7-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                            <button onclick="toggleVisibility('en-s7-4')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                        </div>
+                        <div id="ipa-s7-4" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                            <p class="font-mono">kôot</p>
+                        </div>
+                        <div id="en-s7-4" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                            <p>means "very" (e.g., <span class="font-mono" lang="th">โคตรหล่อ</span> = very handsome)</p>
+                        </div>
+                        <span class="ml-8 text-gray-600">แปลว่า "มากๆ" (very) (เช่น <span class="font-mono">โคตรหล่อ</span> = หล่อมากๆ)</span>
+                    </li>
+                </ul>
+        
+                <h4 class="mt-6 text-lg font-semibold text-gray-900" lang="th">กิจกรรมที่ 4: ฝึกแต่งประโยค (Sentence Building)</h4>
+                <p class="mt-2 text-gray-700" lang="th">ลองใช้คำที่เรียนมาแต่งประโยคของตัวเอง (พูดกับครู):</p>
+                <ul class="mt-3 list-inside list-disc space-y-3" lang="th">
+                    <li>
+                        <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                            <div class="flex items-center">
+                                <p class="font-medium text-gray-800">"สลับกัน"</p>
+                                <button onclick="speak('สลับกัน')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                                </button>
+                            </div>
+                            <div class="mt-2 flex gap-2">
+                                <button onclick="toggleVisibility('ipa-s7-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                                <button onclick="toggleVisibility('en-s7-5')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                            </div>
+                            <div id="ipa-s7-5" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                                <p class="font-mono">sà-làp gan</p>
+                            </div>
+                            <div id="en-s7-5" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                                <p>(to take turns)</p>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                            <div class="flex items-center">
+                                <p class="font-medium text-gray-800">"แกล้ง"</p>
+                                <button onclick="speak('แกล้ง')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                                </button>
+                            </div>
+                            <div class="mt-2 flex gap-2">
+                                <button onclick="toggleVisibility('ipa-s7-6')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                                <button onclick="toggleVisibility('en-s7-6')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                            </div>
+                            <div id="ipa-s7-6" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                                <p class="font-mono">glâeng</p>
+                            </div>
+                            <div id="en-s7-6" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                                <p>(to tease, to prank)</p>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                            <div class="flex items-center">
+                                <p class="font-medium text-gray-800">"ตั้งใจ"</p>
+                                <button onclick="speak('ตั้งใจ')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                                </button>
+                            </div>
+                            <div class="mt-2 flex gap-2">
+                                <button onclick="toggleVisibility('ipa-s7-7')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                                <button onclick="toggleVisibility('en-s7-7')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                            </div>
+                            <div id="ipa-s7-7" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                                <p class="font-mono">dtâng-jai</p>
+                            </div>
+                            <div id="en-s7-7" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                                <p>(to focus, to intend)</p>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="inline-block border-b border-gray-300 pb-3 pr-3">
+                            <div class="flex items-center">
+                                <p class="font-medium text-gray-800">"บิด"</p>
+                                <button onclick="speak('บิด')" title="Play TTS" class="ml-2 flex-shrink-0 rounded-full p-2 text-blue-500 transition hover:bg-blue-100 hover:text-blue-700">
+                                    <svg classs="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l8.6-5.89a1.5 1.5 0 000-2.538l-8.6-5.89z"></path></svg>
+                                </button>
+                            </div>
+                            <div class="mt-2 flex gap-2">
+                                <button onclick="toggleVisibility('ipa-s7-8')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">IPA</button>
+                                <button onclick="toggleVisibility('en-s7-8')" class="rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-700 transition hover:bg-gray-300">EN</button>
+                            </div>
+                            <div id="ipa-s7-8" class="hidden-content mt-2 rounded-md bg-gray-50 p-2 text-gray-800">
+                                <p class="font-mono">bìt</p>
+                            </div>
+                            <div id="en-s7-8" class="hidden-content mt-2 rounded-md bg-green-50 p-2 text-green-800">
+                                <p>(to twist)</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript for Toggle Buttons and TTS -->
+    <script>
+        /**
+         * Toggles the visibility of an element by its ID.
+         * @param {string} elementId - The ID of the element to show/hide.
+         */
+        function toggleVisibility(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                if (element.style.display === 'block') {
+                    element.style.display = 'none';
+                } else {
+                    element.style.display = 'block';
+                }
+            }
+        }
+
+        /**
+         * Speaks the given Thai text using the Web Speech API.
+         * @param {string} text - The Thai text to be spoken.
+         */
+        function speak(text) {
+            // Cancel any previous speech
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH'; // Set the language to Thai
+            utterance.rate = 0.9; // Slightly slower rate for clarity
+            
+            // Find and set a Thai voice if available
+            const voices = window.speechSynthesis.getVoices();
+            const thaiVoice = voices.find(voice => voice.lang === 'th-TH');
+            if (thaiVoice) {
+                utterance.voice = thaiVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Pre-load voices for TTS
+        // This helps ensure 'th-TH' voice is available when 'speak' is called
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    </script>
+</body>
+</html>
+
+
