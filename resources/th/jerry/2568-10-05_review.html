@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Language Lesson (A2) - Review</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+        }
+        .thai-font {
+            font-family: 'Sarabun', sans-serif;
+        }
+        /* Custom styles for the details/summary accordion */
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '＋';
+            float: right;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: transform 0.2s ease-in-out;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        details[open] {
+           background-color: #f8fafc; /* bg-slate-50 */
+        }
+        /* TTS Button Style */
+        .tts-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
+            padding: 2px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+        .tts-button:hover {
+            background-color: #e2e8f0; /* bg-slate-200 */
+        }
+        .tts-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #475569; /* text-slate-600 */
+        }
+        /* Interactive Vocabulary Table Styles */
+        .vocab-row {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .vocab-row:hover {
+            background-color: #f1f5f9; /* bg-slate-100 */
+        }
+        .vocab-row .phonetic, .vocab-row .translation {
+            display: none;
+        }
+        .vocab-row.is-open .phonetic, .vocab-row.is-open .translation {
+            display: table-cell;
+            background-color: #f0f9ff; /* bg-sky-50 */
+        }
+        .vocab-row td:first-child .thai-word::after {
+            content: '...';
+            color: #94a3b8; /* text-slate-400 */
+            margin-left: 8px;
+            font-weight: bold;
+        }
+        .vocab-row.is-open td:first-child .thai-word::after {
+            content: '';
+        }
+
+        /* Interactive Text Styles */
+        .interactive-thai .details {
+            display: none;
+        }
+        .interactive-thai.is-open .details {
+            display: block;
+        }
+        .interactive-thai .thai-text::after {
+             content: '...';
+            color: #94a3b8;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+        .interactive-thai.is-open .thai-text::after {
+            content: '';
+        }
+
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-8 bg-white p-6 rounded-xl shadow-md">
+            <div class="interactive-thai cursor-pointer inline-block" data-phonetic="tóp tuan" data-english="Review">
+                <h1 class="text-3xl md:text-4xl font-bold text-sky-700 thai-font flex justify-center items-center thai-text">
+                    ทบทวน
+                    <button onclick="speak('ทบทวน')" class="tts-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                    </button>
+                </h1>
+                <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                    <em>tóp tuan</em><br>Review
+                </div>
+            </div>
+            <p class="text-lg md:text-xl text-slate-600 mt-2">Review</p>
+        </header>
+
+        <main class="space-y-8">
+
+            <!-- 1. Warm-up (5 mins) -->
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                <div class="interactive-thai cursor-pointer" data-phonetic="ùn krʉ̂ang" data-english="Warm-up">
+                    <h2 class="text-2xl font-bold text-sky-600 thai-font border-b-2 border-sky-200 pb-2 mb-4 flex items-center thai-text">
+                        1. อุ่นเครื่อง (Warm-up)
+                        <button onclick="speak('อุ่นเครื่อง')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </h2>
+                     <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>ùn krʉ̂ang</em><br>Warm-up
+                    </div>
+                </div>
+
+                <div class="interactive-thai cursor-pointer" data-phonetic="lɔɔng dtɔ̀ɔp kam tǎam ngâai ngâai pûak níi duu ná" data-english="Try to answer these simple questions.">
+                    <p class="thai-font text-lg flex items-center thai-text">
+                        ลองตอบคำถามง่ายๆ พวกนี้ดูนะ
+                        <button onclick="speak('ลองตอบคำถามง่ายๆ พวกนี้ดูนะ')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </p>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>lɔɔng dtɔ̀ɔp kam tǎam ngâai ngâai pûak níi duu ná</em><br>Try to answer these simple questions.
+                    </div>
+                </div>
+
+                <ul class="list-disc list-inside mt-3 space-y-2 text-slate-700 text-lg thai-font">
+                    <li>
+                        <div class="interactive-thai cursor-pointer inline-block" data-phonetic="sà wàt dii kráp/kâ, sà baai dii mǎi" data-english="Hello, how are you?">
+                            <span class="flex items-center thai-text">
+                                สวัสดีครับ/ค่ะ สบายดีไหม
+                                <button onclick="speak('สวัสดีครับ สบายดีไหม')" class="tts-button">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </span>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>sà wàt dii kráp/kâ, sà baai dii mǎi</em><br>Hello, how are you?
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="interactive-thai cursor-pointer inline-block" data-phonetic="wan níi bpen yang ngai bâang, yûng mǎi" data-english="How are you today? Are you busy?">
+                            <span class="flex items-center thai-text">
+                                วันนี้เป็นยังไงบ้าง ยุ่งไหม
+                                <button onclick="speak('วันนี้เป็นยังไงบ้าง ยุ่งไหม')" class="tts-button">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </span>
+                             <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>wan níi bpen yang ngai bâang, yûng mǎi</em><br>How are you today? Are you busy?
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="interactive-thai cursor-pointer inline-block" data-phonetic="mʉ̂a waan tam à rai maa bâang" data-english="What did you do yesterday?">
+                            <span class="flex items-center thai-text">
+                                เมื่อวานทำอะไรมาบ้าง
+                                <button onclick="speak('เมื่อวานทำอะไรมาบ้าง')" class="tts-button">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </span>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>mʉ̂a waan tam à rai maa bâang</em><br>What did you do yesterday?
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="interactive-thai cursor-pointer inline-block" data-phonetic="gin kâao yang" data-english="Have you eaten yet?">
+                            <span class="flex items-center thai-text">
+                                กินข้าวยัง
+                                <button onclick="speak('กินข้าวยัง')" class="tts-button">
+                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </span>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>gin kâao yang</em><br>Have you eaten yet?
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 2. Role-Play Scenarios (20 mins) -->
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                 <div class="interactive-thai cursor-pointer" data-phonetic="bòt bàat sǒm mút" data-english="Role-play">
+                    <h2 class="text-2xl font-bold text-sky-600 thai-font border-b-2 border-sky-200 pb-2 mb-4 flex items-center thai-text">
+                        2. บทบาทสมมติ (Role-Play)
+                         <button onclick="speak('บทบาทสมมติ')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>bòt bàat sǒm mút</em><br>Role-play
+                    </div>
+                </div>
+                <div class="interactive-thai cursor-pointer" data-phonetic="maa lɔɔng sǔam bòt bàat lɛ́ɛo pûut kui gan dtaam sà tǎa ná gaan lào níi" data-english="Let's try to role-play and talk according to these situations.">
+                    <p class="thai-font text-lg mb-4 flex items-center thai-text">
+                        มาลองสวมบทบาทแล้วพูดคุยกันตามสถานการณ์เหล่านี้
+                         <button onclick="speak('มาลองสวมบทบาทแล้วพูดคุยกันตามสถานการณ์เหล่านี้')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </p>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>maa lɔɔng sǔam bòt bàat lɛ́ɛo pûut kui gan dtaam sà tǎa ná gaan lào níi</em><br>Let's try to role-play and talk according to these situations.
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Scenario 1 -->
+                    <div class="border border-amber-300 bg-amber-50 rounded-lg p-4">
+                        <div class="interactive-thai cursor-pointer" data-phonetic="sà tǎa ná gaan tîi nʉ̀ng: tîi ráan aa hǎan" data-english="Situation 1: At a Restaurant">
+                            <h3 class="text-xl font-bold thai-font text-amber-800 flex items-center thai-text">
+                                สถานการณ์ที่ 1: ที่ร้านอาหาร (At a Restaurant)
+                                <button onclick="speak('สถานการณ์ที่ 1: ที่ร้านอาหาร')" class="tts-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </h3>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>sà tǎa ná gaan tîi nʉ̀ng: tîi ráan aa hǎan</em><br>Situation 1: At a Restaurant
+                            </div>
+                        </div>
+                        <div class="interactive-thai cursor-pointer mt-2" data-phonetic="kun (nák rian) bpen lûuk káa lɛ́ kruu bpen dèk sə̀əp, lɔɔng sàng aa hǎan lɛ́ krʉ̂ang dʉ̀ʉm" data-english="You (the student) are the customer, and the teacher is the waiter. Try ordering food and drinks.">
+                            <p class="thai-font flex items-center thai-text">คุณ (นักเรียน) เป็นลูกค้า และครูเป็นเด็กเสิร์ฟ ลองสั่งอาหารและเครื่องดื่ม<button onclick="speak('คุณ (นักเรียน) เป็นลูกค้า และครูเป็นเด็กเสิร์ฟ ลองสั่งอาหารและเครื่องดื่ม')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></p>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kun (nák rian) bpen lûuk káa lɛ́ kruu bpen dèk sə̀əp, lɔɔng sàng aa hǎan lɛ́ krʉ̂ang dʉ̀ʉm</em><br>You (the student) are the customer, and the teacher is the waiter. Try ordering food and drinks.</div>
+                        </div>
+                        <ul class="list-disc list-inside mt-3 space-y-2 text-slate-700 thai-font text-lg">
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="rîak pá nák ngaan" data-english="Call the staff."><span class="flex items-center thai-text">เรียกพนักงาน<button onclick="speak('เรียกพนักงาน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>rîak pá nák ngaan</em><br>Call the staff.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="sàng kǔay dtǐao lɛ́ chaa nom kài múk" data-english="Order noodles and bubble tea."><span class="flex items-center thai-text">สั่งก๋วยเตี๋ยวและชานมไข่มุก<button onclick="speak('สั่งก๋วยเตี๋ยวและชานมไข่มุก')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>sàng kǔay dtǐao lɛ́ chaa nom kài múk</em><br>Order noodles and bubble tea.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="bɔ̀ɔk wâa &quot;mâi wǎan&quot;" data-english="Say &quot;not sweet&quot;."><span class="flex items-center thai-text">บอกว่า "ไม่หวาน"<button onclick="speak('บอกว่า ไม่หวาน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>bɔ̀ɔk wâa "mâi wǎan"</em><br>Say "not sweet".</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="tǎam wâa mii mee nuu ʉ̀ʉn tîi nâa sǒn jai mǎi" data-english="Ask if there are other interesting menu items."><span class="flex items-center thai-text">ถามว่ามีเมนูอื่นที่น่าสนใจไหม<button onclick="speak('ถามว่ามีเมนูอื่นที่น่าสนใจไหม')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>tǎam wâa mii mee nuu ʉ̀ʉn tîi nâa sǒn jai mǎi</em><br>Ask if there are other interesting menu items.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="rîak gèp ngən lɛ́ bɔ̀ɔk wâa &quot;mâi dtɔ̂ɔng thɔɔn&quot;" data-english="Ask for the bill and say &quot;keep the change&quot;."><span class="flex items-center thai-text">เรียกเก็บเงิน และบอกว่า "ไม่ต้องทอน"<button onclick="speak('เรียกเก็บเงิน และบอกว่า ไม่ต้องทอน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>rîak gèp ngən lɛ́ bɔ̀ɔk wâa "mâi dtɔ̂ɔng thɔɔn"</em><br>Ask for the bill and say "keep the change".</div></div></li>
+                        </ul>
+                    </div>
+
+                    <!-- Scenario 2 -->
+                    <div class="border border-teal-300 bg-teal-50 rounded-lg p-4">
+                        <div class="interactive-thai cursor-pointer" data-phonetic="sà tǎa ná gaan tîi sɔ̌ɔng: tîi ráan nûat" data-english="Situation 2: At the Massage Shop">
+                            <h3 class="text-xl font-bold thai-font text-teal-800 flex items-center thai-text">
+                                สถานการณ์ที่ 2: ที่ร้านนวด (At the Massage Shop)
+                                 <button onclick="speak('สถานการณ์ที่ 2: ที่ร้านนวด')" class="tts-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                </button>
+                            </h3>
+                            <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                                <em>sà tǎa ná gaan tîi sɔ̌ɔng: tîi ráan nûat</em><br>Situation 2: At the Massage Shop
+                            </div>
+                        </div>
+                        <div class="interactive-thai cursor-pointer mt-2" data-phonetic="kun pə̂ng glàp jàak fít nêet lɛ́ rúu sʉ̀k nʉ̀ai/bpùat kɛ̌ɛn, jʉng bpai ráan nûat, kruu bpen mɔ̌ɔ nûat" data-english="You just came back from the gym and feel tired/have a sore arm, so you go to a massage shop. The teacher is the massage therapist.">
+                           <p class="thai-font flex items-center thai-text">คุณเพิ่งกลับจากฟิตเนสและรู้สึกเหนื่อย/ปวดแขน จึงไปร้านนวด ครูเป็นหมอนวด<button onclick="speak('คุณเพิ่งกลับจากฟิตเนสและรู้สึกเหนื่อย/ปวดแขน จึงไปร้านนวด ครูเป็นหมอนวด')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></p>
+                           <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kun pə̂ng glàp jàak fít nêet lɛ́ rúu sʉ̀k nʉ̀ai/bpùat kɛ̌ɛn, jʉng bpai ráan nûat, kruu bpen mɔ̌ɔ nûat</em><br>You just came back from the gym and feel tired/have a sore arm, so you go to a massage shop. The teacher is the massage therapist.</div>
+                        </div>
+                        <ul class="list-disc list-inside mt-3 space-y-2 text-slate-700 thai-font text-lg">
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="ták taai mɔ̌ɔ nûat" data-english="Greet the massage therapist."><span class="flex items-center thai-text">ทักทายหมอนวด<button onclick="speak('ทักทายหมอนวด')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>ták taai mɔ̌ɔ nûat</em><br>Greet the massage therapist.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="bɔ̀ɔk wâa yàak dâi pɛ́k gèet nûat nʉ̀ng chûa moong" data-english="Say you want a one-hour massage package."><span class="flex items-center thai-text">บอกว่าอยากได้แพ็คเกจนวด 1 ชั่วโมง<button onclick="speak('บอกว่าอยากได้แพ็คเกจนวด 1 ชั่วโมง')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>bɔ̀ɔk wâa yàak dâi pɛ́k gèet nûat nʉ̀ng chûa moong</em><br>Say you want a one-hour massage package.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="bɔ̀ɔk wâa bpùat kɛ̌ɛn lɛ́ kǎa" data-english="Say your arm and leg are sore."><span class="flex items-center thai-text">บอกว่าปวดแขนและขา<button onclick="speak('บอกว่าปวดแขนและขา')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>bɔ̀ɔk wâa bpùat kɛ̌ɛn lɛ́ kǎa</em><br>Say your arm and leg are sore.</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="tam dtaam kam sàng kɔ̌ɔng mɔ̌ɔ nûat (chên: nɔɔn long, plík dtua)" data-english="Follow the massage therapist's instructions (e.g., lie down, turn over)."><span class="flex items-center thai-text">ทำตามคำสั่งของหมอนวด (เช่น นอนลง, พลิกตัว)<button onclick="speak('ทำตามคำสั่งของหมอนวด (เช่น นอนลง, พลิกตัว)')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>tam dtaam kam sàng kɔ̌ɔng mɔ̌ɔ nûat (chên: nɔɔn long, plík dtua)</em><br>Follow the massage therapist's instructions (e.g., lie down, turn over).</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="tǎam raa kaa lɛ́ jàai ngən" data-english="Ask for the price and pay."><span class="flex items-center thai-text">ถามราคาและจ่ายเงิน<button onclick="speak('ถามราคาและจ่ายเงิน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>tǎam raa kaa lɛ́ jàai ngən</em><br>Ask for the price and pay.</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Discussion (15 mins) -->
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                 <div class="interactive-thai cursor-pointer" data-phonetic="fʉ̀k sǒn tá naa jàak pâap" data-english="Picture discussion practice.">
+                    <h2 class="text-2xl font-bold text-sky-600 thai-font border-b-2 border-sky-200 pb-2 mb-4 flex items-center thai-text">
+                        3. ฝึกสนทนาจากภาพ (Picture Discussion)
+                         <button onclick="speak('ฝึกสนทนาจากภาพ')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>fʉ̀k sǒn tá naa jàak pâap</em><br>Picture discussion practice.
+                    </div>
+                </div>
+                <div class="interactive-thai cursor-pointer" data-phonetic="duu pâap lɛ́ɛo lɔɔng dtɔ̀ɔp kam tǎam kɔ̌ɔng kruu" data-english="Look at the picture and try to answer the teacher's questions.">
+                    <p class="thai-font text-lg mb-4 flex items-center thai-text">
+                        ดูภาพแล้วลองตอบคำถามของครู
+                         <button onclick="speak('ดูภาพแล้วลองตอบคำถามของครู')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </p>
+                     <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>duu pâap lɛ́ɛo lɔɔng dtɔ̀ɔp kam tǎam kɔ̌ɔng kruu</em><br>Look at the picture and try to answer the teacher's questions.
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Image 1 -->
+                    <div class="border rounded-lg p-4">
+                        <img src="https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                             alt="Busy Thai street market at night" 
+                             class="rounded-md w-full h-64 object-cover"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/1e293b/ffffff?text=Market';">
+                        <h4 class="text-lg font-semibold mt-4 thai-font">ภาพที่ 1</h4>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-700 thai-font">
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="kun hěn à rai nai rûup níi" data-english="What do you see in this picture?"><span class="thai-text flex items-center">คุณเห็นอะไรในรูปนี้<button onclick="speak('คุณเห็นอะไรในรูปนี้')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kun hěn à rai nai rûup níi</em><br>What do you see in this picture?</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="kít wâa kǎo yùu tîi nǎi" data-english="Where do you think they are?"><span class="thai-text flex items-center">คิดว่าเขาอยู่ที่ไหน<button onclick="speak('คิดว่าเขาอยู่ที่ไหน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kít wâa kǎo yùu tîi nǎi</em><br>Where do you think they are?</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="aa hǎan à rai tîi nâa gin" data-english="What food looks delicious?"><span class="thai-text flex items-center">อาหารอะไรที่น่ากิน<button onclick="speak('อาหารอะไรที่น่ากิน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>aa hǎan à rai tîi nâa gin</em><br>What food looks delicious?</div></div></li>
+                        </ul>
+                    </div>
+                    <!-- Image 2 -->
+                    <div class="border rounded-lg p-4">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=870&auto=format&fit=crop" 
+                             alt="Two young people studying together with laptops" 
+                             class="rounded-md w-full h-64 object-cover"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/cbd5e1/1e293b?text=Students+Studying';">
+                        <h4 class="text-lg font-semibold mt-4 thai-font">ภาพที่ 2</h4>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-700 thai-font">
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="kít wâa kǎo bpen à rai gan" data-english="What do you think their relationship is?"><span class="thai-text flex items-center">คิดว่า เขาเป็นอะไรกัน<button onclick="speak('คิดว่า เขาเป็นอะไรกัน')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kít wâa kǎo bpen à rai gan</em><br>What do you think their relationship is?</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="pûak kǎo gam lang tam à rai" data-english="What are they doing?"><span class="thai-text flex items-center">พวกเขากำลังทำอะไร<button onclick="speak('พวกเขากำลังทำอะไร')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>pûak kǎo gam lang tam à rai</em><br>What are they doing?</div></div></li>
+                            <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="kun kəəi àan nǎng sʉ̌ʉ sɔ̀ɔp mǎi" data-english="Have you ever studied for an exam?"><span class="thai-text flex items-center">คุณเคยอ่านหนังสือสอบไหม<button onclick="speak('คุณเคยอ่านหนังสือสอบไหม')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kun kəəi àan nǎng sʉ̌ʉ sɔ̀ɔp mǎi</em><br>Have you ever studied for an exam?</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 4. Vocabulary Review (15 mins) -->
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                 <div class="interactive-thai cursor-pointer" data-phonetic="tóp tuan kam sàp" data-english="Vocabulary review">
+                    <h2 class="text-2xl font-bold text-sky-600 thai-font border-b-2 border-sky-200 pb-2 mb-4 flex items-center thai-text">
+                        4. ทบทวนคำศัพท์ (Vocabulary Review)
+                        <button onclick="speak('ทบทวนคำศัพท์')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>tóp tuan kam sàp</em><br>Vocabulary review
+                    </div>
+                </div>
+
+                <div class="interactive-thai cursor-pointer" data-phonetic="klík tîi kam sàp pʉ̂a duu gaan ɔ̀ɔk sǐang lɛ́ kam bplɛɛ" data-english="Click on the vocabulary to see the pronunciation and translation.">
+                    <p class="thai-font text-lg mb-4 flex items-center thai-text">
+                        คลิกที่คำศัพท์เพื่อดูการออกเสียงและคำแปล
+                        <button onclick="speak('คลิกที่คำศัพท์เพื่อดูการออกเสียงและคำแปล')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </p>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>klík tîi kam sàp pʉ̂a duu gaan ɔ̀ɔk sǐang lɛ́ kam bplɛɛ</em><br>Click on the vocabulary to see the pronunciation and translation.
+                    </div>
+                </div>
+                <div class="space-y-3" id="vocab-list">
+                    <!-- Vocab will be dynamically inserted here -->
+                </div>
+            </section>
+
+             <!-- 5. Cool Down (5 mins) -->
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                 <div class="interactive-thai cursor-pointer" data-phonetic="tǎam kam tǎam gìao gàp bòt rian" data-english="Asking questions about the lesson">
+                    <h2 class="text-2xl font-bold text-sky-600 thai-font border-b-2 border-sky-200 pb-2 mb-4 flex items-center thai-text">
+                        5. ถามคำถามเกี่ยวกับบทเรียน (Q&A)
+                        <button onclick="speak('ถามคำถามเกี่ยวกับบทเรียน')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </h2>
+                     <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300">
+                        <em>tǎam kam tǎam gìao gàp bòt rian</em><br>Asking questions about the lesson
+                    </div>
+                </div>
+                
+                 <ul class="list-disc list-inside mt-3 space-y-2 text-slate-700 text-lg thai-font">
+                    <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="mii kam tǎam gìao gàp bòt rian wan níi mǎi" data-english="Do you have any questions about today's lesson?"><span class="flex items-center thai-text">มีคำถามเกี่ยวกับบทเรียนวันนี้ไหม<button onclick="speak('มีคำถามเกี่ยวกับบทเรียนวันนี้ไหม')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>mii kam tǎam gìao gàp bòt rian wan níi mǎi</em><br>Do you have any questions about today's lesson?</div></div></li>
+                    <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="sùan nǎi yâak tîi sùt" data-english="Which part was the most difficult?"><span class="flex items-center thai-text">ส่วนไหนยากที่สุด<button onclick="speak('ส่วนไหนยากที่สุด')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>sùan nǎi yâak tîi sùt</em><br>Which part was the most difficult?</div></div></li>
+                    <li><div class="interactive-thai cursor-pointer inline-block" data-phonetic="kráng nâa yàak rian à rai" data-english="What do you want to learn next time?"><span class="flex items-center thai-text">ครั้งหน้าอยากเรียนอะไร<button onclick="speak('ครั้งหน้าอยากเรียนอะไร')" class="tts-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg></button></span><div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300"><em>kráng nâa yàak rian à rai</em><br>What do you want to learn next time?</div></div></li>
+                 </ul>
+
+                 <div class="interactive-thai cursor-pointer mt-4 text-center" data-phonetic="lɛ́ɛo jəə gan kráng nâa kráp/kâ" data-english="See you next time!">
+                    <p class="text-lg thai-font text-slate-600 flex items-center justify-center thai-text">
+                        แล้วเจอกันครั้งหน้าครับ/ค่ะ!
+                        <button onclick="speak('แล้วเจอกันครั้งหน้าครับ')" class="tts-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                        </button>
+                    </p>
+                    <div class="details text-sm text-slate-500 bg-slate-100 p-2 rounded-md mt-1 border-l-4 border-slate-300 inline-block">
+                        <em>lɛ́ɛo jəə gan kráng nâa kráp/kâ</em><br>See you next time!
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const vocabularyData = {
+            "อาหารและเครื่องดื่ม (Food & Drink)": [
+                ["ขนมปังปิ้ง", "kà nǒm bpang bpîng", "Toast"],
+                ["ไข่คน", "kài kon", "scrambled eggs (egg stir)"],
+                ["เกี๊ยว", "gíao", "Dumplings"],
+                ["ก๋วยเตี๋ยว", "kǔaytǐaw", "(White) Noodles"],
+                ["แกง", "gɛɛng", "curry"],
+                ["ชานมไข่มุก", "chaa nom kài múk", "Bubble (pearl)"],
+                ["นม", "nom", "Milk"],
+                ["นมถั่วเหลือง", "nomthùalʉ̌aŋ", "Soy milk"],
+                ["น้ำเปล่า", "náamplàaw", "Plain water"],
+                ["น้ำแข็ง", "náamkhɛ̌ŋ", "Ice cubes (Water hard)"],
+                ["น้ำตาล", "náamtaan", "Sugar"],
+                ["น้ำจิ้ม", "nám jîm", "Dip (sauce)"],
+                ["เนื้อ", "nʉ́a", "Beef"],
+                ["หมูสับ", "mǔu sàp", "Minced pork"],
+                ["ผักโขม", "pàk kǒom", "spinach"],
+                ["ถั่วฝักยาว", "thùafàkyaaw", "Green beans"],
+                ["มะพร้าว", "má práao", "coconut"],
+                ["เห็ด", "hèt", "mushrooms"],
+                ["ส้ม", "sôm", "Orange"],
+                ["รสชาติ", "rót châat", "taste / flavour"],
+                ["อาหารเช้า", "aa hǎan cháao", "Breakfast"],
+                ["อาหารเที่ยง", "aa hǎan tîang", "lunch (food noon)"],
+                ["เจ", "jee", "Vegan"],
+                ["มัง", "mang", "Vegetarian"],
+                ["ไส้", "sâi", "Filling"],
+                ["ซาลาเปา", "saa-laa-bpao", "Chinese bao / steamed bun"]
+            ],
+            "การกระทำ (Actions)": [
+                ["กิน", "kin", "Eat"],
+                ["ขับรถ", "khàprót", "Drive"],
+                ["เขียน", "kǐan", "Write"],
+                ["ขาย", "kǎai", "Sell"],
+                ["ซื้อ", "sʉ́ʉ", "Buy"],
+                ["ดู", "duu", "See / Look"],
+                ["เดิน", "dəən", "Walk"],
+                ["นอนลง", "nɔɔn long", "lie down"],
+                ["นวด", "nûat", "Massage"],
+                ["ฟัง", "fang", "Listen"],
+                ["พูด", "phûut", "Speak"],
+                ["ร้องเพลง", "rɔ́ɔŋphleeŋ", "Sing"],
+                ["อ่าน", "àan", "Read"],
+                ["สั่ง", "sàŋ", "Order"],
+                ["สอน", "sɔ̌ɔn", "Teach"],
+                ["กลับ", "glàp", "Return"],
+                ["เก็บ", "kèp", "Keep / Collect"],
+                ["ขอ", "kɔ̌ɔ", "To ask for"],
+                ["ทำความสะอาด", "tam kwaam sà àat", "To clean"],
+                ["จำ", "cam", "Remember"],
+                ["ดูแล", "duu lɛɛ", "look after / take care"],
+                ["ตรวจ", "dtrùat", "Check"],
+                ["เต้น", "dtên", "Dance"],
+                ["ถ่ายรูป", "tàai rûup", "Take photos"],
+                ["ทอด", "thɔ̂ɔt", "Fry"],
+                ["บอก", "bɔ̀ɔk", "Tell"],
+                ["ฝึก", "fʉ̀k", "Practice"],
+                ["มอง", "mɔɔŋ", "Look at"],
+                ["ยืน", "yʉʉn", "Stand"],
+                ["เริ่ม", "rə̂əm", "Start"],
+                ["ลอง", "lɔɔng", "Try / experiment"],
+                ["ส่ง", "sòng", "Send / Submit"],
+                ["หัวเราะ", "hǔa rɔ́", "Laugh"]
+            ],
+            "คำคุณศัพท์และคำวิเศษณ์ (Adjectives & Adverbs)": [
+                ["หวานไป", "wǎan bpai", "Too sweet"],
+                ["สีอ่อน", "sǐi ɔ̀ɔn", "Light colour"],
+                ["สีเข้ม", "sǐi kêm", "Dark colour"],
+                ["อร่อย", "à-ròi", "Delicious"],
+                ["ดีกว่า", "diikwàa", "Better than"],
+                ["เหมือนกัน", "mʉ̌ankan", "Same"],
+                ["คล้าย", "kláai", "similar"],
+                ["หนาว", "nǎao", "Cold"],
+                ["ยุ่ง", "yûng", "Busy"],
+                ["เหนื่อย", "nʉ̀ai", "Tired"],
+                ["สนุก", "sà nùk", "fun"],
+                ["ยาก", "yâak", "hard/difficult"],
+                ["ง่าย", "ŋâay", "easy"],
+                ["ยาว", "yaaw", "Long"],
+                ["ช้า", "cháa", "slow"],
+                ["เร็ว", "reo", "fast / quick"],
+                ["สด", "sòt", "Fresh"],
+                ["เล็ก", "lék", "Small"],
+                ["ใหญ่", "yày", "Big"],
+                ["เก่า", "gào", "old"],
+                ["ถูก", "thùuk", "Cheap / Correct"],
+                ["แพง", "phɛɛŋ", "expensive"],
+                ["ดัง", "dang", "Loud"],
+                ["เงียบ", "ngîap", "quiet"],
+                ["คล่อง", "klɔ̂ɔng", "Fluent"],
+                ["บ่อย", "bɔ̀y", "Often"],
+                ["ตลอด", "dtà lɔ̀ɔt", "Always / Throughout"]
+            ],
+            "สถานที่และเวลา (Places & Time)": [
+                ["ฟิตเนส", "fít nêet", "Gym"],
+                ["โรงเรียน", "roong rian", "School"],
+                ["มหาลัย", "má hǎa lai", "Uni"],
+                ["บ้าน", "bâan", "House"],
+                ["ห้าง", "hâaŋ", "Mall"],
+                ["ตลาด", "dtà làat", "Market"],
+                ["ที่จอดรถ", "thîi cɔ̀ɔt rót", "Parking lot"],
+                ["จังหวัด", "caŋwàt", "Province"],
+                ["เมือง", "mʉaŋ", "City"],
+                ["โบสถ์", "bòot", "Church"],
+                ["พิพิธภัณฑ์", "pí pít tá pan", "Museums"],
+                ["ทางออก", "thaaŋ ɔ̀ɔk", "Exit"],
+                ["ทางเข้า", "thaaŋ khâw", "Entrance"],
+                ["ชั้น", "chán", "Floor / Level"],
+                ["เมื่อวาน", "mʉ̂awaan", "Yesterday"],
+                ["วันนี้", "wan níi", "Today"],
+                ["พรุ่งนี้", "phrûŋníi", "Tomorrow"],
+                ["ตอนนี้", "tɔɔnníi", "Now"],
+                ["เมื่อคืน", "mʉ̂akhʉʉn", "Last night"],
+                ["อาทิตย์ที่แล้ว", "aa tít tîi lɛ́ɛo", "Last week"],
+                ["บ่าย", "bàay", "afternoon (1-3PM)"],
+                ["วินาที", "wí naa tii", "seconds"]
+            ],
+            "ร่างกาย (Body Parts)": [
+                ["ขา", "kǎa", "Leg"],
+                ["เข่า", "kào", "Knee"],
+                ["แขน", "kɛ̌ɛn", "Arm"],
+                ["คอ", "kɔɔ", "Neck"],
+                ["จมูก", "jà mùuk", "Nose"],
+                ["ตา", "dtaa", "Eye"],
+                ["เท้า", "táao", "Foot / Feet"],
+                ["นิ้ว", "níu", "Inches / fingers"],
+                ["นิ้วเท้า", "níu táao", "Toes"],
+                ["ปาก", "bpàak", "Mouth"],
+                ["ฟัน", "fan", "Teeth"],
+                ["หู", "hǔu", "Ear"],
+                ["หัวไหล่", "hǔa lài", "Shoulder"],
+                ["ผิว", "pǐu", "skin"],
+                ["ขน", "kǒn", "body hair"],
+                ["อวัยวะ", "à wai yá wá", "Body parts"]
+            ],
+            "วลีทั่วไป (Common Phrases & Misc)": [
+                ["กินข้าวยัง", "kinkhâaw yaŋ", "Have you eaten yet?"],
+                ["ขอโทษนะครับ", "kɔ̌ɔ tôot ná kráp", "Excuse me"],
+                ["ยินดีต้อนรับ", "yin dii dtɔ̂ɔn ráp", "Welcome"],
+                ["เดินทางปลอดภัย", "dəənthaaŋ plɔ̀ɔtphay", "Safe travel"],
+                ["อะไรก็ได้", "àray kɔ̂ɔdâay", "Anything / Whatever"],
+                ["เหมือนเดิม", "mʉ̌an dəəm", "Same as usual"],
+                ["แค่ตอนไปฟิตเนส", "kɛ̂ɛ dtɔɔn bpai fít nêet", "Only when going to the gym"],
+                ["แค่", "khɛ̂ɛ", "Just / only"],
+                ["อีก", "ìik", "More / again"],
+                ["ด้วย", "dûay", "Together / As well / Too"],
+                ["ก็", "gɔ̂", "also / as well"],
+                ["ไหน", "nǎi", "Which"]
+            ]
+        };
+
+        function createVocabRow(thai, phonetic, translation) {
+            return `
+                <tr class="vocab-row border-b">
+                    <td class="p-2">
+                        <div class="flex items-center justify-between">
+                            <span class="thai-word">${thai}</span>
+                            <button onclick="speak('${thai}')" class="tts-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="p-2 phonetic">${phonetic}</td>
+                    <td class="p-2 translation">${translation}</td>
+                </tr>
+            `;
+        }
+
+        function renderVocabulary() {
+            const container = document.getElementById('vocab-list');
+            let html = '';
+            for (const category in vocabularyData) {
+                const categoryPhonetic = ''; // Add if needed
+                const categoryEnglish = '';  // Add if needed
+                html += `
+                    <details class="border rounded-lg p-4 transition-all duration-300">
+                        <summary class="text-xl font-semibold thai-font">
+                             <div class="interactive-thai cursor-pointer inline-block w-full">
+                                <span class="thai-text flex items-center">
+                                    ${category}
+                                     <button onclick="speak('${category.split('(')[0].trim()}')" class="tts-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                                    </button>
+                                </span>
+                            </div>
+                        </summary>
+                        <div class="mt-4 overflow-x-auto">
+                            <table class="w-full text-left thai-font text-base">
+                                <thead class="bg-slate-200">
+                                    <tr>
+                                        <th class="p-2 rounded-tl-lg">Thai</th>
+                                        <th class="p-2 phonetic">Pronunciation</th>
+                                        <th class="p-2 translation rounded-tr-lg">English</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${vocabularyData[category].map(item => createVocabRow(item[0], item[1], item[2])).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                `;
+            }
+            container.innerHTML = html;
+            addEventListeners();
+        }
+        
+        // Text-to-Speech function
+        function speak(text) {
+            if (!text || typeof text !== 'string') return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text.trim());
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function addEventListeners() {
+            // For vocab table rows
+            document.querySelectorAll('.vocab-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    const table = row.closest('table');
+                    table.querySelectorAll('.vocab-row.is-open').forEach(openRow => {
+                        if (openRow !== row) {
+                            openRow.classList.remove('is-open');
+                        }
+                    });
+                    row.classList.toggle('is-open');
+                });
+            });
+
+            // For general interactive text blocks
+            document.querySelectorAll('.interactive-thai').forEach(element => {
+                element.addEventListener('click', (e) => {
+                    if (e.target.closest('button') || e.target.closest('summary')) {
+                        return;
+                    }
+                    element.classList.toggle('is-open');
+                });
+            });
+
+            // Stop propagation for all buttons
+             document.querySelectorAll('.tts-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', renderVocabulary);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
