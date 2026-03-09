@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Interactive Lesson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .thai-text {
+            font-family: 'Kanit', sans-serif;
+        }
+        .btn-toggle {
+            transition: all 0.2s;
+        }
+        .btn-toggle:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="pb-10">
+
+    <!-- Navbar -->
+    <div class="bg-teal-600 text-white p-4 sticky top-0 z-50 shadow-md flex justify-between items-center">
+        <h1 class="text-xl font-bold flex items-center gap-2">
+            <span>🇹🇭</span> Thai Speaking Practice
+        </h1>
+        <button onclick="resetAll()" class="text-xs bg-teal-800 px-3 py-1 rounded hover:bg-teal-900 transition">
+            Reset All
+        </button>
+    </div>
+
+    <div class="max-w-md mx-auto p-4 space-y-8">
+
+        <!-- SECTION 1: QUICK REVIEW -->
+        <section>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-2xl">⚡️</span>
+                <h2 class="text-2xl font-bold text-gray-800">Quick Review</h2>
+            </div>
+            <p class="text-gray-600 mb-4 text-sm">Use these when paying for a meal with friends.</p>
+            
+            <div id="review-container" class="space-y-4">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: ROLE PLAY -->
+        <section>
+            <div class="flex items-center gap-2 mb-4 pt-4 border-t border-gray-300">
+                <span class="text-2xl">🎭</span>
+                <h2 class="text-2xl font-bold text-gray-800">Role Play</h2>
+            </div>
+            
+            <!-- Filters / Categories -->
+            <div class="flex gap-2 overflow-x-auto pb-2 mb-2 no-scrollbar">
+                <button onclick="filterCategory('all')" class="cat-btn bg-teal-600 text-white px-4 py-1 rounded-full text-sm whitespace-nowrap">All</button>
+                <button onclick="filterCategory('smalltalk')" class="cat-btn bg-white text-gray-600 px-4 py-1 rounded-full text-sm whitespace-nowrap border">Small Talk</button>
+                <button onclick="filterCategory('intro')" class="cat-btn bg-white text-gray-600 px-4 py-1 rounded-full text-sm whitespace-nowrap border">Greeting</button>
+                <button onclick="filterCategory('wellness')" class="cat-btn bg-white text-gray-600 px-4 py-1 rounded-full text-sm whitespace-nowrap border">Wellness/Sleep</button>
+                <button onclick="filterCategory('food')" class="cat-btn bg-white text-gray-600 px-4 py-1 rounded-full text-sm whitespace-nowrap border">Food</button>
+            </div>
+
+            <div id="roleplay-container" class="space-y-4">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data Source
+        const reviewData = [
+            { thai: "จ่ายได้นะ", ipa: "jàai dâai ná", en: "I can pay.", emoji: "💸" },
+            { thai: "อันนี้", ipa: "an-níi", en: "This one.", emoji: "👈" },
+            { thai: "อันนี้เท่าไร", ipa: "an-níi thâo-rài", en: "How much is this?", emoji: "🏷️" }
+        ];
+
+        const rolePlayData = [
+            // SMALL TALK (FOCUS)
+            { category: "smalltalk", thai: "ยินดีที่ได้รู้จัก", ipa: "yin-dii tîi dâai rúu-jàk", en: "Nice to meet you.", emoji: "🤝" },
+            { category: "smalltalk", thai: "วันนี้เป็นยังไงบ้าง", ipa: "wan-níi bpen yang-ngai bâang", en: "How is your day?", emoji: "📅" },
+            { category: "smalltalk", thai: "งานเป็นยังไงบ้าง", ipa: "ngaan bpen yang-ngai bâang", en: "How is work?", emoji: "💼" },
+            { category: "smalltalk", thai: "เที่ยวเป็นยังไงบ้าง", ipa: "thîao bpen yang-ngai bâang", en: "How is your trip?", emoji: "✈️" },
+            // Responses for Small Talk
+            { category: "smalltalk", thai: "สบายดี", ipa: "sà baai dii", en: "I'm good.", emoji: "😊" },
+            { category: "smalltalk", thai: "ร้อนมาก", ipa: "rɔ́ɔn mâak", en: "Very hot.", emoji: "☀️" },
+            { category: "smalltalk", thai: "สนุก", ipa: "sà-nùk", en: "Fun.", emoji: "🎉" },
+
+            // GREETING & INTRO
+            { category: "intro", thai: "ชื่ออะไร", ipa: "chûe à-rai", en: "What's your name?", emoji: "❓" },
+            { category: "intro", thai: "ชื่อแคท", ipa: "chʉ̂ʉ kɛ̂ɛt", en: "My name is Kat.", emoji: "👩" },
+            { category: "intro", thai: "มาจากประเทศอะไร", ipa: "maa-jàak prà-thêt à-rai", en: "What country are you from?", emoji: "🌏" },
+            { category: "intro", thai: "มาจากประเทศแคนาดา", ipa: "maa jàak bprà têet kɛɛ naa daa", en: "I come from Canada.", emoji: "🇨🇦" },
+            
+            // WELLNESS / SLEEP
+            { category: "wellness", thai: "ไม่สบาย", ipa: "mâi sà baai", en: "I'm sick.", emoji: "😷" },
+            { category: "wellness", thai: "นอนหลับไหม", ipa: "nɔɔn làp mái", en: "Did you sleep well?", emoji: "🛌" },
+            { category: "wellness", thai: "นอนหลับ", ipa: "nɔɔn làp", en: "I slept well.", emoji: "😴" },
+            { category: "wellness", thai: "นอนไม่หลับ", ipa: "nɔɔn mâi làp", en: "I couldn't sleep.", emoji: "👀" },
+            { category: "wellness", thai: "เย็น", ipa: "yen", en: "Cool / Cold (drink)", emoji: "❄️" },
+            { category: "wellness", thai: "หนาว", ipa: "nǎao", en: "Cold (weather/feeling)", emoji: "🥶" },
+
+            // FOOD & PREFERENCE
+            { category: "food", thai: "กินซูชิมา", ipa: "gin suu-chí maa", en: "I ate sushi (before coming).", emoji: "🍣" },
+            { category: "food", thai: "กินผลไม้มา", ipa: "gin pǒn-lá-mái maa", en: "I ate fruit (before coming).", emoji: "🍎" },
+            { category: "food", thai: "แซ่บ", ipa: "sâap", en: "Delicious/Spicy (Isan slang)", emoji: "🌶️" },
+            { category: "food", thai: "กินเผ็ดได้ไหม", ipa: "gin pèt dâi mái", en: "Can you eat spicy food?", emoji: "🥵" },
+            { category: "food", thai: "ได้นิดหน่อย", ipa: "dâi nít-nòi", en: "I can (eat) a little bit.", emoji: "🤏" },
+            { category: "food", thai: "ชอบพูดว่าอะไร", ipa: "chɔ̂ɔp pûut wâa à rai", en: "What do you like to say?", emoji: "🗣️" },
+            { category: "food", thai: "กินข้าวเช้ายัง", ipa: "gin khâao-cháo yang", en: "Have you eaten breakfast yet?", emoji: "🍳" },
+            
+            // LOCATIONS & ACTIONS
+            { category: "wellness", thai: "ไปฟิตเนส", ipa: "bpai fít nêet", en: "Go to the gym", emoji: "🏋️" },
+            { category: "wellness", thai: "ตื่นแล้ว", ipa: "dtèun láaew", en: "Woke up already", emoji: "⏰" },
+        ];
+
+        // --- RENDER FUNCTIONS ---
+
+        function createCard(item, index, sectionId) {
+            return `
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col transition hover:shadow-md">
+                <!-- Thai & Audio Section -->
+                <div class="p-4 flex items-center justify-between bg-white">
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">${item.emoji}</span>
+                        <span class="thai-text text-2xl font-semibold text-gray-800">${item.thai}</span>
+                    </div>
+                    <button onclick="speakText('${item.thai}')" class="bg-teal-100 text-teal-700 p-3 rounded-full hover:bg-teal-200 active:bg-teal-300 focus:outline-none" aria-label="Listen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Hidden Content Container -->
+                <div class="bg-gray-50 border-t border-gray-100">
+                    <div id="${sectionId}-ipa-${index}" class="hidden p-3 text-center text-indigo-600 font-mono text-lg border-b border-gray-100">
+                        /${item.ipa}/
+                    </div>
+                    <div id="${sectionId}-en-${index}" class="hidden p-3 text-center text-gray-700 font-medium bg-green-50">
+                        "${item.en}"
+                    </div>
+                </div>
+
+                <!-- Toggle Buttons -->
+                <div class="flex divide-x divide-gray-200">
+                    <button onclick="toggleVisibility('${sectionId}-ipa-${index}', this)" class="btn-toggle flex-1 py-3 text-sm font-bold text-indigo-500 hover:bg-indigo-50 bg-white">
+                        IPA
+                    </button>
+                    <button onclick="toggleVisibility('${sectionId}-en-${index}', this)" class="btn-toggle flex-1 py-3 text-sm font-bold text-green-600 hover:bg-green-50 bg-white">
+                        EN
+                    </button>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderContent() {
+            // Render Review
+            const reviewContainer = document.getElementById('review-container');
+            reviewContainer.innerHTML = reviewData.map((item, index) => createCard(item, index, 'review')).join('');
+
+            // Render Roleplay
+            renderRolePlay('all');
+        }
+
+        function renderRolePlay(category) {
+            const container = document.getElementById('roleplay-container');
+            const filteredData = category === 'all' 
+                ? rolePlayData 
+                : rolePlayData.filter(item => item.category === category);
+            
+            container.innerHTML = filteredData.map((item, index) => createCard(item, index, 'rp')).join('');
+            
+            // Update active state of filter buttons
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                if((category === 'all' && btn.innerText === 'All') || 
+                   (category === 'intro' && btn.innerText === 'Greeting') ||
+                   (category === 'smalltalk' && btn.innerText === 'Small Talk') ||
+                   (category === 'wellness' && btn.innerText === 'Wellness/Sleep') ||
+                   (category === 'food' && btn.innerText === 'Food')) {
+                    btn.classList.remove('bg-white', 'text-gray-600', 'border');
+                    btn.classList.add('bg-teal-600', 'text-white');
+                } else {
+                    btn.classList.add('bg-white', 'text-gray-600', 'border');
+                    btn.classList.remove('bg-teal-600', 'text-white');
+                }
+            });
+        }
+
+        // --- INTERACTION FUNCTIONS ---
+
+        function toggleVisibility(elementId, btn) {
+            const el = document.getElementById(elementId);
+            const isHidden = el.classList.contains('hidden');
+            
+            if (isHidden) {
+                el.classList.remove('hidden');
+                btn.classList.add('bg-gray-100', 'shadow-inner');
+                btn.classList.remove('bg-white');
+            } else {
+                el.classList.add('hidden');
+                btn.classList.remove('bg-gray-100', 'shadow-inner');
+                btn.classList.add('bg-white');
+            }
+        }
+
+        function filterCategory(cat) {
+            renderRolePlay(cat);
+        }
+
+        function resetAll() {
+            // Re-render to close all toggles
+            renderContent();
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.9; // Slightly slower for A1 student
+                
+                // iOS sometimes ignores lang if not explicitly set on voice, but generic call works on most
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech not supported on this browser.");
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderContent);
+
+    </script>
+</body>
+</html>
