@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Lesson: Review & Questions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #fdf2f8; /* A very light pink */
+            color: #581c87; /* A deep purple */
+        }
+        .lesson-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #fbcfe8; /* Light pink border */
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .lesson-header {
+            background-image: linear-gradient(to right, #ec4899, #d946ef);
+            color: white;
+            padding: 2rem;
+            border-bottom: 5px solid #fbcfe8;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #db2777;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #be185d;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 10px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background-color: #f3e8ff;
+            color: #9333ea;
+        }
+        .btn-secondary:hover {
+            background-color: #e9d5ff;
+        }
+        details > summary {
+            cursor: pointer;
+            padding: 1.25rem;
+            background-color: #fce7f3;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            list-style: none; /* Hides the default marker */
+            position: relative;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #fbcfe8;
+        }
+        details > summary::-webkit-details-marker {
+            display: none; /* Hides marker for Chrome/Safari */
+        }
+        details[open] > summary {
+            background-color: #fbcfe8;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .summary-icon {
+            transition: transform 0.3s ease;
+        }
+        details[open] .summary-icon {
+            transform: rotate(180deg);
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 500;
+            border-radius: 12px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+        .flashcard-back {
+            background: #c084fc;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .phonetic, .english {
+            color: #c084fc;
+            font-style: italic;
+            display: block;
+        }
+        .audio-btn {
+            cursor: pointer;
+            color: #9333ea;
+            display: inline-block;
+            margin-left: 0.25rem;
+            vertical-align: middle;
+        }
+        .audio-btn:hover {
+            color: #7e22ce;
+        }
+        .info-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.7rem;
+            line-height: 1;
+            margin-left: 0.35rem;
+            vertical-align: middle;
+            border: 1px solid;
+        }
+        .ipa-btn {
+            background-color: #f3e8ff;
+            color: #9333ea;
+            border-color: #c084fc;
+        }
+        .ipa-btn:hover {
+            background-color: #e9d5ff;
+        }
+        .en-btn {
+            background-color: #fce7f3;
+            color: #db2777;
+            border-color: #f9a8d4;
+        }
+        .en-btn:hover {
+            background-color: #fbcfe8;
+        }
+        .thai-text {
+            font-size: 1.125rem; /* Slightly larger Thai text */
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="lesson-card">
+            <div class="lesson-header text-center">
+                <h1 class="text-3xl sm:text-4xl font-bold">Review & Asking Questions</h1>
+                <p class="mt-2 text-lg opacity-90">Let's review and learn 3 new question words!</p>
+            </div>
+
+            <div class="p-5 sm:p-8 space-y-8">
+
+                <!-- Part 1: Warmer / Review 1 -->
+                <details open>
+                    <summary class="flex justify-between items-center">
+                        <span>💖 Part 1: Warmer - Vocab Review</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p>Let's remember the words from our "This or That" game!</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <div class="flashcard-container" onclick="this.querySelector('.flashcard').classList.toggle('is-flipped')">
+                                <div class="flashcard">
+                                    <div class="flashcard-face flashcard-front">Cool</div>
+                                    <div class="flashcard-face flashcard-back" onclick="speak('เท่', event)">เท่ (thêe)</div>
+                                </div>
+                            </div>
+                            <div class="flashcard-container" onclick="this.querySelector('.flashcard').classList.toggle('is-flipped')">
+                                <div class="flashcard">
+                                    <div class="flashcard-face flashcard-front">Fierce / Strict</div>
+                                    <div class="flashcard-face flashcard-back" onclick="speak('ดุ', event)">ดุ (dù)</div>
+                                </div>
+                            </div>
+                            <div class="flashcard-container" onclick="this.querySelector('.flashcard').classList.toggle('is-flipped')">
+                                <div class="flashcard">
+                                    <div class="flashcard-face flashcard-front">Quiet</div>
+                                    <div class="flashcard-face flashcard-back" onclick="speak('เงียบ', event)">เงียบ (ngîap)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 2: Review 2 -->
+                <details>
+                    <summary class="flex justify-between items-center">
+                        <span>🥰 Part 2: Review - Key Phrases</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p>Do you remember these important phrases?</p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-lg">
+                                <span class="thai-text">ฉันรักคุณค่ะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('ฉันรักคุณค่ะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(chán rák khun kâ)</span>
+                                <span class="english hidden text-purple-600">I love you.</span>
+                            </p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                             <p class="text-lg">
+                                <span class="thai-text">คุณน่ารักค่ะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('คุณน่ารักค่ะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(khun nâa rák kâ)</span>
+                                <span class="english hidden text-purple-600">You are cute.</span>
+                            </p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                             <p class="text-lg">
+                                <span class="thai-text">เป็นอะไรรึเปล่า</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('เป็นอะไรรึเปล่า', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(bpen à-rai rʉ́ bplàao)</span>
+                                <span class="english hidden text-purple-600">Are you okay? / What's wrong?</span>
+                            </p>
+                        </div>
+                    </div>
+                </details>
+                
+                <!-- Part 3: New Question Word - ไหม (măi) -->
+                <details>
+                    <summary class="flex justify-between items-center">
+                        <span>❓ Part 3: Question Word: ไหม (măi)</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p>This is the most common way to make a Yes/No question. Just add it to the end of a statement!</p>
+                        <p class="font-semibold">Structure: <code class="bg-pink-100 text-pink-700 p-1 rounded">Statement + ไหม (măi) + คะ (khá)?</code></p>
+                        <p class="font-bold mt-4">Practice Questions:</p>
+                        
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">คุณชอบส้มตำไหมคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('คุณชอบส้มตำไหมคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(khun chɔ̂ɔp sôm dtam măi khá)</span>
+                                <span class="english hidden text-purple-600">Do you like papaya salad?</span>
+                            </p>
+                            <p class="mt-2 text-purple-800">Your answer could be: <span class="thai-text">ชอบค่ะ (chɔ̂ɔp kâ)</span> or <span class="thai-text">ไม่ชอบค่ะ (mâi chɔ̂ɔp kâ)</span></p>
+                        </div>
+                        
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">คุณสบายดีไหมคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('คุณสบายดีไหมคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(khun sà-baai dii măi khá)</span>
+                                <span class="english hidden text-purple-600">Are you well? (How are you?)</span>
+                            </p>
+                        </div>
+
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">เขาเท่ไหมคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('เขาเท่ไหมคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(kháo thêe măi khá)</span>
+                                <span class="english hidden text-purple-600">Is he/she cool?</span>
+                            </p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 4: New Question Word - อะไร (à-rai) -->
+                <details>
+                    <summary class="flex justify-between items-center">
+                        <span>❓ Part 4: Question Word: อะไร (à-rai)</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p>This means "What". It usually goes at the end of the sentence, where the answer would be.</p>
+                        <p class="font-semibold">Structure: <code class="bg-pink-100 text-pink-700 p-1 rounded">Subject + Verb + อะไร (à-rai) + คะ (khá)?</code></p>
+                        <p class="font-bold mt-4">Practice Questions:</p>
+
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">นี่คืออะไรคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('นี่คืออะไรคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(nîi khʉʉ à-rai khá)</span>
+                                <span class="english hidden text-purple-600">What is this?</span>
+                            </p>
+                        </div>
+                        
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">คุณชอบอะไรคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('คุณชอบอะไรคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(khun chɔ̂ɔp à-rai khá)</span>
+                                <span class="english hidden text-purple-600">What do you like?</span>
+                            </p>
+                        </div>
+
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                             <p>Let's learn a new verb: <span class="thai-text">กิน (gin)</span> = "to eat".</p>
+                            <p class="text-lg mt-2">
+                                <span class="thai-text">คุณกินอะไรคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('คุณกินอะไรคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(khun gin à-rai khá)</span>
+                                <span class="english hidden text-purple-600">What are you eating?</span>
+                            </p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 5: New Question Word - ทำไม (tham-mai) -->
+                <details>
+                     <summary class="flex justify-between items-center">
+                        <span>❓ Part 5: Question Word: ทำไม (tham-mai)</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                     <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p>This means "Why". It usually goes at the *beginning* of the sentence.</p>
+                        <p class="font-semibold">Structure: <code class="bg-pink-100 text-pink-700 p-1 rounded">ทำไม (tham-mai) + ... + คะ (khá)?</code></p>
+                        <p class="font-bold mt-4">Practice Questions:</p>
+
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">ทำไมคุณชอบเขา</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('ทำไมคุณชอบเขา', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(tham-mai khun chɔ̂ɔp kháo)</span>
+                                <span class="english hidden text-purple-600">Why do you like him/her?</span>
+                            </p>
+                             <p class="mt-2 text-purple-800">You can start an answer with: <span class="thai-text">เพราะว่า... (prɔ́-wâa...)</span> - "Because..."</p>
+                        </div>
+                        
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p class="text-lg">
+                                <span class="thai-text">ทำไมคุณไม่ชอบส้มตำ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('ทำไมคุณไม่ชอบส้มตำ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(tham-mai khun mâi chɔ̂ɔp sôm dtam)</span>
+                                <span class="english hidden text-purple-600">Why don't you like papaya salad?</span>
+                            </p>
+                        </div>
+
+                        <div class="bg-fuchsia-50 p-4 rounded-xl">
+                            <p>Let's learn a new word: <span class="thai-text">จัง (jang)</span> = "so" or "very" (cute way)</p>
+                            <p class="text-lg mt-2">
+                                <span class="thai-text">ทำไมคุณน่ารักจัง</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('ทำไมคุณน่ารักจัง', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(tham-mai khun nâa rák jang)</span>
+                                <span class="english hidden text-purple-600">Why are you so cute?</span>
+                            </p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 6: Challenge Conversation -->
+                <details>
+                    <summary class="flex justify-between items-center">
+                        <span>💬 Part 6: Challenge Conversation</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-4">
+                        <p class="text-center font-semibold">Let's put it all together! Try to read this conversation.</p>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-lg">
+                                <strong class="text-pink-600">A:</strong>
+                                <span class="thai-text">สวัสดีค่ะ คุณสบายดีไหมคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('สวัสดีค่ะ คุณสบายดีไหมคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(sà wàt dii kâ khun sà-baai dii măi khá)</span>
+                                <span class="english hidden text-purple-600">Hello, how are you?</span>
+                            </p>
+                        </div>
+                        <div class="bg-fuchsia-50 p-4 rounded-lg">
+                            <p class="text-lg">
+                                <strong class="text-purple-700">B:</strong>
+                                <span class="thai-text">สบายดีค่ะ คุณชอบดูซีรีส์อะไรคะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('สบายดีค่ะ คุณชอบดูซีรีส์อะไรคะ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(sà-baai dii kâ khun chɔ̂ɔp duu sii-rîi à-rai khá)</span>
+                                <span class="english hidden text-purple-600">I'm fine, thanks. What series do you like to watch?</span>
+                            </p>
+                        </div>
+                         <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="text-lg">
+                                <strong class="text-pink-600">A:</strong>
+                                <span class="thai-text">ฉันชอบดู [Your Fav GL Series] ค่ะ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('ฉันชอบดู', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(chán chɔ̂ɔp duu ... kâ)</span>
+                                <span class="english hidden text-purple-600">I like to watch ...</span>
+                            </p>
+                        </div>
+                        <div class="bg-fuchsia-50 p-4 rounded-lg">
+                            <p class="text-lg">
+                                <strong class="text-purple-700">B:</strong>
+                                <span class="thai-text">จริงเหรอคะ ทำไมคุณชอบ</span>
+                                <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                                <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                                <i data-lucide="volume-2" class="audio-btn" onclick="speak('จริงเหรอคะ ทำไมคุณชอบ', event)"></i>
+                                <span class="phonetic hidden text-purple-600">(jing rə̌ə khá tham-mai khun chɔ̂ɔp)</span>
+                                <span class="english hidden text-purple-600">Really? Why do you like it?</span>
+                            </p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 7: Extension Activities -->
+                <details>
+                    <summary class="flex justify-between items-center">
+                        <span>🚀 Part 7: Extension Activities</span>
+                        <i data-lucide="chevron-down" class="summary-icon"></i>
+                    </summary>
+                    <div class="p-5 border border-t-0 border-pink-200 rounded-b-lg space-y-6">
+                        <p class="text-center font-semibold">Let's practice a bit more!</p>
+
+                        <!-- Activity 1: Mix & Match -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-2 text-purple-700">Activity 1: Match the Question Word</h3>
+                            <div class="space-y-3">
+                                <div class="bg-purple-50 p-3 rounded-lg flex justify-between items-center">
+                                    <span class="thai-text font-semibold">ไหม (măi)</span>
+                                    <select id="match-1" class="rounded-lg border-purple-300 focus:border-pink-500 focus:ring-pink-500">
+                                        <option value="">Select...</option>
+                                        <option value="what">What?</option>
+                                        <option value="why">Why?</option>
+                                        <option value="yes/no">Yes/No?</option>
+                                    </select>
+                                </div>
+                                <div class="bg-purple-50 p-3 rounded-lg flex justify-between items-center">
+                                    <span class="thai-text font-semibold">อะไร (à-rai)</span>
+                                    <select id="match-2" class="rounded-lg border-purple-300 focus:border-pink-500 focus:ring-pink-500">
+                                        <option value="">Select...</option>
+                                        <option value="what">What?</option>
+                                        <option value="why">Why?</option>
+                                        <option value="yes/no">Yes/No?</option>
+                                    </select>
+                                </div>
+                                <div class="bg-purple-50 p-3 rounded-lg flex justify-between items-center">
+                                    <span class="thai-text font-semibold">ทำไม (tham-mai)</span>
+                                    <select id="match-3" class="rounded-lg border-purple-300 focus:border-pink-500 focus:ring-pink-500">
+                                        <option value="">Select...</option>
+                                        <option value="what">What?</option>
+                                        <option value="why">Why?</option>
+                                        <option value="yes/no">Yes/No?</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-secondary" onclick="checkMatching()">Check Answers</button>
+                                <p id="match-feedback" class="text-pink-600 font-semibold hidden text-center"></p>
+                            </div>
+                        </div>
+
+                        <!-- Activity 2: Fill in the Blank -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-2 text-purple-700">Activity 2: What's the Question Word?</h3>
+                            <div class="bg-fuchsia-50 p-4 rounded-xl space-y-4">
+                                <p>1. <span class="thai-text">คุณชอบสี ___ คะ</span> (khun chɔ̂ɔp sǐi ___ khá) (You like color ___?)</p>
+                                <div id="q1-btns" class="flex flex-wrap gap-2">
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q1-feedback', 'incorrect', 'ไหม')">ไหม (măi)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q1-feedback', 'correct', 'อะไร')">อะไร (à-rai)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q1-feedback', 'incorrect', 'ทำไม')">ทำไม (tham-mai)</button>
+                                </div>
+                                <p id="q1-feedback" class="text-pink-600 font-semibold hidden"></p>
+                            </div>
+
+                            <div class="bg-fuchsia-50 p-4 rounded-xl mt-4 space-y-4">
+                                <p>2. <span class="thai-text">___ คุณไม่กิน</span> (___ khun mâi gin) (___ you don't eat?)</p>
+                                <div id="q2-btns" class="flex flex-wrap gap-2">
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q2-feedback', 'incorrect', 'ไหม')">ไหม (măi)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q2-feedback', 'incorrect', 'อะไร')">อะไร (à-rai)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q2-feedback', 'correct', 'ทำไม')">ทำไม (tham-mai)</button>
+                                </div>
+                                <p id="q2-feedback" class="text-pink-600 font-semibold hidden"></p>
+                            </div>
+
+                            <div class="bg-fuchsia-50 p-4 rounded-xl mt-4 space-y-4">
+                                <p>3. <span class="thai-text">คุณชอบเขา ___ คะ</span> (khun chɔ̂ɔp kháo ___ khá) (You like him/her ___?)</p>
+                                <div id="q3-btns" class="flex flex-wrap gap-2">
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q3-feedback', 'correct', 'ไหม')">ไหม (măi)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q3-feedback', 'incorrect', 'อะไร')">อะไร (à-rai)</button>
+                                    <button class="btn btn-secondary" onclick="checkFillIn('q3-feedback', 'incorrect', 'ทำไม')">ทำไม (tham-mai)</button>
+                                </div>
+                                <p id="q3-feedback" class="text-pink-600 font-semibold hidden"></p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Part 8: Your Mission! -->
+                <div class="text-center p-6 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl">
+                    <h2 class="text-2xl font-bold text-purple-800"> 
+                        <span class="thai-text">ภารกิจ</span>
+                        <button class="info-btn ipa-btn" onclick="toggleVisibility(this, 'phonetic')">IPA</button>
+                        <button class="info-btn en-btn" onclick="toggleVisibility(this, 'english')">EN</button>
+                        <i data-lucide="volume-2" class="audio-btn" onclick="speak('ภารกิจ', event)"></i>
+                        <span class="phonetic hidden">(phaa-rá-gìt)</span>
+                        <span class="english hidden">(Mission)</span>
+                    </h2>
+                    <p class="mt-2 mb-4">Try to ask one <strong class="text-pink-600">ไหม (măi)</strong>, one <strong class="text-pink-600">อะไร (à-rai)</strong>, and one <strong class="text-pink-600">ทำไม (tham-mai)</strong> question this week!</p>
+                    <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
+                        <i data-lucide="check-circle-2" class="text-pink-500"></i>
+                        <span class="font-semibold text-purple-700">Mission Accepted!</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function speak(text, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            if ('speechSynthesis' in window) {
+                // Remove phonetics and translations from speech
+                const thaiText = text.split('(')[0].trim();
+                const utterance = new SpeechSynthesisUtterance(thaiText);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech.');
+            }
+        }
+
+        function toggleVisibility(button, type) {
+             if (event) {
+                event.stopPropagation();
+            }
+            const container = button.parentElement;
+            const targetSpan = container.querySelector(`.${type}`);
+            if (targetSpan) {
+                targetSpan.classList.toggle('hidden');
+            }
+        }
+
+    </script>
+    <script>
+        function checkMatching() {
+            const match1 = document.getElementById('match-1').value;
+            const match2 = document.getElementById('match-2').value;
+            const match3 = document.getElementById('match-3').value;
+            const feedback = document.getElementById('match-feedback');
+
+            if (match1 === 'yes/no' && match2 === 'what' && match3 === 'why') {
+                feedback.textContent = 'Perfect! คุณเก่งมาก! (khun gèng mâak - You are very smart!)';
+                feedback.classList.remove('hidden');
+                speak('คุณเก่งมาก');
+            } else {
+                feedback.textContent = 'Not quite, try again! สู้ๆนะ (sûu sûu ná - Keep fighting!)';
+                feedback.classList.remove('hidden');
+                speak('สู้ๆนะ');
+            }
+        }
+
+        function checkFillIn(feedbackId, status, word) {
+            const feedback = document.getElementById(feedbackId);
+            speak(word);
+            if (status === 'correct') {
+                feedback.textContent = 'Correct! ใช่ค่ะ (châi kâ)';
+                feedback.classList.remove('hidden');
+                // Disable buttons for this question
+                const buttonContainer = document.getElementById(feedbackId.replace('feedback', 'btns'));
+                if (buttonContainer) {
+                    buttonContainer.querySelectorAll('button').forEach(btn => btn.disabled = true);
+                }
+            } else {
+                feedback.textContent = 'Try again! ไม่ใช่ค่ะ (mâi châi kâ)';
+                feedback.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+
