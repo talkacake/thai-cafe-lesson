@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทบทวนภาษาไทยสุดฮา</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f0f9ff;
+            color: #1e293b;
+        }
+        .thai-font { font-family: 'Sarabun', sans-serif; }
+        .ipa { display: none; color: #64748b; font-style: italic; font-size: 0.875rem; }
+        .en { display: none; color: #059669; font-size: 0.875rem; }
+        .show { display: inline-block; }
+        
+        .btn-control {
+            @apply px-2 py-0.5 rounded text-[10px] font-bold transition-all border border-gray-300 ml-1 inline-flex items-center justify-center;
+            min-width: 32px;
+        }
+        .btn-ipa { @apply bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white; }
+        .btn-en { @apply bg-green-50 text-green-600 hover:bg-green-600 hover:text-white; }
+        .btn-speak { @apply bg-gray-100 hover:bg-gray-200; }
+
+        .activity-card { 
+            @apply bg-white p-8 rounded-3xl shadow-sm border border-gray-100 transition-all hover:shadow-md mb-10;
+        }
+        .section-header {
+            @apply text-3xl font-bold text-blue-900 mt-16 mb-8 flex items-center gap-2;
+        }
+        .instruction-box {
+            @apply mb-6 p-4 bg-blue-50/80 rounded-2xl border-l-4 border-blue-400 text-sm;
+        }
+        .sample-box {
+            @apply mt-6 p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-300 space-y-4;
+        }
+        .dialogue-item {
+            @apply border-b border-gray-100 pb-4 last:border-0;
+        }
+        hr {
+            @apply border-t-2 border-blue-100 my-10;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10 pb-32">
+
+    <header class="max-w-5xl mx-auto text-center mb-10">
+        <h1 class="text-4xl font-black text-blue-950 flex justify-center items-center gap-3">
+            <span>🎨</span> ทบทวนภาษาไทยสุดฮา
+        </h1>
+        <div class="mt-2 flex justify-center items-center">
+            <button onclick="speak('ทบทวนภาษาไทยสุดฮา')" class="btn-control btn-speak">🔊</button>
+            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+            <span class="ipa">tóp-tuan phaa-sǎa Thai sùt haa</span>
+            <span class="en">Funny Thai Review</span>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto">
+
+        <!-- ส่วนที่ 1: กิจกรรมสุดฮา -->
+        <h2 class="section-header"><span>🎭</span> กิจกรรมสุดฮา</h2>
+        
+        <div class="grid grid-cols-1 gap-8">
+            
+            <!-- 1.1: สัมภาษณ์มนุษย์ต่างดาว -->
+            <div class="activity-card border-t-8 border-blue-500">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-blue-800">สัมภาษณ์ มนุษย์ต่างดาว</span>
+                    <button onclick="speak('สัมภาษณ์ มนุษย์ต่างดาว')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">sǎm-phâat má-nút dtàang-daao</p>
+                    <p class="en">Alien Interview</p>
+                </div>
+
+                <div class="instruction-box">
+                    <span class="thai-font text-blue-800 font-semibold">ถาม มนุษย์ต่างดาว เรื่อง เงิน และ ชีวิต</span>
+                    <button onclick="speak('ถาม มนุษย์ต่างดาว เรื่อง เงิน และ ชีวิต')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">thǎam má-nút dtàang-daao rʉ̂eang ngoen lɛ́ chee-wít</p>
+                    <p class="en">Ask the alien about money and life.</p>
+                </div>
+
+                <div class="sample-box bg-white">
+                    <p class="text-[10px] font-bold text-blue-400 uppercase mb-2 tracking-widest">คำถาม แนะนำ</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="dialogue-item">
+                            <span class="thai-font font-bold">"คุณ มี เงิน กี่ ล้าน?"</span>
+                            <button onclick="speak('คุณ มี เงิน กี่ ล้าน?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khun mii ngoen gìi láan?</p>
+                            <p class="en">How many million do you have?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font font-bold">"คุณ ทำงาน อะไร ที่ ดาวอังคาร?"</span>
+                            <button onclick="speak('คุณ ทำงาน อะไร ที่ ดาวอังคาร?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khun tam-ngaan à-rai tîi daao-ang-khaan?</p>
+                            <p class="en">What work do you do on Mars?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font font-bold">"ทำไม คุณ อยาก มา เมืองไทย?"</span>
+                            <button onclick="speak('ทำไม คุณ อยาก มา เมืองไทย?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">tham-mai khun yàak maa mueng-Thai?</p>
+                            <p class="en">Why do you want to come to Thailand?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font font-bold">"คุณ ชอบ กิน อาหาร อะไร?"</span>
+                            <button onclick="speak('คุณ ชอบ กิน อาหาร อะไร?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khun chɔ̂อp gin aa-hǎan à-rai?</p>
+                            <p class="en">What food do you like to eat?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2: โต้วาที -->
+            <div class="activity-card border-t-8 border-red-500">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-red-800">โต้วาที: เผ็ด หรือ เศร้า</span>
+                    <button onclick="speak('โต้วาที: เผ็ด หรือ เศร้า')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">dtôo-waa-thii: phèt rʉ̌ʉ sâo</p>
+                    <p class="en">Debate: Spicy vs Sad</p>
+                </div>
+
+                <div class="instruction-box border-red-400 bg-red-50/80">
+                    <span class="thai-font text-red-800 font-semibold">ทำไม กินเผ็ด หรือ เศร้า ดีกว่า?</span>
+                    <button onclick="speak('ทำไม กินเผ็ด หรือ เศร้า ดีกว่า?')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">tham-mai gin phèt rʉ̌ʉ sâo dii-gwàa?</p>
+                    <p class="en">Why is spicy or sad better?</p>
+                </div>
+
+                <div class="sample-box bg-white">
+                    <p class="text-[10px] font-bold text-red-400 uppercase mb-2">ตัวอย่าง เหตุผล</p>
+                    <div class="dialogue-item">
+                        <span class="thai-font font-bold">"กินเผ็ด ดี เพราะ ได้ ดื่มน้ำ เยอะ"</span>
+                        <button onclick="speak('กินเผ็ด ดี เพราะ ได้ ดื่มน้ำ เยอะ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">gin phèt dii prɔ́ dâai dʉ̀ʉm náam yə́</p>
+                        <p class="en">Spicy is good because you get to drink lots of water.</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="thai-font font-bold">"เศร้า ดีกว่า เพราะ ได้ นอนหลับ ทั้งวัน"</span>
+                        <button onclick="speak('เศร้า ดีกว่า เพราะ ได้ นอนหลับ ทั้งวัน')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">sâo dii-gwàa prɔ́ dâai nɔɔn-làp táng-wan</p>
+                        <p class="en">Sad is better because you get to sleep all day.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.3: เล่าเรื่องต่อ -->
+            <div class="activity-card border-t-8 border-yellow-500">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-yellow-800">เล่าเรื่อง: เป็ด ขับรถ</span>
+                    <button onclick="speak('เล่าเรื่อง: เป็ด ขับรถ')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">lâo rʉ̂eang: bpèt khàp-rót</p>
+                    <p class="en">Story: The driving duck</p>
+                </div>
+
+                <div class="instruction-box border-yellow-400 bg-yellow-50/80">
+                    <span class="thai-font text-yellow-800 font-semibold">เล่าเรื่อง ต่อ จาก ประโยค นี้</span>
+                    <button onclick="speak('เล่าเรื่อง ต่อ จาก ประโยค นี้')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">lâo rʉ̂eang dtɔ̀ɔ jàak prà-yòok níi</p>
+                    <p class="en">Continue the story from this sentence.</p>
+                </div>
+
+                <div class="sample-box bg-white">
+                    <p class="text-[10px] font-bold text-yellow-600 uppercase mb-2">ประโยค เริ่มต้น</p>
+                    <div class="thai-font text-lg font-bold">
+                        "เป็ด ตัวใหญ่ ขับรถ ไป กรุงเทพฯ... มัน หิว ก็เลย กิน ไก่ทอด!"
+                        <button onclick="speak('เป็ด ตัวใหญ่ ขับรถ ไป กรุงเทพฯ... มัน หิว ก็เลย กิน ไก่ทอด!')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">bpèt dtua-yài khàp-rót bpai grung-têep... man hǐu gɔ̂-loie gin gài-thâot!</p>
+                        <p class="en">A big duck drives to Bangkok... it's hungry so it eats fried chicken!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.4: เกมถอดรหัสอีโมจิ -->
+            <div class="activity-card border-t-8 border-cyan-500">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-cyan-800">เกม: ทาย ประโยค จาก อีโมจิ</span>
+                    <button onclick="speak('เกม: ทาย ประโยค จาก อีโมจิ')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">geem: thaai prà-yòok jàak ee-moo-jì</p>
+                    <p class="en">Game: Guess sentence from Emoji</p>
+                </div>
+
+                <div class="instruction-box border-cyan-400 bg-cyan-50/80">
+                    <span class="thai-font text-cyan-800 font-semibold">พูด ประโยค ภาษาไทย จาก รูปภาพ</span>
+                    <button onclick="speak('พูด ประโยค ภาษาไทย จาก รูปภาพ')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">phûut prà-yòok phaa-sǎa Thai jàak rûup-phâap</p>
+                    <p class="en">Say the Thai sentence based on the images.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                        <span class="text-3xl">🛌⏰🕕</span>
+                        <div class="mt-2">
+                            <button onclick="reveal('em1')" class="text-[10px] bg-cyan-100 text-cyan-700 px-2 py-1 rounded">เฉลย</button>
+                            <div id="em1" class="hidden mt-2">
+                                <span class="thai-font font-bold">ตื่น หกโมง</span>
+                                <button onclick="speak('ตื่น หกโมง')" class="btn-control btn-speak">🔊</button>
+                                <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                                <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                                <p class="ipa">dtʉ̀ʉn hòk-moong</p>
+                                <p class="en">Wake up at 6 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                        <span class="text-3xl">🧳✈️🇰🇭</span>
+                        <div class="mt-2">
+                            <button onclick="reveal('em2')" class="text-[10px] bg-cyan-100 text-cyan-700 px-2 py-1 rounded">เฉลย</button>
+                            <div id="em2" class="hidden mt-2">
+                                <span class="thai-font font-bold">ไป กัมพูชา</span>
+                                <button onclick="speak('ไป กัมพูชา')" class="btn-control btn-speak">🔊</button>
+                                <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                                <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                                <p class="ipa">bpai gam-phuu-chaa</p>
+                                <p class="en">Go to Cambodia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl text-center">
+                        <span class="text-3xl">🏦🏧💸</span>
+                        <div class="mt-2">
+                            <button onclick="reveal('em3')" class="text-[10px] bg-cyan-100 text-cyan-700 px-2 py-1 rounded">เฉลย</button>
+                            <div id="em3" class="hidden mt-2">
+                                <span class="thai-font font-bold">ถอนเงิน</span>
+                                <button onclick="speak('ถอนเงิน')" class="btn-control btn-speak">🔊</button>
+                                <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                                <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                                <p class="ipa">thǎwn-ngoen</p>
+                                <p class="en">Withdraw money</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- ส่วนที่ 2: กิจกรรมเสริมทักษะจริง -->
+        <h2 class="section-header"><span>🚀</span> กิจกรรม เสริม ทักษะ จริง</h2>
+
+        <hr>
+
+        <div class="space-y-12">
+            <!-- 2.1: ที่ธนาคาร -->
+            <div class="activity-card border-l-8 border-green-500 bg-green-50/5 shadow-md">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-green-900">สถานการณ์ จริง: ที่ ธนาคาร</span>
+                    <button onclick="speak('สถานการณ์ จริง: ที่ ธนาคาร')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">sà-thǎa-ná-gaan jing: tîi tá-naa-kaan</p>
+                    <p class="en">Real-life Situation: At the bank</p>
+                </div>
+
+                <div class="instruction-box border-green-400 bg-green-100/50">
+                    <span class="thai-font text-green-800 font-semibold">ฝึก แลกเงิน, ฝากเงิน และ ทำบัตร เอทีเอ็ม</span>
+                    <button onclick="speak('ฝึก แลกเงิน, ฝากเงิน และ ทำบัตร เอทีเอ็ม')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">fʉ̀k lâek-ngoen, fàak-ngoen lɛ́ tam bàt ee-tee-em</p>
+                    <p class="en">Practice exchanging, depositing, and making an ATM card.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl space-y-4 shadow-inner border border-green-100">
+                    <div class="dialogue-item">
+                        <span class="font-bold text-green-700">A: </span>
+                        <span class="thai-font">"ผม ขอ แลกเงิน 300 ดอลลาร์ ครับ"</span>
+                        <button onclick="speak('ผม ขอ แลกเงิน 300 ดอลลาร์ ครับ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">phǒm khǎw lâek-ngoen sǎam-rói dawn-lâa khráp</p>
+                        <p class="en">I'd like to exchange 300 dollars.</p>
+                    </div>
+                    <div class="dialogue-item text-right">
+                        <span class="thai-font">"ขอ หนังสือเดินทาง ด้วย ค่ะ... จะ ฝากเงิน เท่าไร คะ?"</span>
+                        <button onclick="speak('ขอ หนังสือเดินทาง ด้วย ค่ะ... จะ ฝากเงิน เท่าไร คะ?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <span class="font-bold text-gray-700"> :B</span>
+                        <p class="ipa">khǎw nǎng-sǔe-doen-thaang dûay khâ... jà fàak-ngoen thâo-rài khá?</p>
+                        <p class="en">Passport please... how much would you like to deposit?</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="font-bold text-green-700">A: </span>
+                        <span class="thai-font">"ฝาก 5,000 บาท ครับ... ผม อยาก ได้ บัตร เอทีเอ็ม ด้วย"</span>
+                        <button onclick="speak('ฝาก 5,000 บาท ครับ... ผม อยาก ได้ บัตร เอทีเอ็ม ด้วย')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">fàak hâa-phan bàat khráp... phǒm yàak dâai bàt ee-tee-em dûay</p>
+                        <p class="en">Deposit 5,000 baht... I want an ATM card too.</p>
+                    </div>
+                    <div class="dialogue-item text-right">
+                        <span class="thai-font">"ได้ ค่ะ... มี ค่าธรรมเนียม บัตร 200 บาท นะคะ"</span>
+                        <button onclick="speak('ได้ ค่ะ... มี ค่าธรรมเนียม บัตร 200 บาท นะคะ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <span class="font-bold text-gray-700"> :B</span>
+                        <p class="ipa">dâai khâ... mii khâa-tham-niam bàt sǎawng-rói bàat ná khá</p>
+                        <p class="en">Sure... there is a card fee of 200 baht.</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="font-bold text-green-700">A: </span>
+                        <span class="thai-font">"โอเค ครับ... เรียบร้อย หรือยัง ครับ?"</span>
+                        <button onclick="speak('โอเค ครับ... เรียบร้อย หรือยัง ครับ?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">oo-kee khráp... rîap-rɔ̂ɔi rʉ̌ʉ-yang khráp?</p>
+                        <p class="en">Okay... is it finished yet?</p>
+                    </div>
+                    <div class="dialogue-item text-right">
+                        <span class="thai-font">"เรียบร้อย ค่ะ... นี่ สมุดบัญชี และ บัตร ของ คุณ ค่ะ"</span>
+                        <button onclick="speak('เรียบร้อย ค่ะ... นี่ สมุดบัญชี และ บัตร ของ คุณ ค่ะ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <span class="font-bold text-gray-700"> :B</span>
+                        <p class="ipa">rîap-rɔ̂ɔi khâ... nîi sà-mùt-ban-chii lɛ́ bàต khɔ̌อng khun khâ</p>
+                        <p class="en">Finished... here is your passbook and card.</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="font-bold text-green-700">A: </span>
+                        <span class="thai-font">"ขอบคุณ ครับ... ธนาคาร ปิด กี่ โมง ครับ?"</span>
+                        <button onclick="speak('ขอบคุณ ครับ... ธนาคาร ปิด กี่ โมง ครับ?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">khàwp-khun khráp... tá-naa-kaan bpìt gìi-moong khráp?</p>
+                        <p class="en">Thank you... what time does the bank close?</p>
+                    </div>
+                    <div class="dialogue-item text-right">
+                        <span class="thai-font">"ธนาคาร ปิด สี่ โมง เย็น ค่ะ"</span>
+                        <button onclick="speak('ธนาคาร ปิด สี่ โมง เย็น ค่ะ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <span class="font-bold text-gray-700"> :B</span>
+                        <p class="ipa">tá-naa-kaan bpìt sìi-moong-yen khâ</p>
+                        <p class="en">The bank closes at 4 PM.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- 2.2: สัมภาษณ์ครู -->
+            <div class="activity-card border-l-8 border-orange-500 bg-orange-50/5 shadow-md">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-orange-900">สัมภาษณ์ ครู และ สรุป ข้อมูล</span>
+                    <button onclick="speak('สัมภาษณ์ ครู และ สรุป ข้อมูล')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">sǎm-phâat khruu lɛ́ sà-rùp khɔ̂ɔ-muun</p>
+                    <p class="en">Interview the teacher and summarize results.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-orange-100/50 rounded-3xl space-y-4 shadow-sm">
+                        <p class="text-[10px] font-bold text-orange-600 mb-2 uppercase tracking-widest">คำถาม (Questions)</p>
+                        <div class="dialogue-item">
+                            <span class="thai-font">"ครู ตื่น กี่โมง?"</span>
+                            <button onclick="speak('ครู ตื่น กี่โมง?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khruu dtʉ̀ʉn gìi-moong?</p>
+                            <p class="en">What time do you wake up?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font">"ครู ขับรถ ได้ไหม?"</span>
+                            <button onclick="speak('ครู ขับรถ ได้ไหม?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khruu khàp-rót dâi-mǎi?</p>
+                            <p class="en">Can you drive?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font">"ครู ชอบ สี อะไร?"</span>
+                            <button onclick="speak('ครู ชอบ สี อะไร?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khruu chɔ̂ɔp sǐi à-rai?</p>
+                            <p class="en">What color do you like?</p>
+                        </div>
+                        <div class="dialogue-item">
+                            <span class="thai-font">"ครู เหนื่อย ไหม?"</span>
+                            <button onclick="speak('ครู เหนื่อย ไหม?')" class="btn-control btn-speak">🔊</button>
+                            <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                            <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                            <p class="ipa">khruu nʉ̀ai mǎi?</p>
+                            <p class="en">Are you tired?</p>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white rounded-3xl border-2 border-dashed border-orange-200 h-fit">
+                        <p class="text-xs font-bold text-gray-500 mb-2 uppercase">สรุป (Student Summarizes)</p>
+                        <span class="thai-font font-bold text-orange-900 text-lg">"ครู บอก ว่า ตื่น หกโมงเช้า และ ชอบ สีเขียว"</span>
+                        <button onclick="speak('ครู บอก ว่า ตื่น หกโมงเช้า และ ชอบ สีเขียว')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">khruu bɔ̀ɔk wâa dtʉ̀ʉn hòk-moong-cháo lɛ́ chɔ̂ɔp sǐi-khǐao</p>
+                        <p class="en">The teacher says they wake up at 6 AM and like green.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- 2.3: แผนธุรกิจ -->
+            <div class="activity-card border-l-8 border-purple-500 bg-purple-50/5 shadow-md">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-purple-900">พรีเซนต์: แผน ธุรกิจ ของ ผม</span>
+                    <button onclick="speak('พรีเซนต์: แผน ธุรกิจ ของ ผม')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">pree-sen: phɛ̌ɛn thú-rá-gìt khɔ̌ɔng phǒm</p>
+                    <p class="en">Presentation: My business plan</p>
+                </div>
+
+                <div class="sample-box bg-white">
+                    <p class="text-[10px] font-bold text-purple-400 uppercase mb-2">ไอเดีย (Ideas)</p>
+                    <div class="dialogue-item">
+                        <span class="thai-font font-bold text-purple-800">"ผม จะ ซื้อ ที่ดิน ที่ ไทย"</span>
+                        <button onclick="speak('ผม จะ ซื้อ ที่ดิน ที่ ไทย')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">phǒm jà sʉ́ʉ tîi-din tîi Thai</p>
+                        <p class="en">I will buy land in Thailand.</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="thai-font font-bold">"ผม จะ ขาย อาหาร ไทย ที่ อังกฤษ"</span>
+                        <button onclick="speak('ผม จะ ขาย อาหาร ไทย ที่ อังกฤษ')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">phǒm jà khǎai aa-hǎan Thai tîi Ang-grìt</p>
+                        <p class="en">I will sell Thai food in England.</p>
+                    </div>
+                    <div class="dialogue-item">
+                        <span class="thai-font font-bold">"ผม อยาก รวย และ มี ชีวิตง่าย"</span>
+                        <button onclick="speak('ผม อยาก รวย และ มี ชีวิตง่าย')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                        <p class="ipa">phǒm yàak ruay lɛ́ mii chee-wít ngâai</p>
+                        <p class="en">I want to be rich and have an easy life.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- 2.4: คุยกันสุดฮา -->
+            <div class="activity-card border-t-8 border-pink-500 bg-pink-50/10">
+                <div class="mb-4">
+                    <span class="text-2xl font-bold text-pink-900">คุยกัน สุดฮา</span>
+                    <button onclick="speak('คุยกัน สุดฮา')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">khui-gan sùt-haa</p>
+                    <p class="en">Funny Discussion</p>
+                </div>
+
+                <div class="instruction-box border-pink-400 bg-pink-50/80">
+                    <span class="thai-font text-pink-800 font-semibold">ตอบ คำถาม ต่อไปนี้</span>
+                    <button onclick="speak('ตอบ คำถาม ต่อไปนี้')" class="btn-control btn-speak">🔊</button>
+                    <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                    <button onclick="toggle(this, 'en')" class="btn-control btn-en">EN</button>
+                    <p class="ipa">dtɔ̀ɔp kham-thǎam dtɔ̀ɔ-bpai-níi</p>
+                    <p class="en">Answer the following questions.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="p-4 bg-white rounded-2xl shadow-sm">
+                        <span class="thai-font font-bold">"ถ้า มี เงิน 10 ล้าน จะ ซื้อ อะไร?"</span>
+                        <button onclick="speak('ถ้า มี เงิน 10 ล้าน จะ ซื้อ อะไร?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <p class="ipa">thâa mii ngoen sìp láan jà sʉ́ʉ à-rai?</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl shadow-sm">
+                        <span class="thai-font font-bold">"ถ้า คุณ เป็น เป็ด คุณ จะ ไป ไหน?"</span>
+                        <button onclick="speak('ถ้า คุณ เป็น เป็ด คุณ จะ ไป ไหน?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <p class="ipa">thâa khun bpen bpèt khun jà bpai nǎi?</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-2xl shadow-sm">
+                        <span class="thai-font font-bold">"คุณ ชอบ คน รวย หรือ คน ตลก?"</span>
+                        <button onclick="speak('คุณ ชอบ คน รวย หรือ คน ตลก?')" class="btn-control btn-speak">🔊</button>
+                        <button onclick="toggle(this, 'ipa')" class="btn-control btn-ipa">IPA</button>
+                        <p class="ipa">khun chɔ̂ɔp kon ruay rʉ̌ʉ kon dtà-lòk?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Vocabulary Footer -->
+    <div class="fixed bottom-0 left-0 w-full bg-blue-950 text-white p-4 flex justify-around items-center overflow-x-auto border-t-4 border-blue-400 z-50">
+        <div onclick="speak('เงิน')" class="text-center px-4 cursor-pointer hover:bg-blue-800 rounded p-1">
+            <p class="text-xl">💰</p>
+            <p class="thai-font text-xs">เงิน</p>
+        </div>
+        <div onclick="speak('แลกเงิน')" class="text-center px-4 cursor-pointer hover:bg-blue-800 rounded p-1">
+            <p class="text-xl">💱</p>
+            <p class="thai-font text-xs">แลกเงิน</p>
+        </div>
+        <div onclick="speak('ค่าธรรมเนียม')" class="text-center px-4 cursor-pointer hover:bg-blue-800 rounded p-1">
+            <p class="text-xl">💸</p>
+            <p class="thai-font text-xs">ค่าธรรมเนียม</p>
+        </div>
+        <div onclick="speak('ที่ดิน')" class="text-center px-4 cursor-pointer hover:bg-blue-800 rounded p-1">
+            <p class="text-xl">🗺️</p>
+            <p class="thai-font text-xs">ที่ดิน</p>
+        </div>
+    </div>
+
+    <script>
+        function toggle(btn, type) {
+            const parent = btn.parentElement;
+            const targets = parent.querySelectorAll('.' + type);
+            if (targets.length > 0) {
+                targets.forEach(t => t.classList.toggle('show'));
+            }
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.85; 
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function reveal(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
