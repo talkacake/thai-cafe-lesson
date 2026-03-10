@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สถานการณ์ร้านอาหาร (Restaurant Scenarios)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #fffbeb; /* Amber-50 */
+        }
+        .thai-text {
+            color: #1f2937;
+        }
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706; /* Amber-600 */
+            border-radius: 4px;
+        }
+        .btn-toggle {
+            transition: all 0.2s;
+        }
+        .btn-toggle.active {
+            background-color: #d97706; /* Amber-600 */
+            color: white;
+            border-color: #d97706;
+        }
+        .card-anim {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b-2 border-amber-200">
+        <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-amber-700">สถานการณ์ร้านอาหาร</h1>
+            <div class="flex gap-1">
+                <button onclick="toggleAll('ipa')" class="text-xs bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded text-amber-800 border border-amber-200">All IPA</button>
+                <button onclick="toggleAll('en')" class="text-xs bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded text-amber-800 border border-amber-200">All EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-3xl mx-auto px-4 mt-6 space-y-8">
+
+        <!-- SECTION 1: WARM UP (Relevant Vocab) -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">🧠</span>
+                <h2 class="text-xl font-bold text-gray-800">คำศัพท์สำคัญ (Key Vocab)</h2>
+            </div>
+            
+            <div class="bg-blue-50 rounded-xl p-6 text-center border border-blue-100 min-h-[200px] flex flex-col justify-center items-center relative">
+                <div id="random-card-content" class="w-full">
+                    <p class="text-gray-400 italic">Ready?</p>
+                </div>
+                <button onclick="randomWord()" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transform active:scale-95 transition-all flex items-center gap-2">
+                    <span>🎲</span> Next Word
+                </button>
+            </div>
+        </section>
+
+        <!-- SCENARIO 1: Recommendations -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">👍</span>
+                <div id="header-rec" class="flex-1"></div>
+            </div>
+            <div class="space-y-6" id="container-rec"></div>
+        </section>
+
+        <!-- SCENARIO 2: Out of Stock -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-red-500">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">❌</span>
+                <div id="header-stock" class="flex-1"></div>
+            </div>
+            <div class="space-y-6" id="container-stock"></div>
+        </section>
+
+        <!-- SCENARIO 3: Off Menu -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">📝</span>
+                <div id="header-offmenu" class="flex-1"></div>
+            </div>
+            <div class="space-y-6" id="container-offmenu"></div>
+        </section>
+
+        <!-- SCENARIO 4: Dropped Items -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-yellow-500">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">🥄</span>
+                <div id="header-drop" class="flex-1"></div>
+            </div>
+            <div class="space-y-6" id="container-drop"></div>
+        </section>
+
+        <!-- SCENARIO 5: Payment Issues -->
+        <section class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-gray-600">
+            <div class="flex items-center mb-4 gap-2">
+                <span class="text-2xl">💸</span>
+                <div id="header-pay" class="flex-1"></div>
+            </div>
+            <div class="space-y-6" id="container-pay"></div>
+        </section>
+
+    </div>
+
+    <!-- Template for a Sentence Block -->
+    <template id="sentence-template">
+        <div class="item-container pb-4 last:pb-0">
+            <!-- Thai Row -->
+            <div class="flex items-start gap-3 mb-2">
+                <button class="speak-btn text-amber-600 hover:text-amber-800 mt-1 flex-shrink-0" title="Listen">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                </button>
+                <div class="thai-content font-semibold text-lg text-gray-800 leading-relaxed cursor-pointer select-none"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex gap-2 ml-9 mb-2">
+                <button class="ipa-toggle btn-toggle text-xs border border-gray-300 px-2 py-1 rounded text-gray-500 hover:bg-gray-50">IPA</button>
+                <button class="en-toggle btn-toggle text-xs border border-gray-300 px-2 py-1 rounded text-gray-500 hover:bg-gray-50">EN</button>
+            </div>
+
+            <!-- Hidden Content -->
+            <div class="ml-9 space-y-1">
+                <div class="ipa-display hidden text-sm font-mono text-indigo-600 bg-indigo-50 inline-block px-2 py-0.5 rounded"></div>
+                <div class="en-display hidden text-sm text-gray-600 italic"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // --- DATA SOURCES ---
+
+        // 1. HEADINGS
+        const uiData = {
+            headerRec: {
+                thai: "1. ให้พนักงานแนะนำอาหาร",
+                ipa: "hâi pá-nák-ngaan náe-nam aa-hǎan",
+                en: "1. Asking staff to recommend food"
+            },
+            headerStock: {
+                thai: "2. เมื่ออาหารหมด",
+                ipa: "mêua aa-hǎan mòt",
+                en: "2. When food is out of stock"
+            },
+            headerOffmenu: {
+                thai: "3. สั่งของที่ไม่มีในเมนู",
+                ipa: "sàng kɔ̌ɔng tîi mâi mii nai mee-nuu",
+                en: "3. Ordering items not on the menu"
+            },
+            headerDrop: {
+                thai: "4. ทำของหล่น (ช้อน/ส้อม)",
+                ipa: "tam kɔ̌ɔng lòhn (chɔ́ɔn / sɔ̂ɔm)",
+                en: "4. Dropping things (Spoon/Fork)"
+            },
+            headerPay: {
+                thai: "5. จ่ายเงินไม่ได้",
+                ipa: "jàai ngern mâi dâai",
+                en: "5. Cannot pay (issues)"
+            }
+        };
+
+        // 2. DIALOGUES
+
+        // Scenario 1: Recommend
+        const dataRec = [
+            {
+                thai: "A: น้องคะ ที่นี่มีอะไรแนะนำบ้างไหมคะ? 🍽️",
+                ipa: "A: nɔ́ɔng ká · tîi-nîi mii à-rai náe-nam bâang mái ká?",
+                en: "A: Excuse me (younger), do you have any recommendations here?"
+            },
+            {
+                thai: "B: เมนูเด็ดของร้านเราคือ 'ต้มยำกุ้งน้ำข้น' ครับ 🦐",
+                ipa: "B: mee-nuu-dèt kɔ̌ɔng ráan rao keu 'dtôm-yam-gûng nám-kôn' kráp",
+                en: "B: Our shop's signature dish is Creamy Tom Yum Kung."
+            },
+            {
+                thai: "A: งั้นเอาที่หนึ่งค่ะ ไม่เผ็ดนะคะ 🌶️❌",
+                ipa: "A: ngán ao tîi nèung kâ · mâi pèt ná ká",
+                en: "A: Then I'll take one serving. Not spicy please."
+            }
+        ];
+
+        // Scenario 2: Out of Stock
+        const dataStock = [
+            {
+                thai: "A: เอาข้าวเหนียวมะม่วงจานหนึ่งครับ 🥭",
+                ipa: "A: ao kâao-nǐiao má-mûuang jaan nèung kráp",
+                en: "A: I want one Mango Sticky Rice."
+            },
+            {
+                thai: "B: ขอโทษนะคะ วันนี้ข้าวเหนียวมูนหมดแล้วค่ะ 🍚❌",
+                ipa: "B: kɔ̌ɔ-tôot ná ká · wan-níi kâao-nǐiao-muun mòt láaeo kâ",
+                en: "B: Sorry, the sticky rice is all gone today."
+            },
+            {
+                thai: "B: รับเป็น 'มะม่วงปั่น' แทนไหมคะ? 🍹",
+                ipa: "B: ráp bpen 'má-mûuang bpàn' taaen mái ká?",
+                en: "B: Would you like a Mango Smoothie instead?"
+            }
+        ];
+
+        // Scenario 3: Off Menu
+        const dataOffmenu = [
+            {
+                thai: "A: มีข้าวไข่เจียวไหมครับ? ในเมนูไม่เห็นมี 🍳",
+                ipa: "A: mii kâao kài-jiiao mái kráp? nai mee-nuu mâi hěn mii",
+                en: "A: Do you have Omelet with rice? I don't see it on the menu."
+            },
+            {
+                thai: "B: มีค่ะ สั่งได้ค่ะ จะใส่หมูสับหรือกุ้งสับคะ? 🐷🦐",
+                ipa: "B: mii kâ · sàng dâai kâ · jà sài mǔu-sàp rěu gûng-sàp ká?",
+                en: "B: Yes, you can order it. Do you want minced pork or minced shrimp?"
+            },
+            {
+                thai: "A: ใส่หมูสับครับ ขอซอสมะเขือเทศด้วยนะครับ 🍅",
+                ipa: "A: sài mǔu-sàp kráp · kɔ̌ɔ sɔ́ɔt má-kěua-têet dûuai ná kráp",
+                en: "A: Minced pork please. And I ask for ketchup too."
+            }
+        ];
+
+        // Scenario 4: Dropped Items
+        const dataDrop = [
+            {
+                thai: "A: (เสียงของหล่น) อุ๊ย! 🗯️",
+                ipa: "A: úi!",
+                en: "A: Oops!"
+            },
+            {
+                thai: "A: พี่ครับ! ขอโทษครับ ผมทำช้อนตกครับ 🥄📉",
+                ipa: "A: pîi kráp! kɔ̌ɔ-tôot kráp · pǒm tam chɔ́ɔn dtòk kráp",
+                en: "A: Brother! Sorry, I dropped the spoon."
+            },
+            {
+                thai: "A: รบกวนขอคันใหม่หน่อยได้ไหมครับ? ✨",
+                ipa: "A: róp-guuan kɔ̌ɔ kan mài nɔ̀i dâai mái kráp?",
+                en: "A: Could I bother you for a new one?"
+            },
+            {
+                thai: "B: ได้ครับ รอสักครู่นะครับ ⏳",
+                ipa: "B: dâai kráp · rɔɔ sàk-krûu ná kráp",
+                en: "B: Sure, wait a moment."
+            }
+        ];
+
+        // Scenario 5: Payment Issues
+        const dataPay = [
+            {
+                thai: "A: สแกนจ่ายได้ไหมครับ? 📱",
+                ipa: "A: sà-gaaen jàai dâai mái kráp?",
+                en: "A: Can I scan to pay?"
+            },
+            {
+                thai: "B: ขอโทษค่ะ วันนี้เน็ตที่ร้านเสีย รับเงินสดไหมคะ? 💵",
+                ipa: "B: kɔ̌ɔ-tôot kâ · wan-níi nét tîi ráan sǐia · ráp ngern-sòt mái ká?",
+                en: "B: Sorry, the shop's internet is broken. Do you have cash?"
+            },
+            {
+                thai: "A: ผมไม่มีเงินสดเลยครับ... ขอโอนเข้ามือถือพี่ได้ไหมครับ? 📲",
+                ipa: "A: pǒm mâi mii ngern-sòt loei kráp... kɔ̌ɔ oon kâo meu-těu pîi dâai mái kráp?",
+                en: "A: I don't have cash at all... Can I transfer to your mobile number?"
+            }
+        ];
+
+        // 3. UPDATED VOCAB LIST FOR RANDOMIZER
+        const vocabList = [
+            { t: "เดินดูธรรมชาติ 🌿", i: "dern-doo-tam-má-châat", e: "walk and look at nature" },
+            { t: "สวน 🌳", i: "sǔuan", e: "garden / park" },
+            { t: "นอกบ้าน 🏠", i: "nɔ̂ɔk-bâan", e: "outside" },
+            { t: "พืช 🌱", i: "pêut", e: "plants" },
+            { t: "ต้นไม้ 🌲", i: "dtôn-máai", e: "trees" },
+            { t: "กระบองเพชร 🌵", i: "grà-bɔɔng-pét", e: "cactus" },
+            { t: "อธิบาย 🗣️", i: "à-tí-baai", e: "describe / explain" },
+            { t: "ติดเชื้อ 🦠", i: "dtìt-chéua", e: "get infected" },
+            { t: "แพร่เชื้อ 🤧", i: "prâae-chéua", e: "spread the virus" },
+            { t: "จิตวิทยา 🧠", i: "jìt-dta-wít-tá-yaa", e: "psychology" },
+            { t: "มหาวิทยาลัย 🎓", i: "má-hǎa-wít-tá-yaa-lai", e: "university" },
+            { t: "ธุรกิจ 💼", i: "tú-rá-gìt", e: "business" },
+            { t: "การเมือง 🗳️", i: "gaan-meuang", e: "politics" },
+            { t: "วิชาเอก 📚", i: "wí-chaa-èek", e: "majors" },
+            { t: "ประวัติศาสตร์ 📜", i: "bprà-wàt-dtì-sàat", e: "history" },
+            { t: "กฎหมาย ⚖️", i: "gòt-mǎai", e: "laws" },
+            { t: "ศาล 🏛️", i: "sǎan", e: "court" },
+            { t: "ปริญญาตรี 🎓", i: "bprìn-yaa-dtree", e: "Bachelor's degree" },
+            { t: "ปริญญาโท 🎓", i: "bprìn-yaa-toh", e: "Master's degree" },
+            { t: "ปริญญาเอก 🎓", i: "bprìn-yaa-èek", e: "Doctoral degree" },
+            { t: "ทำงานให้ลูกความ 🤝", i: "tam-ngaan-hâi-lûuk-kwaam", e: "I work for clients." },
+            { t: "ปัญหาทางจิต 😵‍💫", i: "bpan-hǎa-taang-jìt", e: "mental problems" },
+            { t: "เครียด 🤯", i: "krîat", e: "stressed" },
+            { t: "แย่ลง 📉", i: "yâae-long", e: "worse than before" },
+            { t: "ชายหาด 🏖️", i: "chaai-hàat", e: "beaches" },
+            { t: "เรือ 🚤", i: "reua", e: "ferry, boat, ship" },
+            { t: "วันจันทร์ 💛", i: "wan-jan", e: "Monday" },
+            { t: "วันอังคาร 💗", i: "wan-ang-kaan", e: "Tuesday" },
+            { t: "วันพุธ 💚", i: "wan-pút", e: "Wednesday" },
+            { t: "วันศุกร์ 💙", i: "wan-sùk", e: "Friday" },
+            { t: "วันเสาร์ 💜", i: "wan-sǎo", e: "Saturday" },
+            { t: "มกราคม 📅", i: "má-grà-kom", e: "January" },
+            { t: "มีนาคม 📅", i: "mee-naa-kom", e: "March" },
+            { t: "เมษายน 📅", i: "may-sǎa-yon", e: "April" },
+            { t: "พฤษภาคม 📅", i: "préu-sà-paa-kom", e: "May" },
+            { t: "มิถุนายน 📅", i: "mí-tù-naa-yon", e: "June" },
+            { t: "กรกฎาคม 📅", i: "ga-rá-gà-daa-kom", e: "July" },
+            { t: "ตุลาคม 📅", i: "dtù-laa-kom", e: "October" },
+            { t: "พฤศจิกายน 📅", i: "prá-réut-sà-jì-gaa-yon", e: "November" },
+            { t: "ธันวาคม 📅", i: "tan-waa-kom", e: "December" },
+            { t: "ตี 5 ⏰", i: "dtee hâa", e: "5am" },
+            { t: "บ่าย ☀️", i: "bàai", e: "afternoon" },
+            { t: "เที่ยงคืน 🌙", i: "tîang-keun", e: "midnight" },
+            { t: "เที่ยง 🕛", i: "tîang", e: "noon" },
+            { t: "1 ทุ่ม 🕖", i: "neung tôom", e: "7pm" },
+            { t: "เมื่อวานซืน 📆", i: "mêua-waan-seun", e: "day before yesterday" },
+            { t: "ครอบครัว 👨‍👩‍👧‍👦", i: "krôp-kruua", e: "family" },
+            { t: "ชั่วโมง ⏳", i: "chûua-moong", e: "hours" },
+            { t: "กางเต๊นท์ ⛺", i: "gaang-dtén", e: "Camping (open a tent)" },
+            { t: "พี่น้อง 👫", i: "pêe-nóng", e: "siblings" },
+            { t: "น้องสาว 👧", i: "nóng-sǎo", e: "younger sister" },
+            { t: "ลูกสาว 👧", i: "lôok-sǎo", e: "daughter" },
+            { t: "ลูกพี่ลูกน้อง 👭", i: "lôok-pêe-lôok-nóng", e: "cousin" },
+            { t: "ลุง 👴", i: "lung", e: "uncle (older brother of mom and dad)" },
+            { t: "ลูกสาวของลูกพี่ลูกน้องพ่อ 👩", i: "lôok-sǎo kǒng...", e: "The daughter of dad's cousin" },
+            { t: "ป้า 👵", i: "bpâa", e: "aunt (older sister of mom and dad)" },
+            { t: "ลูกสาวของลุงพ่อ 👩", i: "lôok-sǎo kǒng...", e: "The daughter of dad's uncle" },
+            { t: "ซับซ้อน 🧩", i: "sùp-són", e: "complicated" },
+            { t: "วันแรงงาน 👷", i: "wan raang-ngaan", e: "Labor Day" },
+            { t: "สงครามเย็น ❄️", i: "sǒng-kraam yen", e: "Cold War" },
+            { t: "วันชาติ 🇹🇭", i: "wan châat", e: "National Day" },
+            { t: "วันประกาศอิสรภาพ 🎆", i: "wan bprà-gàat...", e: "Independence Day" },
+            { t: "พลุ 🎇", i: "plú", e: "fireworks" },
+            { t: "ทาส ⛓️", i: "tâat", e: "slaves" },
+            { t: "การเลิกทาส 🔓", i: "gaan lêrk tâat", e: "emancipation" },
+            { t: "เสื้อผ้า 👕", i: "seûa-pâa", e: "clothes" },
+            { t: "สุขภาพ 🏥", i: "sùk-khà-phâap", e: "health" },
+            { t: "สัมภาษณ์ 🎙️", i: "sǎm-phâat", e: "interview" },
+            { t: "สำเนียง 🗣️", i: "sǎm-niiang", e: "accent" },
+            { t: "ปฏิกิริยา 😲", i: "bpà-dtì-gì-rí-yaa", e: "reaction" },
+            { t: "สถานีวิทยุ 📻", i: "sà-thǎa-nii wít-thá-yú", e: "radio station" },
+            { t: "วง 🎸", i: "wong", e: "band" },
+            { t: "พ่อปู่ 👴", i: "phâw bpùu", e: "father-in-law" },
+            { t: "ของขวัญ 🎁", i: "khǎwng khwǎn", e: "gifts" },
+            { t: "ตุ้มหู 👂", i: "dtûm hǔu", e: "earrings" },
+            { t: "ไฟ 💡", i: "fai", e: "lights" },
+            { t: "ลำโพง 🔊", i: "lam-phoong", e: "speakers" },
+            { t: "แผน 🗺️", i: "phǎaen", e: "plans" },
+            { t: "บ้า 🤪", i: "bâa", e: "crazy" },
+            { t: "การระบาด(ใหญ่) 😷", i: "gaan rá-bàat yài", e: "pandemic" },
+            { t: "ม่วง 🟣", i: "mûuang", e: "purple" },
+            { t: "แล้วแต่ 🤷", i: "láaew-dtàae", e: "It depends" },
+            { t: "ส่วนหนึ่ง 🧩", i: "sùuan nèung", e: "a part / partially" },
+            { t: "พระอาทิตย์ขึ้น 🌅", i: "prá aa-thít khêun", e: "sunrise" },
+            { t: "ห้อง 🚪", i: "hâwng", e: "room" },
+            { t: "เพื่อนบ้าน 🏡", i: "pêuan bâan", e: "neighbor" },
+            { t: "แขก 👤", i: "khàaek", e: "guest" },
+            { t: "ผนัง 🧱", i: "phà-nǎng", e: "interior wall" },
+            { t: "มีความสุข 😊", i: "mii khwaam sùk", e: "happy" },
+            { t: "ดีใจ 😄", i: "dii jai", e: "happy/glad" },
+            { t: "ใจดี ❤️", i: "jai dii", e: "kind" },
+            { t: "พระราชา 👑", i: "prá raa-chaa", e: "King" },
+            { t: "ชวน 💌", i: "chuuan", e: "invite" },
+            { t: "กษัตริย์ 👑", i: "gà-sàt", e: "monarch" },
+            { t: "บทเรียน 📖", i: "bòt riian", e: "lessons" },
+            { t: "แฟ้ม 📁", i: "fɛ́ɛm", e: "folder" },
+            { t: "ป่า 🌳", i: "bpàa", e: "forest" },
+            { t: "อุทยานแห่งชาติ 🏞️", i: "ùt-tá-yaan hɛ̀ng châat", e: "National parks" },
+            { t: "ไก่ 🐓", i: "gài", e: "chicken" },
+            { t: "กลัว 😱", i: "glua", e: "afraid" },
+            { t: "ลักษณนาม 📏", i: "lák-sà-nà-naam", e: "classifier" },
+            { t: "คาดการณ์ 🤷‍♀️", i: "kâat-gaan", e: "predict" },
+            { t: "การทดสอบ 🧪", i: "gaan tóht-sòp", e: "tests" },
+            { t: "ตรวจ 🛂", i: "dtrùat", e: "check" },
+            { t: "ที่จอดรถ 🅿️", i: "têe jòt rót", e: "parking" },
+            { t: "ถึง 🛬", i: "tʉ̆ng", e: "arrive" },
+            { t: "พอ 👌", i: "por", e: "enough" },
+            { t: "ลดแอร์ ⬇️", i: "lót ɛɛ", e: "turn down A/C" },
+            { t: "สุภาพ 🙇", i: "sù-pâap", e: "polite" },
+            { t: "แรงไป 💪", i: "rɛɛng bpai", e: "too strong" },
+            { t: "ชิดซ้าย ⬅️", i: "chít sáai", e: "keep left" },
+            { t: "บัตร 💳", i: "bàt", e: "cards" },
+            { t: "โรงแรม 🏨", i: "rohng rɛɛm", e: "hotel" },
+            { t: "ตะวันตก ⬅️", i: "dtà-wan-dtòk", e: "west" },
+            { t: "ฝั่งตรงข้าม 🙅", i: "fàng dtrong kâam", e: "opposite side" },
+            { t: "หนังสือเล่มเดิม 📚", i: "năng-sʉ̌ʉ lêhm dơrm", e: "same old book" },
+            { t: "สาย ⏰", i: "sǎai", e: "late" },
+            { t: "ธนาคาร 🏦", i: "tá-naa-kaan", e: "banks" },
+            { t: "ใต้ ⬇️", i: "dtâi", e: "south / under" },
+            { t: "วน 🔁", i: "won", e: "To loop" },
+            { t: "วงเวียน ⭕️", i: "wong-wian", e: "roundabout" },
+            { t: "ประสบการณ์ 🚗", i: "bprà-sòp-gaan", e: "experience" },
+            { t: "ซิ่ง 🏎️", i: "sîng", e: "racing / fast" },
+            { t: "เหล้า 🍻", i: "lâo", e: "liquor" },
+            { t: "ประโยชน์ ➕", i: "bprà-yòht", e: "advantages" },
+            { t: "กระเป๋าเดินทาง 🧳", i: "grà-bpǎo dern-taang", e: "suitcase" },
+            { t: "จีบ 🫦", i: "jìip", e: "flirt" },
+            { t: "ผู้พิพากษา 👨‍⚖️", i: "pôo pí-pâak-sǎa", e: "judge" },
+            { t: "อัยการ 🧑‍💼", i: "ai-yá-gaan", e: "prosecutor" },
+            { t: "อาชญากรรม 🫆", i: "aat-chá-yaa-gam", e: "crime" },
+            { t: "จุดประสงค์ 🔫", i: "jùt-bprà-sǒng", e: "objective" },
+            { t: "ปกป้อง 🪬", i: "bpòk-bpôrng", e: "defend / protect" },
+            
+            // New Additions with Emojis
+            { t: "ใส่บาตร 🥣", i: "sài bàat", e: "give alms to the monk" },
+            { t: "ทำบุญ 🙏", i: "tam bun", e: "make merit" },
+            { t: "ศาสนา 🛐", i: "sàat-sà-nǎa", e: "religion" },
+            { t: "โบสถ์ ⛪", i: "bòot", e: "church" },
+            { t: "ลูกความ 👥", i: "lûuk-kwaam", e: "client (law)" },
+            { t: "รายการ 📋", i: "raai-gaan", e: "lists / shows" },
+            { t: "คนไข้ 🤒", i: "kon-kâi", e: "patients" },
+            { t: "ไข้ 🌡️", i: "kâi", e: "fever" },
+            { t: "สมอง 🧠", i: "sà-mɔ̌ɔng", e: "brain" },
+            { t: "ป้องกัน 🛡️", i: "bpɔ̂ng-gan", e: "protect / prevent" },
+            { t: "ยุติธรรม ⚖️", i: "yút-dtì-tam", e: "impartial / fair" },
+            { t: "ละเมิด 🚫", i: "lá-mêrt", e: "violate" },
+            { t: "ขาย 💰", i: "kǎai", e: "sell" },
+            { t: "ตรงข้าม ↔️", i: "dtrong-kâam", e: "opposite" },
+            { t: "แทน 🔄", i: "taaen", e: "instead / replace" },
+            { t: "สุก 🍳", i: "sùk", e: "cooked" },
+            { t: "ไม่สุกมาก 🥩", i: "mâi sùk mâak", e: "not so cooked" },
+            { t: "กรอบ 🍪", i: "grɔ̀ɔp", e: "crispy / crunchy" },
+            { t: "แถม 🎁", i: "tǎaem", e: "give away for free" },
+            { t: "ด้นสด 🎭", i: "dôn-sòt", e: "improvise" },
+            { t: "หล่น 📉", i: "lòn", e: "To fall off (things)" },
+            { t: "ตะเกียบ 🥢", i: "dtà-gìiap", e: "chopsticks" },
+            { t: "โต๊ะ 🪑", i: "dtó", e: "tables" },
+            { t: "ผักบุ้งไฟแดง 🌿", i: "pàk-bûng fai-daaeng", e: "hot stir-fried morning glory" },
+            { t: "กระเฉด 🌱", i: "grà-chèet", e: "Water Mimosa" },
+            { t: "น้ำเก๊กฮวย 🌼", i: "nám géck-huuai", e: "Chrysanthemum tea" },
+            { t: "น้ำอัญชัญ 🥤", i: "nám an-chan", e: "butterfly pea tea" },
+            { t: "ช้อนกลาง 🥄", i: "chɔ́ɔn glaang", e: "communal spoon" }
+        ];
+
+        // --- RANDOMIZER FUNCTION ---
+        function randomWord() {
+            const container = document.getElementById('random-card-content');
+            const randomItem = vocabList[Math.floor(Math.random() * vocabList.length)];
+            
+            container.innerHTML = '';
+            
+            const card = document.createElement('div');
+            card.className = "card-anim";
+            
+            card.innerHTML = `
+                <div class="flex flex-col items-center gap-2">
+                    <button onclick="speakThai('${randomItem.t}')" class="text-amber-500 hover:text-amber-700 mb-2">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                    </button>
+                    <h3 class="text-3xl font-bold text-gray-800 text-center mb-2 cursor-pointer" onclick="speakThai('${randomItem.t}')">${randomItem.t}</h3>
+                    
+                    <div class="flex gap-2 mb-3">
+                        <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="text-xs border border-amber-300 px-3 py-1 rounded text-amber-600 hover:bg-amber-100">Show IPA</button>
+                        <div class="hidden text-lg font-mono text-indigo-600 bg-indigo-50 px-2 rounded">${randomItem.i}</div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="text-xs border border-amber-300 px-3 py-1 rounded text-amber-600 hover:bg-amber-100">Show EN</button>
+                        <div class="hidden text-lg text-gray-600 font-semibold">${randomItem.e}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderList(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; 
+            data.forEach(item => {
+                const el = createInteractiveElement(item);
+                el.classList.add('border-b', 'border-gray-100', 'pb-4'); 
+                container.appendChild(el);
+            });
+        }
+
+        function renderSingle(dataItem, targetId, customClass = '') {
+            const container = document.getElementById(targetId);
+            if(container) {
+                container.innerHTML = ''; 
+                const el = createInteractiveElement(dataItem);
+                if(customClass) {
+                    const thaiText = el.querySelector('.thai-content');
+                    thaiText.className = `thai-content cursor-pointer select-none leading-relaxed text-gray-800 ${customClass}`;
+                }
+                container.appendChild(el);
+            }
+        }
+
+        // Core Function
+        function createInteractiveElement(item) {
+            const template = document.getElementById('sentence-template');
+            const clone = template.content.cloneNode(true);
+            const root = clone.querySelector('div'); 
+
+            const thaiEl = clone.querySelector('.thai-content');
+            thaiEl.textContent = item.thai;
+            thaiEl.onclick = () => speakThai(item.thai);
+
+            clone.querySelector('.ipa-display').textContent = item.ipa;
+            clone.querySelector('.en-display').textContent = item.en;
+
+            const speakBtn = clone.querySelector('.speak-btn');
+            speakBtn.onclick = () => speakThai(item.thai);
+
+            const ipaBtn = clone.querySelector('.ipa-toggle');
+            const ipaDiv = clone.querySelector('.ipa-display');
+            ipaBtn.onclick = () => { ipaDiv.classList.toggle('hidden'); toggleBtnStyle(ipaBtn); };
+
+            const enBtn = clone.querySelector('.en-toggle');
+            const enDiv = clone.querySelector('.en-display');
+            enBtn.onclick = () => { enDiv.classList.toggle('hidden'); toggleBtnStyle(enBtn); };
+
+            ipaDiv.classList.add('all-ipa');
+            enDiv.classList.add('all-en');
+
+            return root;
+        }
+
+        function toggleBtnStyle(btn) {
+            btn.classList.toggle('active');
+        }
+
+        // --- TTS LOGIC ---
+        function speakThai(text) {
+            window.speechSynthesis.cancel();
+            const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]/gu, ''); 
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'th-TH';
+            utterance.rate = 0.9; 
+            const voices = window.speechSynthesis.getVoices();
+            const thaiVoice = voices.find(v => v.lang.includes('th'));
+            if (thaiVoice) utterance.voice = thaiVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // --- TOGGLE ALL ---
+        function toggleAll(type) {
+            const targets = document.querySelectorAll(`.all-${type}`);
+            if(targets.length === 0) return;
+            const isHidden = targets[0].classList.contains('hidden');
+            targets.forEach(el => {
+                if (isHidden) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+            const allBtns = document.querySelectorAll(`.${type}-toggle`);
+            allBtns.forEach(btn => {
+                const isActive = btn.classList.contains('active');
+                if (isHidden && !isActive) toggleBtnStyle(btn);
+                if (!isHidden && isActive) toggleBtnStyle(btn);
+            });
+        }
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Headers
+            renderSingle(uiData.headerRec, 'header-rec', 'text-xl font-bold');
+            renderSingle(uiData.headerStock, 'header-stock', 'text-xl font-bold');
+            renderSingle(uiData.headerOffmenu, 'header-offmenu', 'text-xl font-bold');
+            renderSingle(uiData.headerDrop, 'header-drop', 'text-xl font-bold');
+            renderSingle(uiData.headerPay, 'header-pay', 'text-xl font-bold');
+
+            // Dialogue Lists
+            renderList(dataRec, 'container-rec');
+            renderList(dataStock, 'container-stock');
+            renderList(dataOffmenu, 'container-offmenu');
+            renderList(dataDrop, 'container-drop');
+            renderList(dataPay, 'container-pay');
+            
+            randomWord();
+            window.speechSynthesis.getVoices();
+        });
+
+    </script>
+</body>
+</html>
