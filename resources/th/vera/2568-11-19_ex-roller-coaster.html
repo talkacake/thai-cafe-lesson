@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Thai Lesson: Friendship, Accidents, and Exes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #f8fafc;
+        }
+        .thai {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .interactive-text-container {
+            position: relative;
+            display: inline-block;
+        }
+        .interactive-text {
+            cursor: pointer;
+            border-bottom: 2px dotted #94a3b8; /* slate-400 */
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard */
+        }
+        .reveal-box {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.2s ease-in-out;
+            width: max-content;
+            max-width: 300px;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .phonetics-text {
+            color: #1e40af; /* blue-800 */
+            background-color: #dbeafe; /* blue-100 */
+        }
+        .translation-text {
+            color: #15803d; /* green-700 */
+            background-color: #dcfce7; /* green-100 */
+        }
+        .tts-button {
+            background: none; border: none; padding: 0;
+            margin-left: 8px; cursor: pointer; color: #94a3b8; /* slate-400 */
+            transition: color 0.2s; display: inline-flex;
+            align-items: center; justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+        .tts-button:hover { color: #0ea5e9; /* sky-500 */ }
+        .tts-button svg { width: 20px; height: 20px; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        
+        /* Flashcard Styles */
+        .flashcard-container { perspective: 1000px; }
+        .flashcard { transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flashcard-container.flipped .flashcard { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+        .flashcard-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-sky-700 thai flex items-center justify-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="pʉ̂an, ù-bàt-dtì-hèet, lɛ́ fɛɛn gào" data-eng="Friendship, Accidents, and Exes">เพื่อน อุบัติเหตุ และแฟนเก่า</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="เพื่อน อุบัติเหตุ และแฟนเก่า"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h1>
+        </header>
+
+        <!-- Part 1: Warm-up -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+             <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sùan tîi nʉ̀ng: ùn krʉ̂ang lɛ́ bòt nam" data-eng="Part 1: Warm-up & Introduction">ส่วนที่ 1: อุ่นเครื่องและบทนำ</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="ส่วนที่ 1: อุ่นเครื่องและบทนำ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            <div class="space-y-4 text-slate-700 text-lg">
+                <div class="thai flex items-center">
+                    <span class="interactive-text-container">
+                        <span class="interactive-text" data-phonetics="sà-wàt-dii! sà-baai-dii mái" data-eng="Hello! How are you?">สวัสดี! สบายดีไหม</span>
+                        <div class="reveal-box hidden"></div>
+                    </span>
+                    <button class="tts-button" data-text="สวัสดี! สบายดีไหม"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                </div>
+                 <div class="thai flex items-center">
+                    <span class="interactive-text-container">
+                        <span class="interactive-text" data-phonetics="sùt sàp-daa tîi pàan maa dâai tam à-rai sà-nùk sà-nùk mái" data-eng="Did you do anything fun last weekend?">สุดสัปดาห์ที่ผ่านมาได้ทำอะไรสนุกๆ ไหม</span>
+                        <div class="reveal-box hidden"></div>
+                    </span>
+                    <button class="tts-button" data-text="สุดสัปดาห์ที่ผ่านมาได้ทำอะไรสนุกๆ ไหม"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Part 2: Listening Comprehension -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sùan tîi sɔ̌ɔng: gaan fang pʉ̂a kwaam kâo jai" data-eng="Part 2: Listening Comprehension">ส่วนที่ 2: การฟังเพื่อความเข้าใจ</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                 <button class="tts-button" data-text="ส่วนที่ 2: การฟังเพื่อความเข้าใจ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            
+            <div class="mb-8">
+                <div class="aspect-w-9 aspect-h-16 max-w-xs mx-auto rounded-xl overflow-hidden shadow-lg">
+                    <iframe src="https://www.youtube.com/embed/3ctCy9joK8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                </div>
+            </div>
+            
+            <details class="bg-slate-50 p-4 rounded-lg mb-6">
+                <summary class="font-semibold cursor-pointer thai">ดูสคริปต์ (View Script)</summary>
+                <div class="mt-4 space-y-4 thai text-slate-700 border-t pt-4">
+                    <div>
+                        <p class="thai flex items-center"><b>เพื่อน:</b> แค่เฉี่ยว แต่ฉันเดินสะดุดขาตัวเอง ตกลงไปในคูน้ำข้างถนนนู้นน่ะ แต่ฉันก็ขอบใจแกมากนะยัยแอร์ ที่เรียกมารับแล้วแกก็มาอ่ะ<button class="tts-button" data-text="แค่เฉี่ยว แต่ฉันเดินสะดุดขาตัวเอง ตกลงไปในคูน้ำข้างถนนนู้นน่ะ แต่ฉันก็ขอบใจแกมากนะยัยแอร์ ที่เรียกมารับแล้วแกก็มาอ่ะ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">kɛ̂ɛ chìao dtɛ̀ɛ chán dəən sà-dùt kǎa dtua eeng dtòk long bpai nai kuu náam kâang tà-nǒn núun nâ dtɛ̀ɛ chán gɔ̂ kɔ̀ɔp jai gɛɛ mâak ná yai ɛɛ tîi rîak maa ráp lɛ́ɛo gɛɛ gɔ̂ maa â</p>
+                        <p class="text-sm text-slate-600">(Friend: It just grazed me, but I tripped over my own feet and fell into that ditch beside the road. But thank you so much, Air, for coming to pick me up when I called.)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>แอร์:</b> ไม่เป็นไร ฉันก็ต้องมารับแกสิ ไม่งั้นจะให้เจ้าบีซูมารับแกรึไง<button class="tts-button" data-text="ไม่เป็นไร ฉันก็ต้องมารับแกสิ ไม่งั้นจะให้เจ้าบีซูมารับแกรึไง"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">mâi bpen rai chán gɔ̂ɔ dtɔ̂ng maa ráp gɛɛ sì mâi ngán jà hâi jâo bii-suu maa ráp gɛɛ rʉ́-ngai</p>
+                        <p class="text-sm text-slate-600">(Air: It's nothing. Of course I had to come get you. Otherwise, were you expecting B-soo (the cat) to pick you up or what?)</p>
+                    </div>
+                     <div>
+                        <p class="thai flex items-center"><b>เพื่อน:</b> ถึงแมวส้มของฉันน่ะนะ มันจะขับรถมารับฉันไม่ได้ แต่มันก็ทำให้สาวโสดอย่างฉันเนี่ย ยิ้มได้นะจ๊ะ เออๆ แล้วนี่ แกไปดื่มกับล้อฟต์มาสองคนเหรอ คุณแล้มป์ไปไหนอ่ะ<button class="tts-button" data-text="ถึงแมวส้มของฉันน่ะนะ มันจะขับรถมารับฉันไม่ได้ แต่มันก็ทำให้สาวโสดอย่างฉันเนี่ย ยิ้มได้นะจ๊ะ เออๆ แล้วนี่ แกไปดื่มกับล้อฟต์มาสองคนเหรอ คุณแล้มป์ไปไหนอ่ะ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">tʉ̌ng mɛɛo sôm kɔ̌ɔng chán nâ ná man jà kàp rót maa ráp chán mâi dâai dtɛ̀ɛ man gɔ̂ tam hâi sǎao sòot yàang chán nîa yím dâai ná já əə əə lɛ́ɛo nîi gɛɛ bpai dʉ̀ʉm gàp lɔ́f maa sɔ̌ɔng kon rə̌ə kun lɛ́m bpai nǎi â</p>
+                        <p class="text-sm text-slate-600">(Friend: Even though my orange cat can't drive to pick me up, he can still make a single girl like me smile. Anyway, did you go for drinks with just Loft? Where's Lamp?)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>แอร์:</b> เขาก็ไปงานเลี้ยงกับพวกพาร์ทเนอร์เขานั่นแหละ<button class="tts-button" data-text="เขาก็ไปงานเลี้ยงกับพวกพาร์ทเนอร์เขานั่นแหละ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">kǎo gɔ̂ɔ bpai ngaan líang gàp pûak páat-nə̂ə kǎo nân lɛ̀</p>
+                        <p class="text-sm text-slate-600">(Air: He went to a party with his partners.)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>เพื่อน:</b> แล้วคุณภรรยาไม่ต้องไปทำหน้าที่เหรอคะ<button class="tts-button" data-text="แล้วคุณภรรยาไม่ต้องไปทำหน้าที่เหรอคะ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">lɛ́ɛo kun pan-rá-yaa mâi dtɔ̂ng bpai tam nâa-tîi rə̌ə ká</p>
+                        <p class="text-sm text-slate-600">(Friend: And the wife doesn't have to go perform her duties?)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>แอร์:</b> ก็ฉันไม่อยากไปหนิ แล้วเขาก็ไม่เห็นว่าอะไรด้วย<button class="tts-button" data-text="ก็ฉันไม่อยากไปหนิ แล้วเขาก็ไม่เห็นว่าอะไรด้วย"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">gɔ̂ chán mâi yàak bpai nì lɛ́ɛo kǎo gɔ̂ mâi hěn wâa à-rai duâi</p>
+                        <p class="text-sm text-slate-600">(Air: Well, I didn't want to go. And he didn't seem to mind.)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>เพื่อน:</b> ปล่อยคุณภรรยาเดินตัวปลิวแบบเนี๊ยะ เดี๋ยวก็ได้ปลิวกลับไปหาคุณน้องแฟนเก่าหรอก<button class="tts-button" data-text="ปล่อยคุณภรรยาเดินตัวปลิวแบบเนี๊ยะ เดี๋ยวก็ได้ปลิวกลับไปหาคุณน้องแฟนเก่าหรอก"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">bplɔ̀i kun pan-rá-yaa dəən dtua bplìo bɛ̀ɛp nía dǐao gɔ̂ɔ dâai bplìo glàp bpai hǎa kun nɔ́ɔng fɛɛn gào rɔ̀ɔk</p>
+                        <p class="text-sm text-slate-600">(Friend: Letting the wife walk around freely like that... next thing you know, she'll be flying back to her ex-girlfriend.)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>แอร์:</b> จริงๆก็เพิ่งเจอก่อนที่จะมารับแกนี่แหละ<button class="tts-button" data-text="จริงๆก็เพิ่งเจอก่อนที่จะมารับแกนี่แหละ"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">jing jing gɔ̂ɔ pə̂əng jəə gɔ̀ɔn tîi jà maa ráp gɛɛ nîi lɛ̀</p>
+                        <p class="text-sm text-slate-600">(Air: Actually, I just ran into her before I came to get you.)</p>
+                    </div>
+                    <div>
+                        <p class="thai flex items-center"><b>เพื่อน:</b> ว้อทท์<button class="tts-button" data-text="ว้อทท์"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button></p>
+                        <p class="text-sm text-slate-500 italic">wɔ́t</p>
+                        <p class="text-sm text-slate-600">(Friend: What?)</p>
+                    </div>
+                </div>
+            </details>
+
+            <div id="quiz-container" class="space-y-6">
+                <div class="quiz-question">
+                    <div class="flex items-center">
+                        <p class="font-semibold thai">1. เพื่อนคนแรกเกิดอุบัติเหตุอะไร</p>
+                        <button class="tts-button" data-text="เพื่อนคนแรกเกิดอุบัติเหตุอะไร"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">pʉ̂an kon rɛ̂ɛk gə̀ət ù-bàt-dtì-hèet à-rai</p>
+                    <p class="text-sm text-slate-600 mb-2">(What accident did the first friend have?)</p>
+                    
+                    <div class="space-y-2 thai mt-2">
+                        <button data-question="1" data-correct="true" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <span class="thai block">เธอสะดุดขาตัวเองแล้วตกลงไปในคูน้ำ</span>
+                            <span class="block text-xs text-slate-500 italic">təə sà-dùt kǎa dtua eeng lɛ́ɛo dtòk long bpai nai kuu náam</span>
+                            <span class="block text-xs text-slate-600">(She tripped over her own feet and fell into a ditch)</span>
+                        </button>
+                        <button data-question="1" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <span class="thai block">มีรถมาเฉี่ยวเธอ</span>
+                            <span class="block text-xs text-slate-500 italic">mii rót maa chìao təə</span>
+                            <span class="block text-xs text-slate-600">(A car grazed her)</span>
+                        </button>
+                        <button data-question="1" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <span class="thai block">แมวของเธอ 'บีซู' วิ่งหนีไป</span>
+                            <span class="block text-xs text-slate-500 italic">mɛɛo kɔ̌ɔng təə 'bii-suu' wîng nǐi bpai</span>
+                            <span class="block text-xs text-slate-600">(Her cat 'B-soo' ran away)</span>
+                        </button>
+                    </div>
+                </div>
+                 <div class="quiz-question">
+                    <div class="flex items-center">
+                        <p class="font-semibold thai">2. คุณแล้มป์ สามีของคุณแอร์ไปไหน</p>
+                        <button class="tts-button" data-text="คุณแล้มป์ สามีของคุณแอร์ไปไหน"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">kun lɛ́m sǎa-mii kɔ̌ɔng kun ɛɛ bpai nǎi</p>
+                    <p class="text-sm text-slate-600 mb-2">(Where did Air's husband, Lamp, go?)</p>
+                    <div class="space-y-2 thai mt-2">
+                        <button data-question="2" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                             <span class="thai block">เขาไปดื่มกับล้อฟต์</span>
+                            <span class="block text-xs text-slate-500 italic">kǎo bpai dʉ̀ʉm gàp lɔ́f</span>
+                            <span class="block text-xs text-slate-600">(He went for drinks with Loft)</span>
+                        </button>
+                        <button data-question="2" data-correct="true" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                             <span class="thai block">เขาไปงานเลี้ยงกับพาร์ทเนอร์</span>
+                            <span class="block text-xs text-slate-500 italic">kǎo bpai ngaan líang gàp páat-nə̂ə</span>
+                            <span class="block text-xs text-slate-600">(He went to a party with partners)</span>
+                        </button>
+                        <button data-question="2" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <span class="thai block">เขาไปรับแฟนเก่า</span>
+                            <span class="block text-xs text-slate-500 italic">kǎo bpai ráp fɛɛn gào</span>
+                            <span class="block text-xs text-slate-600">(He went to pick up his ex)</span>
+                        </button>
+                    </div>
+                </div>
+                 <div class="quiz-question">
+                    <div class="flex items-center">
+                        <p class="font-semibold thai">3. ก่อนที่แอร์จะมารับเพื่อน เขาเพิ่งเจอใครมา</p>
+                        <button class="tts-button" data-text="ก่อนที่แอร์จะมารับเพื่อน เขาเพิ่งเจอใครมา"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">gɔ̀ɔn tîi ɛɛ jà maa ráp pʉ̂an, kǎo pə̂əng jəə krai maa</p>
+                    <p class="text-sm text-slate-600 mb-2">(Who did Air just meet before picking up her friend?)</p>
+                    <div class="space-y-2 thai mt-2">
+                        <button data-question="3" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                             <span class="thai block">แมวของเธอ 'บีซู'</span>
+                            <span class="block text-xs text-slate-500 italic">mɛɛo kɔ̌ɔng təə 'bii-suu'</span>
+                            <span class="block text-xs text-slate-600">(Her cat 'B-soo')</span>
+                        </button>
+                        <button data-question="3" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                             <span class="thai block">สามีของเธอ 'คุณแล้มป์'</span>
+                             <span class="block text-xs text-slate-500 italic">sǎa-mii kɔ̌ɔng təə 'kun lɛ́m'</span>
+                            <span class="block text-xs text-slate-600">(Her husband 'Lamp')</span>
+                        </button>
+                        <button data-question="3" data-correct="true" class="quiz-option text-left w-full p-3 border-2 border-slate-300 rounded-lg hover:bg-slate-100 transition">
+                            <span class="thai block">แฟนเก่าของเธอ</span>
+                            <span class="block text-xs text-slate-500 italic">fɛɛn gào kɔ̌ɔng təə</span>
+                            <span class="block text-xs text-slate-600">(Her ex)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Part 3: Vocabulary Deep Dive -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sùan tîi sǎam: kam sàp lɛ́ sǎm-nuan" data-eng="Part 3: Vocabulary & Expressions">ส่วนที่ 3: คำศัพท์และสำนวน</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="ส่วนที่ 3: คำศัพท์และสำนวน"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            <div id="flashcard-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Flashcards will be injected here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Part 4: Role-Play -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                 <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sùan tîi sìi: sà-tǎan-ná-gaan jam-lɔɔng" data-eng="Part 4: Role-Play Simulation">ส่วนที่ 4: สถานการณ์จำลอง</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="ส่วนที่ 4: สถานการณ์จำลอง"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            <div class="text-center mb-4">
+                <button id="role-play-btn" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition thai">เริ่มแสดงบทบาทสมมติ</button>
+                <button id="reset-role-play-btn" class="bg-slate-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-600 transition hidden thai">เริ่มใหม่</button>
+            </div>
+            <div id="role-play-area" class="bg-slate-50 p-4 rounded-lg space-y-4 min-h-[150px]"></div>
+        </section>
+        
+        <!-- Part 5: Content Creation -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sùan tîi hâa: ai-dia sâang kɔn-ten" data-eng="Part 5: Content Creation Ideas">ส่วนที่ 5: ไอเดียสร้างคอนเทนต์</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="ส่วนที่ 5: ไอเดียสร้างคอนเทนต์"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            <div class="space-y-6">
+                <div class="thai font-semibold flex items-center">
+                     <span class="interactive-text-container">
+                        <span class="interactive-text" data-phonetics="kun kít wâa gaan jəə 'fɛɛn gào' dooi bang-əən bpen sà-tǎan-ná-gaan tîi nâaʉ̀t-àt mái" data-eng="Do you think meeting an 'ex' by chance is an awkward situation?">1. คุณคิดว่าการเจอ 'แฟนเก่า' โดยบังเอิญเป็นสถานการณ์ที่น่าอึดอัดไหม</span>
+                        <div class="reveal-box hidden"></div>
+                    </span>
+                     <button class="tts-button" data-text="คุณคิดว่าการเจอ 'แฟนเก่า' โดยบังเอิญเป็นสถานการณ์ที่น่าอึดอัดไหม"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                </div>
+                <div class="thai font-semibold flex items-center">
+                    <span class="interactive-text-container">
+                        <span class="interactive-text" data-phonetics="lɔɔng sâang sà-dtɔɔ-rîi sân sân bɛ̀ɛp draa-mâa gìao gàp pʉ̂an sɔ̌ɔng kon lɛ́ fɛɛn gào" data-eng="Create a short, dramatic story about two friends and an ex.">2. ลองสร้างสตอรี่สั้นๆ แบบดราม่าเกี่ยวกับเพื่อนสองคนและแฟนเก่า</span>
+                        <div class="reveal-box hidden"></div>
+                    </span>
+                    <button class="tts-button" data-text="ลองสร้างสตอรี่สั้นๆ แบบดราม่าเกี่ยวกับเพื่อนสองคนและแฟนเก่า"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bonus Scenarios -->
+        <section class="mb-12 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2 text-sky-600 thai flex items-center">
+                <span class="interactive-text-container">
+                    <span class="interactive-text" data-phonetics="sà-tǎan-ná-gaan jam-lɔɔng sà-nùk sà-nùk (pə̂əm-dtəəm)" data-eng="Funny Role-Play Scenarios (Bonus)">สถานการณ์จำลองสนุกๆ (เพิ่มเติม)</span>
+                    <div class="reveal-box hidden"></div>
+                </span>
+                <button class="tts-button" data-text="สถานการณ์จำลองสนุกๆ เพิ่มเติม"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+            </h2>
+            <div class="space-y-6">
+                <div class="p-4 bg-slate-50 rounded-lg">
+                    <div class="flex items-center">
+                        <h3 class="font-semibold thai">สถานการณ์ที่ 1: ส่งข้อความผิดคน</h3>
+                        <button class="tts-button" data-text="สถานการณ์ที่ 1: ส่งข้อความผิดคน"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">sà-tǎan-ná-gaan tîi nʉ̀ng: sòng kɔ̂ɔ-kwaam pìt kon</p>
+                    <p class="text-sm text-slate-600 mb-2">(Scenario 1: The Wrong Text)</p>
+                    <div class="flex items-start">
+                        <p class="thai">คุณตั้งใจจะส่งข้อความไปบ่นเรื่องเพื่อนสนิท... แต่บังเอิญส่งไปหาเพื่อนคนนั้นตรงๆ! เขาโทรมาหาคุณทันที คุณจะอธิบายอย่างไร</p>
+                        <button class="tts-button" data-text="คุณตั้งใจจะส่งข้อความไปบ่นเรื่องเพื่อนสนิท... แต่บังเอิญส่งไปหาเพื่อนคนนั้นตรงๆ! เขาโทรมาหาคุณทันที คุณจะอธิบายอย่างไร"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">kun dtâng-jai jà sòng kɔ̂ɔ-kwaam bpai bòn rʉ̂ang pʉ̂an sà-nìt... dtɛ̀ɛ bang-əən sòng bpai hǎa pʉ̂an kon nán dtrong-dtrong! kǎo too maa hǎa kun tan-tii. kun jà à-tí-baai yàang-rai</p>
+                    <p class="text-sm text-slate-600">(You meant to send a text complaining about your best friend... but you accidentally sent it TO that friend! They call you immediately. How do you explain yourself?)</p>
+                </div>
+                 <div class="p-4 bg-slate-50 rounded-lg">
+                    <div class="flex items-center">
+                        <h3 class="font-semibold thai">สถานการณ์ที่ 2: เจอแฟนเก่าที่ซูเปอร์มาร์เก็ต</h3>
+                        <button class="tts-button" data-text="สถานการณ์ที่ 2: เจอแฟนเก่าที่ซูเปอร์มาร์เก็ต"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                     <p class="text-sm text-slate-500 italic">sà-tǎan-ná-gaan tîi sɔ̌ɔng: jəə fɛɛn gào tîi súp-bpə̂ə-maa-gèt</p>
+                    <p class="text-sm text-slate-600 mb-2">(Scenario 2: Ex at the Supermarket)</p>
+                    <div class="flex items-start">
+                        <p class="thai">คุณเจอแฟนเก่าโดยบังเอิญ เขามากับแฟนใหม่ ส่วนคุณ... กำลังถือบะหมี่กึ่งสำเร็จรูปสิบห่อกับของเล่นแมว แสดงบทบาทสนทนาที่น่าอับอายนั้น</p>
+                        <button class="tts-button" data-text="คุณเจอแฟนเก่าโดยบังเอิญ เขามากับแฟนใหม่ ส่วนคุณ... กำลังถือบะหมี่กึ่งสำเร็จรูปสิบห่อกับของเล่นแมว แสดงบทบาทสนทนาที่น่าอับอายนั้น"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                     <p class="text-sm text-slate-500 italic">kun jəə fɛɛn gào dooi bang-əən. kǎo maa gàp fɛɛn mài. sùan kun... gam-lang tʉ̌ʉ bà-mìi gʉ̀ng-sǎm-rèt-rûup sìp hɔ̀ɔ gàp kɔ̌ɔng-lên mɛɛo. sǎdɛɛng-bòt-bàat sǒn-tá-naa tîi nâa-àp-aai nán</p>
+                    <p class="text-sm text-slate-600">(You bump into your ex. They're with their new partner. You... are holding ten packs of instant noodles and a cat toy. Act out the awkward conversation.)</p>
+                </div>
+                 <div class="p-4 bg-slate-50 rounded-lg">
+                    <div class="flex items-center">
+                        <h3 class="font-semibold thai">สถานการณ์ที่ 3: เพื่อนที่เว่อร์</h3>
+                        <button class="tts-button" data-text="สถานการณ์ที่ 3: เพื่อนที่เว่อร์"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">sà-tǎan-ná-gaan tîi sǎam: pʉ̂an tîi wəə</p>
+                    <p class="text-sm text-slate-600 mb-2">(Scenario 3: The Overdramatic Friend)</p>
+                    <div class="flex items-start">
+                        <p class="thai">เพื่อนโทรมาหาด้วยน้ำเสียงตื่นตระหนก เขาทำหายใจแรงและพูดว่า 'ฉันต้องการความช่วยเหลือ! มันใหญ่มาก!' จริงๆ แล้วมันคือแมงมุมตัวเล็กๆ คุณจะปลอบโยนเขายังไง</p>
+                        <button class="tts-button" data-text="เพื่อนโทรมาหาด้วยน้ำเสียงตื่นตระหนก เขาทำหายใจแรงและพูดว่า 'ฉันต้องการความช่วยเหลือ! มันใหญ่มาก!' จริงๆ แล้วมันคือแมงมุมตัวเล็กๆ คุณจะปลอบโยนเขายังไง"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg></button>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">pʉ̂an too maa hǎa duâi nám-sǐang dtʉ̀ʉn-dtrà-nòk. kǎo tam hǎai-jai-แรง lɛ́ pûut wâa 'chán dtɔ̂ng-gaan kwaam chûay-lʉ̌a! man yài mâak!' jing-jing lɛ́ɛo man kʉʉ mɛɛng-mum dtua lék-lék. kun jà bplɔ̀ɔp-yoon kǎo yàang-rai</p>
+                    <p class="text-sm text-slate-600">(Your friend calls you, panicking. They're breathing heavily and say 'I need help! It's huge!' In reality, it's a tiny spider. How do you calm them down?)</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- TTS Engine ---
+    // This implementation uses the browser's built-in Web Speech API.
+    // Compatibility on iOS requires the speak() function to be called from a direct user interaction (like a click), which this code does.
+    let thaiVoice = null;
+    function loadVoices() {
+        const voices = speechSynthesis.getVoices();
+        thaiVoice = voices.find(voice => voice.lang === 'th-TH') || voices.find(voice => voice.lang.startsWith('th'));
+    }
+    function speak(text) {
+        if (!speechSynthesis || !text) return;
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'th-TH';
+        if (thaiVoice) utterance.voice = thaiVoice;
+        speechSynthesis.speak(utterance);
+    }
+    loadVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = loadVoices;
+    
+    document.body.addEventListener('click', (e) => {
+        const ttsButton = e.target.closest('.tts-button');
+        if (ttsButton && ttsButton.dataset.text) {
+            e.stopPropagation();
+            speak(ttsButton.dataset.text);
+        }
+    });
+
+    // --- A2 Interactive Text Logic ---
+    function setupInteractiveText() {
+        document.body.addEventListener('click', e => {
+            const textElement = e.target.closest('.interactive-text');
+            if (!textElement) return;
+
+            const container = textElement.closest('.interactive-text-container');
+            if (!container) return;
+            
+            const revealBox = container.querySelector('.reveal-box');
+            if (!revealBox) return;
+
+            // Clear any existing timeouts to prevent single-click firing on double-click
+            if (container.dataset.clickTimeout) {
+                clearTimeout(parseInt(container.dataset.clickTimeout));
+            }
+
+            let clickCount = container.dataset.clickCount ? parseInt(container.dataset.clickCount) : 0;
+            clickCount++;
+            
+            if (clickCount === 1) {
+                const timeoutId = setTimeout(() => {
+                    const phonetics = textElement.dataset.phonetics;
+                    if (revealBox.classList.contains('phonetics-text') && !revealBox.classList.contains('hidden')) {
+                        revealBox.classList.add('hidden');
+                    } else {
+                        revealBox.innerHTML = `<i>${phonetics}</i>`;
+                        revealBox.className = 'reveal-box phonetics-text';
+                    }
+                    container.dataset.clickCount = 0;
+                }, 250);
+                container.dataset.clickTimeout = timeoutId;
+            } else if (clickCount >= 2) {
+                const translation = textElement.dataset.eng;
+                if (revealBox.classList.contains('translation-text') && !revealBox.classList.contains('hidden')) {
+                    revealBox.classList.add('hidden');
+                } else {
+                    revealBox.innerHTML = `<strong>${translation}</strong>`;
+                    revealBox.className = 'reveal-box translation-text';
+                }
+                container.dataset.clickCount = 0;
+            }
+            container.dataset.clickCount = clickCount;
+        });
+    }
+    setupInteractiveText();
+
+
+    // --- Quiz Logic ---
+    document.querySelectorAll('.quiz-option').forEach(button => {
+        button.addEventListener('click', () => {
+            const questionNumber = button.dataset.question;
+            const isCorrect = button.dataset.correct === 'true';
+            document.querySelectorAll(`.quiz-option[data-question="${questionNumber}"]`).forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.correct === 'true') btn.classList.add('correct');
+            });
+            if (!isCorrect) button.classList.add('incorrect');
+        });
+    });
+
+    // --- Flashcard Logic ---
+    const flashcardData = [
+        { thai: 'เฉี่ยว', eng: 'To graze, brush against' },
+        { thai: 'สะดุดขาตัวเอง', eng: 'To trip over one\'s own feet' },
+        { thai: 'คูน้ำ', eng: 'Ditch, gutter' },
+        { thai: 'ยัย...', eng: '(Informal prefix for female friend)' },
+        { thai: '...รึไง', eng: '...or what? (rhetorical)' },
+        { thai: 'เดินตัวปลิว', eng: 'To walk freely (idiom)' },
+        { thai: 'แฟนเก่า', eng: 'Ex-partner' },
+        { thai: 'ไม่เห็นว่าอะไร', eng: 'Wasn\'t bothered' }
+    ];
+    const flashcardGrid = document.getElementById('flashcard-grid');
+    if (flashcardGrid) {
+        flashcardData.forEach(item => {
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'flashcard-container h-40';
+            
+            const card = document.createElement('div');
+            card.className = 'flashcard relative w-full h-full';
+
+            const front = document.createElement('div');
+            front.className = 'flashcard-front absolute w-full h-full bg-white border-2 border-sky-200 rounded-lg flex items-center justify-center p-4 text-center';
+            
+            const frontText = document.createElement('span');
+            frontText.className = 'thai text-2xl font-semibold';
+            frontText.textContent = item.thai;
+
+            const ttsBtn = document.createElement('button');
+            ttsBtn.className = 'tts-button';
+            ttsBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg>`;
+            ttsBtn.dataset.text = item.thai;
+            
+            front.appendChild(frontText);
+            front.appendChild(ttsBtn);
+
+            const back = document.createElement('div');
+            back.className = 'flashcard-back absolute w-full h-full bg-sky-100 border-2 border-sky-300 rounded-lg flex items-center justify-center p-4 text-center';
+            back.innerHTML = `<h4 class="font-bold text-lg text-sky-800">${item.eng}</h4>`;
+
+            card.appendChild(front);
+            card.appendChild(back);
+            cardContainer.appendChild(card);
+
+            cardContainer.addEventListener('click', (e) => {
+                if (!e.target.closest('.tts-button')) {
+                    cardContainer.classList.toggle('flipped');
+                }
+            });
+            flashcardGrid.appendChild(cardContainer);
+        });
+    }
+
+    // --- Role-Play Logic ---
+    const rolePlayBtn = document.getElementById('role-play-btn');
+    const resetRolePlayBtn = document.getElementById('reset-role-play-btn');
+    const rolePlayArea = document.getElementById('role-play-area');
+    let currentLine = 0;
+    const dialogue = [
+        `<div>
+            <p class="thai"><b>เพื่อน:</b> แค่เฉี่ยว แต่ฉันเดินสะดุดขาตัวเอง ตกลงไปในคูน้ำข้างถนนนู้นน่ะ แต่ฉันก็ขอบใจแกมากนะยัยแอร์ ที่เรียกมารับแล้วแกก็มาอ่ะ</p>
+            <p class="text-xs text-slate-500 italic mt-1">kɛ̂ɛ chìao dtɛ̀ɛ chán dəən sà-dùt kǎa dtua eeng dtòk long bpai nai kuu náam kâang tà-nǒn núun nâ dtɛ̀ɛ chán gɔ̂ kɔ̀ɔp jai gɛɛ mâak ná yai ɛɛ tîi rîak maa ráp lɛ́ɛo gɛɛ gɔ̂ maa â</p>
+            <p class="text-xs text-slate-600">(Friend: It just grazed me, but I tripped over my own feet and fell into that ditch beside the road. But thank you so much, Air, for coming to pick me up when I called.)</p>
+        </div>`,
+        `<div>
+            <p class="thai"><b>แอร์:</b> ไม่เป็นไร ฉันก็ต้องมารับแกสิ ไม่งั้นจะให้เจ้าบีซูมารับแกรึไง</p>
+            <p class="text-xs text-slate-500 italic mt-1">mâi bpen rai chán gɔ̂ɔ dtɔ̂ng maa ráp gɛɛ sì mâi ngán jà hâi jâo bii-suu maa ráp gɛɛ rʉ́-ngai</p>
+            <p class="text-xs text-slate-600">(Air: It's nothing. Of course I had to come get you. Otherwise, were you expecting B-soo (the cat) to pick you up or what?)</p>
+        </div>`,
+        `<div>
+            <p class="thai"><b>เพื่อน:</b> ...แล้วนี่ แกไปดื่มกับล้อฟต์มาสองคนเหรอ คุณแล้มป์ไปไหนอ่ะ</p>
+            <p class="text-xs text-slate-500 italic mt-1">...lɛ́ɛo nîi, gɛɛ bpai dʉ̀ʉm gàp lɔ́f maa sɔ̌ɔng kon rə̌ə, kun lɛ́m bpai nǎi â</p>
+            <p class="text-xs text-slate-600">(Friend: ...Anyway, did you go for drinks with just Loft? Where's Lamp?)</p>
+        </div>`,
+        `<div>
+            <p class="thai"><b>แอร์:</b> เขาก็ไปงานเลี้ยงกับพวกพาร์ทเนอร์เขานั่นแหละ</p>
+            <p class="text-xs text-slate-500 italic mt-1">kǎo gɔ̂ɔ bpai ngaan líang gàp pûak páat-nə̂ə kǎo nân lɛ̀</p>
+            <p class="text-xs text-slate-600">(Air: He went to a party with his partners.)</p>
+        </div>`,
+        `<div>
+            <p class="thai"><b>เพื่อน:</b> ปล่อยคุณภรรยาเดินตัวปลิวแบบเนี๊ยะ เดี๋ยวก็ได้ปลิวกลับไปหาคุณน้องแฟนเก่าหรอก</p>
+            <p class="text-xs text-slate-500 italic mt-1">bplɔ̀i kun pan-rá-yaa dəən dtua bplìo bɛ̀ɛp nía dǐao gɔ̂ɔ dâai bplìo glàp bpai hǎa kun nɔ́ɔng fɛɛn gào rɔ̀ɔk</p>
+            <p class="text-xs text-slate-600">(Friend: Letting the wife walk around freely like that... she'll fly back to her ex.)</p>
+        </div>`,
+        `<div>
+            <p class="thai"><b>แอร์:</b> จริงๆก็เพิ่งเจอก่อนที่จะมารับแกนี่แหละ</p>
+            <p class="text-xs text-slate-500 italic mt-1">jing jing gɔ̂ɔ pə̂əng jəə gɔ̀ɔn tîi jà maa ráp gɛɛ nîi lɛ̀</p>
+            <p class="text-xs text-slate-600">(Air: Actually, I just ran into her before I came to get you.)</p>
+        </div>`,
+        `<i class="text-center block mt-4">--- จบบทสนทนา ---</i>`
+    ];
+
+    rolePlayBtn.addEventListener('click', () => {
+        if (currentLine < dialogue.length) {
+            const lineDiv = document.createElement('div');
+            lineDiv.className = 'thai p-3 bg-white rounded-md shadow-sm flex items-center justify-between';
+            const textSpan = document.createElement('span');
+            textSpan.innerHTML = dialogue[currentLine];
+            lineDiv.appendChild(textSpan);
+            
+            if(currentLine < dialogue.length - 1) {
+                const tempEl = document.createElement('div');
+                tempEl.innerHTML = dialogue[currentLine];
+                const thaiText = tempEl.querySelector('p.thai').textContent;
+                const ttsBtn = document.createElement('button');
+                ttsBtn.className = 'tts-button';
+                ttsBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" /></svg>`;
+                ttsBtn.dataset.text = thaiText;
+                lineDiv.appendChild(ttsBtn);
+            }
+            rolePlayArea.appendChild(lineDiv);
+            rolePlayArea.scrollTop = rolePlayArea.scrollHeight;
+            currentLine++;
+        }
+        if (currentLine === 1) {
+            rolePlayBtn.textContent = 'ประโยคถัดไป';
+            resetRolePlayBtn.classList.remove('hidden');
+        }
+        if (currentLine >= dialogue.length) {
+            rolePlayBtn.disabled = true;
+            rolePlayBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    });
+
+    resetRolePlayBtn.addEventListener('click', () => {
+        currentLine = 0;
+        rolePlayArea.innerHTML = '';
+        rolePlayBtn.textContent = 'เริ่มแสดงบทบาทสมมติ';
+        rolePlayBtn.disabled = false;
+        rolePlayBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        resetRolePlayBtn.classList.add('hidden');
+    });
+});
+</script>
+
+</body>
+</html>
+
