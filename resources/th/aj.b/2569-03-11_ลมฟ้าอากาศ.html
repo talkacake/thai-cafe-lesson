@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลมฟ้าอากาศ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+        .tts-button {
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #2563EB;
+            transition: transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 4px;
+        }
+        .tts-button:active { transform: scale(0.9); }
+        .tts-button.playing { color: #EF4444; animation: pulse 1s infinite; }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .ipa, .en { display: none; margin-top: 0.25rem; font-weight: normal; }
+        .ipa { color: #D97706; font-style: italic; font-size: 0.9em; } 
+        .en { color: #6B7280; font-size: 0.9em; }
+        .reveal { display: block !important; }
+
+        .hidden-content { display: none; }
+
+        .toggle-btn {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            background-color: #F3F4F6;
+            color: #4B5563;
+            cursor: pointer;
+            margin-right: 4px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+        .toggle-btn:hover { background-color: #E5E7EB; }
+        .toggle-btn.active {
+            background-color: #DBEAFE;
+            color: #1D4ED8;
+            border-color: #93C5FD;
+        }
+        
+        .controls-row {
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .content-block { margin-bottom: 1.5rem; }
+        .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-sky-50 text-gray-800 pb-20">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-10 p-8 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-3xl shadow-xl content-block">
+            <h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-2">
+                🌤️ ลมฟ้าอากาศ
+                <button class="tts-button text-white" onclick="playTTS('ลมฟ้าอากาศ', this)">🔊</button>
+            </h1>
+            <div class="controls-row justify-center">
+                <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+            </div>
+            <div class="ipa text-sky-100 text-lg">lom-fáa aa-gàat</div>
+            <div class="en text-white opacity-90 text-lg">Weather</div>
+        </header>
+
+        <!-- 1. Review Section -->
+        <section class="mb-12 bg-white p-6 sm:p-8 rounded-3xl shadow-md border-l-8 border-amber-400">
+            <div class="content-block text-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
+                    🔄 ทบทวนคำศัพท์
+                    <button class="tts-button" onclick="playTTS('ทบทวนคำศัพท์', this)">🔊</button>
+                </h2>
+                <div class="controls-row justify-center mb-4">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">thóp-thuan kham-sàp</div>
+                <div class="en">Vocabulary Review</div>
+
+                <div class="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-100 content-block">
+                    <p class="text-gray-700">
+                        กดปุ่มเพื่อสุ่มคำศัพท์ แล้วลองแต่งประโยคจากคำที่ได้
+                        <button class="tts-button" onclick="playTTS('กดปุ่มเพื่อสุ่มคำศัพท์ แล้วลองแต่งประโยคจากคำที่ได้', this)">🔊</button>
+                    </p>
+                    <div class="controls-row justify-center mt-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">gòt bpùm phʉ̂ʉa sùm kham-sàp láew lɔɔng dtàeng bprà-yôok jàak kham thîi dâi</div>
+                    <div class="en text-sm">Press the button to randomize a word, then try to make a sentence.</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-6">
+                <div id="word-display-area" class="w-full h-48 flex flex-col justify-center items-center bg-slate-50 rounded-2xl border-2 border-dashed border-amber-300 mb-6 p-4">
+                    <p class="text-slate-400 italic">พร้อมแล้วกดปุ่มด้านล่าง 🎲</p>
+                </div>
+                <button onclick="randomizeWord()" class="bg-amber-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-amber-600 transition active:scale-95 text-lg flex items-center gap-2">
+                    🎲 สุ่มคำศัพท์
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. Lead-in -->
+        <section class="mb-12 bg-white p-6 sm:p-8 rounded-3xl shadow-md border-l-8 border-cyan-500">
+            <div class="content-block">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                    🤔 ก่อนเริ่มบทเรียน
+                    <button class="tts-button" onclick="playTTS('ก่อนเริ่มบทเรียน', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">gɔ̀ɔn rə̂əm bòt-rian</div>
+                <div class="en">Before the lesson</div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="p-5 bg-cyan-50 rounded-2xl content-block">
+                    <p class="text-lg text-gray-800 font-medium">คุณชอบสภาพอากาศแบบไหนมากที่สุดเวลาสอนหนังสือที่มหาวิทยาลัย? <button class="tts-button" onclick="playTTS('คุณชอบสภาพอากาศแบบไหนมากที่สุดเวลาสอนหนังสือที่มหาวิทยาลัย', this)">🔊</button></p>
+                    <div class="controls-row">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">khun chɔ̂ɔp sà-phâap aa-gàat bàep nǎi mâak thîi sùt wee-laa sɔ̌ɔn nǎng-sʉ̌ʉ thîi má-hǎa-wít-thá-yaa-lai?</div>
+                    <div class="en text-sm">What kind of weather do you like the most when teaching at the university?</div>
+                </div>
+
+                <div class="p-5 bg-cyan-50 rounded-2xl content-block">
+                    <p class="text-lg text-gray-800 font-medium">ในประเทศไทย คุณเคยเจอพายุฤดูร้อนหรือน้ำท่วมที่ส่งผลกระทบต่อชีวิตประจำวันไหม? <button class="tts-button" onclick="playTTS('ในประเทศไทย คุณเคยเจอพายุฤดูร้อนหรือน้ำท่วมที่ส่งผลกระทบต่อชีวิตประจำวันไหม', this)">🔊</button></p>
+                    <div class="controls-row">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">nai bprà-thêet thai khun khoei jəə phaa-yú rʉ́-duu rɔ́ɔn rʉ̌ʉ náam thûuam thîi sòng phǒn grà-thóp dtɔ̀ɔ chii-wít bprà-jam-wan mǎi?</div>
+                    <div class="en text-sm">In Thailand, have you ever encountered a summer storm or flooding that affected your daily life?</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Video & Listening -->
+        <section class="mb-12 bg-white p-6 sm:p-8 rounded-3xl shadow-md border-l-8 border-red-500">
+            <div class="content-block">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                    📺 การฟังจากวิดีโอ
+                    <button class="tts-button" onclick="playTTS('การฟังจากวิดีโอ', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">gaan fang jàak wí-dii-oo</div>
+                <div class="en">Listening from Video</div>
+            </div>
+
+            <!-- YouTube Shorts Embed -->
+            <div class="mb-8 w-full max-w-sm mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-black flex justify-center">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/7RGqXgFHvi4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="space-y-6" id="video-quiz-container">
+                <h3 class="text-xl font-bold text-gray-800 border-b pb-2 flex items-center gap-2">
+                    📝 ทดสอบความเข้าใจ 
+                    <button class="tts-button" onclick="playTTS('ทดสอบความเข้าใจ', this)">🔊</button>
+                </h3>
+                
+                <div class="content-block video-quiz-question">
+                    <p class="font-semibold mb-2">1. ในช่วงวันที่ 11-13 มีนาคม ประเทศไทยตอนบนจะมีลักษณะอากาศแบบใด? <button class="tts-button" onclick="playTTS('ในช่วงวันที่สิบเอ็ดถึงสิบสามมีนาคม ประเทศไทยตอนบนจะมีลักษณะอากาศแบบใด', this)">🔊</button></p>
+                    <div class="controls-row mb-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm mb-2">nai chûuang wan thîi sìp-èt thʉ̌ng sìp-sǎam mii-naa-khom, bprà-thêet thai dtɔɔn bon jà mii lák-sà-nà aa-gàat bàep dai?</div>
+                    <div class="en text-sm mb-2">During March 11-13, what kind of weather will upper Thailand experience?</div>
+                    
+                    <div class="pl-4 space-y-2">
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq1" value="a" class="mr-2"> ก. มีหิมะตกหนัก <button class="tts-button" onclick="playTTS('มีหิมะตกหนัก', this)">🔊</button></label>
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq1" value="b" class="mr-2"> ข. พายุฤดูร้อน (ฝนฟ้าคะนอง ลมกระโชกแรง ลูกเห็บตก) <button class="tts-button" onclick="playTTS('พายุฤดูร้อน ฝนฟ้าคะนอง ลมกระโชกแรง ลูกเห็บตก', this)">🔊</button></label>
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq1" value="c" class="mr-2"> ค. อากาศหนาวจัด ไม่มีฝน <button class="tts-button" onclick="playTTS('อากาศหนาวจัด ไม่มีฝน', this)">🔊</button></label>
+                    </div>
+                </div>
+
+                <div class="content-block border-t border-slate-200 pt-4 video-quiz-question">
+                    <p class="font-semibold mb-2">2. เพราะเหตุใดภาคใต้จึงมีฝนเพิ่มขึ้นในช่วงวันที่ 10-14 มีนาคม? <button class="tts-button" onclick="playTTS('เพราะเหตุใดภาคใต้จึงมีฝนเพิ่มขึ้นในช่วงวันที่สิบถึงสิบสี่มีนาคม', this)">🔊</button></p>
+                    <div class="controls-row mb-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm mb-2">phrɔ́ hèet dai phâak dtâi chʉng mii fǒn phə̂əm khʉ̂n nai chûuang wan thîi sìp thʉ̌ng sìp-sìi mii-naa-khom?</div>
+                    <div class="en text-sm mb-2">Why does the Southern region have more rain during March 10-14?</div>
+
+                    <div class="pl-4 space-y-2">
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq2" value="a" class="mr-2"> ก. เพราะมวลอากาศเย็นจากจีนแผ่ลงมาถึงภาคใต้ <button class="tts-button" onclick="playTTS('เพราะมวลอากาศเย็นจากจีนแผ่ลงมาถึงภาคใต้', this)">🔊</button></label>
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq2" value="b" class="mr-2"> ข. เพราะลมตะวันออกและลมตะวันออกเฉียงใต้มีกำลังแรงขึ้น <button class="tts-button" onclick="playTTS('เพราะลมตะวันออกและลมตะวันออกเฉียงใต้มีกำลังแรงขึ้น', this)">🔊</button></label>
+                        <label class="block cursor-pointer p-2 rounded-lg hover:bg-slate-100 transition-colors"><input type="radio" name="vq2" value="c" class="mr-2"> ค. เพราะหย่อมความกดอากาศต่ำหมดไป <button class="tts-button" onclick="playTTS('เพราะหย่อมความกดอากาศต่ำหมดไป', this)">🔊</button></label>
+                    </div>
+                </div>
+                
+                <button onclick="checkVideoQuiz()" class="mt-4 bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-red-600 transition">ตรวจคำตอบ</button>
+            </div>
+        </section>
+
+        <!-- 4. Reading -->
+        <section class="mb-12 bg-white p-6 sm:p-8 rounded-3xl shadow-md border-l-8 border-green-500">
+            <div class="content-block">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                    📖 บทอ่าน
+                    <button class="tts-button" onclick="playTTS('บทอ่าน', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">bòt-àan</div>
+                <div class="en">Reading Passage</div>
+            </div>
+
+            <div class="bg-green-50 p-6 rounded-2xl text-gray-800 space-y-6 leading-relaxed border border-green-100">
+                <div class="content-block">
+                    <p class="text-lg">ประเทศไทยตอนบนต้องเตรียมรับมือกับ <strong class="text-green-800 font-bold underline">พายุฤดูร้อน</strong> โดยจะมีลักษณะของ <strong class="text-green-800 font-bold underline">ฝนฟ้าคะนอง</strong> ลมแรง และอาจมีลูกเห็บตก <button class="tts-button" onclick="playTTS('ประเทศไทยตอนบนต้องเตรียมรับมือกับ พายุฤดูร้อน โดยจะมีลักษณะของ ฝนฟ้าคะนอง ลมแรง และอาจมีลูกเห็บตก', this)">🔊</button></p>
+                    <div class="controls-row">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">bprà-thêet thai dtɔɔn bon dtɔ̂ng dtriiam ráp mʉʉ gàp phaa-yú rʉ́-duu rɔ́ɔn, dooi jà mii lák-sà-nà khɔ̌ɔng fǒn-fáa-khá-nɔɔng lom raeng láe àat mii lûuk-hèp dtòk</div>
+                    <div class="en text-sm">Upper Thailand must prepare for summer storms, which will feature thunderstorms, strong winds, and possible hail.</div>
+                </div>
+
+                <div class="content-block border-t border-green-200 pt-4">
+                    <p class="text-lg">สาเหตุเกิดจาก <strong class="text-green-800 font-bold underline">มวลอากาศเย็น</strong> จากประเทศจีนแผ่ลงมาปกคลุม ทำให้สภาพอากาศเปลี่ยนแปลงอย่างรวดเร็ว <button class="tts-button" onclick="playTTS('สาเหตุเกิดจาก มวลอากาศเย็น จากประเทศจีนแผ่ลงมาปกคลุม ทำให้สภาพอากาศเปลี่ยนแปลงอย่างรวดเร็ว', this)">🔊</button></p>
+                    <div class="controls-row">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">sǎa-hèet gə̀ət jàak muuan aa-gàat yen jàak bprà-thêet jiin phàae long maa bpòk-khlum, tham hâi sà-phâap aa-gàat bplìian-bplaeng yàang rûuat-reo</div>
+                    <div class="en text-sm">The cause is a cold air mass from China spreading down to cover the area, causing rapid weather changes.</div>
+                </div>
+
+                <div class="content-block border-t border-green-200 pt-4">
+                    <p class="text-lg">ประชาชนควร <strong class="text-green-800 font-bold underline">ระมัดระวัง</strong> อันตราย และ <strong class="text-green-800 font-bold underline">หลีกเลี่ยง</strong> การอยู่ในพื้นที่โล่งแจ้งหรือใต้ต้นไม้ใหญ่เพื่อความปลอดภัย <button class="tts-button" onclick="playTTS('ประชาชนควร ระมัดระวัง อันตราย และ หลีกเลี่ยง การอยู่ในพื้นที่โล่งแจ้งหรือใต้ต้นไม้ใหญ่เพื่อความปลอดภัย', this)">🔊</button></p>
+                    <div class="controls-row">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">bprà-chaa-chon khuaan rá-mát-rá-wang an-dtà-raai láe lìik-lîiang gaan yùu nai phʉ́ʉn-thîi lôong jâeng rʉ̌ʉ dtâi dtôn mâai yài phʉ̂ʉa khwaam bplɔ̀ɔt-phai</div>
+                    <div class="en text-sm">Citizens should be careful of the danger and avoid staying in open areas or under large trees for safety.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Target Vocab -->
+        <section class="mb-12">
+            <div class="content-block">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                    🔑 คำศัพท์หลัก
+                    <button class="tts-button" onclick="playTTS('คำศัพท์หลัก', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">kham-sàp lǎk</div>
+                <div class="en">Target Vocabulary</div>
+            </div>
+            
+            <div id="target-vocab-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- 6. Speaking Activities -->
+        <section class="mb-12 bg-white p-6 sm:p-8 rounded-3xl shadow-xl border-l-8 border-pink-500">
+            <div class="content-block">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
+                    📢 กิจกรรมฝึกพูด
+                    <button class="tts-button" onclick="playTTS('กิจกรรมฝึกพูด', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">gìt-jà-gam fʉ̀k phûut</div>
+                <div class="en">Speaking Activities</div>
+            </div>
+
+            <div class="space-y-10">
+                <!-- A: Role Play -->
+                <div class="bg-pink-50 p-6 rounded-2xl content-block border border-pink-100 shadow-sm">
+                    <h3 class="font-bold text-xl text-pink-700 mb-3 flex items-center gap-2">
+                        🎭 บทบาทสมมติ: ยกเลิกนัดเพราะพายุ 
+                        <button class="tts-button" onclick="playTTS('บทบาทสมมติ ยกเลิกนัดเพราะพายุ', this)">🔊</button>
+                    </h3>
+                    <div class="controls-row mb-4">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa mb-1">bòt-bàat sǒm-mút: yók-lə̂ək nát phrɔ́ phaa-yú</div>
+                    <div class="en mb-3 text-sm italic">Role-play: Canceling plans because of a storm.</div>
+                    
+                    <div class="bg-white p-4 rounded-xl">
+                        <p class="text-gray-800 font-medium">โทรหาเพื่อนคนไทย (เพื่อนสนิท) เพื่อยกเลิกนัดกินข้าวเย็นนี้ บอกพวกเขาว่าแถวบ้านคุณมี <strong class="text-pink-600">ฝนฟ้าคะนอง</strong> และคุณอยาก <strong class="text-pink-600">หลีกเลี่ยง</strong> รถติด <button class="tts-button" onclick="playTTS('โทรหาเพื่อนคนไทย เพื่อยกเลิกนัดกินข้าวเย็นนี้ บอกพวกเขาว่าแถวบ้านคุณมี ฝนฟ้าคะนอง และคุณอยาก หลีกเลี่ยง รถติด', this)">🔊</button></p>
+                        <div class="controls-row mb-2">
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                        </div>
+                        <div class="ipa text-sm">thoo hǎa phʉ̂ʉan khon thai (phʉ̂ʉan sà-nìt) phʉ̂ʉa yók-lə̂ək nát gin khâao yen níi, bòrk phûuak khǎo wâa thǎeo bâan khun mii fǒn-fáa-khá-nɔɔng láe khun yàak lìik-lîiang rót-dtìt</div>
+                        <div class="en text-sm mb-3">Call a Thai friend (close friend) to cancel dinner tonight. Tell them there is a thunderstorm near your house and you want to avoid traffic jams.</div>
+                    </div>
+                </div>
+
+                <!-- B: Discussion -->
+                <div class="bg-pink-50 p-6 rounded-2xl content-block border border-pink-100 shadow-sm">
+                    <h3 class="font-bold text-xl text-pink-700 mb-3 flex items-center gap-2">
+                        🗣️ อภิปราย: การสอนในช่วงมรสุม 
+                        <button class="tts-button" onclick="playTTS('อภิปราย การสอนในช่วงมรสุม', this)">🔊</button>
+                    </h3>
+                    <div class="controls-row mb-4">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa mb-1">à-phí-bpraai: gaan sɔ̌ɔn nai chûuang mɔɔ-rá-sǔm</div>
+                    <div class="en mb-3 text-sm italic">Discussion: Teaching during the monsoon season.</div>
+
+                    <div class="bg-white p-4 rounded-xl">
+                        <p class="text-gray-800 font-medium mb-2">ในฐานะอาจารย์มหาวิทยาลัย คุณคิดว่าเวลาเกิด <strong class="text-pink-600">พายุฤดูร้อน</strong> เราควรเปลี่ยนไปสอนออนไลน์ไหม? หรือควรให้นักศึกษามาเรียนตามปกติ? ทำไม? <button class="tts-button" onclick="playTTS('ในฐานะอาจารย์มหาวิทยาลัย คุณคิดว่าเวลาเกิด พายุฤดูร้อน เราควรเปลี่ยนไปสอนออนไลน์ไหม หรือควรให้นักศึกษามาเรียนตามปกติ ทำไม', this)">🔊</button></p>
+                        <div class="controls-row mb-2">
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                        </div>
+                        <div class="ipa text-sm mb-2">nai thǎa-ná aa-jaan má-hǎa-wít-thá-yaa-lai, khun khít wâa wee-laa gə̀ət phaa-yú rʉ́-duu rɔ́ɔn rao khuaan bplìian bpai sɔ̌ɔn ɔɔn-laai mǎi? rʉ̌ʉ khuaan hâi nák-sʉ̀k-sǎa maa riian dtaam bpòk-gà-dtì? tham-mai?</div>
+                        <div class="en text-sm mb-4">As a university lecturer, do you think when there is a summer storm, we should switch to online teaching? Or should students come to study as usual? Why?</div>
+                    </div>
+                </div>
+
+                <!-- C: Interview -->
+                <div class="bg-pink-50 p-6 rounded-2xl content-block border border-pink-100 shadow-sm">
+                    <h3 class="font-bold text-xl text-pink-700 mb-3 flex items-center gap-2">
+                        🎤 สัมภาษณ์ครู 
+                        <button class="tts-button" onclick="playTTS('สัมภาษณ์ครู', this)">🔊</button>
+                    </h3>
+                    <div class="controls-row mb-4">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa mb-1">sǎm-phâat khruu</div>
+                    <div class="en mb-3 text-sm italic">Interview the teacher.</div>
+
+                    <div class="bg-white p-4 rounded-xl">
+                        <p class="text-gray-800 font-medium">สัมภาษณ์ครูว่า "คนไทยเตรียมตัวอย่างไรเมื่อรู้ว่า <strong class="text-pink-600">มวลอากาศเย็น</strong> หรือพายุใหญ่กำลังจะมา?" <button class="tts-button" onclick="playTTS('สัมภาษณ์ครูว่า คนไทยเตรียมตัวอย่างไรเมื่อรู้ว่า มวลอากาศเย็น หรือพายุใหญ่กำลังจะมา', this)">🔊</button></p>
+                        <div class="controls-row mt-2">
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                            <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                        </div>
+                        <div class="ipa text-sm mt-1">sǎm-phâat khruu wâa "khon thai dtriiam dtua yàang-rai mʉ̂ʉa rúu wâa muuan aa-gàat yen rʉ̌ʉ phaa-yú yài gam-lang jà maa?"</div>
+                        <div class="en text-sm mt-1">Interview the teacher: "How do Thai people prepare when they know a cold air mass or a big storm is coming?"</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 7. Extension Activities -->
+        <section class="mb-12 bg-slate-100 p-6 sm:p-8 rounded-3xl shadow-md border-l-8 border-slate-400">
+            <div class="content-block">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    🚀 กิจกรรมเพิ่มเติม
+                    <button class="tts-button" onclick="playTTS('กิจกรรมเพิ่มเติม', this)">🔊</button>
+                </h2>
+                <div class="controls-row">
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                    <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                </div>
+                <div class="ipa">gìt-jà-gam phə̂əm-dtəəm</div>
+                <div class="en">Extension Activities</div>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Storytelling -->
+                <div class="content-block bg-white p-6 rounded-2xl shadow-sm">
+                    <p class="font-bold text-lg text-slate-800 flex items-center gap-2">📖 เล่าเรื่อง: ประสบการณ์สภาพอากาศสุดขั้ว! <button class="tts-button" onclick="playTTS('เล่าเรื่อง ประสบการณ์สภาพอากาศสุดขั้ว', this)">🔊</button></p>
+                    <p class="text-gray-700 mt-2">เล่าประสบการณ์ที่คุณเคยเจอสภาพอากาศที่เลวร้ายที่สุด (ในไทยหรือต่างประเทศก็ได้) เกิดอะไรขึ้นบ้าง? <button class="tts-button" onclick="playTTS('เล่าประสบการณ์ที่คุณเคยเจอสภาพอากาศที่เลวร้ายที่สุด เกิดอะไรขึ้นบ้าง', this)">🔊</button></p>
+                    <div class="controls-row mt-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">lâo bprà-sòp-gaan thîi khun khoei jəə sà-phâap aa-gàat thîi leo-ráai thîi sùt (nai thai rʉ̌ʉ dtàang bprà-thêet gɔ̂ dâi) gə̀ət à-rai khʉ̂n bâang?</div>
+                    <div class="en text-sm">Story-telling: Tell an experience about the worst weather you've ever encountered (in Thailand or abroad). What happened?</div>
+                </div>
+
+                <!-- Presentation (Chemistry/Science link) -->
+                <div class="content-block bg-white p-6 rounded-2xl shadow-sm">
+                    <p class="font-bold text-lg text-slate-800 flex items-center gap-2">📊 การนำเสนอ: วิทยาศาสตร์ของลูกเห็บ <button class="tts-button" onclick="playTTS('การนำเสนอ วิทยาศาสตร์ของลูกเห็บ', this)">🔊</button></p>
+                    <p class="text-gray-700 mt-2">ในฐานะคนที่เคยสอนเคมี/วิทยาศาสตร์ ลองอธิบายสั้นๆ (1-2 นาที) ว่า "ลูกเห็บ" เกิดขึ้นได้อย่างไรในช่วงพายุฤดูร้อน? (ใช้ภาษาไทยง่ายๆ) <button class="tts-button" onclick="playTTS('ในฐานะคนที่เคยสอนวิทยาศาสตร์ ลองอธิบายสั้นๆ ว่าลูกเห็บเกิดขึ้นได้อย่างไรในช่วงพายุฤดูร้อน', this)">🔊</button></p>
+                    <div class="controls-row mt-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-sm">nai thǎa-ná khon thîi khoei sɔ̌ɔn wít-thá-yaa-sàat, lɔɔng à-thí-baai sân sân wâa lûuk-hèp gə̀ət khʉ̂n dâi yàang-rai nai chûuang phaa-yú rʉ́-duu rɔ́ɔn? (chái phaa-sǎa thai ngâai ngâai)</div>
+                    <div class="en text-sm">Presentation: As someone who used to teach science/chemistry, briefly explain (1-2 mins) how "hail" is formed during a summer storm. (Use simple Thai)</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Massive list of vocabulary parsed into an array of objects
+        const rawVocabData = `📝📄	เรียงความ	riiang-kwaam	essays
+📚📝	เรื่องสั้น	rʉ̂ʉang-sân	short stories
+📏🧱	หนา	nǎa	thick
+🎓📸	งานรับปริญญา	ngaan-ráp-bpà-rin-yaa	graduation
+🎭🎬	การแสดง	gaan-sà-dɛɛng	performance
+🎶🎤	ดนตรีสด	don-dtrii-sòt	live music
+👔	มืออาชีพ	mʉʉ-aa-chîip	professional
+🗂️🧹	จัด	jàt	arrange / organise / hold
+🔰📘	ระดับเริ่มต้น	rá-dàp-rə̂əm-dtôn	beginner level
+🏙️🏠	ระเบียง	rá-biiang	balcony
+⭕🎺	วง	wong	circle / band
+💵	เงินเดือน	ŋən dʉan	salary
+🍀🚪✨	โอกาส 	ʔoo-gàat	Opportunity
+👕	เสื้อยืด	sʉ̂a-yʉ̂ʉt	t-shirt
+🤵	เจ้าบ่าว	jâo-bàao	groom
+👰💍	เจ้าสาว	jâo-saao	bride
+💍	คู่หมั้น	khûu-màn	fiance
+💔🤫	นอกใจ	nɔ̂ɔk-jai	cheat on
+🎭🃏	หลอก	lɔ̀ɔk	To trick
+👕	สวม	sŭuam	Wear / put on
+🦌📯	เขา	khǎo	horns
+🚫	อย่า	yàa	Don't
+🌱	หญ้า	yâa	grass
+🔁	แทน	thaaen	instead of
+👋💥	ตบ	dtòp	slap
+🤗💛	ปลอบใจ	plàawp-jai	to comfort
+🎲✨	บังเอิญ	bang-ʉʉan	coincident
+🎲✨	โดยบังเอิญ	dooi-bang-ʉʉan	coincidentally
+🕵️‍♂️🧩	ปริศนา	prìt-sà-nǎa	Mystery
+💥🌪️	หายนะ	hǎai-yá-ná	Disaster
+❓🔍	สาเหตุ	sǎa-hèet	Cause
+📝	บรรณาธิการ	ban-naa-tí-gaan	editor
+📚🔬	วิธีการวิจัย	wí-tii gan wí-jai	research methods
+🗂️	หัวข้อ	hŭua-kâw	Topics
+🤝🙋	การมีส่วนร่วม	gaan mii-sùan-rûam	participation
+🕵️‍♂️🎭	โกง	goong	cheat
+😔🏝️	โดดเดี่ยว	dòht-dìao	isolated
+✅	คุณภาพ	kun-ná-pâap	 Quality
+🚌🚆🚇	การขนส่งสาธารณะ	gaan kǒn-sòhng sǎa-taa-rá-ná	public transportation
+🏘️👥	ชุมชน	chum-chon	communities
+👵👴	สังคมผู้สูงอายุ	sǎng-kom pûu sǔung-aa-yú	aging society
+🎉💍	วันครบรอบ	wan-króp-râawp	Anniversary
+🎵🎸	วงดนตรี	wong don-dtrii	(music) band
+🏆🎯	การแข่งขัน	gaan kàeng-kǎn	competition
+⚙️🏃	ดำเนินการ	dam-nəən-gaan	facilitate / proceed / run
+💎🪙	สมบัติ	sǒm-bàt	treasure
+🌊🫧	จม	jom	To sink / drown
+💎	อัญมณี	an-yá-má-nii	gems
+⚙️	กลไก	gon-gai	mechanism
+🕯️🖤	ไว้อาลัย	wái-aa-lai	mourning
+📢📰	การประกาศ	gaan bprà-gàat	announcement
+👥💼	เพื่อนร่วมงาน	pêuan-rûam-ngaan	co-worker
+📝⏳	มีอะไรให้ทำเยอะ	mii-à-rai-hâi-tam-yóe	There are lots to do.
+🌊🚧🛣️	น้ำท่วมถนนหลายเส้น/สาย	náam-tûam-tá-nŏn-lăai-sên/sǎai	Many roads were flooded. 
+🧾💰	ค่าดำเนินการสอบ	khâa-dam-nern-gaan-sòob	Test processing fees
+🗺️🌍	ภูมิศาสตร์	puum-mí-sàat	Geography
+🏗️🛣️	โครงสร้าง(พื้นฐาน)	kroong-sâang-pěun-thăan	Infrastructure
+💰📈	มูลค่า	muun-láa-kaâ	value (assets / stuff)
+🪜	บันได	ban-dai	stairs
+🌍	เส้นศูนย์สูตร	sên-sŭun-sùut	equator
+⚡🔋	พลังงาน	pá lang-ŋaan	energy
+👑💪	อำนาจ	am-nâat	power (influence)
+🏞️🌾	ที่ราบ	têe-râap	plains
+😇	ปณิธาน	bpà-ní-taan	resolutions
+🧐	ตั้งใจ	dtâng-jai	determined/focused
+🥅	เป้าหมาย	bpâo-mǎai	goals
+🙆	ยืดหยุ่น	yʉ̂ʉt-yùn	flexible
+💉	จำเป็น / บังคับ	jam-bpen / bang-káp	obligatory
+🙏	ปรารถนา	bpràat-tà-nǎa	desire / wish
+💾💸	ประหยัด	bprà-yàt	frugal / To save
+👍⏰	มีวินัย	mii wí-nai	disciplined
+💯	เด็ดขาด	dèt-kàat	definitive
+🧑‍🎨	มีความคิดสร้างสรรค์	mii kwaam-kít sâang-sǎn	creative
+💧➕🧪	เจือจาง	jʉʉa-jaang	dilute
+🌡️📉📈	อุณหภูมิ	un-hà-pum	temperature
+🧱📦⚖️	ความหนาแน่น	kwaam-nǎa-nɛ̂ɛn	density
+🎈🌊🆙	ลอย	lɔɔi	float
+💎⛰️🧪	แร่ธาตุ	rɛ̂ɛ-tâat	mineral
+🌋⛏️🗺️	ธรณีวิทยา	tɔɔ-rá-nii-wít-tá-yaa	Geology
+💎⚛️🧊	โครงสร้างผลึก	kroong-sâang pà lùek	Crystal structure
+🎯🔍📍	เฉพาะ	chà-pɔ́	specific
+🧪🧊💧	สถานะ	sà-tǎa-ná	status; state
+✨📝🧬	ลักษณะเฉพาะ	lák-sà-nà chà-pɔ́	characteristic
+🌨️🧊☄️	ลูกเห็บ	lûuk-hèp	hail (n)
+🪵🪚🍂	ขี้เลื่อย	kîi-lʉ̂ai	sawdust
+🏠🔥🛡️	ฉนวนกันความร้อน	chà-nǔuan gan kwaam rɔ́ɔn	insulation
+🧊🫠🔥	ละลาย	lá-laai	melt
+🤔❓🧐	สงสัย	sǒng-sǎi	wonder; be curious about sth
+🔨⚠️❌	ทำให้...เสียหาย	tam-hâi...sǐa-hǎai	make...damaged
+🕊️🤝🌐	ทูต	tûut	ambassador
+🏛️🏢👑	เมืองหลวง	mʉʉang-lǔang	capital city
+🏭🏗️💨	โรงงาน	roong-ngaan	factory
+🚢📦🌎	ส่งออก	sòng-ɔ̀ɔk	export
+🪨🧊🧱	ก้อน	gɔ̂n	bar; lump
+📐📏📦	ขนาด	kà-nàat	size
+⛸️🍌💦	ลื่น	lʉ̂ʉn	slippery
+🎓📚	วิชาการ	wí-chaa-gaan	academic
+🧑‍💻🛠️	วิศวกร	wí-sà-wá-gawn	engineer
+✅	ยืนยัน	yeun-yan	confirm
+🌋📳	แรงสั่นสะเทือน	raeng-sàn-sa-thʉ̄an	tremors
+🎯💥	กระทบ	grà-thóp	affect
+🪨⚠️	รอยเลื่อน	rooi-lʉ̂an	fault
+🏢🤝	หน่วยงานที่เกี่ยวข้อง	nùay-ngaan-têe-gìeow-khâawng	relevant agencies
+📉💥	ส่งผลกระทบต่อ	sòng-pŏn-gra-thóp-dtòr	send effect -> have an impact on
+🛡️🏛️	ความมั่นคง	kwaam-mân-khong	stability
+🏞️🌊	เขื่อน	kèuuan	dam
+👣👀	ติดตาม	dtìt-dtaam	follow
+🔍📌	ลักษณะ	lák-sà-nà	characteristic 
+🏚️💥	ถล่ม	tà-lòhm	collapse
+🧑‍🤝‍🧑	คำสรรพนาม	kum-sàp-naam	pronouns
+🫵🙂	ตัวเอง	dtua-eng	self, you (friendly)
+🙋	ข้า	kâa	I (more polite than กู)
+👉	เอ็ง	aeng	You (more polite than มึง)
+🙋	เรา	rao	I (more polite than ข้า); we
+🫵	แก	gɛɛ	You (more polite than เอ็ง), 3rd person
+🌏📌	สถานการณ์	sa-thăan-ná-gaan	situations
+🙇‍♂️🙏	แสดงความเคารพ	sà-daeng-kwaam-kâao-róp	show respect
+😎🤝	กันเอง	gan-eeng	casual
+🤝🔗	ความสัมพันธ์	kwaam-sam-pan	relationships; bonds
+🤝🗣️	ภาษาบอกความสนิท	paa-săa-bòk-kwaam-sà-nìt	Language signals closeness
+⚛️🔬	ฟิสิกส์อนุภาค	fí-sìk-à-nú-pâak	Particle Physics
+🚇🕳️	อุโมงค์	ù-mohng	tunnel
+⚛️🔬	เครื่องเร่งอนุภาค	krʉ̂ang-rêeng-à-nú-phâak	Particle Accelerator
+🧠📚	ทฤษฎี	trít-sà-dee	theory
+👥🏃‍♂️	แห่	hàae	To flock
+💥📉	ผลกระทบ	pŏn-grà-tóp	effects
+🚚🚛	ขนส่ง	kŏn-sòng	transport
+🌊🗺️	ช่องแคบ	chɔ̂ng-khàep	strait
+🥅	เป้าหมาย	bpâo-mǎai	goals
+⛏️🪨	ถ่านหิน	tàan-hĭn	coal
+⚙️🚀	มีประสิทธิภาพ	mii-bprà-sìt-tí-pâap	efficient
+🛠️🧠	วิธี	wí-thee	ways; methods
+🧱📦⚖️	ความหนาแน่น	kwaam-nǎa-nɛ̂ɛn	density
+📈🌱	การขยายตัว	gaan-kà-yǎai-dtua	expansion`;
+
+        const reviewVocab = rawVocabData.split('\n').filter(line => line.trim() !== '').map(line => {
+            const parts = line.split('\t');
+            return {
+                emoji: parts[0] ? parts[0].trim() : "✨",
+                th: parts[1] ? parts[1].trim() : "",
+                ipa: parts[2] ? parts[2].trim() : "",
+                en: parts[3] ? parts[3].trim() : ""
+            };
+        });
+
+        // 5 Target Vocab for this lesson
+        const targetVocabList = [
+            { emoji: "⛈️", th: "พายุฤดูร้อน", ipa: "phaa-yú rʉ́-duu rɔ́ɔn", en: "Summer storm" },
+            { emoji: "🌩️", th: "ฝนฟ้าคะนอง", ipa: "fǒn-fáa-khá-nɔɔng", en: "Thunderstorm" },
+            { emoji: "❄️", th: "มวลอากาศเย็น", ipa: "muuan aa-gàat yen", en: "Cold air mass" },
+            { emoji: "🚫", th: "หลีกเลี่ยง", ipa: "lìik-lîiang", en: "To avoid" },
+            { emoji: "⚠️", th: "ระมัดระวัง", ipa: "rá-mát-rá-wang", en: "To be careful" }
+        ];
+
+        window.onload = () => {
+            const vocabContainer = document.getElementById('target-vocab-container');
+            targetVocabList.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "vocab-card bg-white p-5 rounded-2xl shadow-sm content-block border-l-4 border-sky-500 transition-all";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xl text-slate-800">${item.emoji} ${item.th}</span>
+                        <button class="tts-button" onclick="playTTS('${item.th}', this)">🔊</button>
+                    </div>
+                    <div class="controls-row mb-1">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa font-medium text-amber-600">${item.ipa}</div>
+                    <div class="en text-slate-500">${item.en}</div>
+                `;
+                vocabContainer.appendChild(div);
+            });
+        };
+
+        function randomizeWord() {
+            const displayArea = document.getElementById('word-display-area');
+            const word = reviewVocab[Math.floor(Math.random() * reviewVocab.length)];
+            displayArea.innerHTML = `
+                <div class="text-center w-full pop-in content-block">
+                    <h3 class="text-4xl font-bold text-sky-700">${word.emoji} ${word.th}</h3>
+                    <div class="controls-row justify-center mt-3 mb-2">
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'ipa')">IPA</button>
+                        <button class="toggle-btn" onclick="toggleLocal(this, 'en')">EN</button>
+                    </div>
+                    <div class="ipa text-lg text-amber-600 font-medium mb-1">${word.ipa}</div>
+                    <div class="en text-lg text-slate-500 font-medium">${word.en}</div>
+                    <div class="mt-4 flex justify-center">
+                        <button class="tts-button bg-sky-100 p-2 rounded-full hover:bg-sky-200" onclick="playTTS('${word.th}', this)">🔊 ฟังเสียง (Listen)</button>
+                    </div>
+                </div>`;
+        }
+
+        function checkVideoQuiz() {
+            const correctAnswers = { vq1: 'b', vq2: 'b' };
+            const questions = document.querySelectorAll('.video-quiz-question');
+            questions.forEach(question => {
+                const radios = question.querySelectorAll('input[type="radio"]');
+                if (radios.length === 0) return;
+                const questionName = radios[0].name;
+                
+                radios.forEach(radio => {
+                    const label = radio.parentElement;
+                    label.classList.remove('bg-green-200', 'bg-red-200');
+                    const selectedValue = document.querySelector(`input[name="${questionName}"]:checked`);
+                    
+                    if (selectedValue) {
+                        if (selectedValue.value === correctAnswers[questionName]) {
+                            if (radio.checked) label.classList.add('bg-green-200');
+                        } else {
+                            if (radio.checked) label.classList.add('bg-red-200');
+                        }
+                    }
+                });
+            });
+        }
+
+        function toggleId(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden-content');
+        }
+
+        function toggleLocal(btn, type) {
+            const block = btn.closest('.content-block');
+            if (block) {
+                const targets = block.querySelectorAll('.' + type);
+                targets.forEach(t => t.classList.toggle('reveal'));
+                btn.classList.toggle('active');
+            }
+        }
+
+        // Native Speech Synthesis for iOS and Google Sites compatibility
+        function playTTS(text, btn) {
+            window.speechSynthesis.cancel();
+            if (btn) btn.classList.add('playing');
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voices = window.speechSynthesis.getVoices();
+            const thaiVoice = voices.find(voice => voice.lang === 'th-TH' || voice.lang === 'th_TH');
+            if (thaiVoice) utterance.voice = thaiVoice;
+            else utterance.lang = 'th-TH';
+            utterance.rate = 0.9;
+            utterance.onend = () => { if (btn) btn.classList.remove('playing'); };
+            utterance.onerror = () => { if (btn) btn.classList.remove('playing'); };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+    </script>
+</body>
+</html>
