@@ -372,7 +372,7 @@
     // ─── JSONBin Configuration ─────────────────────────────────────────────────
     // Replace these two values with your own from https://jsonbin.io (free signup)
     const JSONBIN_API_KEY  = '$2a$10$zW4wiGZrhcqDaBHttyJrqetgl18v.69djL1pt6.2AAawhRSziVuUu';
-    const JSONBIN_BIN_ID   = 'https://api.jsonbin.io/v3/b/69b11131d746013455b08d33';
+    const JSONBIN_BIN_ID   = '69b11131d746013455b08d33';
     // ──────────────────────────────────────────────────────────────────────────
 
     const BASE_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
@@ -502,7 +502,7 @@
         const input = document.getElementById('secretInput');
         if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') window.submitSecret(); });
 
-        const configured = JSONBIN_API_KEY !== '$2a$10$zW4wiGZrhcqDaBHttyJrqetgl18v.69djL1pt6.2AAawhRSziVuUu' && JSONBIN_BIN_ID !== 'https://api.jsonbin.io/v3/b/69b11131d746013455b08d33';
+        const configured = true; // keys are set
         if (configured) {
             setStatus('🔄 Live — updates every 4 seconds', 'text-purple-400');
             startPolling();
