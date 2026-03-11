@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managing the Pool Villas! 🏖️💼</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #ecfeff; /* Light cyan aesthetic for pool/water vibes */
+            background-image: radial-gradient(#cffafe 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .thai-text {
+            font-family: 'Kanit', sans-serif;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .task-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.1), 0 8px 10px -6px rgba(6, 182, 212, 0.1);
+        }
+        .speaker-btn {
+            min-width: 2.5rem;
+        }
+        .highlight-word {
+            color: #0891b2; /* Cyan 600 */
+            font-weight: 800;
+            background-color: #cffafe; /* Cyan 100 */
+            padding: 0 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .error-word {
+            color: #e11d48; /* Rose 600 */
+            font-weight: 800;
+            text-decoration: line-through;
+            background-color: #ffe4e6;
+            padding: 0 0.25rem;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen pb-16">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white py-12 px-4 shadow-md mb-10 rounded-b-[3rem]">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Managing the Villas 🏖️💼</h1>
+            <p class="text-lg md:text-xl font-medium opacity-90">Business, Bargaining, and Boyfriend Bosses! 🤝🏡</p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-3xl mx-auto px-4">
+        
+        <!-- Random Vocab Review Section -->
+        <div class="task-card bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cyan-50 mb-8" id="review-section">
+            <div class="flex flex-col mb-4">
+                <div class="flex items-start justify-between gap-4 mb-1">
+                    <h2 class="text-2xl font-bold text-gray-800">Warm-up: Vocabulary Review 🔄🧠</h2>
+                    <div class="flex flex-row gap-2 flex-shrink-0 items-center">
+                        <button onclick="speakText('Warm-up: Vocabulary Review')" class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none speaker-btn" title="Listen to English">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" /></svg>
+                        </button>
+                        <button onclick="toggleThai('thai-title-review')" class="flex items-center justify-center h-8 px-2 rounded-lg bg-pink-100 text-pink-600 text-xs font-bold hover:bg-pink-200 transition-colors focus:outline-none">TH</button>
+                    </div>
+                </div>
+                <div id="thai-title-review" class="thai-text"><p class="text-[1.15rem] text-gray-600 font-bold">อุ่นเครื่อง: ทบทวนคำศัพท์ 🔄🧠</p></div>
+            </div>
+
+            <div class="flex flex-col mb-6">
+                <div class="flex items-start justify-between gap-4 mb-1">
+                    <p class="text-cyan-600 font-semibold">Click the button to get a random word from our last lessons. Make a sentence with it! 🗣️</p>
+                    <div class="flex flex-row gap-2 flex-shrink-0 items-center">
+                        <button onclick="speakText('Click the button to get a random word from our last lessons. Make a sentence with it!')" class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none speaker-btn" title="Listen to English">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" /></svg>
+                        </button>
+                        <button onclick="toggleThai('thai-desc-review')" class="flex items-center justify-center h-8 px-2 rounded-lg bg-pink-100 text-pink-600 text-xs font-bold hover:bg-pink-200 transition-colors focus:outline-none">TH</button>
+                    </div>
+                </div>
+                <div id="thai-desc-review" class="thai-text"><p class="text-[1.05rem] text-cyan-700 font-medium">คลิกปุ่มเพื่อสุ่มคำศัพท์จากบทเรียนที่แล้ว แล้วแต่งประโยคจากคำนั้น! 🗣️</p></div>
+            </div>
+
+            <div class="text-center py-4">
+                <button onclick="generateRandomWord()" class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-3 px-8 rounded-full hover:shadow-lg hover:scale-105 transition-all mb-6 text-lg">
+                    Draw a Word! 🎲
+                </button>
+                
+                <div id="random-word-display" class="hidden bg-gray-50 rounded-2xl p-5 border border-cyan-100 max-w-lg mx-auto">
+                    <div class="flex items-center justify-between gap-4">
+                        <p id="random-word-eng" class="text-2xl text-gray-800 font-bold leading-relaxed"></p>
+                        <div class="flex flex-row gap-2 flex-shrink-0">
+                            <button id="random-word-tts" class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none speaker-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" /></svg>
+                            </button>
+                            <button onclick="toggleThai('random-word-th')" class="flex items-center justify-center h-10 px-3 rounded-xl bg-pink-100 text-pink-600 font-bold hover:bg-pink-200 transition-colors focus:outline-none">TH</button>
+                        </div>
+                    </div>
+                    <div id="random-word-th" class="thai-text mt-4 pt-4 border-t border-gray-200">
+                        <p id="random-word-th-text" class="text-xl text-cyan-600 font-bold leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Lesson Content -->
+        <div id="lesson-container"></div>
+    </main>
+
+    <script>
+        // 1. Vocabulary Data for Review (All 58 words)
+        const prevVocab = [
+            { eng: "recycling materials ♻️📦🍾", th: "วัสดุรีไซเคิล", cleanEng: "recycling materials" },
+            { eng: "eels 🐍🌊🍲", th: "ปลาไหล", cleanEng: "eels" },
+            { eng: "stir-fried basil 🌿🍳🌶️", th: "ผัดกะเพรา", cleanEng: "stir-fried basil" },
+            { eng: "papaya salad 🥗🥢🌶️", th: "ส้มตำ", cleanEng: "papaya salad" },
+            { eng: "spicy soup 🥣🔥🌶️", th: "ต้มยำ", cleanEng: "spicy soup" },
+            { eng: "spontaneous ⚡🙋‍♂️✨", th: "เป็นธรรมชาติ; ชิลๆ; ปุ๊ปปั๊ป", cleanEng: "spontaneous" },
+            { eng: "compromise 🤝🧡⚖️", th: "ประนีประนอม", cleanEng: "compromise" },
+            { eng: "quality 💎✨🏆", th: "คุณภาพ", cleanEng: "quality" },
+            { eng: "decide ⚖️🧠🎯", th: "ตัดสินใจ", cleanEng: "decide" },
+            { eng: "during ⏳🕙⏳", th: "ระหว่าง / ช่วง", cleanEng: "during" },
+            { eng: "disciplined 🧘‍♂️📏✅", th: "มีวินัย", cleanEng: "disciplined" },
+            { eng: "chores 🧹🧺🧼", th: "งานบ้าน", cleanEng: "chores" },
+            { eng: "What took you so long! ⏳🕒💢", th: "ทำไมนานจัง", cleanEng: "What took you so long!" },
+            { eng: "usually 🔄🗓️✨", th: "มักจะ", cleanEng: "usually" },
+            { eng: "Describe 🗣️📝🖼️", th: "อธิบาย", cleanEng: "Describe" },
+            { eng: "couples 👩‍❤️‍👨👩‍❤️‍👩👨‍❤️‍👨", th: "คู่รัก", cleanEng: "couples" },
+            { eng: "hobbies 🎨🎸⚽", th: "งานอดิเรก", cleanEng: "hobbies" },
+            { eng: "Pitch ⚾🏟️📢", th: "ขายไอเดีย", cleanEng: "Pitch" },
+            { eng: "waterfall 🌊⛰️⛲", th: "น้ำตก", cleanEng: "waterfall" },
+            { eng: "Spill the tea ☕️🐸✨", th: "เม้าท์มอย; นินทา", cleanEng: "Spill the tea" },
+            { eng: "I have to describe my sickness to the doctor. 🤒🗣️🩺", th: "ต้องอธิบายอาการป่วยกับหมอ", cleanEng: "I have to describe my sickness to the doctor." },
+            { eng: "My hobbies are reading books and learning English. 📚📖🇬🇧", th: "งานอดิเรกของฉันคือ อ่านหนังสือ และเรียนภาษาอังกฤษ", cleanEng: "My hobbies are reading books and learning English." },
+            { eng: "I can speak with everyone from around the world. 🗣️🌍🤝", th: "ฉันจะพูดกับทุกคนจากรอบโลกได้", cleanEng: "I can speak with everyone from around the world." },
+            { eng: "If I have a fight with my boyfriend, we have to compromise. 🔥🤝🧡", th: "ถ้าทะเลากันกับแฟน เราต้องประนีประนอม", cleanEng: "If I have a fight with my boyfriend, we have to compromise." },
+            { eng: "exhausted 😫🔋🪫", th: "เหนื่อยมาก", cleanEng: "exhausted" },
+            { eng: "productive 📈💪✅", th: "ได้งานเยอะ", cleanEng: "productive" },
+            { eng: "stressed out 🤯🧠💢", th: "เครียด", cleanEng: "stressed out" },
+            { eng: "grab lunch 🍱🍴🏃‍♂️", th: "หาข้าวเที่ยงกิน", cleanEng: "grab lunch" },
+            { eng: "gossip 🙊💬🔥", th: "นินทา", cleanEng: "gossip" },
+            { eng: "whole ⚪️🌕🍱", th: "ทั้งหมด", cleanEng: "whole" },
+            { eng: "When will we go to bed? ⏰🛌💤", th: "เราจะเข้านอนเมื่อไร", cleanEng: "When will we go to bed?" },
+            { eng: "complain 😤🗣️💢", th: "บ่น", cleanEng: "complain" },
+            { eng: "make small talk 💬☕️✨", th: "เม้าท์มอย", cleanEng: "make small talk" },
+            { eng: "in the middle 📏📍🌗", th: "อยู่ตรงกลาง", cleanEng: "in the middle" },
+            { eng: "at the centre 📍🎯🔴", th: "อยู่ตรงกลาง; อยู่ศูนย์กลาง", cleanEng: "at the centre" },
+            { eng: "My boyfriend thought it was alive. 🧐🧟‍♂️❓", th: "แฟนคิดว่า มันยังมีชีวิต", cleanEng: "My boyfriend thought it was alive." },
+            { eng: "He has many jobs. 👨‍💼🛠️📉", th: "เขามีงานหลายอย่าง", cleanEng: "He has many jobs." },
+            { eng: "Thai people use Facebook. 🇹🇭📱💙", th: "คนไทยเล่นเฟซบุ๊ก", cleanEng: "Thai people use Facebook." },
+            { eng: "bargain 🤝📉💰", th: "ต่อราคา", cleanEng: "bargain" },
+            { eng: "I've recovered. 💪✨🩹", th: "หายแล้ว", cleanEng: "I've recovered." },
+            { eng: "town 🏘️🏡📍", th: "เมืองเล็ก", cleanEng: "town" },
+            { eng: "province 🗺️📍🏢", th: "จังหวัด", cleanEng: "province" },
+            { eng: "district 🏢📍🗺️", th: "เขต / อำเภอ", cleanEng: "district" },
+            { eng: "He doesn't turn on subtitles. 📺🚫🔡", th: "เขาไม่เปิดซับ", cleanEng: "He doesn't turn on subtitles." },
+            { eng: "Don't be shy to speak. 🗣️✨🚫", th: "อย่าอายที่จะพูด", cleanEng: "Don't be shy to speak." },
+            { eng: "I have to learn by myself. 🧠📖🏠", th: "ต้องเรียนเอง", cleanEng: "I have to learn by myself." },
+            { eng: "journal 📓🖋️📅", th: "เขียนไดอารี่", cleanEng: "journal" },
+            { eng: "real estate 🏠🏗️🏢", th: "อสังหาฯ", cleanEng: "real estate" },
+            { eng: "negotiator 🤝🗣️📊", th: "นักต่อรอง", cleanEng: "negotiator" },
+            { eng: "passionate about ❤️🔥✨", th: "หลงใหล / ชื่นชอบ", cleanEng: "passionate about" },
+            { eng: "binge watch 🎬🍿👀", th: "ดูยาวๆ", cleanEng: "binge watch" },
+            { eng: "cozy ☕️🏠🛋️", th: "สบาย และอุ่น", cleanEng: "cozy" },
+            { eng: "blankets 🛌☁️🧣", th: "ผ้าห่ม", cleanEng: "blankets" },
+            { eng: "Why don't you stop talking? 🤫🚫🗣️", th: "ทำไมไม่หยุดพูด", cleanEng: "Why don't you stop talking?" },
+            { eng: "meditate 🧘‍♂️✨🧠", th: "นั่งสมาธิ", cleanEng: "meditate" },
+            { eng: "anniversary 🎉📅💍", th: "วันครบรอบ", cleanEng: "anniversary" },
+            { eng: "ambivert 🔄🌓👤", th: "บางครั้งอินโทรเวิร์ต บางครั้งเอ็กโทรเวิร์ต", cleanEng: "ambivert" },
+            { eng: "recently ⏳📉📅", th: "ล่าสุด", cleanEng: "recently" }
+        ];
+
+        function generateRandomWord() {
+            const displayBox = document.getElementById('random-word-display');
+            const engText = document.getElementById('random-word-eng');
+            const thText = document.getElementById('random-word-th-text');
+            const ttsBtn = document.getElementById('random-word-tts');
+            
+            const randomItem = prevVocab[Math.floor(Math.random() * prevVocab.length)];
+            
+            engText.innerText = randomItem.eng;
+            thText.innerText = randomItem.th;
+            ttsBtn.onclick = () => speakText(randomItem.cleanEng);
+            
+            document.getElementById('random-word-th').style.display = 'none';
+            displayBox.classList.remove('hidden');
+        }
+
+        // 2. Main Lesson Content Data Structure
+        const lessonData = [
+            {
+                sectionType: "main",
+                title: { eng: "Lead-in: Let's Talk! 🗣️", th: "เกริ่นนำ: มาคุยกันเถอะ! 🗣️" },
+                description: { eng: "Before we look at the new words, let's chat about your work!", th: "ก่อนที่เราจะไปดูคำศัพท์ใหม่ มาคุยเรื่องงานของคุณกันก่อนเถอะ!" },
+                items: [
+                    { 
+                        eng: "1. What is the most difficult part about managing pool villas? 🏖️", 
+                        th: "1. อะไรคือส่วนที่ยากที่สุดในการจัดการพูลวิลล่า?" 
+                    },
+                    { 
+                        eng: "2. Is it easy or difficult to work with your boyfriend? 💼❤️", 
+                        th: "2. การทำงานร่วมกับแฟนตัวเองเป็นเรื่องง่ายหรือยาก?" 
+                    },
+                    { 
+                        eng: "3. When you buy things for the villas, do you like to ask for a discount? 📉💰", 
+                        th: "3. เวลาที่คุณซื้อของเข้าวิลล่า คุณชอบขอส่วนลดไหม?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "New Vocabulary: The Master Negotiator 📝🤝", th: "คำศัพท์ใหม่: สุดยอดนักเจรจาต่อรอง 📝🤝" },
+                description: { eng: "Read this dialogue about your job. Look at the bold words! 👀", th: "อ่านบทสนทนาเกี่ยวกับงานของคุณ สังเกตคำตัวหนานะ! 👀" },
+                items: [
+                    { 
+                        eng: "Friend: 'So, you work with your boyfriend, right? What do you guys do?' 🧑‍💼", 
+                        th: "เพื่อน: 'คุณทำงานกับแฟนนี่นา พวกคุณทำอะไรกันเหรอ?'" 
+                    },
+                    { 
+                        eng: "You: 'Yes! We manage beautiful pool villas together. It is a tough REAL ESTATE 🏠 business.'", 
+                        th: "คุณ: 'ใช่! เราจัดการพูลวิลล่าสวยๆ ด้วยกัน มันเป็นธุรกิจ อสังหาฯ ที่หินเอาการเลยล่ะ'" 
+                    },
+                    { 
+                        eng: "Friend: 'Wow! What do you usually do?' 🎤", 
+                        th: "เพื่อน: 'ว้าว! แล้วปกติคุณทำอะไรบ้าง?'" 
+                    },
+                    { 
+                        eng: "You: 'I am the main NEGOTIATOR 🤝 for our supplies. I always BARGAIN 📉💰 to get the best price!'", 
+                        th: "คุณ: 'ฉันเป็น นักเจรจาต่อรอง หลักสำหรับซื้อของใช้ ฉันมักจะ ต่อราคา เพื่อให้ได้ราคาที่ดีที่สุดเสมอ!'" 
+                    },
+                    { 
+                        eng: "Friend: 'That's great! Do you do anything else?' 🤔", 
+                        th: "เพื่อน: 'เยี่ยมไปเลย! คุณทำอย่างอื่นอีกไหม?'" 
+                    },
+                    { 
+                        eng: "You: 'My boyfriend USUALLY 🔄 has specific ideas I follow. I also learn the HISTORY 🏛️ of the houses to tell the guests.'", 
+                        th: "คุณ: 'แฟนฉัน มักจะ มีไอเดียเฉพาะเจาะจงที่ฉันต้องทำตาม แล้วฉันก็ศึกษา ประวัติศาสตร์/ความเป็นมา ของบ้านพักเพื่อไปเล่าให้แขกฟังด้วย'" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Comprehension Check 🤔💭", th: "ตรวจสอบความเข้าใจ 🤔💭" },
+                description: { eng: "Let's see if you understood the dialogue! Answer these questions.", th: "มาดูกันว่าคุณเข้าใจบทสนทนาไหม! ตอบคำถามเหล่านี้" },
+                items: [
+                    { 
+                        eng: "1. What is your main role as a NEGOTIATOR? 🛒", 
+                        th: "1. บทบาทหลักของคุณในฐานะนักเจรจาต่อรองคืออะไร?" 
+                    },
+                    { 
+                        eng: "2. Why do you BARGAIN when you buy things? 💰", 
+                        th: "2. ทำไมคุณถึงต้องต่อราคาเวลาซื้อของ?" 
+                    },
+                    { 
+                        eng: "3. Why is the HISTORY of the houses important? 📖", 
+                        th: "3. ทำไมประวัติความเป็นมาของบ้านพักถึงสำคัญ?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Pronunciation & Fluency 🗣️✨", th: "การออกเสียงและความคล่องแคล่ว 🗣️✨" },
+                description: { eng: "Imagine you are talking to a guest about your business partner. Read these sentences naturally and confidently! 🎙️", th: "สมมติว่าคุณกำลังคุยกับแขกเกี่ยวกับพาร์ทเนอร์ธุรกิจของคุณ อ่านประโยคเหล่านี้อย่างเป็นธรรมชาติและมั่นใจ! 🎙️" },
+                items: [
+                    { 
+                        eng: "1. 'He doesn't USUALLY clean the pool himself. We hire a team.' 🧹", 
+                        th: "1. 'ปกติเขาไม่ทำความสะอาดสระว่ายน้ำเองหรอก เราจ้างทีมงานมาทำ'" 
+                    },
+                    { 
+                        eng: "2. 'He doesn't want to change the HISTORY of the building.' 🏛️", 
+                        th: "2. 'เขาไม่อยากเปลี่ยนแปลงประวัติศาสตร์/โครงสร้างเดิมของตัวอาคาร'" 
+                    },
+                    { 
+                        eng: "3. 'He doesn't BARGAIN with the guests. The price is fixed.' 🙅‍♂️📉", 
+                        th: "3. 'เขาไม่ต่อราคากับแขกหรอกนะ ราคาเป็นราคาตายตัว'" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Real-Life Discussion: Business & Bosses 🔄👔", th: "การพูดคุยในชีวิตจริง: ธุรกิจและเจ้านาย 🔄👔" },
+                description: { eng: "Let's talk about how you manage the villas and follow orders! (Practicing Present Simple)", th: "มาคุยกันว่าคุณจัดการวิลล่าและทำตามคำสั่งอย่างไร! (ฝึกใช้ Present Simple)" },
+                items: [
+                    { 
+                        eng: "1. What does your boyfriend USUALLY tell you to buy for the villas? 🧴🛏️", 
+                        th: "1. ปกติแฟนคุณมักจะสั่งให้ซื้ออะไรเข้าวิลล่าบ้าง?" 
+                    },
+                    { 
+                        eng: "2. What is something your boyfriend DOESN'T like you to do at work? 🚫", 
+                        th: "2. มีอะไรบ้างที่แฟนคุณ 'ไม่ชอบ' ให้คุณทำเวลาทำงาน?" 
+                    },
+                    { 
+                        eng: "3. Are you a good NEGOTIATOR? How much discount can you USUALLY get? 📉💸", 
+                        th: "3. คุณเป็นนักเจรจาต่อรองที่เก่งไหม? ปกติคุณขอส่วนลดได้เท่าไหร่?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "main",
+                title: { eng: "Real-Life Storytelling: Villa Drama 📖✨", th: "การเล่าเรื่องในชีวิตจริง: ดราม่าพูลวิลล่า 📖✨" },
+                description: { eng: "Tell me a story about your job! (Practicing Past Simple)", th: "เล่าเรื่องเกี่ยวกับงานของคุณให้ฟังหน่อย! (ฝึกใช้ Past Simple)" },
+                items: [
+                    { 
+                        eng: "Tell me a story about a time you got a really amazing BARGAIN for the villas. What did you buy and how did you do it? 🛍️🙌", 
+                        th: "เล่าเรื่องตอนที่คุณต่อราคาของเข้าวิลล่าได้ยอดเยี่ยมมากๆ ให้ฟังหน่อย คุณซื้ออะไรและทำได้อย่างไร?" 
+                    },
+                    { 
+                        eng: "OR... Tell me about a time you made a mistake at the villa and your boyfriend had to fix it. What happened? 😅🔧", 
+                        th: "หรือ... เล่าเรื่องตอนที่คุณทำผิดพลาดที่วิลล่าแล้วแฟนคุณต้องมาตามแก้ให้ เกิดอะไรขึ้น?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "divider",
+                title: { eng: "🌟 Extension Activities 🌟", th: "🌟 กิจกรรมเสริม 🌟" },
+                description: { eng: "Finished early? Let's keep talking!", th: "เสร็จเร็วเหรอ? มาคุยกันต่อเถอะ!" }
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Debate ⚖️🗣️", th: "โต้วาทีสุดฮา ⚖️🗣️" },
+                items: [
+                    { 
+                        eng: "Debate topic: Who is a scarier boss? Your boyfriend, or a completely random stranger? Why? 👻👔", 
+                        th: "หัวข้อโต้วาที: ใครเป็นเจ้านายที่น่ากลัวกว่ากัน ระหว่างแฟนคุณ กับคนแปลกหน้าที่ไหนก็ไม่รู้? เพราะอะไร?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Speaking Game: Describe & Guess 🎲🗣️", th: "เกมการพูด: ใบ้คำและทาย 🎲🗣️" },
+                items: [
+                    { 
+                        eng: "I will describe an object you can find inside a pool villa. You have to guess what it is! Then we switch! 🔄🛋️", 
+                        th: "ฉันจะใบ้สิ่งของที่สามารถพบได้ในพูลวิลล่า คุณต้องทายว่าเป็นอะไร! จากนั้นเราสลับกัน!" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Interview 🎤😂", th: "สัมภาษณ์สุดฮา 🎤😂" },
+                items: [
+                    { 
+                        eng: "You are being interviewed by a REAL ESTATE magazine. They want to know your secret strategy to BARGAIN with angry sellers. What do you tell them? 📸🗣️", 
+                        th: "คุณกำลังถูกนิตยสารอสังหาฯ สัมภาษณ์ พวกเขาอยากรู้กลยุทธ์ลับของคุณในการต่อราคากับคนขายที่กำลังโมโห คุณจะบอกพวกเขาว่าอย่างไร?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Presentation 📊🤪", th: "นำเสนอสุดฮา 📊🤪" },
+                items: [
+                    { 
+                        eng: "Pitch a crazy new theme for your next pool villa to your boyfriend. (e.g., A villa with no beds, only hammocks!) Try to convince him! 🎪📈", 
+                        th: "นำเสนอไอเดียธีมพูลวิลล่าแห่งใหม่สุดแหวกแนวให้แฟนคุณฟัง (เช่น วิลล่าที่ไม่มีเตียง มีแต่เปลญวน!) พยายามโน้มน้าวเขาให้ได้!" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Funny Discussion 🤔💬", th: "การสนทนาสุดฮา 🤔💬" },
+                items: [
+                    { 
+                        eng: "If you found out one of the villas had a very scary ghost HISTORY, would you tell the guests? Would you tell your boyfriend? 👻🏚️", 
+                        th: "ถ้าคุณพบว่าวิลล่าหลังหนึ่งมีประวัติเรื่องผีที่น่ากลัวมาก คุณจะบอกแขกไหม? คุณจะบอกแฟนไหม?" 
+                    }
+                ]
+            },
+            {
+                sectionType: "extension",
+                title: { eng: "Additional Vocabulary 📚", th: "คำศัพท์เพิ่มเติม 📚" },
+                description: { eng: "Our target words for today!", th: "คำศัพท์เป้าหมายของเราในวันนี้!" },
+                items: [
+                    { eng: "real estate 🏠🏗️🏢", th: "อสังหาฯ" },
+                    { eng: "negotiator 🤝🗣️📊", th: "นักต่อรอง" },
+                    { eng: "bargain 🤝📉💰", th: "ต่อราคา" },
+                    { eng: "history 🏛️📜", th: "ประวัติศาสตร์ / ความเป็นมา (ฮิส-ทรี่)" },
+                    { eng: "usually 🔄🗓️✨", th: "มักจะ / ปกติแล้ว (ยู-ชวล-ลี่)" },
+                    { eng: "he doesn't ❌🙅‍♂️", th: "เขาไม่... (ใช้แทน he don't)" }
+                ]
+            }
+        ];
+
+        // 3. Helper Functions
+        let idCounter = 0;
+
+        function cleanTextForTTS(text) {
+            // Remove HTML tags (like spans used for highlighting), emojis, and quotes
+            let clean = text.replace(/<[^>]*>?/gm, ''); 
+            clean = clean.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
+            return clean.replace(/"/g, '').replace(/'/g, '');
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; 
+                utterance.rate = 0.85; // Slightly slower to focus on pronunciation of history/usually
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Sorry, your browser does not support Text-to-Speech.");
+            }
+        }
+
+        function toggleThai(elementId) {
+            const thaiElement = document.getElementById(elementId);
+            if (thaiElement.style.display === "none" || thaiElement.style.display === "") {
+                thaiElement.style.display = "block";
+            } else {
+                thaiElement.style.display = "none";
+            }
+        }
+
+        function getControlsHtml(cleanText, thaiId, isSmall = false) {
+            const sizeClass = isSmall ? "w-8 h-8" : "w-10 h-10";
+            const iconSize = isSmall ? "h-4 w-4" : "h-6 w-6";
+            const textClass = isSmall ? "text-xs px-2 h-8" : "font-bold px-3 h-10";
+            
+            return `
+                <div class="flex flex-row gap-2 flex-shrink-0 items-center">
+                    <button onclick="speakText('${cleanText}')" 
+                            class="flex items-center justify-center ${sizeClass} rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors focus:outline-none speaker-btn"
+                            title="Listen to English">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="${iconSize}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V4.908a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z" />
+                        </svg>
+                    </button>
+                    <button onclick="toggleThai('${thaiId}')" 
+                            class="flex items-center justify-center rounded-lg bg-pink-100 text-pink-600 hover:bg-pink-200 transition-colors focus:outline-none ${textClass}"
+                            title="Show/Hide Thai Translation">
+                        TH
+                    </button>
+                </div>
+            `;
+        }
+
+        // 4. Render the UI
+        function renderLesson() {
+            const container = document.getElementById('lesson-container');
+            let htmlContent = '';
+
+            lessonData.forEach((section) => {
+                if (section.sectionType === "divider") {
+                    const titleId = `dyn-th-${idCounter++}`;
+                    const descId = `dyn-th-${idCounter++}`;
+                    
+                    htmlContent += `
+                        <div class="mt-16 mb-8 text-center flex flex-col items-center">
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-1">
+                                <h2 class="text-3xl font-extrabold text-cyan-600">${section.title.eng}</h2>
+                                ${getControlsHtml(cleanTextForTTS(section.title.eng), titleId, true)}
+                            </div>
+                            <div id="${titleId}" class="thai-text mb-4">
+                                <p class="text-xl text-cyan-500 font-bold">${section.title.th}</p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-1">
+                                <p class="text-gray-500 font-medium">${section.description.eng}</p>
+                                ${getControlsHtml(cleanTextForTTS(section.description.eng), descId, true)}
+                            </div>
+                            <div id="${descId}" class="thai-text mb-2">
+                                <p class="text-[1.05rem] text-gray-400 font-medium">${section.description.th}</p>
+                            </div>
+                            <div class="w-24 h-1 bg-cyan-200 mx-auto mt-4 rounded-full"></div>
+                        </div>
+                    `;
+                } else {
+                    const titleId = `dyn-th-${idCounter++}`;
+                    let descHtml = '';
+
+                    if (section.description) {
+                        const descId = `dyn-th-${idCounter++}`;
+                        descHtml = `
+                            <div class="flex flex-col mb-6 border-l-4 border-cyan-300 pl-4">
+                                <div class="flex items-start justify-between gap-4 mb-1">
+                                    <p class="text-cyan-600 font-semibold">${section.description.eng}</p>
+                                    ${getControlsHtml(cleanTextForTTS(section.description.eng), descId, true)}
+                                </div>
+                                <div id="${descId}" class="thai-text">
+                                    <p class="text-[1.05rem] text-cyan-500 font-medium">${section.description.th}</p>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        descHtml = '<div class="mb-4"></div>';
+                    }
+
+                    htmlContent += `
+                        <div class="task-card bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cyan-50 mb-8">
+                            <div class="flex flex-col mb-4">
+                                <div class="flex items-start justify-between gap-4 mb-1">
+                                    <h2 class="text-2xl font-bold text-gray-800">${section.title.eng}</h2>
+                                    ${getControlsHtml(cleanTextForTTS(section.title.eng), titleId, true)}
+                                </div>
+                                <div id="${titleId}" class="thai-text">
+                                    <p class="text-[1.15rem] text-gray-600 font-bold">${section.title.th}</p>
+                                </div>
+                            </div>
+                            ${descHtml}
+                            
+                            <div class="space-y-4">
+                    `;
+
+                    section.items.forEach(item => {
+                        const itemId = `dyn-th-${idCounter++}`;
+                        
+                        // Bold target words highlighting
+                        let highlightedEng = item.eng
+                            .replace(/REAL ESTATE/g, '<span class="highlight-word">REAL ESTATE</span>')
+                            .replace(/NEGOTIATOR/g, '<span class="highlight-word">NEGOTIATOR</span>')
+                            .replace(/BARGAIN/g, '<span class="highlight-word">BARGAIN</span>')
+                            .replace(/USUALLY/g, '<span class="highlight-word">USUALLY</span>')
+                            .replace(/HISTORY/g, '<span class="highlight-word">HISTORY</span>')
+                            .replace(/DOESN'T/g, '<span class="highlight-word">DOESN\'T</span>')
+                            .replace(/He doesn't/g, '<span class="highlight-word">He doesn\'t</span>');
+
+                        htmlContent += `
+                            <div class="bg-gray-50 rounded-2xl p-4 md:p-5 border border-gray-100">
+                                <div class="flex items-start justify-between gap-4">
+                                    <p class="text-lg md:text-xl text-gray-800 font-medium leading-relaxed">${highlightedEng}</p>
+                                    ${getControlsHtml(cleanTextForTTS(item.eng), itemId, false)}
+                                </div>
+                                <div id="${itemId}" class="thai-text mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-[1.1rem] text-gray-600 leading-relaxed">${item.th}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    htmlContent += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderLesson);
+    </script>
+</body>
+</html>
