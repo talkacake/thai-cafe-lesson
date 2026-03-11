@@ -7,1534 +7,577 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #eff6ff; /* Light blue background */
-        }
-        h1, h2, h3 {
-            font-family: 'Fredoka', sans-serif;
-        }
-        .card {
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            border: 2px solid #bfdbfe;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #3b82f6;
-        }
-        .btn-icon {
-            cursor: pointer;
-            transition: transform 0.1s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background-color: #f1f5f9;
-            margin-left: 6px;
-            font-size: 0.9rem;
-            border: 1px solid #cbd5e1;
-            color: #334155;
-        }
+        body { font-family: 'Nunito', sans-serif; background-color: #eff6ff; }
+        h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.2s; border: 2px solid #bfdbfe; }
+        .card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+        .btn-icon { cursor: pointer; transition: transform 0.1s; display: inline-flex; align-items: center; justify-content: center; padding: 4px 8px; border-radius: 6px; background-color: #f1f5f9; margin-left: 6px; font-size: 0.9rem; border: 1px solid #cbd5e1; color: #334155; }
         .btn-icon:hover { background-color: #e2e8f0; }
         .btn-icon:active { transform: scale(0.95); }
-        
-        .script-box {
-            background-color: #f8fafc;
-            border-left: 5px solid #eab308; /* Gold border */
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .vocab-card-content {
-            animation: popIn 0.3s ease-out;
-        }
-        
-        @keyframes popIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        .script-box { background-color: #f8fafc; border-left: 5px solid #eab308; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; }
+        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .msg-enter { animation: popIn 0.3s ease-out; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner { animation: spin 1s linear infinite; display: inline-block; }
     </style>
     <script>
-        function speak(text) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.85; 
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function toggleThai(id) {
-            const el = document.getElementById(id);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
-        }
+        function speak(text) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = 0.85; window.speechSynthesis.speak(u); }
+        function toggleThai(id) { const el = document.getElementById(id); el.classList.toggle('hidden'); }
     </script>
 </head>
 <body class="pb-12">
 
-    <!-- Header -->
-    <header class="bg-blue-800 shadow-sm sticky top-0 z-50 border-b-4 border-yellow-400">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-            <div>
-                <div class="flex items-center justify-center md:justify-start gap-2">
-                    <h1 class="text-2xl md:text-3xl font-bold text-white">Sports & Money 🥈💰</h1>
-                    <button onclick="speak('Sports and Money')" class="btn-icon border-none bg-blue-700 text-white hover:bg-blue-600">🔊</button>
-                    <button onclick="toggleThai('h1-th')" class="btn-icon border-none bg-blue-700 text-white hover:bg-blue-600">🇹🇭</button>
-                </div>
-                <div id="h1-th" class="hidden text-yellow-300 font-bold mt-1">กีฬาและเงินอัดฉีด</div>
+<header class="bg-blue-800 shadow-sm sticky top-0 z-50 border-b-4 border-yellow-400">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+        <div>
+            <div class="flex items-center justify-center md:justify-start gap-2">
+                <h1 class="text-2xl md:text-3xl font-bold text-white">Sports & Money 🥈💰</h1>
+                <button onclick="speak('Sports and Money')" class="btn-icon border-none bg-blue-700 text-white hover:bg-blue-600">🔊</button>
+                <button onclick="toggleThai('h1-th')" class="btn-icon border-none bg-blue-700 text-white hover:bg-blue-600">🇹🇭</button>
             </div>
+            <div id="h1-th" class="hidden text-yellow-300 font-bold mt-1">กีฬาและเงินอัดฉีด</div>
+        </div>
+        <div class="flex gap-2">
+            <span class="text-xs md:text-sm bg-white text-blue-800 py-1 px-3 rounded-full font-bold shadow-sm">Daily News</span>
+            <span class="text-xs md:text-sm bg-yellow-400 text-yellow-900 py-1 px-3 rounded-full font-bold shadow-sm">120 Mins</span>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-4xl mx-auto px-4 mt-8 space-y-12">
+
+    <!-- PART 1: WARM UP -->
+    <section class="card p-6 md:p-8 border-blue-300 border-2">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">🧠</span>
+            <h2 class="text-2xl font-bold text-gray-800">1. Warm Up</h2>
             <div class="flex gap-2">
-                <span class="text-xs md:text-sm bg-white text-blue-800 py-1 px-3 rounded-full font-bold shadow-sm">Daily News</span>
-                <span class="text-xs md:text-sm bg-yellow-400 text-yellow-900 py-1 px-3 rounded-full font-bold shadow-sm">120 Mins</span>
+                <button onclick="speak('Warm Up')" class="btn-icon">🔊</button>
+                <button onclick="toggleThai('h2-1-th')" class="btn-icon">🇹🇭</button>
             </div>
         </div>
-    </header>
+        <p id="h2-1-th" class="hidden text-gray-500 mb-6 text-center font-bold">1. อุ่นเครื่อง</p>
+        <div class="text-center mb-6">
+            <div class="flex justify-center items-center gap-2">
+                <p class="text-gray-600">Click to review a random word! Make a sentence.</p>
+                <button onclick="speak('Click to review a random word! Make a sentence.')" class="btn-icon text-xs">🔊</button>
+            </div>
+        </div>
+        <div class="bg-blue-50 p-8 rounded-3xl border-4 border-blue-200 flex flex-col items-center justify-center space-y-6 min-h-[250px]">
+            <div id="wordDisplay" class="text-2xl md:text-3xl font-bold text-gray-800 text-center flex flex-col items-center justify-center w-full">
+                <div class="text-6xl mb-4">🎲</div>
+                <div>Ready?</div>
+            </div>
+            <button onclick="pickRandomWord()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-500 transition transform active:scale-95">SPIN 🎰</button>
+        </div>
+    </section>
 
-    <main class="max-w-4xl mx-auto px-4 mt-8 space-y-12">
-
-        <!-- PART 1: WARM UP -->
-        <section id="review" class="card p-6 md:p-8 border-blue-300 border-2">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">🧠</span>
-                <h2 class="text-2xl font-bold text-gray-800">1. Warm Up</h2>
-                <div class="flex gap-2">
-                    <button onclick="speak('Warm Up')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-1-th')" class="btn-icon">🇹🇭</button>
+    <!-- PART 2: LEAD-IN -->
+    <section class="card p-6 md:p-8 border-orange-400 border-4">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">🗣️</span>
+            <h2 class="text-2xl font-bold text-gray-800">2. Interview & Swap! 🔄</h2>
+            <div class="flex gap-2">
+                <button onclick="speak('Interview and Swap!')" class="btn-icon">🔊</button>
+                <button onclick="toggleThai('h2-2-th')" class="btn-icon">🇹🇭</button>
+            </div>
+        </div>
+        <p id="h2-2-th" class="hidden text-gray-500 mb-6 text-center font-bold">2. สัมภาษณ์และสลับคู่!</p>
+        <div class="bg-orange-50 p-6 rounded-xl">
+            <h3 class="font-bold text-orange-800 text-lg mb-2">Instructions 📝</h3>
+            <ul class="list-decimal pl-5 text-gray-700 mb-4 space-y-1">
+                <li>Go to breakout rooms (pairs).</li>
+                <li>Ask your partner the 3 questions.</li>
+                <li>Come back and <strong>report to the class!</strong></li>
+                <li>Swap partners and repeat!</li>
+            </ul>
+            <div class="bg-white p-4 rounded-lg border border-orange-200 mt-4 space-y-4">
+                <h4 class="font-bold text-gray-800 border-b pb-2">The Questions:</h4>
+                <div class="flex flex-col gap-1">
+                    <div class="font-bold text-orange-700">1. Do you like watching sports? Which sport?</div>
+                    <div class="flex gap-2"><button onclick="speak('Do you like watching sports? Which sport?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('li-1-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="li-1-th" class="hidden text-orange-500 text-sm">1. คุณชอบดูรายการกีฬาไหม? กีฬาอะไร?</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="font-bold text-orange-700">2. How do you feel when Thai athletes win a medal?</div>
+                    <div class="flex gap-2"><button onclick="speak('How do you feel when Thai athletes win a medal?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('li-2-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="li-2-th" class="hidden text-orange-500 text-sm">2. คุณรู้สึกอย่างไรเมื่อนักกีฬาไทยได้เหรียญรางวัล?</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="font-bold text-orange-700">3. If you win 10 Million Baht today, what is the FIRST thing you will buy?</div>
+                    <div class="flex gap-2"><button onclick="speak('If you win 10 Million Baht today, what is the FIRST thing you will buy?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('li-3-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="li-3-th" class="hidden text-orange-500 text-sm">3. ถ้าคุณได้เงิน 10 ล้านบาทวันนี้ สิ่งแรกที่คุณจะซื้อคืออะไร?</p>
                 </div>
             </div>
-            <p id="h2-1-th" class="hidden text-gray-500 mb-6 text-center font-bold">1. อุ่นเครื่อง</p>
-            
-            <div class="text-center mb-6">
-                <div class="flex justify-center items-center gap-2">
-                    <p class="text-gray-600">Click to review a random word! Make a sentence.</p>
-                    <button onclick="speak('Click to review a random word! Make a sentence.')" class="btn-icon text-xs">🔊</button>
+            <div class="bg-yellow-100 p-3 rounded-lg mt-4 border border-yellow-300">
+                <p class="font-bold text-yellow-800 text-sm">🎙️ Report Back Example:</p>
+                <p class="italic text-gray-700 text-sm">"I talked to K'Earn. She likes Volleyball. She feels very happy when Thailand wins. She will buy a big house with 10 million baht!"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PART 3: VIDEO -->
+    <section class="card p-6 md:p-8 border-gray-300 border-2">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="text-4xl">📺</span>
+            <h2 class="text-2xl font-bold text-gray-800">3. Sports News</h2>
+            <div class="flex gap-2">
+                <button onclick="speak('Sports News')" class="btn-icon">🔊</button>
+                <button onclick="toggleThai('h2-3-th')" class="btn-icon">🇹🇭</button>
+            </div>
+        </div>
+        <p id="h2-3-th" class="hidden text-gray-500 mb-6 text-center font-bold">3. ข่าวกีฬา</p>
+        <div class="mb-6 text-center">
+            <a href="https://www.facebook.com/share/r/1AzFtmMf8Z/?mibextid=wwXIfr" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-bold shadow-md">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                Watch Video
+            </a>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-2">Simplified Script 📝</h3>
+            <div class="space-y-4">
+                <div class="script-box">
+                    <p class="text-lg text-gray-800">1. China <strong>won</strong> two Silver medals! 🥈🥈</p>
+                    <div class="mt-2 flex gap-2"><button onclick="speak('China won two Silver medals!')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('sc-1-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="sc-1-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ประเทศจีนได้ 2 เหรียญเงิน!</p>
+                </div>
+                <div class="script-box">
+                    <p class="text-lg text-gray-800">2. <strong>Journalist:</strong> Do you see these as two silvers gained or two golds lost? 🎤</p>
+                    <div class="mt-2 flex gap-2"><button onclick="speak('Journalist: Do you see these as two silvers gained or two golds lost?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('sc-2-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="sc-2-th" class="hidden text-gray-600 mt-1 text-sm font-bold">นักข่าว: คุณมองว่านี่คือการได้มา 2 เหรียญเงิน หรือพลาด 2 เหรียญทอง?</p>
+                </div>
+                <div class="script-box">
+                    <p class="text-lg text-gray-800">3. <strong>Eileen:</strong> I'm the most decorated female free-skier in history. Winning a medal is a life-changing experience. ⛷️🥇</p>
+                    <div class="mt-2 flex gap-2"><button onclick="speak('Eileen: I am the most decorated female free-skier in history. Winning a medal is a life-changing experience.')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('sc-3-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="sc-3-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: ฉันเป็นนักสกีฟรีสไตล์หญิงที่ได้รางวัลมากที่สุดในประวัติศาสตร์ การได้เหรียญรางวัลคือประสบการณ์ที่เปลี่ยนชีวิต</p>
+                </div>
+                <div class="script-box">
+                    <p class="text-lg text-gray-800">4. <strong>Eileen:</strong> Doing it five times is harder... everybody's expectations rise. 📈</p>
+                    <div class="mt-2 flex gap-2"><button onclick="speak('Doing it five times is harder... everybody\'s expectations rise.')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('sc-4-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="sc-4-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: การทำได้ถึงห้าครั้งมันยากกว่า... ความคาดหวังของทุกคนก็สูงขึ้น</p>
+                </div>
+                <div class="script-box">
+                    <p class="text-lg text-gray-800">5. <strong>Eileen:</strong> The 'two medals lost' situation is a ridiculous perspective. I'm showcasing my best skiing. That is more than good enough. ✨</p>
+                    <div class="mt-2 flex gap-2"><button onclick="speak('The two medals lost situation is a ridiculous perspective. I am showcasing my best skiing. That is more than good enough.')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('sc-5-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="sc-5-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: การมองว่า 'พลาด 2 เหรียญทอง' เป็นมุมมองที่ไร้สาระ ฉันได้โชว์การเล่นสกีที่ดีที่สุดของฉัน แค่นั้นก็ดีมากพอแล้ว</p>
                 </div>
             </div>
-            
-            <div class="bg-blue-50 p-8 rounded-3xl border-4 border-blue-200 flex flex-col items-center justify-center space-y-6 min-h-[250px]">
-                <div id="wordDisplay" class="text-2xl md:text-3xl font-bold text-gray-800 text-center flex flex-col items-center justify-center w-full">
-                    <div class="text-6xl mb-4">🎲</div>
-                    <div>Ready?</div>
+        </div>
+    </section>
+
+    <!-- PART 4: COMPREHENSION -->
+    <section class="card p-6 md:p-8 bg-blue-50 border-blue-200 border-2">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">📝</span>
+            <h2 class="text-2xl font-bold text-gray-800">4. Comprehension Check</h2>
+            <div class="flex gap-2"><button onclick="speak('Comprehension Check')" class="btn-icon">🔊</button><button onclick="toggleThai('h2-4-th')" class="btn-icon">🇹🇭</button></div>
+        </div>
+        <p id="h2-4-th" class="hidden text-gray-500 mb-6 text-center font-bold">4. ตรวจสอบความเข้าใจ</p>
+        <div class="space-y-4">
+            <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
+                <p class="font-bold text-lg">1. How many Silver medals did China get?</p>
+                <div class="flex gap-2"><button onclick="speak('How many Silver medals did China get?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('q1-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                <p id="q1-th" class="hidden text-blue-600 text-sm font-bold">จีนได้เหรียญเงินกี่เหรียญ?</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
+                <p class="font-bold text-lg">2. Did they win Gold?</p>
+                <div class="flex gap-2"><button onclick="speak('Did they win Gold?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('q2-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                <p id="q2-th" class="hidden text-blue-600 text-sm font-bold">พวกเขาชนะเหรียญทองไหม?</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
+                <p class="font-bold text-lg">3. Is Eileen happy with her Silver medals?</p>
+                <div class="flex gap-2"><button onclick="speak('Is Eileen happy with her Silver medals?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('q3-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                <p id="q3-th" class="hidden text-blue-600 text-sm font-bold">ไอลีนพอใจกับเหรียญเงินของเธอไหม?</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
+                <p class="font-bold text-lg">4. What does "ridiculous perspective" mean?</p>
+                <div class="flex gap-2"><button onclick="speak('What does ridiculous perspective mean?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('q4-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                <p id="q4-th" class="hidden text-blue-600 text-sm font-bold">"มุมมองที่ไร้สาระ" หมายความว่าอย่างไร?</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PART 5: GRAMMAR -->
+    <section class="card p-6 md:p-8 border-yellow-400 border-4">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">📏</span>
+            <h2 class="text-2xl font-bold text-gray-800">5. Grammar: Past Simple ⏱️</h2>
+            <div class="flex gap-2"><button onclick="speak('Grammar Corner: Past Simple')" class="btn-icon">🔊</button><button onclick="toggleThai('h2-6-th')" class="btn-icon">🇹🇭</button></div>
+        </div>
+        <p id="h2-6-th" class="hidden text-gray-500 mb-6 text-center font-bold">5. มุมไวยากรณ์: กริยาอดีต</p>
+        <div class="bg-yellow-50 rounded-xl p-6 mb-6">
+            <h3 class="font-bold text-yellow-800 text-lg mb-4">Sports Verbs (V.2) 🏅</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between"><div><span class="text-gray-500">Win ➡️</span> <strong class="text-lg text-blue-700">Won</strong><p class="text-xs text-gray-400">ชนะ</p></div><button onclick="speak('Win becomes Won')" class="btn-icon text-xs">🔊</button></div>
+                <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between"><div><span class="text-gray-500">Lose ➡️</span> <strong class="text-lg text-red-600">Lost</strong><p class="text-xs text-gray-400">แพ้ / พลาด</p></div><button onclick="speak('Lose becomes Lost')" class="btn-icon text-xs">🔊</button></div>
+                <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between"><div><span class="text-gray-500">Get ➡️</span> <strong class="text-lg text-green-600">Got</strong><p class="text-xs text-gray-400">ได้รับ</p></div><button onclick="speak('Get becomes Got')" class="btn-icon text-xs">🔊</button></div>
+                <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between"><div><span class="text-gray-500">Cry ➡️</span> <strong class="text-lg text-blue-400">Cried</strong><p class="text-xs text-gray-400">ร้องไห้</p></div><button onclick="speak('Cry becomes Cried')" class="btn-icon text-xs">🔊</button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PART 6: ACCOUNTANT TALK -->
+    <section class="card p-6 md:p-8 border-green-400 border-4 bg-green-50">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">🧾</span>
+            <h2 class="text-2xl font-bold text-gray-800">6. Accountant Talk & Games!</h2>
+            <div class="flex gap-2"><button onclick="speak('Accountant Talk and Games.')" class="btn-icon">🔊</button><button onclick="toggleThai('h2-5-th')" class="btn-icon">🇹🇭</button></div>
+        </div>
+        <p id="h2-5-th" class="hidden text-gray-500 mb-6 text-center font-bold">6. พูดคุยฉบับนักบัญชี และ เกมส์!</p>
+        <div class="space-y-8">
+
+            <!-- Tax Fact -->
+            <div class="bg-white p-5 rounded-lg border border-green-200">
+                <h3 class="font-bold text-green-800 text-lg mb-3">A. Did you know? (Tax Fact) 💡</h3>
+                <ul class="list-disc pl-5 text-gray-700 space-y-4">
+                    <li class="flex flex-col gap-1">
+                        <div class="flex flex-wrap items-center gap-2"><span>Prize money from the government has <strong>0% TAX!</strong> 📉</span><button onclick="speak('Prize money from the government has Zero percent tax!')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('fact-2-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                        <p id="fact-2-th" class="hidden text-green-700 text-sm font-bold">เงินรางวัลจากรัฐบาล ไม่เสียภาษี (0%)</p>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <div class="flex flex-wrap items-center gap-2"><span>BUT, money from <strong>sponsors</strong> HAS TAX. 🧾</span><button onclick="speak('BUT, money from sponsors HAS TAX.')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('fact-3-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                        <p id="fact-3-th" class="hidden text-green-700 text-sm font-bold">แต่ เงินที่ได้จากสปอนเซอร์ ต้องเสียภาษี!</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ===== ANONYMOUS FORUM (JSONBin version) ===== -->
+            <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <h3 class="font-bold text-purple-800 text-lg">B. Guessing Game: The Secret Millionaire 🕵️‍♂️</h3>
+                    <button onclick="speak('Guessing Game: The Secret Millionaire')" class="btn-icon text-xs">🔊</button>
+                    <button onclick="toggleThai('gg-th')" class="btn-icon text-xs">🇹🇭</button>
                 </div>
-                <div class="flex gap-4">
-                    <button onclick="pickRandomWord()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-500 transition transform active:scale-95">
-                        SPIN 🎰
+                <p id="gg-th" class="hidden text-purple-600 text-sm mb-3 font-bold">เกมทายใจ: เศรษฐีลับ</p>
+
+                <div class="space-y-3 text-gray-800 mb-5">
+                    <p><strong>Step 1:</strong> Type 3 things you will buy with 10 Million Baht below. <strong>(DO NOT tell your friends!)</strong></p>
+                    <p><strong>Step 2:</strong> Teacher reads the list: <br><span class="italic text-purple-700 bg-white p-1 rounded">"This person will buy a cat, a BMW, and invest in a chicken farm."</span></p>
+                    <p><strong>Step 3:</strong> The class must guess: <strong>Who is it?</strong> 🤔</p>
+                </div>
+
+                <!-- Status indicator -->
+                <div id="forum-status" class="text-xs text-center mb-3 text-purple-500 font-semibold"></div>
+
+                <!-- Input -->
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="secretInput"
+                        class="flex-1 p-2 rounded border border-purple-300 outline-none focus:ring-2 focus:ring-purple-400"
+                        placeholder="I will buy... (Type here)"
+                        maxlength="200">
+                    <button id="sendBtn" onclick="submitSecret()"
+                        class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow transition active:scale-95">
+                        Send
+                    </button>
+                </div>
+
+                <!-- Board -->
+                <div id="secretBoard"
+                    class="bg-white p-3 rounded border border-purple-100 min-h-[100px] max-h-72 overflow-y-auto flex flex-col gap-2">
+                    <p class="text-gray-400 text-sm text-center italic mt-4">
+                        <span class="spinner">⏳</span> Loading messages...
+                    </p>
+                </div>
+
+                <!-- Teacher controls -->
+                <div class="mt-3 flex justify-end">
+                    <button onclick="clearAllMessages()"
+                        class="text-xs text-red-400 hover:text-red-600 underline transition">
+                        🗑️ Teacher: Clear All Messages
                     </button>
                 </div>
             </div>
-        </section>
+            <!-- ===== END FORUM ===== -->
 
-        <!-- PART 2: LEAD-IN (SPEED DATING INTERVIEW) -->
-        <section id="leadin" class="card p-6 md:p-8 border-orange-400 border-4">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">🗣️</span>
-                <h2 class="text-2xl font-bold text-gray-800">2. Interview & Swap! 🔄</h2>
-                <div class="flex gap-2">
-                    <button onclick="speak('Interview and Swap!')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-2-th')" class="btn-icon">🇹🇭</button>
+            <!-- Team Debate -->
+            <div class="bg-red-50 p-5 rounded-lg border border-red-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <h3 class="font-bold text-red-800 text-lg">C. Team Debate 🥊</h3>
+                    <button onclick="speak('Team Debate')" class="btn-icon text-xs">🔊</button>
+                    <button onclick="toggleThai('td-th')" class="btn-icon text-xs">🇹🇭</button>
                 </div>
-            </div>
-            <p id="h2-2-th" class="hidden text-gray-500 mb-6 text-center font-bold">2. สัมภาษณ์และสลับคู่!</p>
-
-            <div class="bg-orange-50 p-6 rounded-xl">
-                <h3 class="font-bold text-orange-800 text-lg mb-2">Instructions 📝</h3>
-                <ul class="list-decimal pl-5 text-gray-700 mb-4 space-y-1">
-                    <li>Go to breakout rooms (pairs).</li>
-                    <li>Ask your partner the 3 questions.</li>
-                    <li>Come back and <strong>report to the class!</strong></li>
-                    <li>Swap partners and repeat!</li>
-                </ul>
-
-                <div class="bg-white p-4 rounded-lg border border-orange-200 mt-4 space-y-4">
-                    <h4 class="font-bold text-gray-800 border-b pb-2">The Questions:</h4>
-                    <div class="flex flex-col gap-1">
-                        <div class="font-bold text-orange-700">1. Do you like watching sports? Which sport?</div>
-                        <div class="flex gap-2">
-                            <button onclick="speak('Do you like watching sports? Which sport?')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('li-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="li-1-th" class="hidden text-orange-500 text-sm">1. คุณชอบดูรายการกีฬาไหม? กีฬาอะไร?</p>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="font-bold text-orange-700">2. How do you feel when Thai athletes win a medal?</div>
-                        <div class="flex gap-2">
-                            <button onclick="speak('How do you feel when Thai athletes win a medal?')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('li-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="li-2-th" class="hidden text-orange-500 text-sm">2. คุณรู้สึกอย่างไรเมื่อนักกีฬาไทยได้เหรียญรางวัล?</p>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="font-bold text-orange-700">3. If you win 10 Million Baht today, what is the FIRST thing you will buy?</div>
-                        <div class="flex gap-2">
-                            <button onclick="speak('If you win 10 Million Baht today, what is the FIRST thing you will buy?')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('li-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="li-3-th" class="hidden text-orange-500 text-sm">3. ถ้าคุณได้เงิน 10 ล้านบาทวันนี้ สิ่งแรกที่คุณจะซื้อคืออะไร?</p>
-                    </div>
-                </div>
-
-                <div class="bg-yellow-100 p-3 rounded-lg mt-4 border border-yellow-300">
-                    <p class="font-bold text-yellow-800 text-sm">🎙️ Report Back Example:</p>
-                    <p class="italic text-gray-700 text-sm">"I talked to K'Earn. She likes Volleyball. She feels very happy when Thailand wins. She will buy a big house with 10 million baht!"</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PART 3: THE VIDEO / NEWS -->
-        <section id="video" class="card p-6 md:p-8 border-gray-300 border-2">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-4xl">📺</span>
-                <h2 class="text-2xl font-bold text-gray-800">3. Sports News</h2>
-                 <div class="flex gap-2">
-                    <button onclick="speak('Sports News')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-3-th')" class="btn-icon">🇹🇭</button>
-                </div>
-            </div>
-            <p id="h2-3-th" class="hidden text-gray-500 mb-6 text-center font-bold">3. ข่าวกีฬา</p>
-
-            <div class="mb-6 text-center">
-                <a href="https://www.facebook.com/share/r/1AzFtmMf8Z/?mibextid=wwXIfr" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-bold shadow-md">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    Watch Video
-                </a>
-            </div>
-
-            <div class="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-200">
-                <h3 class="font-bold text-gray-800 mb-2">Simplified Script 📝</h3>
-                <div class="flex gap-2 mb-4">
-                    <button onclick="speak('Simplified Script')" class="btn-icon text-xs">🔊</button>
-                    <button onclick="toggleThai('ss-th')" class="btn-icon text-xs">🇹🇭</button>
-                    <span id="ss-th" class="hidden text-sm text-gray-600 ml-2 font-bold">บทพูดแบบเข้าใจง่าย</span>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="script-box">
-                        <p class="text-lg text-gray-800">1. China <strong>won</strong> two Silver medals! 🥈🥈</p>
-                        <div class="mt-2 flex gap-2">
-                            <button onclick="speak('China won two Silver medals!')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('sc-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="sc-1-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ประเทศจีนได้ 2 เหรียญเงิน!</p>
-                    </div>
-
-                    <div class="script-box">
-                        <p class="text-lg text-gray-800">2. <strong>Journalist:</strong> Do you see these as two silvers gained or two golds lost? 🎤</p>
-                        <div class="mt-2 flex gap-2">
-                            <button onclick="speak('Journalist: Do you see these as two silvers gained or two golds lost?')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('sc-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="sc-2-th" class="hidden text-gray-600 mt-1 text-sm font-bold">นักข่าว: คุณมองว่านี่คือการได้มา 2 เหรียญเงิน หรือพลาด 2 เหรียญทอง?</p>
-                    </div>
-
-                    <div class="script-box">
-                        <p class="text-lg text-gray-800">3. <strong>Eileen:</strong> I'm the most decorated female free-skier in history. Winning a medal is a life-changing experience. ⛷️🥇</p>
-                        <div class="mt-2 flex gap-2">
-                            <button onclick="speak('Eileen: I am the most decorated female free-skier in history. Winning a medal is a life-changing experience.')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('sc-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="sc-3-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: ฉันเป็นนักสกีฟรีสไตล์หญิงที่ได้รางวัลมากที่สุดในประวัติศาสตร์ การได้เหรียญรางวัลคือประสบการณ์ที่เปลี่ยนชีวิต</p>
-                    </div>
-
-                    <div class="script-box">
-                        <p class="text-lg text-gray-800">4. <strong>Eileen:</strong> Doing it five times is harder... everybody's expectations rise. 📈</p>
-                        <div class="mt-2 flex gap-2">
-                            <button onclick="speak('Doing it five times is harder... everybody\'s expectations rise.')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('sc-4-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="sc-4-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: การทำได้ถึงห้าครั้งมันยากกว่า... ความคาดหวังของทุกคนก็สูงขึ้น</p>
-                    </div>
-
-                    <div class="script-box">
-                        <p class="text-lg text-gray-800">5. <strong>Eileen:</strong> The 'two medals lost' situation is a ridiculous perspective. I'm showcasing my best skiing. That is more than good enough. ✨</p>
-                        <div class="mt-2 flex gap-2">
-                            <button onclick="speak('The two medals lost situation is a ridiculous perspective. I am showcasing my best skiing. That is more than good enough.')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('sc-5-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="sc-5-th" class="hidden text-gray-600 mt-1 text-sm font-bold">ไอลีน: การมองว่า 'พลาด 2 เหรียญทอง' เป็นมุมมองที่ไร้สาระ ฉันได้โชว์การเล่นสกีที่ดีที่สุดของฉัน แค่นั้นก็ดีมากพอแล้ว</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PART 4: COMPREHENSION CHECK -->
-        <section id="comprehension" class="card p-6 md:p-8 bg-blue-50 border-blue-200 border-2">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">📝</span>
-                <h2 class="text-2xl font-bold text-gray-800">4. Comprehension Check</h2>
-                 <div class="flex gap-2">
-                    <button onclick="speak('Comprehension Check')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-4-th')" class="btn-icon">🇹🇭</button>
-                </div>
-            </div>
-            <p id="h2-4-th" class="hidden text-gray-500 mb-6 text-center font-bold">4. ตรวจสอบความเข้าใจ</p>
-
-            <div class="space-y-4">
-                <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">1. How many Silver medals did China get?</p>
-                    <div class="flex gap-2">
-                        <button onclick="speak('How many Silver medals did China get?')" class="btn-icon text-xs">🔊 Listen</button>
-                        <button onclick="toggleThai('q1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                    </div>
-                    <p id="q1-th" class="hidden text-blue-600 text-sm font-bold">จีนได้เหรียญเงินกี่เหรียญ?</p>
-                </div>
-
-                <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">2. Did they win Gold?</p>
-                     <div class="flex gap-2">
-                        <button onclick="speak('Did they win Gold?')" class="btn-icon text-xs">🔊 Listen</button>
-                        <button onclick="toggleThai('q2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                    </div>
-                    <p id="q2-th" class="hidden text-blue-600 text-sm font-bold">พวกเขาชนะเหรียญทองไหม?</p>
-                </div>
-
-                <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">3. Is Eileen happy with her Silver medals?</p>
-                     <div class="flex gap-2">
-                        <button onclick="speak('Is Eileen happy with her Silver medals?')" class="btn-icon text-xs">🔊 Listen</button>
-                        <button onclick="toggleThai('q3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                    </div>
-                    <p id="q3-th" class="hidden text-blue-600 text-sm font-bold">ไอลีนพอใจกับเหรียญเงินของเธอไหม?</p>
-                </div>
-
-                 <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">4. What does "ridiculous perspective" mean?</p>
-                     <div class="flex gap-2">
-                        <button onclick="speak('What does ridiculous perspective mean?')" class="btn-icon text-xs">🔊 Listen</button>
-                        <button onclick="toggleThai('q4-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                    </div>
-                    <p id="q4-th" class="hidden text-blue-600 text-sm font-bold">"มุมมองที่ไร้สาระ" หมายความว่าอย่างไร?</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PART 5: GRAMMAR CORNER -->
-        <section id="grammar" class="card p-6 md:p-8 border-yellow-400 border-4">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">📏</span>
-                <h2 class="text-2xl font-bold text-gray-800">5. Grammar: Past Simple ⏱️</h2>
-                <div class="flex gap-2">
-                    <button onclick="speak('Grammar Corner: Past Simple')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-6-th')" class="btn-icon">🇹🇭</button>
-                </div>
-            </div>
-            <p id="h2-6-th" class="hidden text-gray-500 mb-6 text-center font-bold">5. มุมไวยากรณ์: กริยาอดีต (สิ่งที่เกิดไปแล้ว)</p>
-
-            <div class="bg-yellow-50 rounded-xl p-6 mb-6">
-                <div class="flex items-center gap-2 mb-4">
-                    <h3 class="font-bold text-yellow-800 text-lg">Sports Verbs (V.2) 🏅</h3>
-                </div>
-                
+                <p id="td-th" class="hidden text-red-600 text-sm mb-3 font-bold">แบ่งทีมโต้วาที</p>
+                <p class="font-bold text-gray-800 mb-4 text-center text-xl bg-white py-2 rounded">"Gold Medal vs. 10 Million Baht"</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Words -->
-                    <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between">
-                        <div>
-                            <span class="text-gray-500">Win ➡️</span> <strong class="text-lg text-blue-700">Won</strong>
-                            <p class="text-xs text-gray-400">ชนะ</p>
-                        </div>
-                        <button onclick="speak('Win becomes Won')" class="btn-icon text-xs">🔊</button>
+                    <div class="bg-yellow-100 p-4 rounded border border-yellow-300">
+                        <h4 class="font-bold text-yellow-800 text-center text-lg mb-2">Team A: 🥇 Gold Medal is Better!</h4>
+                        <ul class="text-sm text-gray-700 space-y-1"><li>• "I think Gold is better because..."</li><li>• "Money is gone, but glory is forever."</li><li>• "We make Thai people proud."</li></ul>
                     </div>
-
-                    <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between">
-                        <div>
-                            <span class="text-gray-500">Lose ➡️</span> <strong class="text-lg text-red-600">Lost</strong>
-                            <p class="text-xs text-gray-400">แพ้ / พลาด</p>
-                        </div>
-                        <button onclick="speak('Lose becomes Lost')" class="btn-icon text-xs">🔊</button>
-                    </div>
-
-                    <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between">
-                        <div>
-                            <span class="text-gray-500">Get ➡️</span> <strong class="text-lg text-green-600">Got</strong>
-                            <p class="text-xs text-gray-400">ได้รับ</p>
-                        </div>
-                        <button onclick="speak('Get becomes Got')" class="btn-icon text-xs">🔊</button>
-                    </div>
-
-                    <div class="bg-white p-3 rounded border border-yellow-200 flex items-center justify-between">
-                        <div>
-                            <span class="text-gray-500">Cry ➡️</span> <strong class="text-lg text-blue-400">Cried</strong>
-                            <p class="text-xs text-gray-400">ร้องไห้</p>
-                        </div>
-                        <button onclick="speak('Cry becomes Cried')" class="btn-icon text-xs">🔊</button>
+                    <div class="bg-green-100 p-4 rounded border border-green-300">
+                        <h4 class="font-bold text-green-800 text-center text-lg mb-2">Team B: 💰 10 Million is Better!</h4>
+                        <ul class="text-sm text-gray-700 space-y-1"><li>• "I think Money is better because..."</li><li>• "I can buy a house and a car."</li><li>• "I can invest my money."</li></ul>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- PART 6: ACCOUNTANT TALK & GAMES -->
-        <section id="accountant" class="card p-6 md:p-8 border-green-400 border-4 bg-green-50">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-4xl">🧾</span>
-                <h2 class="text-2xl font-bold text-gray-800">6. Accountant Talk & Games!</h2>
-                <div class="flex gap-2">
-                    <button onclick="speak('Accountant Talk and Games.')" class="btn-icon">🔊</button>
-                    <button onclick="toggleThai('h2-5-th')" class="btn-icon">🇹🇭</button>
+    <!-- PART 7: EXTENSION -->
+    <section class="card p-6 md:p-8 border-orange-400 border-4">
+        <div class="flex flex-col mb-6">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl">🚀</span>
+                <h2 class="text-2xl font-bold text-gray-800">7. Extension (1-on-1 Fun!)</h2>
+                <div class="flex gap-2"><button onclick="speak('Extension Activities')" class="btn-icon">🔊</button><button onclick="toggleThai('h2-7-th')" class="btn-icon">🇹🇭</button></div>
+            </div>
+            <p id="h2-7-th" class="hidden text-gray-500 mt-2 text-center font-bold">7. กิจกรรมเสริม (สำหรับเรียนตัวต่อตัว)</p>
+        </div>
+        <div class="space-y-6">
+            <div class="bg-red-50 rounded-lg p-5 border border-red-200">
+                <h3 class="font-bold text-red-800 text-lg mb-2">1. Funny Roleplay: The Crazy Athlete 🤪</h3>
+                <div class="flex flex-col gap-2 mb-3">
+                    <p class="text-gray-700"><strong>Situation:</strong> I am a famous athlete. I just <strong>got</strong> 10 million baht from a sponsor! I want to buy a spaceship! Give me financial advice.</p>
+                    <div class="flex gap-2"><button onclick="speak('Situation: I am a famous athlete. I just got 10 million baht from a sponsor! I want to buy a spaceship! Give me financial advice.')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('ext-1-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="ext-1-th" class="hidden text-red-600 text-sm mt-2 font-bold">สถานการณ์: ครูเป็นนักกีฬาดัง เพิ่งได้เงินสปอนเซอร์ 10 ล้าน! ครูอยากซื้อยานอวกาศ!</p>
+                </div>
+                <div class="bg-white p-3 rounded"><p class="italic text-sm text-gray-600">You (Accountant): "No! You cannot buy a spaceship! You have to pay..."</p></div>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-5 border border-purple-200">
+                <h3 class="font-bold text-purple-800 text-lg mb-2">2. Game: 2 Truths and 1 Lie (Past Tense) 🤥</h3>
+                <div class="flex flex-col gap-2">
+                    <p class="text-gray-700"><strong>Task:</strong> Make 3 sentences using <strong>won, lost, got,</strong> or <strong>cried</strong>. Two are true, one is a lie!</p>
+                    <div class="flex gap-2 mb-2"><button onclick="speak('Task: Make 3 sentences using won, lost, got, or cried. Two are true, one is a lie! Can the teacher guess?')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('ext-2-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="ext-2-th" class="hidden text-purple-600 text-sm mt-2 font-bold">ภารกิจ: แต่งประโยค 3 ประโยค (เรื่องจริง 2 โกหก 1)</p>
+                    <div class="bg-white p-3 rounded"><p class="italic text-sm text-gray-600">Example:<br>1. I won 50 baht.<br>2. I cried yesterday.<br>3. I got a snake.</p></div>
                 </div>
             </div>
-            <p id="h2-5-th" class="hidden text-gray-500 mb-6 text-center font-bold">6. พูดคุยฉบับนักบัญชี และ เกมส์!</p>
-
-            <div class="space-y-8">
-                <!-- Fact -->
-                <div class="bg-white p-5 rounded-lg border border-green-200">
-                    <div class="flex items-center gap-2 mb-2">
-                        <h3 class="font-bold text-green-800 text-lg">A. Did you know? (Tax Fact) 💡</h3>
-                    </div>
-                    
-                    <ul class="list-disc pl-5 text-gray-700 space-y-4 mt-3">
-                        <li class="flex flex-col gap-1">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span>Prize money from the government has <strong>0% TAX!</strong> 📉</span>
-                                <button onclick="speak('Prize money from the government has Zero percent tax!')" class="btn-icon text-xs">🔊 Listen</button>
-                                <button onclick="toggleThai('fact-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                            </div>
-                            <p id="fact-2-th" class="hidden text-green-700 text-sm font-bold">เงินรางวัลจากรัฐบาล ไม่เสียภาษี (0%)</p>
-                        </li>
-                        <li class="flex flex-col gap-1">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span>BUT, money from <strong>sponsors</strong> HAS TAX. 🧾</span>
-                                <button onclick="speak('BUT, money from sponsors HAS TAX.')" class="btn-icon text-xs">🔊 Listen</button>
-                                <button onclick="toggleThai('fact-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                            </div>
-                            <p id="fact-3-th" class="hidden text-green-700 text-sm font-bold">แต่ เงินที่ได้จากสปอนเซอร์ ต้องเสียภาษี!</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Guessing Game with Firestore -->
-                <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
-                    <div class="flex items-center gap-2 mb-2">
-                        <h3 class="font-bold text-purple-800 text-lg">B. Guessing Game: The Secret Millionaire 🕵️‍♂️</h3>
-                        <button onclick="speak('Guessing Game: The Secret Millionaire')" class="btn-icon text-xs">🔊</button>
-                        <button onclick="toggleThai('gg-th')" class="btn-icon text-xs">🇹🇭</button>
-                    </div>
-                    <p id="gg-th" class="hidden text-purple-600 text-sm mb-3 font-bold">เกมทายใจ: เศรษฐีลับ</p>
-
-                    <div class="space-y-3 text-gray-800">
-                        <p><strong>Step 1:</strong> Type 3 things you will buy with 10 Million Baht in the anonymous forum below. <strong>(DO NOT tell your friends!)</strong></p>
-                        <p><strong>Step 2:</strong> Teacher reads the list: <br><span class="italic text-purple-700 bg-white p-1 rounded">"This person will buy a cat, a BMW, and invest in a chicken farm."</span></p>
-                        <p><strong>Step 3:</strong> The class must guess: <strong>Who is it?</strong> 🤔</p>
-                    </div>
-
-                    <div class="mt-5 border-t border-purple-200 pt-4">
-                        <h4 class="font-bold text-purple-700 mb-2">Anonymous Forum 🤫</h4>
-                        <div class="flex gap-2 mb-4">
-                            <input type="text" id="secretInput" class="flex-1 p-2 rounded border border-purple-300 outline-none focus:ring-2 focus:ring-purple-400" placeholder="Connecting to live forum...">
-                            <button onclick="submitSecret()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow transition active:scale-95">Send</button>
-                        </div>
-                        <div id="secretBoard" class="bg-white p-3 rounded border border-purple-100 min-h-[100px] max-h-60 overflow-y-auto flex flex-col justify-start">
-                            <p id="emptyMessage" class="text-gray-400 text-sm text-center italic mt-4">Loading messages...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Debate -->
-                <div class="bg-red-50 p-5 rounded-lg border border-red-200">
-                    <div class="flex items-center gap-2 mb-2">
-                        <h3 class="font-bold text-red-800 text-lg">C. Team Debate 🥊</h3>
-                        <button onclick="speak('Team Debate')" class="btn-icon text-xs">🔊</button>
-                        <button onclick="toggleThai('td-th')" class="btn-icon text-xs">🇹🇭</button>
-                    </div>
-                    <p id="td-th" class="hidden text-red-600 text-sm mb-3 font-bold">แบ่งทีมโต้วาที</p>
-
-                    <p class="font-bold text-gray-800 mb-4 text-center text-xl bg-white py-2 rounded">"Gold Medal vs. 10 Million Baht"</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-yellow-100 p-4 rounded border border-yellow-300">
-                            <h4 class="font-bold text-yellow-800 text-center text-lg mb-2">Team A: 🥇 Gold Medal is Better!</h4>
-                            <ul class="text-sm text-gray-700 space-y-1">
-                                <li>• "I think Gold is better because..."</li>
-                                <li>• "Money is gone, but glory is forever."</li>
-                                <li>• "We make Thai people proud."</li>
-                            </ul>
-                        </div>
-                        <div class="bg-green-100 p-4 rounded border border-green-300">
-                            <h4 class="font-bold text-green-800 text-center text-lg mb-2">Team B: 💰 10 Million is Better!</h4>
-                            <ul class="text-sm text-gray-700 space-y-1">
-                                <li>• "I think Money is better because..."</li>
-                                <li>• "I can buy a house and a car."</li>
-                                <li>• "I can invest my money."</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="bg-green-50 rounded-lg p-5 border border-green-200">
+                <h3 class="font-bold text-green-800 text-lg mb-2">3. Story Telling: The Lost Medal 🥇😭</h3>
+                <div class="flex flex-col gap-2">
+                    <p class="text-gray-700"><strong>Start:</strong> "Yesterday, I <strong>won</strong> a Gold medal. But then I went to 7-Eleven and..."</p>
+                    <div class="flex gap-2 mb-2"><button onclick="speak('Start: Yesterday, I won a Gold medal. But then I went to 7-Eleven and...')" class="btn-icon text-xs">🔊 Listen</button><button onclick="toggleThai('ext-3-th')" class="btn-icon text-xs">🇹🇭 TH</button></div>
+                    <p id="ext-3-th" class="hidden text-green-600 text-sm mt-2 font-bold">เริ่มเรื่อง: "เมื่อวานฉันชนะเหรียญทอง แต่พอฉันไปเซเว่นแล้ว..."</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- PART 7: EXTENSION ACTIVITIES (1-on-1) -->
-        <section id="extension" class="card p-6 md:p-8 border-orange-400 border-4">
-             <div class="flex flex-col mb-6">
-                <div class="flex items-center gap-3">
-                    <span class="text-4xl">🚀</span>
-                    <h2 class="text-2xl font-bold text-gray-800">7. Extension (1-on-1 Fun!)</h2>
-                    <div class="flex gap-2">
-                        <button onclick="speak('Extension Activities')" class="btn-icon">🔊</button>
-                        <button onclick="toggleThai('h2-7-th')" class="btn-icon">🇹🇭</button>
-                    </div>
-                </div>
-                <p id="h2-7-th" class="hidden text-gray-500 mb-6 text-center font-bold">7. กิจกรรมเสริม (สำหรับเรียนตัวต่อตัว)</p>
-            </div>
+</main>
 
-            <div class="space-y-6">
-                <!-- Roleplay -->
-                <div class="bg-red-50 rounded-lg p-5 border border-red-200">
-                    <h3 class="font-bold text-red-800 text-lg mb-2">1. Funny Roleplay: The Crazy Athlete 🤪</h3>
-                    <div class="flex flex-col gap-2 mb-3">
-                        <p class="text-gray-700"><strong>Situation:</strong> I am a famous athlete. I just <strong>got</strong> 10 million baht from a sponsor! I want to buy a spaceship! Give me financial advice.</p>
-                        <div class="flex gap-2">
-                            <button onclick="speak('Situation: I am a famous athlete. I just got 10 million baht from a sponsor! I want to buy a spaceship! Give me financial advice.')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('ext-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="ext-1-th" class="hidden text-red-600 text-sm mt-2 font-bold">สถานการณ์: ครูเป็นนักกีฬาดัง เพิ่งได้เงินสปอนเซอร์ 10 ล้าน! ครูอยากซื้อยานอวกาศ! ช่วยให้คำแนะนำทางการเงิน(และเตือนเรื่องภาษี)หน่อย!</p>
-                    </div>
-                    <div class="bg-white p-3 rounded space-y-2">
-                        <p class="italic text-sm text-gray-600">You (Accountant): "No! You cannot buy a spaceship! You have to pay..."</p>
-                    </div>
-                </div>
+<!-- ============================================================
+     ANONYMOUS FORUM — powered by JSONBin.io (free, no account)
+     ============================================================
+     HOW IT WORKS:
+     • Messages are stored in a free JSONBin.io "bin" (like a tiny cloud database).
+     • Anyone with the link can read and post. Messages persist across devices.
+     • The BIN_ID below is shared by everyone using this page.
+     • To reset all messages, click "Teacher: Clear All Messages".
 
-                <!-- Game -->
-                <div class="bg-purple-50 rounded-lg p-5 border border-purple-200">
-                    <h3 class="font-bold text-purple-800 text-lg mb-2">2. Game: 2 Truths and 1 Lie (Past Tense) 🤥</h3>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-gray-700"><strong>Task:</strong> Make 3 sentences using <strong>won, lost, got,</strong> or <strong>cried</strong>. Two are true, one is a lie! Can the teacher guess?</p>
-                        <div class="flex gap-2 mb-2">
-                            <button onclick="speak('Task: Make 3 sentences using won, lost, got, or cried. Two are true, one is a lie! Can the teacher guess?')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('ext-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="ext-2-th" class="hidden text-purple-600 text-sm mt-2 font-bold">ภารกิจ: แต่งประโยค 3 ประโยคโดยใช้ won, lost, got หรือ cried (เรื่องจริง 2 โกหก 1) ให้ครูทาย!</p>
-                        <div class="bg-white p-3 rounded">
-                            <p class="italic text-sm text-gray-600">Example: <br>1. I won 50 baht. <br>2. I cried yesterday. <br>3. I got a snake.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                 <!-- Story Telling -->
-                <div class="bg-green-50 rounded-lg p-5 border border-green-200">
-                    <h3 class="font-bold text-green-800 text-lg mb-2">3. Story Telling: The Lost Medal 🥇😭</h3>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-gray-700"><strong>Start:</strong> "Yesterday, I <strong>won</strong> a Gold medal. But then I went to 7-Eleven and..."</p>
-                        <div class="flex gap-2 mb-2">
-                            <button onclick="speak('Start: Yesterday, I won a Gold medal. But then I went to 7-Eleven and...')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('ext-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="ext-3-th" class="hidden text-green-600 text-sm mt-2 font-bold">เริ่มเรื่อง: "เมื่อวานฉันชนะเหรียญทอง แต่พอฉันไปเซเว่นแล้ว..." (แต่งเรื่องต่อ!)</p>
-                    </div>
-                </div>
+     SETUP (one-time, already done for you):
+     1. Go to https://jsonbin.io and sign up free.
+     2. Create a new Bin with content: {"messages":[]}
+     3. Copy the Bin ID and your API key below.
+     ============================================================ -->
+<script>
+    // ─── JSONBin Configuration ─────────────────────────────────────────────────
+    // Replace these two values with your own from https://jsonbin.io (free signup)
+    const JSONBIN_API_KEY  = '$2a$10$$2a$10$zW4wiGZrhcqDaBHttyJrqetgl18v.69djL1pt6.2AAawhRSziVuUu';
+    const JSONBIN_BIN_ID   = 'https://api.jsonbin.io/v3/b/69b11131d746013455b08d33';
+    // ──────────────────────────────────────────────────────────────────────────
 
-            </div>
-        </section>
+    const BASE_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+    const HEADERS  = { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY };
 
-    </main>
+    let polling = null;
+    let lastMessageCount = -1;
 
-    <script>
-        // Massive Vocabulary List
-        const vocabData = [
-            { emoji: "🌍📍✈️", en: "Experiences", th: "ประสบการณ์" },
-            { emoji: "🇵🇱🏰❄️", en: "I have traveled to Poland.", th: "ฉันเคยไปเที่ยวที่โปแลนด์" },
-            { emoji: "🐛🍴😋", en: "I ate bugs.", th: "ฉันเคยกินแมลง" },
-            { emoji: "🇨🇦🍁🏠", en: "I lived in Canada.", th: "ฉันเคยอยู่แคนาดา" },
-            { emoji: "🇨🇦❓⏳", en: "How long did you live in Canada?", th: "เคยอยู่แคนาดานานแค่ไหน" },
-            { emoji: "🇵🇱❓🏙️", en: "Where did you travel to in Poland?", th: "ไปเที่ยวที่ไหนในโปแลนด์" },
-            { emoji: "🐛❓🍴", en: "What kind of insects did you eat?", th: "เคยกินแมลงแบบไหน" },
-            { emoji: "🎂🗓️☀️", en: "Tomorrow is my birthday.", th: "พรุ่งนี้วันเกิดฉัน" },
-            { emoji: "🐍🐍🍴", en: "I ate snakes.", th: "เคยกินงู" },
-            { emoji: "🇸🇬🦁🏙️", en: "I went to Singapore.", th: "ฉันเคยไปสิงคโปร์" },
-            { emoji: "🇸🇬❓🤔", en: "Why did you go to Singapore?", th: "ทำไมไปสิงคโปร์" },
-            { emoji: "🐍👅🔄", en: "What does the snake taste like?", th: "รสชาติงูเป็นยังไง" },
-            { emoji: "🐔🍗🔄", en: "Same as the chicken", th: "เหมือนไก่" },
-            { emoji: "🕳️🐀🐾", en: "mole", th: "ตุ่น" },
-            { emoji: "🐀🐭🐾", en: "rat / mouse", th: "หนู" },
-            { emoji: "🐷🥩🧈", en: "fat", th: "ไขมัน" },
-            { emoji: "🎂🗓️❌", en: "Her birthday is this month, not next month.", th: "วันเกิดเธอเดือนนี้ ไม่ใช่เดือนหน้า" },
-            { emoji: "🏠🏔️🌲", en: "I have a house on the mountain.", th: "ฉันมีบ้านบนเขา" },
-            { emoji: "🎣🛶🐟", en: "I like fishing.", th: "ฉันชอบตกปลา" },
-            { emoji: "🌵🪴🌵", en: "I like growing cactuses.", th: "ฉันชอบปลูกต้นกระบองเพชร" },
-            { emoji: "🕒❓🔄", en: "how often", th: "บ่อยแค่ไหน" },
-            { emoji: "📅2️⃣✨", en: "two times per week", th: "อาทิตย์ละสองครั้ง" },
-            { emoji: "🌵❓📏", en: "What kind of cactuses do you grow? Small or Big?", th: "ปลูกกระบองแพชรแบบไหน เล็กหรือใหญ่" },
-            { emoji: "🛠️📖✨", en: "how to", th: "วิธี" },
-            { emoji: "🪴🏺✨", en: "pots", th: "กระถาง" },
-            { emoji: "🌱📦🟤", en: "soil", th: "ดิน" },
-            { emoji: "🧪🌿✨", en: "Fertiliser", th: "ปุ๋ย" },
-            { emoji: "🕳️⛏️🟤", en: "hole", th: "หลุม" },
-            { emoji: "🌱👶🪴", en: "seedlings", th: "ต้นกล้า" },
-            { emoji: "💡📝✨", en: "tips", th: "เคล็ดลับ" },
-            { emoji: "🐀🚫💊", en: "mole repellent powder", th: "ผงกันเชื้อรา" },
-            { emoji: "🎣🌈🐛", en: "colourful baits", th: "เหยื่อสีสันสดใส" },
-            { emoji: "🐟📈📍", en: "We have to fish where there are a lot of fishes.", th: "ต้องตกปลาที่ที่มีปลาเยอะๆ" },
-            { emoji: "❄️🌬️🧊", en: "cold", th: "หนาว" },
-            { emoji: "🌬️🍃🌀", en: "windy", th: "ลมแรง" },
-            { emoji: "🚫⛔📍", en: "reserved areas", th: "พื้นที่สงวน" },
-            { emoji: "🌳🦌🌲", en: "national park", th: "อุทยานแห่งชาติ" },
-            { emoji: "🏝️🏖️✨", en: "I have ever gone to Koh Lan.", th: "เคยไปเกาะล้าน" },
-            { emoji: "❓🔍✨", en: "What kind?", th: "แบบไหน" },
-            { emoji: "👧🧒🕰️", en: "When I was young,", th: "ตอนเด็กๆ" },
-            { emoji: "🇪🇺🏰❓", en: "Have you traveled to Europe?", th: "เคยไปเที่ยวยุโรปไหม" },
-            { emoji: "❄️⛄❓", en: "Have you (ever) seen snow?", th: "เคยเห็นหิมะไหม" },
-            { emoji: "👁️➖😊", en: "I like men with tiny eyes.", th: "ชอบผู้ชายตาตี่" },
-            { emoji: "📖🇬🇧❓", en: "Have you read an English book?", th: "เคยอ่านหนังสือภาษาอังกฤษไหม" },
-            { emoji: "📖📍❓", en: "Where did you read it?", th: "อ่านที่ไหน" },
-            { emoji: "📖🏷️❓", en: "What's the name of the book?", th: "หนังสือชื่ออะไร" },
-            { emoji: "📖🏫✍️", en: "textbook", th: "หนังสือเรียน" },
-            { emoji: "🌟🤝❓", en: "Have you ever met a famous person?", th: "เคยเจอคนดังไหม" },
-            { emoji: "🤕🎭💢", en: "His face is a pain.", th: "หน้าเขากวนๆ" },
-            { emoji: "🛰️📡🌌", en: "satellite", th: "ดาวเทียม" },
-            { emoji: "🤝🕒❓", en: "When did you meet him?", th: "เจอเขาเมื่อไร" },
-            { emoji: "👥📈🈵", en: "There were a lot of people.", th: "มีคนเยอะ" },
-            { emoji: "🧪🧪✨", en: "Try", th: "ลอง" },
-            { emoji: "🔥🍲⏳", en: "Wait until it's boiling", th: "รอจนเดือด" },
-            { emoji: "👅🧂😋", en: "Flavour", th: "ปรุงรส" },
-            { emoji: "🍜📦✨", en: "ready-made", th: "สำเร็จรูป" },
-            { emoji: "🍳⏳❓", en: "How long did it take to cook?", th: "ใช้เวลาทำนานแค่ไหน" },
-            { emoji: "📦🕰️🕵️‍♂️", en: "A man has just found a mysterious old box.", th: "ผู้ชายคนหนึ่งเพิ่งจะเจอกล่องเก่าๆ ลึกลับใบหนึ่ง" },
-            { emoji: "🧼🧹✨", en: "Then he tried to clean it.", th: "เขาพยายามทำความสะอาดมัน" },
-            { emoji: "✨🤵‍♂️💖", en: "He was handsome and so cute.", th: "เขาหล่อและน่ารักมาก" },
-            { emoji: "🏠🚶‍♂️📦", en: "He brought it to his home.", th: "เขาเอามันกลับบ้าน" },
-            { emoji: "🚿🛀✨", en: "And he took a shower.", th: "และเขาก็อาบน้ำ" },
-            { emoji: "🪥🦷🚿", en: "After that, he sat on the chair and waited for his family to come.", th: "หลังจากนั้น เขานั่งบนเก้าอี้แล้วรอครอบครัวมา" },
-            { emoji: "🚗🅿️🔊", en: "He heard the sound of a car parking.", th: "เขาได้ยินเสียงรถจอด" },
-            { emoji: "🚪✊🚪", en: "Knock! Knock! His father knocked at the door.", th: "ก๊อกๆ พ่อเคาะประตู" },
-            { emoji: "🍹🥤🤝", en: "He opened the door with welcome drinks.", th: "เขาเปิดประตูมาพร้อมกับเครื่องดื่มต้อนรับ" },
-            { emoji: "📦🗣️📜", en: "Then he told his father about the mysterious box.", th: "แล้วเขาก็บอกพ่อเรื่องกล่องลึกลับ" },
-            { emoji: "😱🧿✨", en: "His father was shocked. In the box, there were amulets inside.", th: "พ่อตกใจ ในกล่องมีเครื่องรางอยู่ข้างใน" },
-            { emoji: "🚔🏢🏃‍♂️", en: "Then his father took his son to the police.", th: "แล้วพ่อก็พาลูกไปหาตำรวจ" },
-            { emoji: "👮‍♂️⏳✨", en: "A while later, the police came.", th: "สักพัก ตำรวจมา" },
-            { emoji: "🗣️🚔🎙️", en: "He told the police about what happened.", th: "เขาบอกตำรวจว่า เกิดอะไรขึ้น" },
-            { emoji: "🔍📝👮‍♂️", en: "The police collected evidence for investigation.", th: "ตำรวจเก็บหลักฐานไปทำการสืบสวนสอบสวน" },
-            { emoji: "📦🕵️‍♂️✅", en: "Then the police found out the truth what the mysterious box was from.", th: "แล้วก็ตำรวจรู้ความจริงว่า กล่องลึกลับมาจากไหน" },
-            { emoji: "🏁🏁🏁", en: "The end.", th: "จบแล้ว" },
-            { emoji: "🏠🏠✨", en: "I went to Khun Ton's new house yesterday.", th: "ไปบ้านใหม่คุณต้นเมื่อวาน" },
-            { emoji: "🏠❓✨", en: "How was Khun Ton's new house?", th: "บ้านใหม่คุณต้นเป็นยังไง" },
-            { emoji: "✨🌈🏠", en: "vibe", th: "บรรยากาศ" },
-            { emoji: "🥗🥗🌶️", en: "Today, I've eaten papaya salad for lunch.", th: "วันนี้ฉันกินส้มตำตอนเที่ยงแล้ว" },
-            { emoji: "🍜🍱🥢", en: "Today, I've eaten noodles for lunch.", th: "วันนี้ฉันกินก๋วยเตี๋ยวเป็นอาหารเที่ยง" },
-            { emoji: "🐟🍶🌶️", en: "fermented fish", th: "ปลาร้า" },
-            { emoji: "🎭🤫✨", en: "Mime", th: "ทำท่า" },
-            { emoji: "👉🔍📍", en: "e.g.", th: "for the sake of example (exempli gratia in Latin)" },
-            { emoji: "📔✍️✨", en: "keep a diary", th: "เขียนไดอารี่" },
-            { emoji: "✅🛠️✨", en: "Useful", th: "มีประโยชน์" },
-            { emoji: "🗣️📜✨", en: "Phrases", th: "วลี" },
-            { emoji: "🐍🐍🤝", en: "I have caught a small cobra.", th: "เคยจับงูเห่าตัวเล็ก" },
-            { emoji: "🐍🛣️🐍", en: "I saw a python cross the road.", th: "เห็นงูเหลือมข้ามถนน" },
-            { emoji: "🐍🐍✨", en: "Ptyas", th: "งูสิงห์ (พา ยัส)" },
-            { emoji: "🍷🎆🗓️", en: "I drank alocohol during the New Year.", th: "ดื่มช่วงปีใหม่" },
-            { emoji: "🏝️🌊✨", en: "island", th: "เกาะ" },
-            { emoji: "🏙️🏢🌃", en: "city", th: "เมือง" },
-            { emoji: "🐊🥩🐷", en: "Crocodiles taste like pork.", th: "จรเข้รสชาติเหมือนหมู" },
-            { emoji: "🍶🍶🔥", en: "rice whisky / white spirit / white liquor", th: "เหล้าขาว" },
-            { emoji: "👤❓🤔", en: "Who were you?", th: "คุณเคยเป็นใคร" },
-            { emoji: "🦆🔥🍽️", en: "roasted duck", th: "เป็ดย่าง" },
-            { emoji: "🥜🥜🥜", en: "beans / nuts", th: "ถั่ว" },
-            { emoji: "🔫🚫🏥", en: "Were you in Korat when there was a mass shooting?", th: "อยู่โคราชตอนที่เขากราดยิงไหม (ใหญ่)" },
-            { emoji: "👶📍🚗", en: "I took my son there.", th: "พาลูกชายไปที่นั่น" },
-            { emoji: "🐄🥩🔥", en: "roasted cow skin", th: "หนังวัวเผา" },
-            { emoji: "🚭📉✨", en: "They smoke less now.", th: "พวกเขาสูบน้อยลงแล้ว" },
-            { emoji: "🌿🚬🥬", en: "weed / cannabis", th: "กัญชา" },
-            { emoji: "👨‍🦲🚫🦱", en: "He doesn't have hair.", th: "เขาไม่มีผม" },
-            { emoji: "🦱❓🤔", en: "Does he have hair?", th: "เขามีผมไหม" },
-            { emoji: "💰🤝🏷️", en: "He sold it.", th: "เขาขายแล้ว" },
-            { emoji: "☕🏫🚶‍♂️", en: "I bring a cup to the classroom.", th: "ฉันเอาแก้วน้ำมาในห้องเรียน" },
-            { emoji: "🏺🏢🚶‍♂️", en: "I have brought a pot to the office.", th: "ฉันเคยเอาหม้อมาออฟฟิศ" },
-            { emoji: "📸🤳✨", en: "I like to take photos.", th: "ฉันชอบถ่ายรูป" },
-            { emoji: "🤕💊😫", en: "I had a headache.", th: "ฉันปวดหัว (อดีต)" },
-            { emoji: "👨‍⚕️🏥👶", en: "I have taken my son to (see) the doctor.", th: "ฉันเคยพาลูกชายไปหาหมอ" },
-            { emoji: "🤒💊🤒", en: "He was sick.", th: "เขาไม่สบาย (อดีต)" },
-            { emoji: "🤒🌡️🔥", en: "He had a fever.", th: "เขาเป็นไข้ (อดีต)" },
-            { emoji: "👕👗💰", en: "I like to sell second-hand clothes.", th: "ชอบขายเสื้อผ้ามือสอง" },
-            { emoji: "🍚🍗🍗", en: "I have sold chicken rice in front of a wet market.", th: "เคยขายข้าวมันไก่หน้าตลาดสด" },
-            { emoji: "🖨️🛍️🏢", en: "I usually buy printers at the mall.", th: "ฉันมักจะซื้อปรินต์เตอร์ที่ห้าง" },
-            { emoji: "⛴️📍🌊", en: "pier", th: "ท่าเรือ" },
-            { emoji: "↔️📍🏘️", en: "opposite", th: "ตรงข้าม" },
-            { emoji: "👤🚶‍♂️🏠", en: "I was alone.", th: "อยู่คนเดียว (อดีต)" },
-            { emoji: "🧘‍♂️💆‍♂️✨", en: "I felt relaxed and didn't have a headache.", th: "รีเล็ก และไม่ปวดหัว (อดีต)" },
-            { emoji: "🚶‍♂️💰📍", en: "I was walking and then I saw money. So, I took it.", th: "เดินอยู่ แล้วก็เจอเงิน ก็เลยเอาไป" },
-            { emoji: "🍺🚗🚫", en: "drunk driving", th: "เมาแล้วขับ" },
-            { emoji: "🚿💦😊", en: "I like to get wet.", th: "ชอบเปียก" },
-            { emoji: "🏡👦🤝", en: "I went to my boyfriend's hometown.", th: "ไปบ้านเกิดของแฟน" },
-            { emoji: "👕🧺🌧️", en: "Yesterday, I washed my shirt, and then it rained.", th: "ฉันซักเสื้อของฉันเมื่อวาน แล้วก็ฝนตก" },
-            { emoji: "🧼🫧👕", en: "(Laundry) detergent", th: "ผงซักฟอก" },
-            { emoji: "🧼❓🤔", en: "What detergent did you use?", th: "ใช้ผงซักฟอกอะไร" },
-            { emoji: "🧥🧺📍", en: "Where did hang it?", th: "ตากไว้ที่ไหน" },
-            { emoji: "🏡🧺🌳", en: "I hung it in the backyard.", th: "ตากไว้ในส่วนหลังบ้าน" },
-            { emoji: "🏢🏙️🏠", en: "balcony", th: "ระเบียงบ้าน" },
-            { emoji: "🏷️🔄🤔", en: "I think K'Earn used another brand.", th: "คิดว่า คุณเอิร์นใช้ยี่ห้ออื่น" },
-            { emoji: "🛵2️⃣0️⃣0️⃣", en: "Yesterday, I went to my home in Pattaya, and I paid 200 for a motorcycle taxi.", th: "เมื่อวานไปที่บ้านที่พัทยา แล้วก็จ่ายค่ามอเตอร์ไซค์ 200 บาท" },
-            { emoji: "🏠❓🤔", en: "Why did you go home?", th: "ทำไมกลับบ้าน" },
-            { emoji: "🇨🇳✈️🇹🇭", en: "I came back from China.", th: "กลับมาจากจีน" },
-            { emoji: "📱❓💸", en: "What app did you pay 200 baht to?", th: "จ่าย 200 บาท ให้กับแอพอะไร" },
-            { emoji: "💵❓📱", en: "How did you pay: cash or scan?", th: "จ่ายยังไง เงินสดหรือสแกน" },
-            { emoji: "💵🤝💰", en: "I paid by cash.", th: "จ่ายเงินสด" },
-            { emoji: "💼🧳✈️", en: "luggage", th: "กระเป๋าเดินทาง" },
-            { emoji: "🏍️🧼⛰️", en: "Yesterday, I washed my motorcycle after I went hiking.", th: "เมื่อวานล้างมอเตอร์ไซค์หลังปีนเขา" },
-            { emoji: "⛰️❓🗓️", en: "Do you go hiking every week?", th: "ไปปีนเขาทุกอาทิตย์ไหม" },
-            { emoji: "🕕❓⛰️", en: "What time did you go hiking?", th: "ไปปีนเขากี่โมง" },
-            { emoji: "🕕💡🛤️", en: "6.30pm", th: "หกโมงครึ่ง ตอนเย็น" },
-            { emoji: "🏍️🧼❓", en: "There are lights along the way.", th: "มีไฟตลอดทาง" },
-            { emoji: "💩🏍️🟤", en: "Why did you have to wash your motorcycle?", th: "ทำไมต้องล้างมอเตอร์ไซค์" },
-            { emoji: "🌧️🗓️⏪", en: "It was muddy.", th: "มันเต็มไปด้วยโคลน" },
-            { emoji: "🕕👻❓", en: "It was raining yesterday.", th: "เมื่อวานฝนตก" },
-            { emoji: "🎡🏮👻", en: "Who would go hiking at 6pm?", th: "ใครจะไปปีนเขาตอนหกโมงเย็น" },
-            { emoji: "👻❓🕙", en: "Yesterday, I went to Phra Samut Jedi festival, and I took my son to a haunted house.", th: "เมื่อวานไปงานพระสมุทรเจดีย์ และพาลูกชายไปบ้านผีสิง" },
-            { emoji: "👻🎫❓", en: "What time did you go to the haunted house?", th: "ไปบ้านผีสิงกี่โมง" },
-            { emoji: "🥳🎊✨", en: "How much was the haunted house ticket?", th: "ค่าตั๋วเข้าบ้านผีสิงกี่บาท" },
-            { emoji: "🚗💨🗓️", en: "celebrate", th: "ฉลอง" },
-            { emoji: "🏠❓🤔", en: "My mum wanted to go to Isan yesterday, but we didn't go. So, we will leave tomorrow.", th: "แม่อยากไปอีสานเมื่อวาน แต่ไม่ได้ไป ก็เลยจะไปพรุ่งนี้" },
-            { emoji: "👩‍👦❓🌄", en: "Why does your mum want to go to Isan?", th: "ทำไมแม่อยากไปอีสาน" },
-            { emoji: "🛠️🔧📦", en: "equipment", th: "อุปกรณ์" },
-            { emoji: "🌟🧘‍♂️💡", en: "real-life experience", th: "ประสบการณ์ชีวิตจริง" },
-            { emoji: "👁️🛡️✨", en: "preserve my eyesight", th: "ถนอมสายตา" },
-            { emoji: "🎯🧠📈", en: "Improve focus", th: "พัฒนาโฟกัส" },
-            { emoji: "🎮🔥😡", en: "Mobile games make people hot-headed.", th: "เกมมือถือทำให้คนหัวร้อน" },
-            { emoji: "🔍🖼️✨", en: "find the difference", th: "เกมจับผิดภาพ" },
-            { emoji: "🧠⏳💡", en: "improve memory and attention", th: "พัฒนาความจำและการจดจ่อ" },
-            { emoji: "⌨️🎯💪", en: "hone typing skills", th: "ลับคมทักษะการพิมพ์" },
-            { emoji: "⛰️📈🏖️", en: "Hiking is better than going to the beach.", th: "การเดินป่าดีกว่าการไปชายหาด" },
-            { emoji: "🌿💆‍♂️✨", en: "It's healing.", th: "มันฮีลใจ" },
-            { emoji: "🍎💪✨", en: "It's good for health.", th: "ดีกับสุขภาพ" },
-            { emoji: "🌳🦋🦌", en: "You can be close to nature.", th: "ใกล้ชิดธรรมชาติ" },
-            { emoji: "🦌🐻🦊", en: "wildlife", th: "สัตว์ป่า" },
-            { emoji: "👉🔍📍", en: "such as", th: "เช่น" },
-            { emoji: "🍃🐦🎶", en: "You can hear the sound of nature.", th: "ได้ยินเสียงธรรมชาติ" },
-            { emoji: "🗣️🤝✨", en: "We can exchange experiences.", th: "แลกเปลี่ยนประสบการณ์ได้" },
-            { emoji: "🔥🏃‍♂️📉", en: "You can burn calories.", th: "เบิร์นแคลอรี่ได้" },
-            { emoji: "🍽️🧼✨", en: "I washed the dishes.", th: "ฉันล้างจาน" },
-            { emoji: "🧳💼✈️", en: "suitcase (AmE) / luggage (BrE)", th: "กระเป๋าเดินทาง" },
-            { emoji: "🔊🎶📻", en: "speaker", th: "ลำโพง" },
-            { emoji: "🎃🥳🚫", en: "I've never been to a Halloween party before.", th: "ไม่เคยไปปาร์ตี้ฮาโลวีนมาก่อน" },
-            { emoji: "👻💄✨", en: "wear make-up as a ghost", th: "แต่งหน้าเป็นผี" },
-            { emoji: "🧛‍♂️👕👗", en: "costume", th: "เครื่องแต่งกาย" },
-            { emoji: "💰📜🏠", en: "inheritance", th: "มรดก" },
-            { emoji: "📍🚶‍♂️✨", en: "wherever you'd like to go", th: "ที่ไหนก็ได้ที่อยากไป" },
-            { emoji: "🏬👕📦", en: "clothing warehouse", th: "คลังเสื้อผ้า" },
-            { emoji: "🎓✈️🌍", en: "exchange student", th: "นักเรียนแลกเปลี่ยน" },
-            { emoji: "📅🚶‍♂️🏠", en: "take a leave", th: "ลา" },
-            { emoji: "🏖️📅🍹", en: "take a vacation leave", th: "ลาพักร้อน" },
-            { emoji: "📅2️⃣🔄", en: "twice a week / two times a week", th: "สัปดาห์ละสองครั้ง" },
-            { emoji: "🎓🎓🎓", en: "PhD", th: "ป.เอก" },
-            { emoji: "🗣️🇨🇳🇭🇰", en: "Cantonese", th: "จีนกวางตุ้ง" },
-            { emoji: "🎓❓🏫", en: "Where do you want to study for a PhD?", th: "อยากเรียนป.เอกที่ไหน" },
-            { emoji: "📚🔍🏫", en: "Field / area of study", th: "สาขา(การเรียน)" },
-            { emoji: "🔛📴✨", en: "on and off", th: "ทำๆเลิกๆ" },
-            { emoji: "🖊️📏📓", en: "stationery", th: "เครื่องเขียน" },
-            { emoji: "🏛️✨📜", en: "traditional", th: "ดั้งเดิม" },
-            { emoji: "🔮💭✨", en: "probably", th: "อาจจะ/คง" },
-            { emoji: "🌾🚜🌾", en: "harvest the rice", th: "เกี่ยวข้าว" },
-            { emoji: "🏠🏠⏪", en: "Last weekend, I went to my hometown.", th: "เสาร์อาทิตย์ ฉันกลับบ้านเกิด" },
-            { emoji: "🏖️❓⏳", en: "How long was your holiday?", th: "วันหยุดยาวแค่ไหน" },
-            { emoji: "🏃‍♂️🏋️‍♀️⏪", en: "Yesterday, I went to exercise.", th: "เมื่อวานฉันไปออกกำลังกาย" },
-            { emoji: "🏛️🏢🏢", en: "city hall / town hall", th: "ศาลากลาง" },
-            { emoji: "🛍️🛒🏢", en: "Yesterday, I went to Robinson Sriracha Mall.", th: "เมื่อวานฉันไปห้างโรบินสันศรีราชา" },
-            { emoji: "👤🤝❓", en: "Who did you go with?", th: "ไปกับใคร" },
-            { emoji: "🎬🍿🎞️", en: "On Friday, I'm going to watch a film at the cinema.", th: "วันศุกร์ จะดูหนังที่โรงหนัง" },
-            { emoji: "🎬❓🏢", en: "Which cinema will you go to?", th: "จะไปโรงหนังไหน" },
-            { emoji: "🏖️🏖️✨", en: "This weekend, I'm going to Bangsaen beach.", th: "เสาร์อาทิตย์นี้ ฉันจะไปหาดบางแสน" },
-            { emoji: "🏨🔑❓", en: "Have you booked the hotel?", th: "จองโรงแรมหรือยัง" },
-            { emoji: "🏃‍♂️🏟️🏅", en: "This weekend, I'm going to Sports Day.", th: "เสาร์อาทิตย์ ฉันจะไปงานกีฬาสี" },
-            { emoji: "🏢⏪✨", en: "former/previous/(old) company", th: "บริษัทเก่า" },
-            { emoji: "🎞️🎶✨", en: "Rondo", th: "ลิงชิงบอล" },
-            { emoji: "🍺🥴✨", en: "tipsy", th: "กึ่มๆ" },
-            { emoji: "🧛‍♂️🎭👗", en: "dress up", th: "แต่งตัว" },
-            { emoji: "📍🏁🚗", en: "arrive", th: "ถึง" },
-            { emoji: "🍺😵😵", en: "drunk", th: "เมา" },
-            { emoji: "🤝🤝✨", en: "meet", th: "เจอ" },
-            { emoji: "🗣️⛰️🏔️", en: "Northern dialect", th: "ภาษาเหนือ" },
-            { emoji: "🎯💪✨", en: "motivation", th: "แรงจูงใจ" },
-            { emoji: "🏝️⏪🗓️", en: "Last year, I went to an island.", th: "ปีที่แล้ว ฉันไปเกาะ" },
-            { emoji: "🎋🌲🧺", en: "I have collected bamboo from the forest.", th: "ฉันเคยเก็บหน่อไม้จากป่า" },
-            { emoji: "🎮🕹️✨", en: "I have played games.", th: "เคยเล่นเกม" },
-            { emoji: "🏋️‍♂️🌙✨", en: "Tonight, I am going to the gym.", th: "คืนนี้ ฉันไปฟิตเนส" },
-            { emoji: "👸👑✨", en: "beauty contest", th: "ประกวดนางงาม" },
-            { emoji: "🦱✨💪", en: "afro hair", th: "ทรงผมเอฟโฟร่ (ฟูๆ)" },
-            { emoji: "👤🎤✨", en: "solo artist", th: "ศิลปินเดี่ยว" },
-            { emoji: "🍌🔥🍌", en: "fried banana", th: "กล้วยแขก" },
-            { emoji: "🐟🍽️✨", en: "mackerel", th: "ปลาทู" },
-            { emoji: "🍗🍲🌿", en: "Steamed banana blossom with chicken", th: "หมกหัวปลีใส่ไก่" },
-            { emoji: "🧘‍♂️🗿✨", en: "buddha statue", th: "พระพุทธรูป" },
-            { emoji: "🙏🌊🕯️", en: "ask for blessings from Goddess of the River", th: "ขอพรจากพระแม่คงคา" },
-            { emoji: "🪴🌼✨", en: "I used to grow Marigold.", th: "เคยปลูกดาวเรือง" },
-            { emoji: "🌸🌲🔍", en: "I have seen Orchid in the forest.", th: "เคยเห็นกล้วยไม้ในป่า" },
-            { emoji: "🏮🕯️🌊", en: "float lanterns", th: "ลอยโคม" },
-            { emoji: "🎭🚫👔", en: "The face doesn't match the neck.", th: "หน้าลอย / หน้าไม่เข้ากับคอ / สีหน้าไม่แมทกับคอ" },
-            { emoji: "🙏✨🔮", en: "make a wish", th: "อธิษฐาน" },
-            { emoji: "🏆✅✨", en: "I wish for success.", th: "ขอพรความสำเร็จ" },
-            { emoji: "😊💖✨", en: "I wish for happiness.", th: "ขอพรความสุข" },
-            { emoji: "🐸🔎💧", en: "I search for tadpoles.", th: "หาลูกอ๊อด" },
-            { emoji: "🎣🎣🎣", en: "I fish.", th: "ฉันตกปลา" },
-            { emoji: "🤿🌊🤿", en: "To dive", th: "ดำน้ำ" },
-            { emoji: "🪸🐟✨", en: "corals", th: "ปะการัง" },
-            { emoji: "🤿🪸✨", en: "I'd like to go diving to see corals.", th: "อยากไปดำน้ำดูปะการัง" },
-            { emoji: "🌴🪵🚣‍♂️", en: "banana tree trunk", th: "หยวกกล้วย / หัวปลี" },
-            { emoji: "🙏💖💪", en: "I make a wish for happiness, health and wealth.", th: "ขอพรความสุข สุขภาพ และความมั่งคั่ง" },
-            { emoji: "💩🧹🤢", en: "dirty", th: "สกปรก" },
-            { emoji: "🙏✨🌈", en: "We make a wish for good things to come into our lives.", th: "เราขอพรให้มีสิ่งดีเข้ามาในชีวิต" },
-            { emoji: "🔮✨❓", en: "Do you believe in making a wish, and it comes true?", th: "เชื่อในการขอพรแล้วเป็นจริงไหม" },
-            { emoji: "💰🤴❓", en: "Why do you want a rich husband?", th: "ทำไมอยากมีสามีรวย" },
-            { emoji: "🍞🚣‍♂️🍞", en: "My Krathong is made of bread.", th: "กระทงฉันทำมาจากขนมปัง" },
-            { emoji: "🌊🏙️🏠", en: "floods/flooding", th: "น้ำท่วม" },
-            { emoji: "🍢6️⃣🍢", en: "I ate 6 sticks of meatballs.", th: "กินลูกชิ้น 6 ไม้มา" },
-            { emoji: "🏢🕗🌃", en: "I went back to the office for work at 8pm.", th: "กลับไปทำงานที่ออฟฟิศตอน 2 ทุ่ม" },
-            { emoji: "📄📤✨", en: "I sent the documents.", th: "ส่งเอกสาร" },
-            { emoji: "🏠🕛💤", en: "I went back home and worked until midnight.", th: "ฉันกลับบ้านและทำงานถึงเที่ยงคืน" },
-            { emoji: "🛌🚿🚫", en: "I slept without taking a shower.", th: "นอนโดยไม่ได้อาบน้ำ" },
-            { emoji: "💦😓🥵", en: "sweat", th: "เหงื่อ" },
-            { emoji: "😱👻💀", en: "scary", th: "น่ากลัว" },
-            { emoji: "🌊🏠🚫", en: "I have never experienced floods.", th: "ไม่เคยเจอน้ำท่วม" },
-            { emoji: "🪂💥✨", en: "I have done bungy jumping.", th: "เคยบันจี้จั๊ม" },
-            { emoji: "🪂☁️🚫", en: "I have never done sky diving.", th: "ไม่เคยโดดร่ม" },
-            { emoji: "🐍🐍🚫", en: "I have never eaten snakes.", th: "ไม่เคยกินงู" },
-            { emoji: "🐍🐍🍴", en: "I have eaten eels.", th: "เคยกินปลาไหล" },
-            { emoji: "🇨🇳🇨🇳🚫", en: "I have never been to China.", th: "ไม่เคยไปจีน" },
-            { emoji: "🌏❓📍", en: "What countries have you been?", th: "เคยไปประเทศอะไรบ้าง" },
-            { emoji: "🐍🍴❓", en: "Do you like to eat eels?", th: "ชอบกินปลาไหลไหม" },
-            { emoji: "🐟👅🔄", en: "The texture is similar to fish.", th: "เนื้อคล้ายปลา" },
-            { emoji: "🏍️🏍️🚫", en: "I have never ridden a motorcycle.", th: "ไม่เคยขี่มอเตอร์ไซค์" },
-            { emoji: "🇯🇵🇯🇵🚫", en: "I have never gone to Japan.", th: "ไม่เคยไปญี่ปุ่น" },
-            { emoji: "🐑🥩🍽️", en: "I have eaten lamb.", th: "เคยกินเนื้อแกะ" },
-            { emoji: "👃✨🐏", en: "It has a special smell/scent.", th: "มีกลิ่นพิเศษ" },
-            { emoji: "🏠❓🚗", en: "How do you get home?", th: "กลับบ้านยังไง" },
-            { emoji: "🌆🍲✨", en: "Tonight, I'm going to have dinner.", th: "คืนนี้จะกินข้าวเย็น" },
-            { emoji: "🎬🍿🎞️", en: "I'm going to watch a series.", th: "คืนนี้จะดูซีรี่ส์" },
-            { emoji: "👨‍🏫📖✨", en: "I'm going to teach.", th: "คืนนี้จะสอน" },
-            { emoji: "🍳🥘🌆", en: "After class, I'm going to cook my dinner.", th: "หลังคลาส จะทำข้าวเย็น" },
-            { emoji: "📺🎭🌃", en: "Tonight, I'm going to watch a drama.", th: "คืนนี้จะดูดราม่า" },
-            { emoji: "📓✍️✨", en: "Tonight, I'm going to do my homework.", th: "คืนนี้จะทำการบ้าน" },
-            { emoji: "⚖️🚫⚖️", en: "inequality", th: "ความเหลื่อมล้ำ" },
-            { emoji: "🌀👁️✨", en: "hypnotise", th: "สะกดจิต (v)" },
-            { emoji: "🌶️🌶️🌶️", en: "Red hot chili dip", th: "น้ำพริกตาแดง" },
-            { emoji: "🥬🍲✨", en: "steamed vegetables", th: "ผักนึ่ง" },
-            { emoji: "📖🔍📉", en: "case studies", th: "กรณีศึกษา" },
-            { emoji: "👨‍👩‍👧‍👦🍲", en: "After class, I'm going to have dinner with my parents, my sister and my nephew.", th: "หลังคลาส จะกินข้าวกับพ่อแม่ พี่สาว และหลานชาย" },
-            { emoji: "💼🌃✨", en: "Tonight, I'm going to work.", th: "คืนนี้ จะทำงาน" },
-            { emoji: "🎞️🎞️🌃", en: "Tonight, I'm going to watch series.", th: "คืนนี้จะดูซีรี่ส์" },
-            { emoji: "🔴🔴✨", en: "live", th: "สด (สตรีมมิ่ง)" },
-            { emoji: "😳🫣🎭", en: "embarrassed", th: "รู้สึกอับอาย" },
-            { emoji: "👸🌍👑", en: "We're the host of Miss Universe.", th: "เราเป็นเจ้าภาพจัดมิสยูนิเวิร์ส" },
-            { emoji: "🧠🚫🗣️", en: "I don't use emotions to voice out my opinions.", th: "ไม่ใช้อารมณ์ในการแสดงความคิดเห็น" },
-            { emoji: "⏳👤🏃‍♂️", en: "You have to wait for him.", th: "คุณต้องรอเขา" },
-            { emoji: "🌍🗺️👤", en: "She's a rep of a foreign country.", th: "เขาเป็นตัวแทนของต่างประเทศ" },
-            { emoji: "🚫🤝🏃‍♂️", en: "She wasn't cooperating in activities.", th: "เขาไม่ให้ความร่วมมือกับกิจกรรมในกอง" },
-            { emoji: "👤📜📑", en: "They follow Raul's order.", th: "เขาทำตามคำสั่ง" },
-            { emoji: "🤐😤🛑", en: "I have to hold my emotions until Nawat is finished.", th: "ต้องฮึบความรู้สึกไว้จนณวัฒน์พูดเสร็จ" },
-            { emoji: "🙏😔💔", en: "I'm sorry for what happened.", th: "ขอโทษกับเหตุการณ์ที่เกิดขึ้น" },
-            { emoji: "👔🤝✨", en: "I'll be professional to make things go smoothly.", th: "จะเป็นมืออาชีพ เพื่อที่ทุกอย่างจะได้ราบรื่น" },
-            { emoji: "🧠🚫🔥", en: "Dumbheads are hot-headed.", th: "คนโง่ใจร้อน" },
-            { emoji: "⚖️🚫🗣️", en: "When it's unfair for us, we have a voice.", th: "เมื่อมันไม่ยุติธรรมสำหรับ เรามีสิทธิ์ มีเสียง" },
-            { emoji: "🤐💀🛑", en: "If he doesn't shut up, he will die.", th: "ถ้าเขาไม่หุบปาก เขาจะตาย" },
-            { emoji: "🤫🤐🛑", en: "If someone says bad things to me, I say, 'Shut up!'", th: "ถ้ามีคนพูดไม่ดี ฉันจะบอกว่า หุบปาก" },
-            { emoji: "⚖️🤝👤", en: "When somebody is fair to me, I'll be fair to them.", th: "ถ้าใครยุติธรรมกับฉัน ฉันจะยุติธรรมกับเขาด้วย" },
-            { emoji: "👸💪✨", en: "Empowered women lift each other up, creating the world of posibilities", th: "ผู้หญิงที่เข้มแข็งอุ้มชูกันขึ้นมา ทำให้เกิดโลกแห่งโอกาส" },
-            { emoji: "👸🎯✨", en: "I have an aim of becoming an empowered woman because I can make a difference and make difficult things easy.", th: "ฉันมีจุดมุ่งหมายที่จะเป็นผู้หญิงที่เข้มแข็ง เพราะฉันจะสร้างความแตกต่างและทำให้เรื่องยากเป็นเรื่องง่าย" },
-            { emoji: "👑👸✨", en: "All women have dignity like men.", th: "ผู้หญิงทุกคนมีศักดิ์ศรีเหมือนผู้ชาย" },
-            { emoji: "👑🚫🍴", en: "You cannot eat dignity. / Dignity cannot be eaten.", th: "ศักดิ์ศรีกินไม่ได้" },
-            { emoji: "💼☀️🌕", en: "I'm going to work all day.", th: "จะทำงานทั้งวัน" },
-            { emoji: "💼🗓️🌕", en: "I'm going to work the whole day.", th: "จะทำงานทั้งวัน" },
-            { emoji: "🌊🌊🏠", en: "Flood / Flooding", th: "น้ำท่วม" },
-            { emoji: "💧📈⚠️", en: "Water level", th: "ระดับน้ำ" },
-            { emoji: "🌧️🌧️🌧️", en: "Pouring (rain)", th: "ฝนถล่ม / ฟ้ารั่ว" },
-            { emoji: "🤪🌀🔥", en: "Insane / Crazy (adj)", th: "บ้า" },
-            { emoji: "🌊🛤️🚢", en: "River", th: "แม่น้ำ" },
-            { emoji: "🚧💧🚫", en: "Dam / Weir", th: "เขื่อน" },
-            { emoji: "🌊💖😊", en: "I like floods.", th: "ชอบน้ำท่วม" },
-            { emoji: "🌊🏙️😫", en: "Flooding damages Bangkok.", th: "น้ำท่วมสร้างความเสียหายให้กรุงเทพฯ" },
-            { emoji: "📍💧⚠️", en: "Bangkok's water level is dangerous.", th: "ระดับน้ำของกรุงเทพฯอันตราย" },
-            { emoji: "🚧💧📈", en: "Bhumibon dam's water level is high.", th: "ระดับน้ำเขื่อนภูมิพลสูง" },
-            { emoji: "🌧️🌇🏙️", en: "Yesterday, it was pouring in Silom.", th: "เมื่อวานฝนถล่มสีลม" },
-            { emoji: "🌧️🏖️⏪", en: "Last week, it was pouring in Pattaya.", th: "สัปดาห์ที่แล้วฟ้าถล่มฝนทลายพัทยา" },
-            { emoji: "🤪👥🏙️", en: "There are a lot of insane people in Silom.", th: "มีคนเสียสติเยอะในสีลม" },
-            { emoji: "😨🚶‍♂️👻", en: "I'm scared when I walk past them.", th: "กลัวตอนเดินผ่าน" },
-            { emoji: "🤪👥🗣️", en: "K.Wild often talks about crazy customers.", th: "คุณวิลพูดถึงลูกค้าบ้าๆบ่อย" },
-            { emoji: "🏠🛣️🌊", en: "My home is near Chaopraya River.", th: "บ้านอยู่ใกล้แม่น้ำเจ้าพระยา" },
-            { emoji: "🏠📍🌊", en: "My home is close to Chaopraya River.", th: "บ้านอยู่ใกล้แม่น้ำเจ้าพระยา" },
-            { emoji: "🏥👤🌡️", en: "My friend is a patient.", th: "เพื่อนเป็นคนไข้" },
-            { emoji: "💪🍎✨", en: "Take care of your health!", th: "รักษาสุขภาพด้วยนะ" },
-            { emoji: "😫💤💤", en: "Faint / Pass out", th: "เป็นลม" },
-            { emoji: "😟😟💔", en: "I'm worried about them.", th: "เป็นห่วงพวกเขา" },
-            { emoji: "📱💦📉", en: "I'll drop my phone into the water.", th: "จะทำโทรศัพท์ตกน้ำ" },
-            { emoji: "🐶🌊😫", en: "My dog is drowning.", th: "หมากำลังจะจมน้ำ" },
-            { emoji: "🐶🌊📍", en: "The dog is in the middle of the river.", th: "หมาอยู่กลางแม่น้ำ" },
-            { emoji: "🚣‍♂️🚣‍♂️🐶", en: "You row your boat to help your dog.", th: "พายเรือไปช่วยหมาคุณซะ" },
-            { emoji: "🌿🍳🐷", en: "stir-fried basil with pork", th: "ผัดกะเพราหมู" },
-            { emoji: "⚡️🌩️💀", en: "lightning strike", th: "ฟ้าผ่า" },
-            { emoji: "🩺🩹👤", en: "A person performs first aid.", th: "หนึ่งคนปฐมพยาบาล" },
-            { emoji: "👃✨🌬️", en: "inhaler", th: "ยาดม" },
-            { emoji: "🔥🚒🧯", en: "To put out the fire", th: "ดับไฟ" },
-            { emoji: "🐟🍽️🥘", en: "Nile Tilapia", th: "ปลานิล" },
-            { emoji: "🌩️📢⚡", en: "thunder", th: "ฟ้าร้อง" },
-            { emoji: "🔮⚪✨", en: "marble", th: "ลูกแก้ว" },
-            { emoji: "📍🏃‍♂️🔄", en: "I often go there.", th: "ไปบ่อย" },
-            { emoji: "🕒4️⃣🗓️", en: "once in four months", th: "4 เดือนครั้ง" },
-            { emoji: "🏖️✨🧼", en: "There were many clean beaches.", th: "เคยมีหาดสะอาดหลายหาด" },
-            { emoji: "🎇📅🗓️", en: "There's a firework festival from Friday to Sunday.", th: "มีเทศกาลพลุ" },
-            { emoji: "⛰️📈🚫", en: "I'm not into hiking.", th: "ไม่อินกับการเดินป่า" },
-            { emoji: "🐛🐛🐛", en: "centipedes", th: "ตะขาบ" },
-            { emoji: "🌿🍜🥢", en: "seaweed", th: "สาหร่าย" },
-            { emoji: "👩❓✨", en: "Who's more beautiful?", th: "ใครสวยกว่า" },
-            { emoji: "👸👑🚫", en: "The Miss Universe competition/crown was rigged.", th: "การประกวด/มงกุฏ Miss Universe ถูกล็อกผลไว้" },
-            { emoji: "🚫🤝💸", en: "Cheater", th: "คนโกง" },
-            { emoji: "🍻🕺🏢", en: "Host bar", th: "บาร์โฮสต์" },
-            { emoji: "🎒🏫🧒", en: "primary school", th: "โรงเรียนประถม" },
-            { emoji: "🌊🌧️🇹🇭", en: "In southern Thailand, there are floods and it's pouring.", th: "ในตอนใต้ของไทย มีน้ำท่วม และฝนถล่ม" },
-            { emoji: "🏠🏙️🏠", en: "A lot of people are trapped in their houses in Hat Yai.", th: "คนติดอยู่ในบ้านที่หาดใหญ่เยอะ" },
-            { emoji: "🏠🏠🏢", en: "A lot of people are trapped on the roof and waiting for help.", th: "คนเยอะติดอยู่บนหลังคาและกำลังรอความช่วยเหลือ" },
-            { emoji: "🐶🏠😫", en: "Animals are trapped in their houses and on the roofs and waiting for help and die.", th: "สัตว์ติดอยู่ในบ้านและหลังคาและรอความช่วยเหลือและตาย" },
-            { emoji: "🐶🏠😫", en: "I think a lot of pets are trapped in houses.", th: "สัตว์เลี้ยงหลายตัวติดอยู่ในบ้าน" },
-            { emoji: "👥🛡️✅", en: "People are going to be safe.", th: "คนกำลังจะปลอดภัย" },
-            { emoji: "🆘🏃‍♂️🏠", en: "Some people have help to go to safe places.", th: "บางคนได้รับการช่วยเหลือให้ไปอยู่ที่ที่ปลอดภัย" },
-            { emoji: "🐱💖🛡️", en: "I think I want the pets to be safe.", th: "คิดว่า อยากให้สัตว์เลี้ยงปลอดภัย" },
-            { emoji: "⚠️🆘😱", en: "We'll get into trouble.", th: "จะมีปัญหา" },
-            { emoji: "🌟🎙️📰", en: "fame", th: "ชื่อเสียง" },
-            { emoji: "📺🎥📰", en: "We'll be on the news.", th: "จะเป็นข่าว" },
-            { emoji: "🆘🌊🏚️", en: "victims", th: "ผู้ประสบภัย" },
-            { emoji: "🐍😱🚫", en: "I'm scared of snakes.", th: "กลัวงู" },
-            { emoji: "🧂🥘🚫", en: "Flavour enhancer (powder)", th: "ผงชูรส" },
-            { emoji: "🐍🥱🍃", en: "I'm bored of snakes.", th: "เบื่อขนม" },
-            { emoji: "👥🌍🤝", en: "society", th: "สังคม" },
-            { emoji: "💰😊✨", en: "Money can be paid for everything and make me happy and have fun.", th: "เงินใช้จ่ายได้ทุกอย่างและทำให้ฉันมีความสุขและสนุก" },
-            { emoji: "🌊🆘😫", en: "I can't stand seeing them drown.", th: "ทนเห็นเขาจมน้ำไม่ได้" },
-            { emoji: "👤💖✨", en: "He's humane.", th: "มีความเป็นมนุษย์ (เห็นอกเห็นใจเพื่อนมนุษย์)" },
-            { emoji: "👵👴✨", en: "elders / elderlies", th: "ผู้สูงอายุ" },
-            { emoji: "👴👵💪", en: "Elderlies may not be as strong as other people.", th: "ผู้สูงอายุอาจจะไม่แข็งแรงเท่าคนอื่น" },
-            { emoji: "👑💎✨", en: "The crown is an object.", th: "มงกุฏเป็นสิ่งของ" },
-            { emoji: "💪⛓️↔️", en: "pull", th: "ดึง" },
-            { emoji: "🔄👥🔄", en: "take turns", th: "ผลัดกัน" },
-            { emoji: "♿🌊🛟", en: "floating wheelchairs", th: "รถเข็นลอยได้" },
-            { emoji: "🛠️🧩✅", en: "assemble", th: "ประกอบ" },
-            { emoji: "🧠🧘‍♂️✨", en: "mindfulness", th: "สติ" },
-            { emoji: "🎁🕒✨", en: "get = Present ปัจจุบัน", th: "" },
-            { emoji: "⏪🕒✨", en: "got = Past อดีต", th: "" },
-            { emoji: "✅", en: "I've got = I have", th: "" },
-            { emoji: "👋🚌🏁", en: "I saw my friend off at the bus terminal.", th: "ไปส่งเพื่อนที่สถานีรถบัส" },
-            { emoji: "🪖🏍️🛡️", en: "I wear a helmet when I ride a motorbike so that I'm safe.", th: "ฉันใส่หมวกกันน็อคตอนขี่มอไซค์ เพื่อที่ฉันจะได้ปลอดภัย" },
-            { emoji: "⛰️❓⏳", en: "How long do you hike?", th: "เดินป่านานเท่าไร" },
-            { emoji: "⛰️❓📍", en: "Where do you go hiking?", th: "ไปเดินป่าที่ไหน" },
-            { emoji: "👤🚫🤝", en: "I don't have new friends because I'm an introvert.", th: "ไม่มีเพื่อนใหม่เพราะเป็นอินโทรเวิร์ด" },
-            { emoji: "🏥🏥📜", en: "Do you have a social insurance at the hospital?", th: "มีประกันสังคมที่โรงพยาบาลไหม" },
-            { emoji: "🏢🏢🏢", en: "Building", th: "ตึก" },
-            { emoji: "🏛️📸✨", en: "famous places", th: "สถานที่ดังๆ" },
-            { emoji: "🏰🏰🏛️", en: "tourist attractions", th: "สถานที่ท่องเที่ยว" },
-            { emoji: "👤🌍🗺️", en: "foreigners", th: "ต่างชาติ" },
-            { emoji: "🥔🍠🟤", en: "yam", th: "มัน (เผือก)" },
-            { emoji: "🥔🍠🟤", en: "Cassava", th: "มันสำปะหลัง" },
-            { emoji: "✅❓🤔", en: "Do you think they deserve it?", th: "คิดว่า เขาควรได้รับรางวัลไหม" },
-            { emoji: "🙏🔮✨", en: "It looks sacred.", th: "ดูขลัง" },
-            { emoji: "🇹🇭🏗️✨", en: "I have fun when I see them build the page of Thailand.", th: "รู้สึกสนุกตอนเห็นเขาสร้างเพจประเทศไทย" },
-            { emoji: "📺🇹🇭🎬", en: "I want to add Mor Tam to the video of Thailand.", th: "อยากเพิ่มหมอลำไปไหนวิดีโอไทย" },
-            { emoji: "🏖️📍🇹🇭", en: "I want to Pattaya beach to be one of the Thailand's landmarks.", th: "อยากให้หาดพัทยาเป็นหนึ่งในสถานที่สำคัญของไทย" },
-            { emoji: "🛺📍🏙️", en: "I want Bangkok to have a TukTuk landmark.", th: "อยากให้กรุงเทพฯมีสถานที่สำคัญที่มีตุ๊กตุ๊ก" },
-            { emoji: "2️⃣🥈✨", en: "Now, Thailand has a lot of second places.", th: "ตอนนี้ประเทศไทยมีที่สองเยอะ" },
-            { emoji: "2️⃣🎟️💰", en: "I want to win the second place of lottery.", th: "อยากถูกหวยรางวัลที่ 2" },
-            { emoji: "🎤🏆🏢", en: "I won a singing contest at the former office.", th: "ชนะประกวดร้องเพลงที่ที่ทำงานเก่า" },
-            { emoji: "🗳️🎓✅", en: "I won a student council election.", th: "ชนะการเลือกตั้งสภานักเรียน" },
-            { emoji: "🎟️7️⃣7️⃣", en: "I won a lottery. The number was the same as the license plate.", th: "ถูกหวย เบอร์เดียวกับป้ายทะเบียน" },
-            { emoji: "🛺🏖️🛣️", en: "I can take a truck taxi to Pattaya beach.", th: "นั่งรถสองแถวไปหาดพัทยา" },
-            { emoji: "🚣‍♂️🛍️🌊", en: "floating market", th: "ตลาดน้ำ" },
-            { emoji: "💇‍♂️✂️✨", en: "Did you get your hair cut?", th: "ไปตัดผมมาไหม" },
-            { emoji: "🎨💇‍♀️✨", en: "I dyed my hair.", th: "ไปทำสีมา" },
-            { emoji: "📜🏛️🗓️", en: "Constitution Day", th: "วันรัฐธรรมนูญ" },
-            { emoji: "📅☀️⛪", en: "weekend", th: "เสาร์อาทิตย์" },
-            { emoji: "⛵🌊✨", en: "sailing", th: "เล่นเรือใบ" },
-            { emoji: "🪳🪳🚫", en: "cockroaches", th: "แมลงสาบ" },
-            { emoji: "🧧🧧🧧", en: "red envelopes", th: "ซองแดง" },
-            { emoji: "💼🗓️📈", en: "I have worked for Gorioux since August until today.", th: "ทำงานกับ Gorioux ตั้งแต่เดือนสิงหาถึงวันนี้" },
-            { emoji: "🏠📍🌊", en: "My home is near a river.", th: "บ้านอยู่ใกล้แม่น้ำ" },
-            { emoji: "🏢👗👗", en: "I want the company to have a dressing room.", th: "อยากให้บริษัทมีห้องแต่งตัว" },
-            { emoji: "🏢👗❓", en: "Do you want the company to have a dressing room?", th: "อยากให้บริษัทมีห้องแต่งตัวไหม" },
-            { emoji: "💩🟤❓", en: "Do you like mud?", th: "ชอบโคลนไหม" },
-            { emoji: "🐛❓📍", en: "Which insects do you like?", th: "ชอบแมลงอะไร" },
-            { emoji: "🦗🦗🎶", en: "Cicadidae", th: "จั๊กจั่น (si-CAD-i-dee)" },
-            { emoji: "🐀🍴⏪", en: "Last week, my friends cooked rats for me.", th: "อาทิตย์ที่แล้ว เพื่อนทำหนูให้กิน" },
-            { emoji: "📊👔✨", en: "management", th: "การบริหารจัดการ" },
-            { emoji: "💡🚫🔌", en: "LEDs weren't turned on.", th: "ไฟแอลอีดีไม่เปิด (อดีต)" },
-            { emoji: "🎯✨💪", en: "I want to do everything well.", th: "อยากทำทุกอย่างให้ดี" },
-            { emoji: "1️⃣🎶✨", en: "Have you heard of the song 'To be number 1'?", th: "เคยได้ยินเพลง 'To be number 1' ไหม" },
-            { emoji: "🧸💖✨", en: "cuddly", th: "ขี้อ้อน" },
-            { emoji: "💖✨🤝", en: "caring", th: "เอาใจใส่" },
-            { emoji: "🏍️💨🏃‍♂️", en: "ride a motorbike", th: "ขี่มอเตอร์ไซค์" },
-            { emoji: "🚗🎯✨", en: "K'Tuktaa's goals are to be able to drive a car and have a new car.", th: "เป้าหมายของคุณตุ๊กตาคือ ขับรถได้และมีรถใหม่" },
-            { emoji: "🎓✨📜", en: "K'Earn will graduate a Master's degree.", th: "คุณเอิร์นจะจบ ป.โท" },
-            { emoji: "👶👶📈", en: "K'Puu will have more kids.", th: "จะมีลูกมากขึ้น" },
-            { emoji: "👨💍🤝", en: "I want K'Puu to have a new husband to help raise her son.", th: "อยากให้คุณปูมีสามีใหม่มาช่วยเลี้ยงลูก" },
-            { emoji: "🛗🏢⬆️", en: "lift", th: "ยก" },
-            { emoji: "🧠🧘‍♂️✨", en: "When I'm working, I must have mindfulness.", th: "ตอนทำงานต้องมีสติ" },
-            { emoji: "🐟🍶🌶️", en: "I always put fermented fish in my cooking.", th: "ฉันใส่ปลาร้าในอาหารที่ทำประจำ" },
-            { emoji: "⛰️2️⃣🔄", en: "I go hiking two times per week.", th: "ไปเดินป่าอาทิตย์ละสองครั้ง" },
-            { emoji: "🥗❓🕒", en: "How often do you cook papaya salad?", th: "ทำส้มตำบ่อยแค่ไหน" },
-            { emoji: "🍲❓🤝", en: "How often do you have dinner with somebody?", th: "ไปดินเนอร์กับใครบางคนบ่อยแค่ไหน" },
-            { emoji: "🎁🎁✨", en: "presents / gifts", th: "ของขวัญ" },
-            { emoji: "🤝🤝💖", en: "donate", th: "บริจาค" },
-            { emoji: "🍜🍜🍜", en: "instant noodles", th: "มาม่า (ทันที)" },
-            { emoji: "💖🐭⚡", en: "I really hope that children will be happy with my Pikachu.", th: "หวังเป็นอย่างยิ่งว่า เด็กๆจะมีความสุขกับพิก้าจูที่ฉันให้" },
-            { emoji: "🤝💓👥", en: "Hook up with someone", th: "แอบแซ่บกับใครบางคน" },
-            { emoji: "👥👥🐾", en: "He has many pets.", th: "มีสัตว์เลี้ยงหลายตัว" },
-            { emoji: "🕛🕛🕛", en: "noon", th: "เที่ยงวัน" },
-            { emoji: "🕘3️⃣0️⃣", en: "half past 9", th: "9 โมงครึ่ง" },
-            { emoji: "🐟🍶🌶️", en: "Spicy Thai Fish Dip", th: "ป่นปลา / น้ำพริกปลา" },
-            { emoji: "🐍🐟🍽️", en: "Snakehead fish", th: "ปลาช่อน" },
-            { emoji: "🙏✨🕯️", en: "make merit", th: "ทำบุญ" },
-            { emoji: "🍽️❓✨", en: "Have you eaten?", th: "กินข้าวยัง" },
-            { emoji: "🎆🗓️❓", en: "How's the New Year holiday?", th: "วันหยุดปีใหม่เป็นยังไงบ้าง" },
-            { emoji: "🎟️🎁✨", en: "lucky draw", th: "จับฉลาก" },
-            { emoji: "⚖️⚖️✨", en: "justice", th: "ความยุติธรรม" },
-            { emoji: "⚖️↔️⚖️", en: "equality", th: "ความเท่าเทียม" },
-            { emoji: "⚖️❌🚫", en: "injustice", th: "ความไม่ยุติธรรม" },
-            { emoji: "🏡🌲🏞️", en: "My hometown has beautiful national parks.", th: "บ้านเกิดของฉันมีอุทยานแห่งชาติที่สวยงาม" },
-            { emoji: "🧼🫧👕", en: "When I do laundry, I use liquid detergent.", th: "ตอนซักผ้า ฉันใช้ผงซักฟอกแบบน้ำ" },
-            { emoji: "⛰️🌧️🌧️", en: "When I go hiking, there's pouring rain.", th: "ตอนไปเดินป่า มีฝนตกหนัก" },
-            { emoji: "⏲️🥴❓", en: "While you're counting down, why were you tipsy?", th: "ตอนเคาน์ดาวน์ ทำไมคุณกึ่มๆ" },
-            { emoji: "⛰️👩‍❤️‍👨❓", en: "Do you go hiking with your boyfriend?", th: "ไปเดินป่ากับแฟนไหม" },
-            { emoji: "🖇️🖇️🖇️", en: "paper clips", th: "คลิปหนีบกระดาษ" },
-            { emoji: "👻🏚️❓", en: "Do you like haunted houses?", th: "ชอบบ้านผีสิงไหม" },
-            { emoji: "🌊🏗️📍", en: "Does Samut prakan have floods?", th: "สมุทรปราการมีน้ำท่วมไหม" },
-            { emoji: "🌊📉📈", en: "There are high and low tides.", th: "มีน้ำขึ้นน้ำลง" },
-            { emoji: "🗳️🐘🏛️", en: "political parties", th: "พรรคการเมือง" },
-            { emoji: "💰🧾🏦", en: "tax refund", th: "การได้คืนภาษี" },
-            { emoji: "❄️⛄❓", en: "Have you seen snow?", th: "เคยเห็นหิมะไหม" },
-            { emoji: "🐛🍴❓", en: "Have you eaten bugs?", th: "เคยกินแมลงไหม" },
-            { emoji: "🦗🦗🦗", en: "grasshoppers", th: "ตั๊กแตน" },
-            { emoji: "📜🏥🩺", en: "doctor's note / medical certificate", th: "ใบรับรองแพทย์" },
-            { emoji: "❌👎🚫", en: "Not really", th: "ไม่ค่อย" },
-            { emoji: "🍟🍟🍟", en: "crisps", th: "ขนมถุง" },
-            { emoji: "💪🏋️‍♂️✨", en: "push-ups", th: "วิดพื้น" },
-            { emoji: "📉📉❓", en: "What do you want to cut down on?", th: "อยากลดอะไร" },
-            { emoji: "🎯🗓️✨", en: "What do you have to stick to this year?", th: "ปีนี้ต้องทำตามอะไร / ปีนี้ยังต้องทำอะไร(ต่อ)อยู่" },
-            { emoji: "🏋️‍♂️🏠🔄", en: "I am going to exercise in my room every day.", th: "ฉันจะออกกำลังกายในห้องทุกวัน" },
-            { emoji: "🕖🌆✨", en: "7pm", th: "1 ทุ่ม" },
-            { emoji: "🛍️🐟🥘", en: "I'm going to the market to buy fish for cooking.", th: "จะไปตลาดไปซื้อปลามาทำอาหาร" },
-            { emoji: "🐟🐱🥘", en: "catfish", th: "ปลาดุก" },
-            { emoji: "🏃‍♂️🏃‍♂️🏃‍♂️", en: "I'm going to run.", th: "จะไปวิ่ง" },
-            { emoji: "🌳🏃‍♂️🌳", en: "park", th: "สวน" },
-            { emoji: "🏢🛍️🛒", en: "I'm going to (go to) Central.", th: "จะไปเซ็นทรัล" },
-            { emoji: "🛍️❓🤔", en: "What are you going to do there?", th: "จะไปทำอะไรที่นั่น" },
-            { emoji: "🔮💭✨", en: "might", th: "อาจจะ" },
-            { emoji: "⛰️📈❓", en: "K'Nexty might hike.", th: "เขาอาจจะไปเดินป่า" },
-            { emoji: "💼🏠🚫", en: "K'Nexty might not work from office.", th: "เขาอาจจะไม่ทำงานจากออฟฟิศ" },
-            { emoji: "👩‍❤️‍👨❓🤔", en: "K'Nexty might have a boyfriend.", th: "เขาอาจจะมีแฟน" },
-            { emoji: "❓📊✨", en: "Which is the most likely?", th: "อะไรที่จะเป็นไปได้มากที่สุด" },
-            { emoji: "🚧🚧🚧", en: "The road is under construction.", th: "เขาทำถนน" },
-            { emoji: "🤵‍♂️❓💍", en: "K'Tuktaa might find a husband.", th: "เขาอาจจะเจอสามี" },
-            { emoji: "🚗✨🆕", en: "K'Tuktaa might have a new car.", th: "เขาอาจจะมีรถใหม่" },
-            { emoji: "📱✨🆕", en: "K'Tuktaa might buy a new phone.", th: "เขาอาจจะซื้อโทรศัพท์ใหม่" },
-            { emoji: "🚗💼🛣️", en: "I want to drive to work myself.", th: "อยากขับรถไปทำงานเอง" },
-            { emoji: "🚗✨🆕", en: "K'Ice might buy a new car.", th: "เขาอาจจะมีรถใหม่" },
-            { emoji: "🌍✈️🗺️", en: "K'Ice might travel to another country.", th: "เขาอาจจะเที่ยวประเทศอื่น" },
-            { emoji: "🚗⏪💰", en: "K'Ice wants me to buy K'Ice's old car.", th: "คุณไอซ์อยากให้ฉันซื้อรถเก่าของเขา" },
-            { emoji: "🎓🎓🎓", en: "K'Puu might complete her bachelor's degree.", th: "คุณปูอาจจะเรียนตรีจบ" },
-            { emoji: "🗣️🇬🇧✅", en: "K'Puu might speak English well.", th: "คุณปูอาจจะพูดอังกฤษดี" },
-            { emoji: "💰📈✨", en: "K'Puu might get a pay raise.", th: "คุณปูอาจจะได้ขึ้นเงินเดือน" },
-            { emoji: "✨💄👸", en: "beauty", th: "ความสวย" },
-            { emoji: "🎓🎓🎓", en: "rehearse for graduation ceremony(commencement)", th: "ซ้อมรับปริญญา" },
-            { emoji: "🛠️🏍️🔧", en: "I went to my friend's garage to get my family's motorcycle fixed.", th: "ไปอู่ซ่อมรถเพื่อน เพื่อซ่อมมอเตอร์ไซค์ของครอบครัว" },
-            { emoji: "💼🏢🏢", en: "Department of Employment", th: "สำนักงานจัดหางาน" },
-            { emoji: "💼🏢🏢", en: "Chonburi Provincial Employment Office", th: "สำนักงานจัดหางานจังหวัดชลบุรี" },
-            { emoji: "🏢💼🕒", en: "How long did it take?", th: "ใช้เวลานานไหม (อดีต)" },
-            { emoji: "🕒⏳1️⃣", en: "I took the car there for an hour.", th: "นั่งรถยนต์ไปหนึ่งชั่วโมง" },
-            { emoji: "👥💼🏢", en: "employee", th: "พนักงาน" },
-            { emoji: "🎓🕒❓", en: "When will you have the ceremony?", th: "จะมีพิธีเมื่อไร" },
-            { emoji: "2️⃣5️⃣📅", en: "On the 25th", th: "วันที่ 25" },
-            { emoji: "🛍️🛒🏢", en: "Mall", th: "ห้าง" },
-            { emoji: "⚖️🚫⚖️", en: "The government in Thailand has inequality.", th: "รัฐบาลไทยมีความเหลื่อมล้ำ" },
-            { emoji: "🏋️‍♂️❓🔄", en: "How often do you exercise in your room?", th: "ออกกำลังกายในห้องบ่อยแค่ไหน" },
-            { emoji: "📅2️⃣🔄", en: "twice a month", th: "เดือนละสองครั้ง" },
-            { emoji: "⚠️🛠️⚠️", en: "have to", th: "ต้อง" },
-            { emoji: "🏝️🏖️❓", en: "Have you been to Laan island?", th: "เคยไปเกาะล้านไหม" },
-            { emoji: "🤿🤿✨", en: "snorkeling", th: "ดำน้ำ (ผิวน้ำ)" },
-            { emoji: "👥👥🚫", en: "There weren't many people.", th: "มีคนไม่เยอะ (อดีต)" },
-            { emoji: "🏖️❓👑", en: "Where do you like to travel to the most?", th: "ชอบไปเที่ยวที่ไหนที่สุด" },
-            { emoji: "🌍✈️🗺️", en: "overseas; abroad", th: "ต่างประเทศ" },
-            { emoji: "🚫✈️❌", en: "I've never been. / I've never gone.", th: "ไม่เคยไป" },
-            { emoji: "😱😱🔊", en: "I got too excited and screamed.", th: "ตื่นเต้นเกินไป และกรี๊ด (อดีต)" },
-            { emoji: "🚣‍♂️🌊🛶", en: "white water rafting", th: "การล่องแก่ง" },
-            { emoji: "🦋🏊‍♂️✨", en: "butterfly stroke", th: "ท่าผีเสื้อ (ว่ายน้ำ)" },
-            { emoji: "🌊🌊😱", en: "I'm scared of deep water.", th: "กลัวน้ำลึก" },
-            { emoji: "🐸🏊‍♂️✨", en: "breast stroke", th: "ท่ากบ (หน้าอก)" },
-            { emoji: "🏊‍♂️🏊‍♂️✨", en: "back stroke", th: "ท่ากรรเชียง" },
-            { emoji: "🏆⚽❓", en: "Have you ever wanted to win the world cup?", th: "เคยอยากชนะเวิล์ดคัพไหม" },
-            { emoji: "🎮🕹️🔥", en: "I'm addicted to RoV.", th: "ติด RoV" },
-            { emoji: "🎮🏆🎮", en: "e-sport", th: "เกมส์ (แข่งเล่นเกมส์)" },
-            { emoji: "1️⃣0️⃣0️⃣0️⃣", en: "billion", th: "1,000,000,000; a thousand million" },
-            { emoji: "🏅🏅❓", en: "Have you watched the olympic games?", th: "เคยดูโอลิมปิกส์" },
-            { emoji: "🏋️‍♂️🏋️‍♂️✨", en: "weight lifting", th: "การยกน้ำหนัก" },
-            { emoji: "🤸‍♂️🤸‍♀️✨", en: "gymnastics", th: "ยิมนาสนิก" },
-            { emoji: "💰💰💰", en: "passive income", th: "รายได้แบบไม่ต้องทำอะไร" },
-            { emoji: "💪💼✨", en: "I have to work hard.", th: "ต้องทำงานหนัก" },
-            { emoji: "🏠🏠💰", en: "put it on lease; sublet", th: "ปล่อยให้เช่า" },
-            { emoji: "💰💰💰", en: "I'm on installments.", th: "ผ่อนอยู่" },
-            { emoji: "📚🇯🇵✨", en: "manga", th: "หนังสือการ์ตูนญี่ปุ่น" },
-            { emoji: "🌌🌌✨", en: "universe", th: "จักรวาล" },
-            { emoji: "⚽❓🚩", en: "What is your favourite football team?", th: "ทีมโปรดของคุณคือทีมอะไร" },
-            { emoji: "⚽📺🚫", en: "I don't like watching football.", th: "ไม่ชอบดูฟุตบอล" },
-            { emoji: "⚽👤❓", en: "Who is your favourite footballer?", th: "นักบอลคนโปรดของคุณคือใคร" },
-            { emoji: "⚽👥🤝", en: "He used to be on the same team as a national footballer.", th: "เขาเคยอยู่ทีมเดียวกันกับนักบอลทีมชาติ" },
-            { emoji: "🇳🇴🇳🇴✨", en: "Norwegian", th: "คนนอร์เวย์" },
-            { emoji: "💼📊✨", en: "My dream is to be an accountant.", th: "ความฝันของฉันคือเป็นนักบัญชี" },
-            { emoji: "📈🪴🌳", en: "grow", th: "เติบโต" },
-            { emoji: "🔍📊📈", en: "My dream is to become an auditor.", th: "ความฝันของฉันคือเป็นผู้สอบบัญชี" },
-            { emoji: "👶🧒🕰️", en: "childhood", th: "วัยเด็ก" },
-            { emoji: "🤝🤝✨", en: "Same as K.Earn", th: "เหมือนคุณเอิร์น" },
-            { emoji: "👩‍⚕️💀🥀", en: "Nurses have to be with corpses.", th: "พยาบาลต้องอยู่กับศพ" },
-            { emoji: "⚱️🔥🥀", en: "cremation", th: "การเผาศพ" },
-            { emoji: "🗑️🚫🏖️", en: "There aren't a lot of bins at the beach.", th: "ไม่มีถังขยะที่ชายหาดเยอะ" },
-            { emoji: "🏢🤝😊", en: "In your office, who's very nice to you?", th: "ในออฟฟิศ ใครที่ดีกับคุณมาก" },
-            { emoji: "🎉😊🤝", en: "How do you cheer people up?", th: "ให้กำลังใจคนยังไง" },
-            { emoji: "🤝🌱✨", en: "I shared my life experiences with them.", th: "แชร์ประสบการณ์ชีวิตกับพวกเขา" },
-            { emoji: "👂👂✨", en: "I listen to them.", th: "ฉันฟังพวกเขา" },
-            { emoji: "👤🏠🚫", en: "How do you help homeless people?", th: "ช่วยคนไร้บ้านยังไง" },
-            { emoji: "🌧️🌧️🌧️", en: "It was raining.", th: "ฝนตกอยู่ (อดีต)" },
-            { emoji: "🏠📉🪜", en: "I tried to take her down the stairs.", th: "พยายามช่วยพาเขาลงบันได" },
-            { emoji: "👤🏠🇺🇸", en: "What do you think about the homeless in America?", th: "คิดยังไงกับพวกคนไร้บ้านในอเมริกา" },
-            { emoji: "👤🏠👥", en: "There are many homeless people in America.", th: "มีคนไร้บ้านที่อเมริกาเยอะ" },
-            { emoji: "🏠🏢🤝", en: "shelter", th: "ที่พักอาศัย" },
-            { emoji: "📱🏠🤝", en: "Tiktokers helped with housing.", th: "อินฟลูติ๊กต็อกช่วยเรื่องบ้าน" },
-            { emoji: "👥💼🏢", en: "colleagues; co-workers", th: "เพื่อนร่วมงาน" },
-            { emoji: "📊📑🤝", en: "Do you need colleagues to help you with closing financial statements?", th: "ต้องการเพื่อนร่วมงานมาช่วยปิดบัญชี" },
-            { emoji: "🧠🗣️👂", en: "counsellors", th: "ที่ปรึกษา" },
-            { emoji: "🤔💖🥇", en: "Do you think who's the kindest?", th: "คิดว่า ใครใจดีที่สุด" },
-            { emoji: "👨‍👩‍👦❓💖", en: "Between your dad and mum, who's kinder?", th: "ระหว่างพ่อกับแม่ ใครใจดีกว่า" },
-            { emoji: "😤😤😤", en: "fussy", th: "ขี้บ่น; จู้จี้; จุกจิก" },
-            { emoji: "🧼🧹📊", en: "I think K.Tuktaa can clean up auditing.", th: "คิดว่า คุณตุ๊กตาจะสามารถเคลียร์งานออดิทได้" },
-            { emoji: "🧼✨📉", en: "I think K.Tuktaa can be a clean auditor.", th: "คิดว่า คุณตุ๊กตาจะสามารถเป็นผู้ตรวจสอบบัญชีมือสะอาดได้" },
-            { emoji: "📒✨✅", en: "I think K.Earn records accounting cleanly.", th: "คิดว่า คุณเอิร์นบันทึกบัญชีอย่างเรียบร้อย" },
-            { emoji: "🚫🤝🇨🇳", en: "Not join hands with Cambodia and China", th: "ไม่ร่วมมือกับกัมพูชาและจีน" },
-            { emoji: "🌫️🇨🇳💰", en: "Grey Chinese", th: "จีนเทา" },
-            { emoji: "🗳️✅✨", en: "election", th: "การเลือกตั้ง" },
-            { emoji: "⏺️🎙️📝", en: "record", th: "อัด (v)" },
-            { emoji: "🔄🔢📊", en: "I had to change a lot of account codes.", th: "ต้องเปลี่ยนโค้ดบัญชีหลายตัว" },
-            { emoji: "📉➡️📈", en: "workflow", th: "ขั้นตอนการทำงาน" },
-            { emoji: "🏙️🧹🏠", en: "My friend came to Thailand and told me to clean her condo.", th: "เพื่อนมาไทยและบอกให้ทำความสะอาดคอนโด" },
-            { emoji: "📊📑❓", en: "How's your financial statement closing going?", th: "ปิดงบเป็นยังไงบ้าง" },
-            { emoji: "📊📑😊", en: "How do you feel about closing financial statements today?", th: "รู้สึกยังไงกับการปิดงบวันนี้" },
-            { emoji: "🇨🇳❄️🏔️", en: "I want to go to China because I want to feel cold.", th: "อยากไปจีนเพราะอยากรู้สึกหนาว" },
-            { emoji: "🏙️📍❓", en: "Which city do you want to go?", th: "อยากไปเมืองไหน" },
-            { emoji: "👨‍👩‍👧‍👦💖✨", en: "I'm caring for my parents.", th: "ฉันดูแลพ่อแม่" },
-            { emoji: "👵👴💖❓", en: "How do you care for your parents?", th: "ดูแลพ่อแม่ยังไง" },
-            { emoji: "🚜🌾🏡", en: "When I go back to their hometown, I help them with farming.", th: "ตอนกลับไปบ้านเกิดเขา ไปช่วยทำฟาร์ม" },
-            { emoji: "🏠🏢🏗️", en: "I want more properties.", th: "อยากได้ทรัพย์สิน (ที่ดิน) เพิ่ม" },
-            { emoji: "🏠🆘🏘️", en: "I hope the poor will have good shelter.", th: "หวังว่า คนจนจะมีที่พักพิงที่ดี" },
-            { emoji: "💡👤💬", en: "I ask for advice from K.Wild.", th: "ฉันขอคำปรึกษาคุณวิล" },
-            { emoji: "👤💡💬", en: "K.Wild gives advice to me.", th: "คุณวิลให้คำปรึกษาฉัน" },
-            { emoji: "👤❓💡", en: "Can K.Aim give advice to you?", th: "คุณเอมให้คำปรึกษาคุณได้ไหม" },
-            { emoji: "💰🧾🔙", en: "When you submit personal income tax this year, do you get a tax refund?", th: "ตอนส่งภาษีเงินได้ปีนี้ ได้ภาษีคืนไหม" },
-            { emoji: "🧹🧽🏢", en: "I went to clean my friend's condo.", th: "ไปทำความสะอาดคอนโดเพื่อน" },
-            { emoji: "🏛️👨‍⚖️⚖️", en: "court", th: "ศาล" },
-            { emoji: "⚖️📜👨‍⚖️", en: "verdict", th: "คำพิพากษา" },
-            { emoji: "📈💰🏛️", en: "tax increase", th: "การเพิ่มภาษี" },
-            { emoji: "🌋🌪️🌊", en: "disasters", th: "ภัยพิบัติ" },
-            { emoji: "🌍🔥🌡️", en: "global warming", th: "โลกร้อน" },
-            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
-            { emoji: "💸📉🚫", en: "lose a lot of money", th: "เสียเงินเยอะ" },
-            { emoji: "🧾🛂🚢", en: "import tariff", th: "ภาษีนำเข้า" },
-            { emoji: "🌍📥🇹🇭", en: "Other countries import goods from our country.", th: "ประเทศอื่นนำเข้าสินค้าจากประเทศเรา" },
-            { emoji: "💰🏛️📈", en: "They have to pay more tax.", th: "ต้องจ่ายภาษีมากขึ้น" },
-            { emoji: "📊💡🏢", en: "It's for businesses to understand more about tariff payment", th: "มันทำเพื่อให้ธุรกิจเข้าใจเกี่ยวกับการจ่ายภาษีมากขึ้น" },
-            { emoji: "🏗️🇹🇭⚠️", en: "If they want to start up a company in Thailand, they have to be careful.", th: "ถ้าอยากเริ่มบริษัทในไทย ต้องระวัง" },
-            { emoji: "💰📈🌍", en: "The cost is higher than other countries.", th: "ต้นทุนสูงกว่าประเทศอื่น" },
-            { emoji: "💼🌍👔", en: "foreign businesspeople", th: "นักธุรกิจชาวต่างชาติ" },
-            { emoji: "💰📈🇹🇭", en: "There are many foreign investors in Thailand.", th: "มีนักลงทุนต่างชาติที่ไทยเยอะ" },
-            { emoji: "💰📈📊", en: "invest", th: "ลงทุน" },
-            { emoji: "🤝📈📦", en: "trade", th: "(ทำ)การค้า" },
-            { emoji: "🏥📜🛡️", en: "social insurance", th: "ประกันสังคม" },
-            { emoji: "🛫🎫💰", en: "airport fees", th: "ค่าธรรมเนียมสนามบิน" },
-            { emoji: "✅🎟️📦", en: "It's included.", th: "รวมแล้ว" },
-            { emoji: "🤝🌍📈", en: "trade relationships", th: "ความสัมพันธ์ทางการค้า" },
-            { emoji: "📈📈📈", en: "increase", th: "เพิ่ม" },
-            { emoji: "📉📉📉", en: "decrease", th: "ลด" },
-            { emoji: "✨💰🌍", en: "create value for foreign investors", th: "สร้างมูลค่าให้นักลงทุนต่างชาติ" },
-            { emoji: "💰🔄🇹🇭", en: "Thailand has better cashflow.", th: "ประเทศมีเงินหมุนเวียนดีขึ้น" },
-            { emoji: "💵💰📈", en: "income", th: "รายได้" },
-            { emoji: "🇨🇳📈🇱🇦", en: "There are a lot of Chinese investors in Laos.", th: "มีนักลงทุนจีนเยอะในลาว" },
-            { emoji: "💸✍️📊", en: "We need to make up expenses.", th: "เราต้องเมครายจ่าย" },
-            { emoji: "📊📤💸", en: "Selling Expenses", th: "ค่าใช้จ่ายในการขาย" },
-            { emoji: "⛽⛽⛽", en: "gas / petrol", th: "น้ำมัน" },
-            { emoji: "🛍️🛒🏢", en: "malls", th: "ห้าง" },
-            { emoji: "📢📺💸", en: "advertising expense", th: "ค่าใช้จ่ายในการโฆษณา" },
-            { emoji: "🧻🧻🧻", en: "napkin", th: "กระดาษเช็ดปาก" },
-            { emoji: "💎💰📈", en: "high-priced", th: "แพง" },
-            { emoji: "🚢🌊🐢", en: "We can transport goods through boat/ship, but it takes a long time.", th: "ส่งของทางเรือ แต่ใช้เวลานาน" },
-            { emoji: "💰🤝🚫", en: "bribe", th: "ติดสินบน" },
-            { emoji: "👤👔🤝", en: "front-line staff", th: "เจ้าหน้าที่ด่านหน้า" },
-            { emoji: "🛂🛂👮", en: "customs officer", th: "เจ้าหน้าที่ศุลกากร" },
-            { emoji: "🛂🛃👮", en: "immigration officer", th: "เจ้าหน้าที่ ตม." },
-            { emoji: "📊🚫⚠️", en: "We need to be careful of tax avoidance.", th: "เราต้องระวังเรื่องการเลี่ยงภาษี" },
-            { emoji: "📊🍳📚", en: "We need to be careful of cooking the books.", th: "เราต้องระวังเรื่องการแต่งงบ" },
-            { emoji: "⚠️‼️✨", en: "important", th: "สำคัญ" },
-            { emoji: "🚫⚖️🔨", en: "penalty", th: "โทษ" },
-            { emoji: "😴💤💤", en: "K'Earn needs to sleep.", th: "คุณเอิร์นต้องนอน" },
-            { emoji: "🍲🍽️✨", en: "K'Earn needs to have dinner.", th: "คุณเอิร์นต้องกินข้าวเย็น" },
-            { emoji: "📊📑1️⃣", en: "K'Earn needs to finish closing a financial statement for one company.", th: "คุณเอิร์นต้องปิดงบ 1 บริษัทให้เสร็จ" },
-            { emoji: "⏺️📒📊", en: "K'Earn needs to record accounts.", th: "คุณเอิร์นต้องบันทึกบัญชี" },
-            { emoji: "📄🧾🏢", en: "K'Tuktaa needs to issue invoices for clients to use for services.", th: "คุณตุ๊กตาต้องออกอินวอยซ์ให้ลูกค้าเพื่อใช้สำหรับการบริการ" },
-            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
-            { emoji: "📊📑🏁", en: "K'Tuktaa needs to finish closing financial statements.", th: "คุณตุ๊กตาต้องปิดงบ" },
-            { emoji: "💻📊🏢", en: "As Sunlight Garden has income, how should I record accounts on Odoo so that I can close their financial statement?", th: "Sunlight Garden มีรายได้ ฉันควรบันทึกบัญชีในโอดูยังไงให้ปิดงบได้" },
-            { emoji: "💻🖥️✨", en: "Odoo", th: "Oh-doo" },
-            { emoji: "💡✨📝", en: "Tips", th: "เคล็ดลับ" },
-            { emoji: "💰🎁✨", en: "allowance", th: "ลดหย่อน" },
-            { emoji: "💳💸🔄", en: "pay in instalments", th: "จ่ายเป็นงวด / ผ่อนจ่าย" },
-            { emoji: "💰❌🤝", en: "I don't have money to pay for the tax. Can you lend me some?", th: "ไม่มีเงินจ่ายภาษี ให้ยืมได้ไหม" },
-            { emoji: "💰🤝📄", en: "loan", th: "เงินกู้" },
-            { emoji: "💰🤝📄", en: "borrow", th: "ยืม" },
-            { emoji: "💰❓🤝", en: "Do you have money to give me?", th: "มีเงินให้ฉันไหม" },
-            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
-            { emoji: "🎸🎤🎶", en: "live music", th: "ดนตรีสด" },
-            { emoji: "🍹❄️🍸", en: "Slushy Cocktail", th: "เหล้าปั่น" },
-            { emoji: "🗓️🗓️🗓️", en: "long weekend", th: "หยุดยาว" },
-            { emoji: "📜🎶🎤", en: "lyrics", th: "เนื้อเพลง" },
-            { emoji: "⏳📉📅", en: "lately", th: "ช่วงนี้" },
-            { emoji: "📝🕒⏱️", en: "briefly", th: "สั้นๆ / คร่าวๆ" },
-            { emoji: "🎖️🏰🛡️", en: "military base", th: "ฐานทัพทหาร" },
-            { emoji: "👤👑🎖️", en: "leader", th: "ผู้นำ" },
-            { emoji: "🤤👑🔥", en: "power-hungry", th: "บ้าอำนาจ" },
-            { emoji: "⚖️🏛️📜", en: "law", th: "กฎหมาย" },
-            { emoji: "🧠📚✨", en: "experience", th: "เจอ(ประสบการณ์) - v" },
-            { emoji: "📲💰⚡", en: "top up", th: "เติม" },
-            { emoji: "🪫🚫❌", en: "run out", th: "หมด" },
-            { emoji: "🐷💰🪙", en: "piggy bank", th: "กระปุกออมสิน" },
-            { emoji: "🐢📈✨", en: "gradually", th: "เรื่อยๆ / อย่างต่อเนื่อง" },
-            { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
-            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
-            { emoji: "⛽🏭⚙️", en: "Oil refining machine", th: "เครื่องกลั่นน้ำมัน" },
-            { emoji: "🌊🗺️🚢", en: "the Strait of Hormuz", th: "ช่องแคบฮอร์มุซ" },
-            { emoji: "🔩⛓️🏗️", en: "metal", th: "โลหะ" },
-            { emoji: "⛓️💰🟡", en: "It's tied to the gold value.", th: "ผูกกับมูลค่าทองคำ" },
-            { emoji: "📈🟡📈", en: "The gold price jumped on the line graph.", th: "ราคาทองพุ่งในกราฟเส้น" },
-            { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
-            { emoji: "💵💵💵", en: "bills / bank notes", th: "แบงค์" },
-            { emoji: "💸💳🤲", en: "cash", th: "เงินสด" },
-            { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
-            { emoji: "🤲🟡🏃‍♂️", en: "carry gold", th: "ถือทอง" },
-            { emoji: "🛡️🧠✅", en: "It's not at risk of being lost or forgotten.", th: "ไม่เสี่ยงหายหรือลืม" },
-            { emoji: "🌐🚫❌", en: "The internet is down.", th: "เน็ตล่ม" },
-            { emoji: "🧽🍽️✨", en: "wash dishes", th: "ล้างจาน" },
-            { emoji: "💰📈🏭", en: "invest", th: "ลงทุน" },
-            { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
-            { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
-            { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
-            { emoji: "🦠🤒💊", en: "disease", th: "โรค" },
-            { emoji: "🐔🥩🍴", en: "chicken meat", th: "เนื้อไก่" },
-            { emoji: "🌱🧪🌿", en: "fertiliser", th: "ปุ๋ย" },
-            { emoji: "🌳🍎🍊", en: "Fruit trees", th: "ต้นไม้ที่กินผล" },
-            { emoji: "🥬🥦🌿", en: "Leafy greens", th: "ต้นไม้ที่กินใบ" },
-            { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
-            { emoji: "🎡🎢🎬", en: "There is Universal Studio.", th: "มียูนิเวอร์แซล" },
-            { emoji: "💰📈🏢", en: "She invested in a company.", th: "เธอเคยลงทุนกับบริษัทนึง" }
-        ];
+    function setStatus(msg, color = 'text-purple-400') {
+        const el = document.getElementById('forum-status');
+        if (el) { el.textContent = msg; el.className = `text-xs text-center mb-3 font-semibold ${color}`; }
+    }
 
-        // Specific List for Section 8 display
-        const additionalVocabList = [
-            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
-            { emoji: "🎸🎤🎶", en: "live music", th: "ดนตรีสด" },
-            { emoji: "🍹❄️🍸", en: "Slushy Cocktail", th: "เหล้าปั่น" },
-            { emoji: "🗓️🗓️🗓️", en: "long weekend", th: "หยุดยาว" },
-            { emoji: "📜🎶🎤", en: "lyrics", th: "เนื้อเพลง" },
-            { emoji: "⏳📉📅", en: "lately", th: "ช่วงนี้" },
-            { emoji: "📝🕒⏱️", en: "briefly", th: "สั้นๆ / คร่าวๆ" },
-            { emoji: "🎖️🏰🛡️", en: "military base", th: "ฐานทัพทหาร" },
-            { emoji: "👤👑🎖️", en: "leader", th: "ผู้นำ" },
-            { emoji: "🤤👑🔥", en: "power-hungry", th: "บ้าอำนาจ" },
-            { emoji: "⚖️🏛️📜", en: "law", th: "กฎหมาย" },
-            { emoji: "🧠📚✨", en: "experience", th: "เจอ(ประสบการณ์) - v" },
-            { emoji: "📲💰⚡", en: "top up", th: "เติม" },
-            { emoji: "🪫🚫❌", en: "run out", th: "หมด" },
-            { emoji: "🐷💰🪙", en: "piggy bank", th: "กระปุกออมสิน" },
-            { emoji: "🐢📈✨", en: "gradually", th: "เรื่อยๆ / อย่างต่อเนื่อง" },
-            { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
-            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
-            { emoji: "⛽🏭⚙️", en: "Oil refining machine", th: "เครื่องกลั่นน้ำมัน" },
-            { emoji: "🌊🗺️🚢", en: "the Strait of Hormuz", th: "ช่องแคบฮอร์มุซ" },
-            { emoji: "🔩⛓️🏗️", en: "metal", th: "โลหะ" },
-            { emoji: "⛓️💰🟡", en: "It's tied to the gold value.", th: "ผูกกับมูลค่าทองคำ" },
-            { emoji: "📈🟡📈", en: "The gold price jumped on the line graph.", th: "ราคาทองพุ่งในกราฟเส้น" },
-            { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
-            { emoji: "💵💵💵", en: "bills / bank notes", th: "แบงค์" },
-            { emoji: "💸💳🤲", en: "cash", th: "เงินสด" },
-            { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
-            { emoji: "🤲🟡🏃‍♂️", en: "carry gold", th: "ถือทอง" },
-            { emoji: "🛡️🧠✅", en: "It's not at risk of being lost or forgotten.", th: "ไม่เสี่ยงหายหรือลืม" },
-            { emoji: "🌐🚫❌", en: "The internet is down.", th: "เน็ตล่ม" },
-            { emoji: "🧽🍽️✨", en: "wash dishes", th: "ล้างจาน" },
-            { emoji: "💰📈🏭", en: "invest", th: "ลงทุน" },
-            { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
-            { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
-            { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
-            { emoji: "🦠🤒💊", en: "disease", th: "โรค" },
-            { emoji: "🐔🥩🍴", en: "chicken meat", th: "เนื้อไก่" },
-            { emoji: "🌱🧪🌿", en: "fertiliser", th: "ปุ๋ย" },
-            { emoji: "🌳🍎🍊", en: "Fruit trees", th: "ต้นไม้ที่กินผล" },
-            { emoji: "🥬🥦🌿", en: "Leafy greens", th: "ต้นไม้ที่กินใบ" },
-            { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
-            { emoji: "🎡🎢🎬", en: "There is Universal Studio.", th: "มียูนิเวอร์แซล" },
-            { emoji: "💰📈🏢", en: "She invested in a company.", th: "เธอเคยลงทุนกับบริษัทนึง" }
-        ];
-
-        function renderAdditionalVocab() {
-            const container = document.getElementById('additional-vocab-grid');
-            if (!container) return;
-            
-            additionalVocabList.forEach((item, index) => {
-                const thId = `add-vocab-${index}`;
-                const card = document.createElement('div');
-                card.className = "bg-white border-2 border-teal-100 p-4 rounded-xl hover:shadow-md transition-shadow flex items-start justify-between gap-2";
-                
-                const emoji = item.emoji || '✨';
-
-                card.innerHTML = `
-                    <div class="flex-1">
-                        <div class="text-2xl mb-1">${emoji}</div>
-                        <h3 class="font-bold text-gray-800 text-lg leading-tight mb-1">${item.en}</h3>
-                        <p id="${thId}" class="hidden text-teal-600 font-bold text-sm mt-1 animate-pulse">${item.th}</p>
-                    </div>
-                    <div class="flex flex-col gap-1 shrink-0">
-                         <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🔊</button>
-                         <button onclick="toggleThai('${thId}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🇹🇭</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+    async function fetchMessages() {
+        try {
+            const r = await fetch(`${BASE_URL}/latest`, { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
+            if (!r.ok) throw new Error(r.status);
+            const data = await r.json();
+            return data.record.messages || [];
+        } catch (e) {
+            console.error('Fetch error:', e);
+            return null;
         }
+    }
 
-        function pickRandomWord() {
-            const display = document.getElementById('wordDisplay');
-            
-            // Combine all vocab for the randomizer
-            const combinedVocab = [...vocabData, ...additionalVocabList];
-            
-            // Animation start
-            display.style.opacity = '0';
-            
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * combinedVocab.length);
-                const item = combinedVocab[randomIndex];
-                const uniqueId = 'rand-' + Math.random().toString(36).substr(2, 9);
-                const randomEmoji = item.emoji ? item.emoji.split('	')[0] : '✨';
-                
-                display.innerHTML = `
-                    <div class="flex flex-col items-center gap-2">
-                        <div class="text-4xl animate-bounce">${randomEmoji}</div>
-                        <div class="text-2xl font-bold text-blue-900 px-4">${item.en}</div>
-                        <div class="flex gap-2 mt-2">
-                            <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon bg-white">🔊 Listen</button>
-                            <button onclick="toggleThai('${uniqueId}')" class="btn-icon bg-white">🇹🇭 TH</button>
-                        </div>
-                        <div id="${uniqueId}" class="hidden text-lg text-gray-500 font-bold mt-2">${item.th}</div>
-                    </div>
-                `;
-                
-                // Animation end
-                display.style.opacity = '1';
-            }, 200);
+    async function saveMessages(messages) {
+        const r = await fetch(BASE_URL, {
+            method: 'PUT',
+            headers: HEADERS,
+            body: JSON.stringify({ messages })
+        });
+        if (!r.ok) throw new Error(r.status);
+    }
+
+    function renderMessages(messages) {
+        const board = document.getElementById('secretBoard');
+        if (!board) return;
+        if (messages.length === 0) {
+            board.innerHTML = '<p class="text-gray-400 text-sm text-center italic mt-4">Waiting for secrets... 🤫</p>';
+            return;
         }
+        board.innerHTML = '';
+        // newest first
+        [...messages].reverse().forEach(msg => {
+            const div = document.createElement('div');
+            div.className = 'msg-enter bg-purple-100 p-3 rounded text-gray-800 text-sm shadow-sm border border-purple-200 flex justify-between items-start gap-2';
+            div.innerHTML = `
+                <span><span class="font-bold text-purple-800">🕵️ Anonymous:</span> "${escapeHtml(msg.text)}"</span>
+                <button onclick="deleteMessage('${msg.id}')" title="Remove" class="text-red-400 hover:text-red-600 transition flex-shrink-0">❌</button>
+            `;
+            board.appendChild(div);
+        });
+    }
 
-        // Initialize additional vocab
-        renderAdditionalVocab();
-    </script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    async function startPolling() {
+        // Check every 4 seconds for new messages
+        async function poll() {
+            const msgs = await fetchMessages();
+            if (msgs !== null && msgs.length !== lastMessageCount) {
+                lastMessageCount = msgs.length;
+                renderMessages(msgs);
+            }
+        }
+        await poll(); // immediate first load
+        polling = setInterval(poll, 4000);
+    }
 
-        // You can change this ID if you want different classes to have different message boards
-        const appId = 'my-sports-class'; 
-        let db = null;
-        let auth = null;
-        let currentUser = null;
-        let localSecrets = []; // Fallback memory
+    window.submitSecret = async function () {
+        const input = document.getElementById('secretInput');
+        const btn   = document.getElementById('sendBtn');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        btn.disabled = true;
+        btn.textContent = '⏳';
+        input.value = '';
 
         try {
-            // 👇 PASTE YOUR FIREBASE CONFIG HERE 👇
-            <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+            const messages = await fetchMessages();
+            if (messages === null) throw new Error('Could not load');
+            messages.push({ id: Date.now().toString(), text });
+            await saveMessages(messages);
+            lastMessageCount = messages.length;
+            renderMessages(messages);
+            setStatus('✅ Message sent!', 'text-green-500');
+            setTimeout(() => setStatus('🔄 Live — updates every 4 seconds', 'text-purple-400'), 2000);
+        } catch (e) {
+            setStatus('❌ Error sending. Check your JSONBin keys.', 'text-red-500');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Send';
+        }
+    };
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAKuPJcKEGyPtJP9yHawG3HXk2n4MxAIwo",
-    authDomain: "sports-lesson-5de2a.firebaseapp.com",
-    projectId: "sports-lesson-5de2a",
-    storageBucket: "sports-lesson-5de2a.firebasestorage.app",
-    messagingSenderId: "524796141933",
-    appId: "1:524796141933:web:49d125e8e260d2f6e17a64",
-    measurementId: "G-NFYXYDQSD4"
-  };
+    window.deleteMessage = async function (id) {
+        try {
+            const messages = await fetchMessages();
+            if (messages === null) return;
+            const updated = messages.filter(m => m.id !== id);
+            await saveMessages(updated);
+            lastMessageCount = updated.length;
+            renderMessages(updated);
+        } catch (e) {
+            setStatus('❌ Could not delete. Try again.', 'text-red-500');
+        }
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+    window.clearAllMessages = async function () {
+        if (!confirm('Clear ALL messages from the board?')) return;
+        try {
+            await saveMessages([]);
+            lastMessageCount = 0;
+            renderMessages([]);
+            setStatus('🗑️ Board cleared.', 'text-gray-400');
+        } catch (e) {
+            setStatus('❌ Could not clear. Check your JSONBin keys.', 'text-red-500');
+        }
+    };
+
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
+    // ── Kick off ──────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('secretInput');
+        if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') window.submitSecret(); });
+
+        const configured = JSONBIN_API_KEY !== '$2a$10$$2a$10$zW4wiGZrhcqDaBHttyJrqetgl18v.69djL1pt6.2AAawhRSziVuUu' && JSONBIN_BIN_ID !== 'https://api.jsonbin.io/v3/b/69b11131d746013455b08d33';
+        if (configured) {
+            setStatus('🔄 Live — updates every 4 seconds', 'text-purple-400');
+            startPolling();
+        } else {
+            setStatus('⚠️ Not connected yet — see setup instructions below', 'text-orange-500');
+            document.getElementById('secretBoard').innerHTML = `
+                <div class="text-sm text-orange-700 bg-orange-50 p-3 rounded border border-orange-200 space-y-2">
+                    <p class="font-bold">📋 Quick Setup (2 minutes):</p>
+                    <ol class="list-decimal pl-4 space-y-1">
+                        <li>Go to <a href="https://jsonbin.io" target="_blank" class="underline text-blue-600">jsonbin.io</a> and sign up free</li>
+                        <li>Click <strong>+ Create Bin</strong> and paste: <code class="bg-white px-1 rounded">{"messages":[]}</code></li>
+                        <li>Copy the <strong>BIN ID</strong> from the URL</li>
+                        <li>Go to <strong>API Keys</strong> tab → copy your <strong>Master Key</strong></li>
+                        <li>Paste both into the code where it says <code class="bg-white px-1 rounded">REPLACE_WITH_...</code></li>
+                    </ol>
+                </div>`;
+        }
+    });
 </script>
-            // 👆 -------------------------------- 👆
 
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
+<script>
+    // ── Vocabulary data & warm-up spinner (unchanged from original) ─────────────
+    const vocabData = [
+        { emoji: "🌍📍✈️", en: "Experiences", th: "ประสบการณ์" },
+        { emoji: "🇵🇱🏰❄️", en: "I have traveled to Poland.", th: "ฉันเคยไปเที่ยวที่โปแลนด์" },
+        { emoji: "🐛🍴😋", en: "I ate bugs.", th: "ฉันเคยกินแมลง" },
+        { emoji: "🇨🇦🍁🏠", en: "I lived in Canada.", th: "ฉันเคยอยู่แคนาดา" },
+        { emoji: "🥈🥈✨", en: "Silver medal", th: "เหรียญเงิน" },
+        { emoji: "🥇🥇✨", en: "Gold medal", th: "เหรียญทอง" },
+        { emoji: "🏅🎖️✨", en: "medal", th: "เหรียญรางวัล" },
+        { emoji: "🤑💰🏆", en: "prize money", th: "เงินรางวัล" },
+        { emoji: "🧾💸✨", en: "sponsor", th: "สปอนเซอร์" },
+        { emoji: "📊🏛️💸", en: "tax", th: "ภาษี" },
+        { emoji: "😂🚫🎯", en: "ridiculous", th: "ไร้สาระ / น่าหัวเราะ" },
+        { emoji: "👁️💭🌍", en: "perspective", th: "มุมมอง" },
+        { emoji: "📈🤩✨", en: "expectations", th: "ความคาดหวัง" },
+        { emoji: "🌟🎿✨", en: "decorated", th: "มีรางวัลมาก" },
+        { emoji: "🎤📰✨", en: "journalist", th: "นักข่าว" },
+        { emoji: "🏆🙌✨", en: "win", th: "ชนะ" },
+        { emoji: "💸📉😢", en: "lose", th: "แพ้ / พลาด" },
+        { emoji: "😭💧✨", en: "cry", th: "ร้องไห้" },
+        { emoji: "🎁✅✨", en: "get", th: "ได้รับ" },
+        { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
+        { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
+        { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
+        { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
+        { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
+        { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
+        { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
+        { emoji: "🏠🏠💰", en: "put it on lease; sublet", th: "ปล่อยให้เช่า" },
+        { emoji: "💰💰💰", en: "passive income", th: "รายได้แบบไม่ต้องทำอะไร" },
+        { emoji: "🐛🍴❓", en: "Have you eaten bugs?", th: "เคยกินแมลงไหม" },
+        { emoji: "❄️⛄❓", en: "Have you seen snow?", th: "เคยเห็นหิมะไหม" }
+    ];
 
-            const initAuth = async () => {
-                try {
-                    await signInAnonymously(auth);
-                } catch(err) {
-                    console.error("Auth error:", err);
-                    fallbackToLocal();
-                }
-            };
+    function pickRandomWord() {
+        const display = document.getElementById('wordDisplay');
+        display.style.opacity = '0';
+        setTimeout(() => {
+            const item = vocabData[Math.floor(Math.random() * vocabData.length)];
+            const uid = 'rand-' + Math.random().toString(36).substr(2, 9);
+            display.innerHTML = `
+                <div class="flex flex-col items-center gap-2">
+                    <div class="text-4xl animate-bounce">${item.emoji}</div>
+                    <div class="text-2xl font-bold text-blue-900 px-4">${item.en}</div>
+                    <div class="flex gap-2 mt-2">
+                        <button onclick="speak('${item.en.replace(/'/g,"\\'")}')" class="btn-icon bg-white">🔊 Listen</button>
+                        <button onclick="toggleThai('${uid}')" class="btn-icon bg-white">🇹🇭 TH</button>
+                    </div>
+                    <div id="${uid}" class="hidden text-lg text-gray-500 font-bold mt-2">${item.th}</div>
+                </div>`;
+            display.style.opacity = '1';
+        }, 200);
+    }
+</script>
 
-            initAuth().then(() => {
-                onAuthStateChanged(auth, (user) => {
-                    currentUser = user;
-                    if (user && db) {
-                        const inputEl = document.getElementById('secretInput');
-                        if (inputEl) {
-                            inputEl.placeholder = "I will buy... (Type here)";
-                            inputEl.addEventListener('keypress', function (e) {
-                                if (e.key === 'Enter') window.submitSecret();
-                            });
-                        }
-                        setupRealtimeListener();
-                    } else {
-                        fallbackToLocal();
-                    }
-                });
-            });
-        } catch(e) { 
-            console.error("Firebase initialization error:", e); 
-            fallbackToLocal();
-        }
-
-        function fallbackToLocal() {
-            db = null;
-            const inputEl = document.getElementById('secretInput');
-            if (inputEl) {
-                inputEl.placeholder = "Local mode (resets on refresh)...";
-                inputEl.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') window.submitSecret();
-                });
-            }
-            renderLocalSecrets();
-        }
-
-        function setupRealtimeListener() {
-            if (!currentUser) return;
-            const secretsRef = collection(db, 'artifacts', appId, 'public', 'data', 'secrets');
-            
-            onSnapshot(secretsRef, (snapshot) => {
-                const secrets = [];
-                snapshot.forEach((doc) => {
-                    secrets.push({ id: doc.id, ...doc.data() });
-                });
-                
-                secrets.sort((a, b) => {
-                    const timeA = a.timestamp ? a.timestamp.toMillis() : 0;
-                    const timeB = b.timestamp ? b.timestamp.toMillis() : 0;
-                    return timeB - timeA;
-                });
-                
-                renderSecrets(secrets);
-            }, (err) => {
-                console.error("Snapshot error:", err);
-                fallbackToLocal();
-            });
-        }
-
-        function renderSecrets(secrets) {
-            const board = document.getElementById('secretBoard');
-            board.innerHTML = '';
-            
-            if (secrets.length === 0) {
-                board.innerHTML = '<p id="emptyMessage" class="text-gray-400 text-sm text-center italic mt-4">Waiting for secrets...</p>';
-                return;
-            }
-            
-            secrets.forEach(secret => {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'bg-purple-100 p-3 rounded text-gray-800 text-sm shadow-sm border border-purple-200 mb-2 flex justify-between items-start gap-2 break-all';
-                
-                const textSpan = document.createElement('span');
-                textSpan.innerHTML = `<span class="font-bold text-purple-800">🕵️ Anonymous:</span> "${escapeHtml(secret.text || '')}"`;
-                msgDiv.appendChild(textSpan);
-                
-                // Allow user to delete their own messages, or any message if in local mode
-                if ((currentUser && secret.userId === currentUser.uid) || !db) {
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.innerHTML = '❌';
-                    deleteBtn.title = 'Remove message';
-                    deleteBtn.className = 'text-red-500 hover:text-red-700 transition transform hover:scale-110 flex-shrink-0';
-                    deleteBtn.onclick = () => window.deleteSecret(secret.id);
-                    msgDiv.appendChild(deleteBtn);
-                }
-                
-                board.appendChild(msgDiv);
-            });
-        }
-
-        function renderLocalSecrets() {
-            renderSecrets(localSecrets);
-        }
-
-        window.submitSecret = async function() {
-            const input = document.getElementById('secretInput');
-            if (!input) return;
-            
-            const text = input.value.trim();
-            if (!text) return;
-
-            if (!db || !currentUser) {
-                // Local Mode Submission
-                localSecrets.unshift({
-                    id: 'local_' + Date.now(),
-                    text: text,
-                    userId: 'local_user',
-                    timestamp: null
-                });
-                input.value = '';
-                renderLocalSecrets();
-                return;
-            }
-            
-            input.value = '';
-            const secretsRef = collection(db, 'artifacts', appId, 'public', 'data', 'secrets');
-            try {
-                await addDoc(secretsRef, {
-                    text: text,
-                    userId: currentUser.uid,
-                    timestamp: serverTimestamp()
-                });
-            } catch (err) {
-                console.error("Add error:", err);
-            }
-        };
-
-        window.deleteSecret = async function(docId) {
-            if (!db || !currentUser) {
-                // Local Mode Deletion
-                localSecrets = localSecrets.filter(s => s.id !== docId);
-                renderLocalSecrets();
-                return;
-            }
-
-            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'secrets', docId);
-            try {
-                await deleteDoc(docRef);
-            } catch(err) {
-                console.error("Delete error:", err);
-            }
-        };
-
-        function escapeHtml(unsafe) {
-            return unsafe
-                 .replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
-        }
-    </script>
 </body>
 </html>
