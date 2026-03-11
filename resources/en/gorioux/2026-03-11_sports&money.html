@@ -296,21 +296,21 @@
                 </div>
 
                 <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">3. How did the athletes feel?</p>
+                    <p class="font-bold text-lg">3. Is Eileen happy with her Silver medals?</p>
                      <div class="flex gap-2">
-                        <button onclick="speak('How did the athletes feel?')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="speak('Is Eileen happy with her Silver medals?')" class="btn-icon text-xs">🔊 Listen</button>
                         <button onclick="toggleThai('q3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
                     </div>
-                    <p id="q3-th" class="hidden text-blue-600 text-sm font-bold">นักกีฬารู้สึกอย่างไร?</p>
+                    <p id="q3-th" class="hidden text-blue-600 text-sm font-bold">ไอลีนพอใจกับเหรียญเงินของเธอไหม?</p>
                 </div>
 
                  <div class="p-4 bg-white rounded-lg border shadow-sm flex flex-col gap-2">
-                    <p class="font-bold text-lg">4. Are Thai people angry with them?</p>
+                    <p class="font-bold text-lg">4. What does "ridiculous perspective" mean?</p>
                      <div class="flex gap-2">
-                        <button onclick="speak('Are Thai people angry with them?')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="speak('What does ridiculous perspective mean?')" class="btn-icon text-xs">🔊 Listen</button>
                         <button onclick="toggleThai('q4-th')" class="btn-icon text-xs">🇹🇭 TH</button>
                     </div>
-                    <p id="q4-th" class="hidden text-blue-600 text-sm font-bold">คนไทยโกรธพวกเขาไหม?</p>
+                    <p id="q4-th" class="hidden text-blue-600 text-sm font-bold">"มุมมองที่ไร้สาระ" หมายความว่าอย่างไร?</p>
                 </div>
             </div>
         </section>
@@ -408,7 +408,7 @@
                     </ul>
                 </div>
 
-                <!-- Guessing Game -->
+                <!-- Guessing Game with Firestore -->
                 <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
                     <div class="flex items-center gap-2 mb-2">
                         <h3 class="font-bold text-purple-800 text-lg">B. Guessing Game: The Secret Millionaire 🕵️‍♂️</h3>
@@ -468,25 +468,9 @@
             </div>
         </section>
 
-        <!-- PART 7: ADDITIONAL VOCABULARY -->
-                <!-- Debate -->
-                <div class="bg-blue-50 rounded-lg p-5 border border-blue-200">
-                    <h3 class="font-bold text-blue-800 text-lg mb-2">3. Funny Debate 🥊</h3>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-gray-700"><strong>Topic:</strong> "A Silver Medal with 10 Million Baht is BETTER than a Gold Medal with NO Money."</p>
-                        <div class="flex gap-2 mb-2">
-                            <button onclick="speak('Topic: A Silver Medal with ten Million Baht is BETTER than a Gold Medal with NO Money.')" class="btn-icon text-xs">🔊 Listen</button>
-                            <button onclick="toggleThai('ext-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
-                        </div>
-                        <p id="ext-3-th" class="hidden text-blue-600 text-sm font-bold">หัวข้อโต้วาที: "ได้เหรียญเงินพร้อมเงิน 10 ล้าน ดีกว่า ได้เหรียญทองแต่ไม่ได้เงินเลย"</p>
-                        <p class="text-sm text-gray-500">Do you agree? Why?</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
+    <!-- Vocabulary Data & Randomizer Script -->
     <script>
         // Massive Vocabulary List
         const vocabData = [
@@ -1051,7 +1035,7 @@
             { emoji: "🧠🗣️👂", en: "counsellors", th: "ที่ปรึกษา" },
             { emoji: "🤔💖🥇", en: "Do you think who's the kindest?", th: "คิดว่า ใครใจดีที่สุด" },
             { emoji: "👨‍👩‍👦❓💖", en: "Between your dad and mum, who's kinder?", th: "ระหว่างพ่อกับแม่ ใครใจดีกว่า" },
-            { emoji: "😤", en: "fussy", th: "ขี้บ่น; จู้จี้; จุกจิก" },
+            { emoji: "😤😤😤", en: "fussy", th: "ขี้บ่น; จู้จี้; จุกจิก" },
             { emoji: "🧼🧹📊", en: "I think K.Tuktaa can clean up auditing.", th: "คิดว่า คุณตุ๊กตาจะสามารถเคลียร์งานออดิทได้" },
             { emoji: "🧼✨📉", en: "I think K.Tuktaa can be a clean auditor.", th: "คิดว่า คุณตุ๊กตาจะสามารถเป็นผู้ตรวจสอบบัญชีมือสะอาดได้" },
             { emoji: "📒✨✅", en: "I think K.Earn records accounting cleanly.", th: "คิดว่า คุณเอิร์นบันทึกบัญชีอย่างเรียบร้อย" },
@@ -1134,34 +1118,130 @@
             { emoji: "💰❌🤝", en: "I don't have money to pay for the tax. Can you lend me some?", th: "ไม่มีเงินจ่ายภาษี ให้ยืมได้ไหม" },
             { emoji: "💰🤝📄", en: "loan", th: "เงินกู้" },
             { emoji: "💰🤝📄", en: "borrow", th: "ยืม" },
-            { emoji: "💰❓🤝", en: "Do you have money to give me?", th: "มีเงินให้ฉันไหม" }
+            { emoji: "💰❓🤝", en: "Do you have money to give me?", th: "มีเงินให้ฉันไหม" },
+            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
+            { emoji: "🎸🎤🎶", en: "live music", th: "ดนตรีสด" },
+            { emoji: "🍹❄️🍸", en: "Slushy Cocktail", th: "เหล้าปั่น" },
+            { emoji: "🗓️🗓️🗓️", en: "long weekend", th: "หยุดยาว" },
+            { emoji: "📜🎶🎤", en: "lyrics", th: "เนื้อเพลง" },
+            { emoji: "⏳📉📅", en: "lately", th: "ช่วงนี้" },
+            { emoji: "📝🕒⏱️", en: "briefly", th: "สั้นๆ / คร่าวๆ" },
+            { emoji: "🎖️🏰🛡️", en: "military base", th: "ฐานทัพทหาร" },
+            { emoji: "👤👑🎖️", en: "leader", th: "ผู้นำ" },
+            { emoji: "🤤👑🔥", en: "power-hungry", th: "บ้าอำนาจ" },
+            { emoji: "⚖️🏛️📜", en: "law", th: "กฎหมาย" },
+            { emoji: "🧠📚✨", en: "experience", th: "เจอ(ประสบการณ์) - v" },
+            { emoji: "📲💰⚡", en: "top up", th: "เติม" },
+            { emoji: "🪫🚫❌", en: "run out", th: "หมด" },
+            { emoji: "🐷💰🪙", en: "piggy bank", th: "กระปุกออมสิน" },
+            { emoji: "🐢📈✨", en: "gradually", th: "เรื่อยๆ / อย่างต่อเนื่อง" },
+            { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
+            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
+            { emoji: "⛽🏭⚙️", en: "Oil refining machine", th: "เครื่องกลั่นน้ำมัน" },
+            { emoji: "🌊🗺️🚢", en: "the Strait of Hormuz", th: "ช่องแคบฮอร์มุซ" },
+            { emoji: "🔩⛓️🏗️", en: "metal", th: "โลหะ" },
+            { emoji: "⛓️💰🟡", en: "It's tied to the gold value.", th: "ผูกกับมูลค่าทองคำ" },
+            { emoji: "📈🟡📈", en: "The gold price jumped on the line graph.", th: "ราคาทองพุ่งในกราฟเส้น" },
+            { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
+            { emoji: "💵💵💵", en: "bills / bank notes", th: "แบงค์" },
+            { emoji: "💸💳🤲", en: "cash", th: "เงินสด" },
+            { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
+            { emoji: "🤲🟡🏃‍♂️", en: "carry gold", th: "ถือทอง" },
+            { emoji: "🛡️🧠✅", en: "It's not at risk of being lost or forgotten.", th: "ไม่เสี่ยงหายหรือลืม" },
+            { emoji: "🌐🚫❌", en: "The internet is down.", th: "เน็ตล่ม" },
+            { emoji: "🧽🍽️✨", en: "wash dishes", th: "ล้างจาน" },
+            { emoji: "💰📈🏭", en: "invest", th: "ลงทุน" },
+            { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
+            { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
+            { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
+            { emoji: "🦠🤒💊", en: "disease", th: "โรค" },
+            { emoji: "🐔🥩🍴", en: "chicken meat", th: "เนื้อไก่" },
+            { emoji: "🌱🧪🌿", en: "fertiliser", th: "ปุ๋ย" },
+            { emoji: "🌳🍎🍊", en: "Fruit trees", th: "ต้นไม้ที่กินผล" },
+            { emoji: "🥬🥦🌿", en: "Leafy greens", th: "ต้นไม้ที่กินใบ" },
+            { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
+            { emoji: "🎡🎢🎬", en: "There is Universal Studio.", th: "มียูนิเวอร์แซล" },
+            { emoji: "💰📈🏢", en: "She invested in a company.", th: "เธอเคยลงทุนกับบริษัทนึง" }
         ];
 
-        function submitSecret() {
-            const input = document.getElementById('secretInput');
-            const board = document.getElementById('secretBoard');
-            const emptyMessage = document.getElementById('emptyMessage');
-            const text = input.value.trim();
+        // Specific List for Section 8 display
+        const additionalVocabList = [
+            { emoji: "🗓️1️⃣✨", en: "at the beginning of the month", th: "ต้นเดือน" },
+            { emoji: "🎸🎤🎶", en: "live music", th: "ดนตรีสด" },
+            { emoji: "🍹❄️🍸", en: "Slushy Cocktail", th: "เหล้าปั่น" },
+            { emoji: "🗓️🗓️🗓️", en: "long weekend", th: "หยุดยาว" },
+            { emoji: "📜🎶🎤", en: "lyrics", th: "เนื้อเพลง" },
+            { emoji: "⏳📉📅", en: "lately", th: "ช่วงนี้" },
+            { emoji: "📝🕒⏱️", en: "briefly", th: "สั้นๆ / คร่าวๆ" },
+            { emoji: "🎖️🏰🛡️", en: "military base", th: "ฐานทัพทหาร" },
+            { emoji: "👤👑🎖️", en: "leader", th: "ผู้นำ" },
+            { emoji: "🤤👑🔥", en: "power-hungry", th: "บ้าอำนาจ" },
+            { emoji: "⚖️🏛️📜", en: "law", th: "กฎหมาย" },
+            { emoji: "🧠📚✨", en: "experience", th: "เจอ(ประสบการณ์) - v" },
+            { emoji: "📲💰⚡", en: "top up", th: "เติม" },
+            { emoji: "🪫🚫❌", en: "run out", th: "หมด" },
+            { emoji: "🐷💰🪙", en: "piggy bank", th: "กระปุกออมสิน" },
+            { emoji: "🐢📈✨", en: "gradually", th: "เรื่อยๆ / อย่างต่อเนื่อง" },
+            { emoji: "💵💱🌍", en: "currency", th: "ค่าเงิน" },
+            { emoji: "📤🚢🌐", en: "export", th: "ส่งออก" },
+            { emoji: "⛽🏭⚙️", en: "Oil refining machine", th: "เครื่องกลั่นน้ำมัน" },
+            { emoji: "🌊🗺️🚢", en: "the Strait of Hormuz", th: "ช่องแคบฮอร์มุซ" },
+            { emoji: "🔩⛓️🏗️", en: "metal", th: "โลหะ" },
+            { emoji: "⛓️💰🟡", en: "It's tied to the gold value.", th: "ผูกกับมูลค่าทองคำ" },
+            { emoji: "📈🟡📈", en: "The gold price jumped on the line graph.", th: "ราคาทองพุ่งในกราฟเส้น" },
+            { emoji: "🤔💭🗣️", en: "in my opinion", th: "ในความเห็นของฉัน" },
+            { emoji: "💵💵💵", en: "bills / bank notes", th: "แบงค์" },
+            { emoji: "💸💳🤲", en: "cash", th: "เงินสด" },
+            { emoji: "✅❌⚖️", en: "pros and cons", th: "ข้อดี ข้อเสีย" },
+            { emoji: "🤲🟡🏃‍♂️", en: "carry gold", th: "ถือทอง" },
+            { emoji: "🛡️🧠✅", en: "It's not at risk of being lost or forgotten.", th: "ไม่เสี่ยงหายหรือลืม" },
+            { emoji: "🌐🚫❌", en: "The internet is down.", th: "เน็ตล่ม" },
+            { emoji: "🧽🍽️✨", en: "wash dishes", th: "ล้างจาน" },
+            { emoji: "💰📈🏭", en: "invest", th: "ลงทุน" },
+            { emoji: "💰📈🐔", en: "I invest in chicken farms.", th: "ลงทุนฟาร์มไก่" },
+            { emoji: "👨‍🦳🏖️⌛", en: "retire", th: "เกษียณ" },
+            { emoji: "💰📈📊", en: "investment", th: "การลงทุน" },
+            { emoji: "🦠🤒💊", en: "disease", th: "โรค" },
+            { emoji: "🐔🥩🍴", en: "chicken meat", th: "เนื้อไก่" },
+            { emoji: "🌱🧪🌿", en: "fertiliser", th: "ปุ๋ย" },
+            { emoji: "🌳🍎🍊", en: "Fruit trees", th: "ต้นไม้ที่กินผล" },
+            { emoji: "🥬🥦🌿", en: "Leafy greens", th: "ต้นไม้ที่กินใบ" },
+            { emoji: "🎓🎓🆕", en: "fresh graduates", th: "เด็กจบใหม่" },
+            { emoji: "🎡🎢🎬", en: "There is Universal Studio.", th: "มียูนิเวอร์แซล" },
+            { emoji: "💰📈🏢", en: "She invested in a company.", th: "เธอเคยลงทุนกับบริษัทนึง" }
+        ];
+
+        function renderAdditionalVocab() {
+            const container = document.getElementById('additional-vocab-grid');
+            if (!container) return;
             
-            if (text) {
-                if (emptyMessage) {
-                    emptyMessage.style.display = 'none';
-                }
+            additionalVocabList.forEach((item, index) => {
+                const thId = `add-vocab-${index}`;
+                const card = document.createElement('div');
+                card.className = "bg-white border-2 border-teal-100 p-4 rounded-xl hover:shadow-md transition-shadow flex items-start justify-between gap-2";
                 
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'bg-purple-100 p-3 rounded text-gray-800 text-sm shadow-sm border border-purple-200 mb-2';
-                msgDiv.innerHTML = `<span class="font-bold text-purple-800">🕵️ Anonymous:</span> "${text}"`;
-                
-                board.prepend(msgDiv);
-                input.value = '';
-            }
+                const emoji = item.emoji || '✨';
+
+                card.innerHTML = `
+                    <div class="flex-1">
+                        <div class="text-2xl mb-1">${emoji}</div>
+                        <h3 class="font-bold text-gray-800 text-lg leading-tight mb-1">${item.en}</h3>
+                        <p id="${thId}" class="hidden text-teal-600 font-bold text-sm mt-1 animate-pulse">${item.th}</p>
+                    </div>
+                    <div class="flex flex-col gap-1 shrink-0">
+                         <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🔊</button>
+                         <button onclick="toggleThai('${thId}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🇹🇭</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
         function pickRandomWord() {
             const display = document.getElementById('wordDisplay');
             
             // Combine all vocab for the randomizer
-            const combinedVocab = vocabData;
+            const combinedVocab = [...vocabData, ...additionalVocabList];
             
             // Animation start
             display.style.opacity = '0';
@@ -1187,6 +1267,153 @@
                 // Animation end
                 display.style.opacity = '1';
             }, 200);
+        }
+
+        // Initialize additional vocab
+        renderAdditionalVocab();
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        let firebaseConfig = null;
+        try {
+            if (typeof __firebase_config !== 'undefined') {
+                firebaseConfig = JSON.parse(__firebase_config);
+            }
+        } catch(e) { console.error("Firebase config parsing error:", e); }
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+
+        if (firebaseConfig) {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+
+            const initAuth = async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch(err) {
+                    console.error("Auth error:", err);
+                }
+            };
+            initAuth();
+
+            onAuthStateChanged(auth, (user) => {
+                currentUser = user;
+                if (user && db) {
+                    setupRealtimeListener();
+                }
+            });
+        }
+
+        function setupRealtimeListener() {
+            const secretsRef = collection(db, 'artifacts', appId, 'public', 'data', 'secrets');
+            onSnapshot(secretsRef, (snapshot) => {
+                const secrets = [];
+                snapshot.forEach((doc) => {
+                    secrets.push({ id: doc.id, ...doc.data() });
+                });
+                
+                secrets.sort((a, b) => {
+                    const timeA = a.timestamp ? a.timestamp.toMillis() : 0;
+                    const timeB = b.timestamp ? b.timestamp.toMillis() : 0;
+                    return timeB - timeA;
+                });
+                
+                renderSecrets(secrets);
+            }, (err) => {
+                console.error("Snapshot error:", err);
+            });
+        }
+
+        function renderSecrets(secrets) {
+            const board = document.getElementById('secretBoard');
+            board.innerHTML = '';
+            
+            if (secrets.length === 0) {
+                board.innerHTML = '<p id="emptyMessage" class="text-gray-400 text-sm text-center italic mt-4">Waiting for secrets...</p>';
+                return;
+            }
+            
+            secrets.forEach(secret => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'bg-purple-100 p-3 rounded text-gray-800 text-sm shadow-sm border border-purple-200 mb-2 flex justify-between items-start gap-2 break-all';
+                
+                const textSpan = document.createElement('span');
+                textSpan.innerHTML = `<span class="font-bold text-purple-800">🕵️ Anonymous:</span> "${escapeHtml(secret.text || '')}"`;
+                msgDiv.appendChild(textSpan);
+                
+                if (currentUser && secret.userId === currentUser.uid) {
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.innerHTML = '❌';
+                    deleteBtn.title = 'Remove message';
+                    deleteBtn.className = 'text-red-500 hover:text-red-700 transition transform hover:scale-110 flex-shrink-0';
+                    deleteBtn.onclick = () => window.deleteSecret(secret.id);
+                    msgDiv.appendChild(deleteBtn);
+                }
+                
+                board.appendChild(msgDiv);
+            });
+        }
+
+        window.submitSecret = async function() {
+            const input = document.getElementById('secretInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            if (!db || !currentUser) {
+                // Fallback local UI if Firebase not injected
+                const board = document.getElementById('secretBoard');
+                const emptyMessage = document.getElementById('emptyMessage');
+                if (emptyMessage) emptyMessage.style.display = 'none';
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'bg-purple-100 p-3 rounded text-gray-800 text-sm shadow-sm border border-purple-200 mb-2 flex justify-between items-start gap-2';
+                msgDiv.innerHTML = `<span><span class="font-bold text-purple-800">🕵️ Anonymous:</span> "${escapeHtml(text)}"</span><button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700">❌</button>`;
+                board.prepend(msgDiv);
+                input.value = '';
+                return;
+            }
+            
+            input.value = '';
+            const secretsRef = collection(db, 'artifacts', appId, 'public', 'data', 'secrets');
+            try {
+                await addDoc(secretsRef, {
+                    text: text,
+                    userId: currentUser.uid,
+                    timestamp: serverTimestamp()
+                });
+            } catch (err) {
+                console.error("Add error:", err);
+            }
+        };
+
+        window.deleteSecret = async function(docId) {
+            if (!db || !currentUser) return;
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'secrets', docId);
+            try {
+                await deleteDoc(docRef);
+            } catch(err) {
+                console.error("Delete error:", err);
+            }
+        };
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
         }
     </script>
 </body>
