@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Traditions 🎄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&family=Afacad+Flux:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #dc2626; /* Christmas Red */
+            --secondary: #15803d; /* Christmas Green */
+            --accent: #ca8a04; /* Gold */
+            --bg: #fef2f2;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --gray: #64748b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Afacad Flux', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding-bottom: 40px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Scoreboard Styles */
+        .scoreboard-section {
+            background-color: #1e293b;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+
+        .team-name {
+            font-family: 'Comfortaa', cursive;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 5px 0;
+            font-family: monospace;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .score-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-score {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+        }
+
+        .btn-score:active { transform: scale(0.9); }
+        .btn-score.plus { background-color: var(--secondary); color: white; }
+        .btn-score.minus { background-color: var(--primary); color: white; }
+
+        .vs-badge {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Flexible Header Wrapper for TTS/TH controls */
+        .flex-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .flex-header h2, .flex-header h3 {
+            margin: 0;
+        }
+        
+        .flex-header.centered {
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        h1, h2, h3 { font-family: 'Comfortaa', cursive; margin-top: 0; }
+        h1 { font-size: 2.2rem; margin-bottom: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        h2 { color: var(--secondary); font-size: 1.8rem; }
+        h3 { color: var(--text); font-size: 1.3rem; }
+
+        .section { padding: 0 20px; margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px;}
+        .section:last-child { border-bottom: none; }
+
+        /* Randomizer Styles */
+        .random-box {
+            background: #f8fafc;
+            border: 3px dashed var(--secondary);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+
+        .random-word {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .random-thai {
+            font-size: 1.2rem;
+            color: #64748b;
+            font-style: italic;
+            display: none; /* Hidden by default */
+        }
+
+        .btn-spin {
+            background: var(--accent);
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(202, 138, 4, 0.4);
+            transition: all 0.2s;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .btn-spin:active { transform: scale(0.95); }
+
+        /* Text Blocks */
+        .text-block {
+            background-color: #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .script-block {
+            background-color: #fff1f2;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .example-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            color: #166534;
+            font-size: 0.95rem;
+        }
+
+        .english-text { font-size: 1.3rem; font-weight: 500; display: block; margin-bottom: 10px; }
+        .thai-text { display: none; color: #64748b; font-size: 1.1rem; border-top: 1px solid #cbd5e1; padding-top: 10px; margin-top: 10px; width: 100%; }
+        
+        .thai-text.inline {
+            flex-basis: 100%;
+            margin-top: 5px;
+            margin-left: 2px;
+        }
+
+        /* Controls */
+        .controls { display: flex; gap: 8px; margin-top: 5px; }
+        .controls-sm { display: inline-flex; gap: 5px; vertical-align: middle; }
+
+        .btn {
+            border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer;
+            font-family: 'Comfortaa', cursive; font-weight: 700; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px;
+        }
+        
+        .btn-sm { padding: 4px 8px; font-size: 0.8rem; }
+
+        .btn-audio { background-color: var(--primary); color: white; }
+        .btn-translate { background-color: var(--secondary); color: white; }
+        .btn-video { background-color: #333; color: white; text-decoration: none; padding: 10px 20px; border-radius: 50px; display: inline-block; font-weight: bold;}
+
+        /* Vocab Grid */
+        .vocab-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px;
+        }
+        .vocab-card {
+            background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px;
+            text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .vocab-card.simple {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .vocab-emoji { font-size: 2.5rem; display: block; margin-bottom: 5px; }
+        .vocab-word { font-weight: 700; color: var(--text); font-size: 1.1rem; margin-bottom: 8px; }
+
+        /* Activity Box */
+        .activity-box {
+            background-color: #ecfdf5; border: 2px dashed #10b981;
+            border-radius: 15px; padding: 20px; margin-top: 25px;
+        }
+        
+        .quiz-option {
+            background: white; border: 1px solid #ccc; padding: 10px; margin: 5px 0; border-radius: 8px; cursor: pointer;
+        }
+        .quiz-option:hover { background: #f0f9ff; border-color: var(--primary); }
+        
+        /* Breakout Room Badge */
+        .breakout-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        
+        ul { padding-left: 20px; margin: 0; }
+        li { margin-bottom: 15px; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .english-text { font-size: 1.1rem; }
+            .random-word { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="flex-header centered">
+             <h1>Christmas Traditions 🎄</h1>
+        </div>
+        <div class="controls" style="justify-content: center;">
+            <button class="btn btn-sm btn-audio" onclick="speak('Christmas Traditions')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+            <button class="btn btn-sm btn-translate" onclick="toggleThai('th-title')">TH</button>
+        </div>
+        <div id="th-title" class="thai-text" style="text-align: center; color: white; border-top: 1px solid rgba(255,255,255,0.3);">ธรรมเนียมวันคริสต์มาส</div>
+    </header>
+
+    <!-- SCOREBOARD -->
+    <div class="scoreboard-section">
+        <div class="team">
+            <div class="team-name">Team Santa 🎅</div>
+            <div class="score" id="score-santa">0</div>
+            <div class="score-controls">
+                <button class="btn-score minus" onclick="updateScore('santa', -1)">-</button>
+                <button class="btn-score plus" onclick="updateScore('santa', 1)">+</button>
+            </div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="team">
+            <div class="team-name">Team Elf 🧝</div>
+            <div class="score" id="score-elf">0</div>
+            <div class="score-controls">
+                <button class="btn-score minus" onclick="updateScore('elf', -1)">-</button>
+                <button class="btn-score plus" onclick="updateScore('elf', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1: THE BIG REVIEW (Constant) -->
+    <div class="section">
+        <div class="flex-header">
+            <h2>1. The Big Review Wheel 🎡</h2>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('The Big Review Wheel')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-sec1')">TH</button>
+            </div>
+            <div id="th-sec1" class="thai-text inline">วงล้อทบทวนคำศัพท์</div>
+        </div>
+
+        <div class="activity-box">
+             <div class="flex-header">
+                <strong>Instructions:</strong>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Instructions: Click SPIN. Read the word or sentence. Make a new sentence using that word!')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-inst-1')">TH</button>
+                </div>
+            </div>
+            <p style="margin-top:0;">Click <strong>SPIN</strong>. Read the word/sentence. Make a <em>new</em> sentence using that word!</p>
+            <div id="th-inst-1" class="thai-text">คำสั่ง: คลิก SPIN อ่านคำศัพท์หรือประโยค แต่งประโยคใหม่โดยใช้คำนั้น!</div>
+        </div>
+
+        <div class="random-box">
+            <div id="randomWord" class="random-word">Click Spin!</div>
+            <div id="randomThai" class="random-thai">...</div>
+            
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                <button class="btn-spin" onclick="spinWheel()">SPIN!</button>
+            </div>
+            
+            <div class="controls" style="justify-content: center; margin-top: 15px;">
+                <button class="btn btn-audio" onclick="speakRandom()">Listen</button>
+                <button class="btn btn-translate" onclick="toggleRandomThai()">TH</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: VIDEO TOPIC -->
+    <div class="section">
+        <div class="flex-header">
+            <h2>2. Video: Posh vs. Normal 🎁</h2>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('Video: Posh versus Normal')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-sec2')">TH</button>
+            </div>
+            <div id="th-sec2" class="thai-text inline">วิดีโอ: คนไฮโซกับคนทั่วไป</div>
+        </div>
+
+        <!-- Video Activity -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="https://drive.google.com/open?id=1woW1-yR2fP3UXAhWORv8AadZ8-Gcft2Q&usp=drive_fs" target="_blank" class="btn-video">
+                <i class="fa-solid fa-play"></i> Watch Video
+            </a>
+        </div>
+
+        <div class="flex-header">
+            <h3><i class="fa-solid fa-ear-listen"></i> Simplified Script</h3>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('Simplified Script')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-script-title')">TH</button>
+            </div>
+             <div id="th-script-title" class="thai-text inline">บทพูดแบบย่อ</div>
+        </div>
+        
+        <div class="text-block script-block">
+            <span class="english-text">"Posh people open presents at midnight." 🕛</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('Posh people open presents at midnight.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('sc-1')">TH</button>
+            </div>
+            <div id="sc-1" class="thai-text">คนไฮโซเปิดของขวัญตอนเที่ยงคืน</div>
+        </div>
+
+        <div class="text-block script-block">
+            <span class="english-text">"When we were young, we had stockings." 🧦</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('When we were young, we had stockings.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('sc-2')">TH</button>
+            </div>
+            <div id="sc-2" class="thai-text">ตอนเราเด็กๆ เรามีถุงเท้าคริสต์มาส</div>
+        </div>
+
+        <div class="text-block script-block">
+            <span class="english-text">"Stockings are small things to keep us happy." 😊</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('Stockings are small things to keep us happy.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('sc-3')">TH</button>
+            </div>
+            <div id="sc-3" class="thai-text">ถุงเท้าคือของขวัญชิ้นเล็กๆ ที่ทำให้เรามีความสุข</div>
+        </div>
+
+        <div class="text-block script-block">
+            <span class="english-text">"We open main presents at 11:00 AM." 🕚</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('We open main presents at eleven AM.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('sc-4')">TH</button>
+            </div>
+            <div id="sc-4" class="thai-text">เราเปิดของขวัญชิ้นหลักตอน 11 โมงเช้า</div>
+        </div>
+        
+         <div class="text-block script-block">
+            <span class="english-text">"We open tree presents at 6:00 PM." 🎄</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('We open tree presents at six PM.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('sc-5')">TH</button>
+            </div>
+            <div id="sc-5" class="thai-text">เราเปิดของขวัญใต้ต้นไม้ตอน 6 โมงเย็น</div>
+        </div>
+
+        <div class="activity-box">
+             <div class="flex-header">
+                <h3>Discussion Questions</h3>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Discussion Questions')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-disc-title')">TH</button>
+                </div>
+                <div id="th-disc-title" class="thai-text inline">คำถามอภิปราย</div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <p style="margin-bottom: 5px;">1. What time do you open presents?</p>
+                 <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('What time do you open presents?')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-dq-1')">TH</button>
+                </div>
+                <div id="th-dq-1" class="thai-text">1. คุณเปิดของขวัญตอนกี่โมง?</div>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <p style="margin-bottom: 5px;">2. Do you like small gifts or big gifts?</p>
+                 <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Do you like small gifts or big gifts?')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-dq-2')">TH</button>
+                </div>
+                <div id="th-dq-2" class="thai-text">2. คุณชอบของขวัญชิ้นเล็กหรือชิ้นใหญ่?</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: GRAMMAR CORNER -->
+    <div class="section">
+        <div class="flex-header">
+            <h2>3. Grammar Corner: At / On / In 🕒</h2>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('Grammar Corner: At, On, In')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-gram-title')">TH</button>
+            </div>
+            <div id="th-gram-title" class="thai-text inline">มุมไวยากรณ์: การใช้ At, On, In บอกเวลา</div>
+        </div>
+        
+        <div class="text-block" style="border-left-color: var(--accent); background-color: #fffbeb;">
+            <p><strong>Rules:</strong></p>
+            <ul style="margin-top: 10px;">
+                <li><strong>AT</strong> + Time (at 6:00, at midnight)</li>
+                <li><strong>ON</strong> + Day (on Christmas Day, on Monday)</li>
+                <li><strong>IN</strong> + Month/Season (in December, in Winter)</li>
+            </ul>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('At plus Time. On plus Day. In plus Month or Season.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('gram-rules')">TH</button>
+            </div>
+            <div id="gram-rules" class="thai-text">
+                At + เวลา (at 6:00, at เที่ยงคืน)<br>
+                On + วัน (on วันคริสต์มาส, on วันจันทร์)<br>
+                In + เดือน/ฤดู (in ธันวาคม, in หน้าหนาว)
+            </div>
+        </div>
+
+        <div class="activity-box">
+             <div class="flex-header">
+                <h3><i class="fa-solid fa-microphone"></i> Class Activity: Your Turn!</h3>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Class Activity: Your Turn')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-class-act')">TH</button>
+                </div>
+                <div id="th-class-act" class="thai-text inline">กิจกรรมในห้อง: ตาคุณแล้ว!</div>
+            </div>
+            <p>Teacher calls a student. Student makes one sentence using <strong>At</strong>, <strong>On</strong>, or <strong>In</strong>.</p>
+            <div class="controls-sm">
+                 <button class="btn btn-sm btn-audio" onclick="speak('Teacher calls a student. Student makes one sentence using At, On, or In.')"><i class="fa-solid fa-volume-high"></i></button>
+                 <button class="btn btn-sm btn-translate" onclick="toggleThai('th-class-inst')">TH</button>
+            </div>
+            <div id="th-class-inst" class="thai-text">ครูเรียกนักเรียนหนึ่งคน นักเรียนแต่งประโยคหนึ่งประโยคโดยใช้ At, On หรือ In</div>
+
+            <div class="example-box">
+                <strong>Example:</strong> "I wake up <strong>at</strong> 6:00." / "My birthday is <strong>in</strong> May."
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Example: I wake up at 6:00. My birthday is in May.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-class-ex')">TH</button>
+                </div>
+                <div id="th-class-ex" class="thai-text">ตัวอย่าง: "ฉันตื่นนอนตอน 6 โมง" / "วันเกิดฉันอยู่ในเดือนพฤษภาคม"</div>
+            </div>
+        </div>
+
+        <!-- Breakout Room Activities -->
+        <div class="activity-box" style="border-color: var(--primary); background-color: #fff1f2;">
+            <h3 style="color: var(--primary);"><i class="fa-solid fa-user-group"></i> Pair Work / Breakout Rooms</h3>
+            <p><strong>Instruction:</strong> Work in pairs (Breakout Rooms). Practice speaking together first. Then, perform for the class to earn points!</p>
+            <div class="controls-sm">
+                 <button class="btn btn-sm btn-audio" onclick="speak('Instruction: Work in pairs. Practice speaking together first. Then, perform for the class to earn points!')"><i class="fa-solid fa-volume-high"></i></button>
+                 <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br-main-inst')">TH</button>
+            </div>
+            <div id="th-br-main-inst" class="thai-text">คำสั่ง: จับคู่ทำงาน (Breakout Rooms) ฝึกพูดด้วยกันก่อน แล้วค่อยแสดงให้เพื่อนดูเพื่อเก็บคะแนน!</div>
+            
+            <!-- Activity 1 -->
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 15px;">
+                <span class="breakout-badge">Room 1: Speaking Game</span>
+                <p><strong>"Time Detectives" (Interview)</strong></p>
+                <p><strong>Instructions:</strong></p>
+                <ol style="margin-top: 5px; margin-bottom: 10px;">
+                    <li><strong>In Pairs:</strong> Ask your partner 3 questions about time (Wake up / Lunch / Sleep).</li>
+                    <li>Partner answers using "At", "On", or "In".</li>
+                    <li>Swap roles.</li>
+                </ol>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Instructions: Ask your partner 3 questions about time. Partner answers using At, On, or In. Swap roles.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br1-inst')">TH</button>
+                </div>
+                <div id="th-br1-inst" class="thai-text">1. ถามคู่ของคุณ 3 คำถามเกี่ยวกับเวลา (ตื่นนอน / มื้อเที่ยง / นอนหลับ) <br> 2. คู่หูตอบโดยใช้ At, On หรือ In <br> 3. สลับบทบาทกัน</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Student A: "What time do you eat lunch?"<br>
+                    Student B: "I eat lunch <strong>at</strong> 12:00."
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: What time do you eat lunch? I eat lunch at 12.')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br1-ex')">TH</button>
+                    </div>
+                    <div id="th-br1-ex" class="thai-text">ตัวอย่าง: <br> A: "คุณกินมื้อเที่ยงกี่โมง?" <br> B: "ฉันกินมื้อเที่ยงตอน 12.00 น."</div>
+                </div>
+            </div>
+
+            <!-- Activity 2 -->
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 15px;">
+                <span class="breakout-badge">Room 2: Funny Roleplay</span>
+                <p><strong>"The Confused Santa"</strong></p>
+                <p><strong>Instructions:</strong></p>
+                <ol style="margin-top: 5px; margin-bottom: 10px;">
+                    <li><strong>In Pairs:</strong> Assign roles. Student A is Santa. Student B is the Teacher.</li>
+                    <li>Santa makes mistakes with At, On, In. Student B corrects him.</li>
+                    <li>Practice until you are ready to perform!</li>
+                </ol>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Instructions: Assign roles. Santa makes mistakes with At, On, In. Student corrects him. Practice!')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br2-inst')">TH</button>
+                </div>
+                <div id="th-br2-inst" class="thai-text">1. กำหนดบทบาท A เป็นซานต้า B เป็นครู <br> 2. ซานต้าพูดผิดเรื่อง At, On, In นักเรียน B ช่วยแก้ให้ถูก <br> 3. ฝึกจนกว่าจะพร้อมแสดง!</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Santa: "Ho Ho! I come <strong>in</strong> Monday!"<br>
+                    Student: "No Santa! You come <strong>on</strong> Monday!"
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: Ho Ho! I come in Monday! No Santa! You come on Monday!')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br2-ex')">TH</button>
+                    </div>
+                    <div id="th-br2-ex" class="thai-text">ตัวอย่าง: <br> ซานต้า: "โฮ่ โฮ่! ฉันมาในวันจันทร์!" (ใช้ in ผิด) <br> นักเรียน: "ไม่นะซานต้า! คุณต้องมาในวันจันทร์!" (ใช้ on)</div>
+                </div>
+            </div>
+
+            <!-- Activity 3 -->
+            <div>
+                <span class="breakout-badge">Room 3: Mini Debate</span>
+                <p><strong>"The Best Time"</strong></p>
+                <p><strong>Instructions:</strong></p>
+                <ol style="margin-top: 5px; margin-bottom: 10px;">
+                    <li><strong>In Pairs:</strong> Discuss the topic: "School should start <strong>at</strong> 11:00 AM."</li>
+                    <li>Ask your partner: "Do you agree?"</li>
+                    <li>Prepare your answers to tell the class.</li>
+                </ol>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Instructions: Discuss the topic: School should start at 11 AM. Ask: Do you agree? Prepare your answers.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br3-inst')">TH</button>
+                </div>
+                <div id="th-br3-inst" class="thai-text">1. อภิปรายหัวข้อ: "โรงเรียนควรเริ่มตอน 11 โมงเช้า" <br> 2. ถามคู่ของคุณ: "คุณเห็นด้วยไหม?" <br> 3. เตรียมคำตอบเพื่อบอกเพื่อนในห้อง</div>
+
+                 <div class="example-box">
+                    <strong>Example:</strong><br>
+                    "I agree because I wake up <strong>at</strong> 10:00."<br>
+                    "I disagree because we finish <strong>in</strong> the evening."
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: I agree because I wake up at 10. I disagree because we finish in the evening.')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-br3-ex')">TH</button>
+                    </div>
+                    <div id="th-br3-ex" class="thai-text">ตัวอย่าง: <br> "ฉันเห็นด้วยเพราะฉันตื่นตอน 10 โมง" <br> "ฉันไม่เห็นด้วยเพราะเราจะเลิกเรียนตอนเย็น"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: EXTENSION ACTIVITIES -->
+    <div class="section">
+        <div class="flex-header">
+            <h2>4. Extension Activities (Fun & Games) 🎲</h2>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('Extension Activities: Fun and Games')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext-title')">TH</button>
+            </div>
+            <div id="th-ext-title" class="thai-text inline">กิจกรรมเสริม (สนุกและเกม)</div>
+        </div>
+        
+        <!-- Activity 1: Funny Roleplay -->
+        <div class="activity-box" style="background-color: #fff7ed; border-color: #f97316;">
+            <h3 style="color: #ea580c;"><i class="fa-solid fa-masks-theater"></i> Roleplay: The Weird Gift</h3>
+            
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Situation:</strong> You give your friend a very strange gift.</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Situation: You give your friend a very strange gift.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext1-sit')">TH</button>
+                </div>
+                <div id="th-ext1-sit" class="thai-text">สถานการณ์: คุณให้ของขวัญแปลกๆ กับเพื่อน</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Giver: "Here is a rock!"<br>
+                    Receiver: "A rock? Why??"
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: Here is a rock! A rock? Why?')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext1-ex')">TH</button>
+                    </div>
+                    <div id="th-ext1-ex" class="thai-text">ตัวอย่าง: <br> ผู้ให้: "นี่คือก้อนหิน!" <br> ผู้รับ: "ก้อนหินเหรอ? ทำไมล่ะ??"</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Student (Giver):</strong> "Here is your present! It is a... <em>(Cockroach / Rat / Concealer)</em>"</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Student: Here is your present! It is a cockroach.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext1-p1')">TH</button>
+                </div>
+                <div id="th-ext1-p1" class="thai-text">นักเรียน (ผู้ให้): "นี่ของขวัญเธอ! มันคือ... (แมลงสาบ / หนู / คอนซีลเลอร์)"</div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Teacher (Receiver):</strong> "Oh... wow. Thank you? Why did you buy this?"</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Teacher: Oh wow. Thank you? Why did you buy this?')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext1-p2')">TH</button>
+                </div>
+                <div id="th-ext1-p2" class="thai-text">ครู (ผู้รับ): "โอ้... ว้าว ขอบคุณนะ? ซื้อมาทำไมเนี่ย?"</div>
+            </div>
+        </div>
+
+        <!-- Activity 2: Funny Debate -->
+        <div class="activity-box" style="background-color: #eff6ff; border-color: #3b82f6;">
+            <h3 style="color: #2563eb;"><i class="fa-solid fa-gavel"></i> Debate: Midnight vs. Morning</h3>
+            
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Topic:</strong> "Opening gifts at midnight is better than the morning."</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Topic: Opening gifts at midnight is better than the morning.')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext2-top')">TH</button>
+                </div>
+                <div id="th-ext2-top" class="thai-text">หัวข้อ: "เปิดของขวัญตอนเที่ยงคืนดีกว่าตอนเช้า"</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    Student A: "Midnight is better because it is exciting <strong>at</strong> night!"<br>
+                    Student B: "Morning is better because we have light <strong>in</strong> the morning."
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: Midnight is better because it is exciting at night! Morning is better because we have light in the morning.')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext2-ex')">TH</button>
+                    </div>
+                    <div id="th-ext2-ex" class="thai-text">ตัวอย่าง: <br> A: "เที่ยงคืนดีกว่าเพราะมันน่าตื่นเต้นตอนกลางคืน!" <br> B: "ตอนเช้าดีกว่าเพราะเรามีแสงสว่างในตอนเช้า"</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Student:</strong> Agree (Midnight) or Disagree (Morning)?</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Student: Agree or Disagree?')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext2-q')">TH</button>
+                </div>
+                <div id="th-ext2-q" class="thai-text">นักเรียน: เห็นด้วย (เที่ยงคืน) หรือ ไม่เห็นด้วย (ตอนเช้า)?</div>
+            </div>
+        </div>
+
+        <!-- Activity 3: Speaking Game -->
+        <div class="activity-box" style="background-color: #fdf2f8; border-color: #db2777;">
+            <h3 style="color: #be185d;"><i class="fa-solid fa-socks"></i> Game: What's in the Stocking?</h3>
+            
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Instruction:</strong> I have a secret object in my stocking. Guess what it is!</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Instruction: I have a secret object in my stocking. Guess what it is!')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext3-inst')">TH</button>
+                </div>
+                <div id="th-ext3-inst" class="thai-text">คำสั่ง: ฉันมีของความลับในถุงเท้า ทายซิว่าคืออะไร!</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    "Clue 1: It is round."<br>
+                    "Clue 2: You kick it."<br>
+                    "Answer: A football!"
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: Clue 1: It is round. Clue 2: You kick it. Answer: A football!')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext3-ex')">TH</button>
+                    </div>
+                    <div id="th-ext3-ex" class="thai-text">ตัวอย่าง: <br> "คำใบ้ 1: มันกลม" <br> "คำใบ้ 2: คุณเตะมัน" <br> "คำตอบ: ลูกฟุตบอล!"</div>
+                </div>
+            </div>
+
+             <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Clues:</strong> "It is small. It is sweet. It is red..." (Answer: Strawberry / Candy)</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Clues: It is small. It is sweet. It is red... Answer: Strawberry or Candy')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext3-clue')">TH</button>
+                </div>
+                <div id="th-ext3-clue" class="thai-text">คำใบ้: "มันเล็ก มันหวาน มันสีแดง..." (คำตอบ: สตรอเบอร์รี่ / ลูกอม)</div>
+            </div>
+        </div>
+        
+        <!-- Activity 4: Story Telling -->
+        <div class="activity-box" style="background-color: #f0fdf4; border-color: #16a34a;">
+            <h3 style="color: #15803d;"><i class="fa-solid fa-book-open"></i> Story: The Midnight Surprise</h3>
+            
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Start:</strong> "Last Christmas, at midnight, I heard a noise downstairs..."</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Start: Last Christmas, at midnight, I heard a noise downstairs...')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext4-start')">TH</button>
+                </div>
+                <div id="th-ext4-start" class="thai-text">เริ่มเรื่อง: "คริสต์มาสที่แล้ว ตอนเที่ยงคืน ฉันได้ยินเสียงข้างล่าง..."</div>
+
+                <div class="example-box">
+                    <strong>Example:</strong><br>
+                    "...I went downstairs and I saw a cat jumping <strong>on</strong> the tree."
+                    <div class="controls-sm">
+                         <button class="btn btn-sm btn-audio" onclick="speak('Example: I went downstairs and I saw a cat jumping on the tree.')"><i class="fa-solid fa-volume-high"></i></button>
+                         <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext4-ex')">TH</button>
+                    </div>
+                    <div id="th-ext4-ex" class="thai-text">ตัวอย่าง: "...ฉันลงไปข้างล่างแล้วเห็นแมวกระโดดขึ้นไปบนต้นไม้"</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <p style="margin-bottom: 5px;"><strong>Task:</strong> Finish the story! Was it Santa? A rat? A thief?</p>
+                <div class="controls-sm">
+                     <button class="btn btn-sm btn-audio" onclick="speak('Task: Finish the story! Was it Santa? A rat? A thief?')"><i class="fa-solid fa-volume-high"></i></button>
+                     <button class="btn btn-sm btn-translate" onclick="toggleThai('th-ext4-task')">TH</button>
+                </div>
+                <div id="th-ext4-task" class="thai-text">งาน: แต่งเรื่องต่อให้จบ! เป็นซานต้า? หนู? หรือขโมย?</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SECTION 5: ADDITIONAL VOCABULARY (New) -->
+    <div class="section">
+        <div class="flex-header">
+            <h2>5. Additional Vocabulary 📚</h2>
+            <div class="controls-sm">
+                <button class="btn btn-sm btn-audio" onclick="speak('Additional Vocabulary')"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="btn btn-sm btn-translate" onclick="toggleThai('th-sec6')">TH</button>
+            </div>
+            <div id="th-sec6" class="thai-text inline">คำศัพท์เพิ่มเติม</div>
+        </div>
+
+        <!-- Words Grid -->
+        <h3 style="margin-bottom: 10px; color: var(--secondary);">Words & Phrases</h3>
+        <div class="vocab-grid" style="margin-bottom: 30px;">
+            <div class="vocab-card simple">
+                <div class="vocab-word">Presents / Gifts</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Presents or Gifts')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd1')">TH</button>
+                </div>
+                <div id="th-vadd1" class="thai-text">ของขวัญ</div>
+            </div>
+            <div class="vocab-card simple">
+                <div class="vocab-word">Donate</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Donate')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd2')">TH</button>
+                </div>
+                <div id="th-vadd2" class="thai-text">บริจาค</div>
+            </div>
+            <div class="vocab-card simple">
+                <div class="vocab-word">Instant noodles</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Instant noodles')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd3')">TH</button>
+                </div>
+                <div id="th-vadd3" class="thai-text">มาม่า (ทันที)</div>
+            </div>
+             <div class="vocab-card simple">
+                <div class="vocab-word">Hook up with someone</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Hook up with someone')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd4')">TH</button>
+                </div>
+                <div id="th-vadd4" class="thai-text">แอบแซ่บกับใครบางคน</div>
+            </div>
+             <div class="vocab-card simple">
+                <div class="vocab-word">Noon</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Noon')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd5')">TH</button>
+                </div>
+                <div id="th-vadd5" class="thai-text">เที่ยงวัน</div>
+            </div>
+             <div class="vocab-card simple">
+                <div class="vocab-word">Half past 9</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Half past 9')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd6')">TH</button>
+                </div>
+                <div id="th-vadd6" class="thai-text">9 โมงครึ่ง</div>
+            </div>
+             <div class="vocab-card simple">
+                <div class="vocab-word">Spicy Thai Fish Dip</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Spicy Thai Fish Dip')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd7')">TH</button>
+                </div>
+                <div id="th-vadd7" class="thai-text">ป่นปลา / น้ำพริกปลา</div>
+            </div>
+            <div class="vocab-card simple">
+                <div class="vocab-word">Snakehead fish</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Snakehead fish')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd8')">TH</button>
+                </div>
+                <div id="th-vadd8" class="thai-text">ปลาช่อน</div>
+            </div>
+            <div class="vocab-card simple">
+                <div class="vocab-word">Make merit</div>
+                <div class="controls-sm">
+                    <button class="btn btn-sm btn-audio" onclick="speak('Make merit')"><i class="fa-solid fa-volume-high"></i></button>
+                    <button class="btn btn-sm btn-translate" onclick="toggleThai('th-vadd9')">TH</button>
+                </div>
+                <div id="th-vadd9" class="thai-text">ทำบุญ</div>
+            </div>
+        </div>
+
+        <!-- Sentences List -->
+        <h3 style="margin-bottom: 15px; color: var(--secondary);">Sentences</h3>
+        
+        <div class="text-block">
+            <span class="english-text">When I'm working, I must have mindfulness.</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('When I am working, I must have mindfulness.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s1')">TH</button>
+            </div>
+            <div id="th-s1" class="thai-text">ตอนทำงานต้องมีสติ</div>
+        </div>
+
+        <div class="text-block">
+            <span class="english-text">I always put fermented fish in my cooking.</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('I always put fermented fish in my cooking.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s2')">TH</button>
+            </div>
+            <div id="th-s2" class="thai-text">ฉันใส่ปลาร้าในอาหารที่ทำประจำ</div>
+        </div>
+
+        <div class="text-block">
+            <span class="english-text">I go hiking two times per week.</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('I go hiking two times per week.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s3')">TH</button>
+            </div>
+            <div id="th-s3" class="thai-text">ไปเดินป่าอาทิตย์ละสองครั้ง</div>
+        </div>
+        
+        <div class="text-block">
+            <span class="english-text">How often do you cook papaya salad?</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('How often do you cook papaya salad?')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s4')">TH</button>
+            </div>
+            <div id="th-s4" class="thai-text">ทำส้มตำบ่อยแค่ไหน</div>
+        </div>
+
+        <div class="text-block">
+            <span class="english-text">How often do you have dinner with somebody?</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('How often do you have dinner with somebody?')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s5')">TH</button>
+            </div>
+            <div id="th-s5" class="thai-text">ไปดินเนอร์กับใครบางคนบ่อยแค่ไหน</div>
+        </div>
+
+        <div class="text-block">
+            <span class="english-text">I really hope that children will be happy with my Pikachu.</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('I really hope that children will be happy with my Pikachu.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s6')">TH</button>
+            </div>
+            <div id="th-s6" class="thai-text">หวังเป็นอย่างยิ่งว่า เด็กๆจะมีความสุขกับพิก้าจูที่ฉันให้</div>
+        </div>
+        
+        <div class="text-block">
+            <span class="english-text">He has many pets.</span>
+            <div class="controls">
+                <button class="btn btn-audio" onclick="speak('He has many pets.')"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                <button class="btn btn-translate" onclick="toggleThai('th-s7')">TH</button>
+            </div>
+            <div id="th-s7" class="thai-text">มีสัตว์เลี้ยงหลายตัว</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- DATABASE OF VOCAB ---
+    // Combined list from your input
+    const vocabDatabase = [
+        {en: "Experience", th: "ประสบการณ์"},
+        {en: "I have traveled to Poland.", th: "ฉันเคยไปเที่ยวที่โปแลนด์"},
+        {en: "I ate bugs.", th: "ฉันเคยกินแมลง"},
+        {en: "How long did you live in Canada?", th: "เคยอยู่แคนาดานานแค่ไหน"},
+        {en: "What kind of insects did you eat?", th: "เคยกินแมลงแบบไหน"},
+        {en: "Tomorrow is my birthday.", th: "พรุ่งนี้วันเกิดฉัน"},
+        {en: "I ate snakes.", th: "เคยกินงู"},
+        {en: "Why did you go to Singapore?", th: "ทำไมไปสิงคโปร์"},
+        {en: "It tastes same as the chicken.", th: "รสชาติเหมือนไก่"},
+        {en: "Mole / Rat / Mouse", th: "ตุ่น / หนู"},
+        {en: "I have a house on the mountain.", th: "ฉันมีบ้านบนเขา"},
+        {en: "I like fishing.", th: "ฉันชอบตกปลา"},
+        {en: "I like growing cactuses.", th: "ฉันชอบปลูกต้นกระบองเพชร"},
+        {en: "How often?", th: "บ่อยแค่ไหน"},
+        {en: "Two times per week.", th: "อาทิตย์ละสองครั้ง"},
+        {en: "Small or Big?", th: "เล็กหรือใหญ่?"},
+        {en: "Fertiliser / Soil / Pots", th: "ปุ๋ย / ดิน / กระถาง"},
+        {en: "Seedlings", th: "ต้นกล้า"},
+        {en: "We have to fish where there are a lot of fishes.", th: "ต้องตกปลาที่ที่มีปลาเยอะๆ"},
+        {en: "Cold / Windy", th: "หนาว / ลมแรง"},
+        {en: "National Park", th: "อุทยานแห่งชาติ"},
+        {en: "I have been to Koh Lan.", th: "เคยไปเกาะล้าน"},
+        {en: "When I was young.", th: "ตอนเด็กๆ"},
+        {en: "Have you ever seen snow?", th: "เคยเห็นหิมะไหม"},
+        {en: "Have you read an English book?", th: "เคยอ่านหนังสือภาษาอังกฤษไหม"},
+        {en: "Have you ever met a famous person?", th: "เคยเจอคนดังไหม"},
+        {en: "Wait until it's boiling.", th: "รอจนเดือด"},
+        {en: "How long did it take to cook?", th: "ใช้เวลาทำนานแค่ไหน"},
+        {en: "He opened the door.", th: "เขาเปิดประตู"},
+        {en: "The police collected evidence.", th: "ตำรวจเก็บหลักฐาน"},
+        {en: "I went to a new house yesterday.", th: "ไปบ้านใหม่เมื่อวาน"},
+        {en: "Today, I've eaten papaya salad.", th: "วันนี้ฉันกินส้มตำแล้ว"},
+        {en: "Fermented fish", th: "ปลาร้า"},
+        {en: "Keep a diary", th: "เขียนไดอารี่"},
+        {en: "Useful", th: "มีประโยชน์"},
+        {en: "I saw a python cross the road.", th: "เห็นงูเหลือมข้ามถนน"},
+        {en: "Crocodiles taste like pork.", th: "จรเข้รสชาติเหมือนหมู"},
+        {en: "Who were you?", th: "คุณเคยเป็นใคร"},
+        {en: "Roasted duck", th: "เป็ดย่าง"},
+        {en: "He doesn't have hair.", th: "เขาไม่มีผม"},
+        {en: "I like to take photos.", th: "ฉันชอบถ่ายรูป"},
+        {en: "I had a headache.", th: "ฉันปวดหัว (อดีต)"},
+        {en: "I took my son to the doctor.", th: "ฉันพาลูกชายไปหาหมอ"},
+        {en: "He had a fever.", th: "เขาเป็นไข้"},
+        {en: "I like to sell second-hand clothes.", th: "ชอบขายเสื้อผ้ามือสอง"},
+        {en: "I was alone.", th: "อยู่คนเดียว"},
+        {en: "Drunk driving", th: "เมาแล้วขับ"},
+        {en: "I like to get wet.", th: "ชอบเปียก"},
+        {en: "It was raining yesterday.", th: "เมื่อวานฝนตก"},
+        {en: "Detergent", th: "ผงซักฟอก"},
+        {en: "Luggage", th: "กระเป๋าเดินทาง"},
+        {en: "I went hiking.", th: "ฉันไปปีนเขา/เดินป่า"},
+        {en: "It was muddy.", th: "มันเต็มไปด้วยโคลน"},
+        {en: "Haunted house", th: "บ้านผีสิง"},
+        {en: "Improve focus", th: "พัฒนาโฟกัส"},
+        {en: "Hiking is better than going to the beach.", th: "เดินป่าดีกว่าไปทะเล"},
+        {en: "It is healing.", th: "มันฮีลใจ"},
+        {en: "Wildlife", th: "สัตว์ป่า"},
+        {en: "Costume", th: "เครื่องแต่งกาย"},
+        {en: "I'm getting married next year.", th: "ฉันจะแต่งงานปีหน้า"},
+        {en: "Take a vacation leave", th: "ลาพักร้อน"},
+        {en: "Last weekend, I went to my hometown.", th: "เสาร์อาทิตย์ที่แล้วกลับบ้านเกิด"},
+        {en: "Have you booked the hotel?", th: "จองโรงแรมหรือยัง"},
+        {en: "Drunk", th: "เมา"},
+        {en: "Make a wish", th: "อธิษฐาน"},
+        {en: "Floods / Flooding", th: "น้ำท่วม"},
+        {en: "I sent the documents.", th: "ส่งเอกสาร"},
+        {en: "Sweat", th: "เหงื่อ"},
+        {en: "Scary", th: "น่ากลัว"},
+        {en: "I have never been to China.", th: "ไม่เคยไปจีน"},
+        {en: "Tonight, I'm going to cook.", th: "คืนนี้จะทำอาหาร"},
+        {en: "Case studies", th: "กรณีศึกษา"},
+        {en: "Embarrassed", th: "รู้สึกอับอาย"},
+        {en: "Hot-headed", th: "ใจร้อน/หัวร้อน"},
+        {en: "Shut up!", th: "หุบปาก"},
+        {en: "Pouring rain", th: "ฝนตกหนัก/ฝนถล่ม"},
+        {en: "River / Dam", th: "แม่น้ำ / เขื่อน"},
+        {en: "Take care of your health!", th: "รักษาสุขภาพด้วยนะ"},
+        {en: "My dog is drowning.", th: "หมากำลังจะจมน้ำ"},
+        {en: "Inhaler", th: "ยาดม"},
+        {en: "Thunder / Lightning", th: "ฟ้าร้อง / ฟ้าผ่า"},
+        {en: "I'm not into hiking.", th: "ไม่อินกับการเดินป่า"},
+        {en: "People are trapped.", th: "ผู้คนติดอยู่ (ออกไม่ได้)"},
+        {en: "Victims", th: "ผู้ประสบภัย"},
+        {en: "Society", th: "สังคม"},
+        {en: "Elders / Elderlies", th: "ผู้สูงอายุ"},
+        {en: "Mindfulness", th: "สติ"},
+        {en: "I saw my friend off at the bus terminal.", th: "ไปส่งเพื่อนที่สถานีรถบัส"},
+        {en: "I'm scared of snakes.", th: "กลัวงู"},
+        {en: "I wear a helmet to be safe.", th: "ฉันใส่หมวกกันน็อคเพื่อความปลอดภัย"},
+        {en: "I'm an introvert.", th: "ฉันเป็นอินโทรเวิร์ด"},
+        {en: "Social Insurance", th: "ประกันสังคม"},
+        {en: "Tourist attractions", th: "สถานที่ท่องเที่ยว"},
+        {en: "I want to win the lottery.", th: "อยากถูกหวย"},
+        {en: "When I'm working, I must have mindfulness.", th: "ตอนทำงานต้องมีสติ"},
+        {en: "I always put fermented fish in my cooking.", th: "ฉันใส่ปลาร้าในอาหารที่ทำประจำ"},
+        {en: "I go hiking two times per week.", th: "ไปเดินป่าอาทิตย์ละสองครั้ง"},
+        {en: "How often do you cook papaya salad?", th: "ทำส้มตำบ่อยแค่ไหน"},
+        {en: "How often do you have dinner with somebody?", th: "ไปดินเนอร์กับใครบางคนบ่อยแค่ไหน"},
+        {en: "Presents / Gifts", th: "ของขวัญ"},
+        {en: "Donate", th: "บริจาค"},
+        {en: "Instant noodles", th: "มาม่า (ทันที)"},
+        {en: "I really hope that children will be happy with my Pikachu.", th: "หวังเป็นอย่างยิ่งว่า เด็กๆจะมีความสุขกับพิก้าจูที่ฉันให้"},
+        {en: "Hook up with someone", th: "แอบแซ่บกับใครบางคน"},
+        {en: "He has many pets.", th: "มีสัตว์เลี้ยงหลายตัว"},
+        {en: "Noon", th: "เที่ยงวัน"},
+        {en: "Half past 9", th: "9 โมงครึ่ง"},
+        {en: "Spicy Thai Fish Dip", th: "ป่นปลา / น้ำพริกปลา"},
+        {en: "Snakehead fish", th: "ปลาช่อน"},
+        {en: "Make merit", th: "ทำบุญ"}
+    ];
+
+    // --- RANDOMIZER LOGIC ---
+    function spinWheel() {
+        const wordEl = document.getElementById('randomWord');
+        const thaiEl = document.getElementById('randomThai');
+        
+        // Hide Thai initially
+        thaiEl.style.display = 'none';
+        
+        // Animation effect
+        let count = 0;
+        const interval = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * vocabDatabase.length);
+            wordEl.innerText = vocabDatabase[randomIndex].en;
+            count++;
+            if(count > 10) {
+                clearInterval(interval);
+                // Final selection
+                const finalIndex = Math.floor(Math.random() * vocabDatabase.length);
+                const selection = vocabDatabase[finalIndex];
+                
+                wordEl.innerText = selection.en;
+                thaiEl.innerText = selection.th;
+                
+                // Optional: Auto speak English
+                speak(selection.en);
+            }
+        }, 80);
+    }
+
+    // --- SCOREBOARD LOGIC ---
+    let scores = {
+        santa: 0,
+        elf: 0
+    };
+
+    function updateScore(team, change) {
+        scores[team] += change;
+        // Optional: prevent negative scores
+        if (scores[team] < 0) scores[team] = 0;
+        
+        document.getElementById(`score-${team}`).innerText = scores[team];
+    }
+
+    function toggleRandomThai() {
+        const thaiEl = document.getElementById('randomThai');
+        if (thaiEl.style.display === 'block') {
+            thaiEl.style.display = 'none';
+        } else {
+            thaiEl.style.display = 'block';
+        }
+    }
+
+    function speakRandom() {
+        const text = document.getElementById('randomWord').innerText;
+        if(text !== "Click Spin!") {
+            speak(text);
+        }
+    }
+
+    // --- TTS & UTILS ---
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("TTS not supported in this browser.");
+        }
+    }
+
+    function toggleThai(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === 'block') {
+            el.style.display = 'none';
+        } else {
+            el.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
