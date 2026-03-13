@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Lesson: Have You Ever...?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #f7f3ff; /* Light purple background */
+        }
+        .thai-translation {
+            font-family: 'Sarabun', sans-serif;
+            color: #4b5563;
+        }
+        .tts-icon {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+            user-select: none;
+        }
+        .tts-icon:hover {
+            transform: scale(1.2);
+        }
+        .game-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-left: 8px solid #8b5cf6; /* Violet */
+        }
+        .game-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #6d28d9; /* Deep Violet */
+            margin-bottom: 0.5rem;
+        }
+        .useful-phrases {
+            background-color: #f5f3ff; /* Lighter violet */
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        .phrase-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd6fe;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd6fe;
+        }
+        th {
+            background-color: #f5f3ff;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-bold text-violet-700"><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Have You Ever...?</span></h1>
+            <p class="text-2xl mt-2 text-violet-500"><span class="thai-translation">The Party Game Edition!</span></p>
+             <div class="mt-4 p-3 bg-violet-100 border border-violet-200 rounded-lg inline-block">
+                <p class="font-semibold">
+                    <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Let's play some fun speaking games!</span>
+                </p>
+                <p class="thai-translation">มาเล่นเกมฝึกพูดสนุกๆ กันเถอะ!</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+
+            <!-- Part 1: Warm-up Game -->
+            <section id="part1" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Warm-up Game: Mime the Experience</h2>
+
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        How to Play
+                    </h3>
+                    <p class="thai-translation mb-4">วิธีเล่น</p>
+                    
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">One student thinks of an experience they have had (e.g., riding a horse).</span>
+                            <p class="thai-translation ml-6">นักเรียนหนึ่งคนนึกถึงประสบการณ์ที่เคยทำ (เช่น ขี่ม้า)</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The student mimes the action. No speaking!</span>
+                            <p class="thai-translation ml-6">นักเรียนคนนั้นต้องทำท่าทางตามประสบการณ์นั้น ห้ามพูด!</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Other students must guess by asking: "Have you ever ridden a horse?"</span>
+                            <p class="thai-translation ml-6">นักเรียนคนอื่นๆ ต้องทายโดยการถามว่า "คุณเคยขี่ม้าไหม?"</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The first person to guess correctly goes next!</span>
+                            <p class="thai-translation ml-6">คนที่ทายถูกคนแรกจะได้เล่นในตาถัดไป!</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Part 2: Main Party Games -->
+            <section id="part2" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Main Event: Party Games!</h2>
+                
+                <!-- Game 1: Never Have I Ever -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 1: Never Have I Ever
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 1: ไม่เคยเลย...สักครั้ง</p>
+                    
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Everyone holds up 5 fingers.</span>
+                            <p class="thai-translation ml-6">ทุกคนชูนิ้วขึ้นมา 5 นิ้ว</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Take turns saying a sentence: "Never have I ever..." + an activity (e.g., "...eaten snails.")</span>
+                            <p class="thai-translation ml-6">ผลัดกันพูดประโยคว่า "ฉันไม่เคย..." + กิจกรรม (เช่น "...กินหอยทาก")</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">If you HAVE done it, you must put one finger down.</span>
+                            <p class="thai-translation ml-6">ถ้าคุณ **เคย** ทำสิ่งนั้น คุณต้องพับนิ้วลง 1 นิ้ว</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Then, you must say one sentence about it using the Past Simple. (e.g., "I ate them last year.")</span>
+                            <p class="thai-translation ml-6">จากนั้น คุณต้องพูด 1 ประโยคเกี่ยวกับประสบการณ์นั้นโดยใช้ Past Simple (เช่น "ฉันกินมันเมื่อปีที่แล้ว")</p>
+                        </li>
+                    </ol>
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Phrases</h4>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Never have I ever...</span></span> <span class="thai-translation">ฉันไม่เคย...</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">...seen a real snake.</span></span> <span class="thai-translation">...เห็นงูตัวจริง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">...been to another country.</span></span> <span class="thai-translation">...ไปต่างประเทศ</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">...forgotten my mom's birthday.</span></span> <span class="thai-translation">...ลืมวันเกิดแม่</span></div>
+                    </div>
+                </div>
+                
+                 <!-- Game 2: Experience Story Time -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 2: Experience Story Time
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 2: ถึงเวลาเล่าเรื่อง</p>
+
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The teacher will ask a "Have you ever...?" question to the group.</span>
+                            <p class="thai-translation ml-6">ครูจะถามคำถาม "คุณเคย...ไหม?" กับทุกคนในกลุ่ม</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">If the answer is "Yes, I have," raise your hand!</span>
+                            <p class="thai-translation ml-6">ถ้าคำตอบของคุณคือ "ใช่, ฉันเคย" ให้ยกมือขึ้น!</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">One student will be chosen to say 2-3 sentences about what happened.</span>
+                            <p class="thai-translation ml-6">ครูจะเลือกนักเรียนหนึ่งคนเพื่อพูด 2-3 ประโยคว่าเกิดอะไรขึ้น</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Everyone else must ask at least one follow-up question using the Past Simple.</span>
+                            <p class="thai-translation ml-6">นักเรียนคนอื่นๆ ต้องถามคำถามติดตามอย่างน้อย 1 คำถามโดยใช้ Past Simple</p>
+                        </li>
+                    </ol>
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Story Prompts & Questions</h4>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Have you ever been on a boat?</span></span> <span class="thai-translation">คุณเคยนั่งเรือไหม?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Have you ever found money on the street?</span></span> <span class="thai-translation">คุณเคยเจอเงินบนถนนไหม?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Have you ever received a surprising gift?</span></span> <span class="thai-translation">คุณเคยได้รับของขวัญที่น่าประหลาดใจไหม?</span></div>
+                        <p class="font-semibold mt-4">Follow-up Questions:</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">When did it happen?</span></span> <span class="thai-translation">มันเกิดขึ้นเมื่อไหร่?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Where were you?</span></span> <span class="thai-translation">คุณอยู่ที่ไหน?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Who was with you?</span></span> <span class="thai-translation">ใครอยู่กับคุณ?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Was it fun?</span></span> <span class="thai-translation">มันสนุกไหม?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">How did you feel?</span></span> <span class="thai-translation">คุณรู้สึกอย่างไร?</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 3: Cool-down -->
+            <section id="part3" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Cool-down: Dream Experience</h2>
+                
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        My Dream Trip
+                    </h3>
+                    <p class="thai-translation mb-4">ทริปในฝันของฉัน</p>
+                    
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Think about a place you have **never** visited, but want to visit in the future. Tell your friends about your dream trip!</span>
+                        <p class="thai-translation">ลองนึกถึงสถานที่ที่คุณ **ไม่เคย** ไป แต่ใฝ่ฝันอยากจะไปในอนาคต ลองเล่าให้เพื่อนๆ ฟังเกี่ยวกับทริปในฝันของคุณ!</p>
+                    </p>
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Phrases</h4>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have never been to... (Japan).</span></span> <span class="thai-translation">ฉันไม่เคยไป... (ญี่ปุ่น)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I want to go there because...</span></span> <span class="thai-translation">ฉันอยากไปที่นั่นเพราะว่า...</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">First, I will see...</span></span> <span class="thai-translation">อย่างแรก ฉันจะไปดู...</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Then, I will eat...</span></span> <span class="thai-translation">จากนั้น ฉันจะกิน...</span></div>
+                    </div>
+                </div>
+
+            </section>
+            
+            <!-- Extension Activities -->
+            <section id="part4" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Extension Activities (For Fast Finishers)</h2>
+
+                <!-- Alibi Game -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Detective Game
+                    </h3>
+                    <p class="thai-translation mb-4">เกมนักสืบ</p>
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">One student is a detective. The other students think of one thing they did yesterday. The detective asks questions like "What did you do?" or "Where did you go?".</span>
+                    </p>
+                    <p class="thai-translation mb-4">นักเรียนหนึ่งคนเป็น "นักสืบ" คนอื่นๆ นึกถึงสิ่งที่ทำเมื่อวาน 1 อย่าง นักสืบจะถามคำถามเช่น "คุณทำอะไร?" หรือ "คุณไปที่ไหนมา?"</p>
+                </div>
+
+                <!-- Experience Bingo -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Experience Bingo
+                    </h3>
+                    <p class="thai-translation mb-4">บิงโกประสบการณ์</p>
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Ask your friends "Have you ever...?" questions. The first person to get three in a row wins!</span>
+                    </p>
+                    <p class="thai-translation mb-4">ถามคำถามเพื่อนว่า "คุณเคย...ไหม?" ใครได้ครบ 3 ช่องเรียงกันก่อนเป็นผู้ชนะ!</p>
+                </div>
+            </section>
+            
+            <!-- Wrap-up & Review -->
+            <section id="part5" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Wrap-up & Review</h2>
+                
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Let's Talk About It!
+                    </h3>
+                    <p class="thai-translation mb-4">มาคุยกันเถอะ!</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">What was your favorite game today?</span>
+                             <p class="thai-translation ml-6">วันนี้ชอบเกมไหนมากที่สุด?</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Share one interesting thing you have learned about a friend.</span>
+                            <p class="thai-translation ml-6">แบ่งปันเรื่องน่าสนใจ 1 อย่างที่คุณได้เรียนรู้เกี่ยวกับเพื่อนในวันนี้</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Additional Vocabulary -->
+            <section id="part6" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Additional Vocabulary</h2>
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Useful Words & Phrases
+                    </h3>
+                    <p class="thai-translation mb-4">คำและวลีที่มีประโยชน์</p>
+                    <div class="useful-phrases !bg-white">
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Mime</span></span> <span class="thai-translation">ทำท่า</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">e.g.</span></span> <span class="thai-translation">for the sake of example (exempli gratia in Latin)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">keep a diary</span></span> <span class="thai-translation">เขียนไดอารี่</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Useful</span></span> <span class="thai-translation">มีประโยชน์</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Phrases</span></span> <span class="thai-translation">วลี</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have caught a small cobra.</span></span> <span class="thai-translation">เคยจับงูเห่าตัวเล็ก</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I saw a python cross the road.</span></span> <span class="thai-translation">เห็นงูเหลือมข้ามถนน</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Ptyas</span></span> <span class="thai-translation">งูสิงห์</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I drank alocohol during the New Year.</span></span> <span class="thai-translation">ดื่มช่วงปีใหม่</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">island</span></span> <span class="thai-translation">เกาะ</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">city</span></span> <span class="thai-translation">เมือง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Crocodiles taste like pork.</span></span> <span class="thai-translation">จรเข้รสชาติเหมือนหมู</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">rice whisky / white spirit / white liquor</span></span> <span class="thai-translation">เหล้าขาว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Who were you?</span></span> <span class="thai-translation">คุณเคยเป็นใคร</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">roasted duck</span></span> <span class="thai-translation">เป็ดย่าง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">beans / nuts</span></span> <span class="thai-translation">ถั่ว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Were you in Korat when there was a mass shooting?</span></span> <span class="thai-translation">อยู่โคราชตอนที่เขากราดยิงไหม (ใหญ่)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I took my son there.</span></span> <span class="thai-translation">พาลูกชายไปที่นั่น</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">roasted cow skin</span></span> <span class="thai-translation">หนังวัวเผา</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">They smoke less now.</span></span> <span class="thai-translation">พวกเขาสูบน้อยลงแล้ว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">weed / cannabis</span></span> <span class="thai-translation">กัญชา</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">He doesn't have hair.</span></span> <span class="thai-translation">เขาไม่มีผม</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Does he have hair?</span></span> <span class="thai-translation">เขามีผมไหม</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">He sold it.</span></span> <span class="thai-translation">เขาขายแล้ว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I bring a cup to the classroom.</span></span> <span class="thai-translation">ฉันเอาแก้วน้ำมาในห้องเรียน</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have brought a pot to the office.</span></span> <span class="thai-translation">ฉันเคยเอาหม้อมาออฟฟิศ</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I like to take photos.</span></span> <span class="thai-translation">ฉันชอบถ่ายรูป</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I had a headache.</span></span> <span class="thai-translation">ฉันปวดหัว (อดีต)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have taken my son to (see) the doctor.</span></span> <span class="thai-translation">ฉันเคยพาลูกชายไปหาหมอ</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">He was sick.</span></span> <span class="thai-translation">เขาไม่สบาย (อดีต)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">He had a fever.</span></span> <span class="thai-translation">เขาเป็นไข้ (อดีต)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I like to sell second-hand clothes.</span></span> <span class="thai-translation">ชอบขายเสื้อผ้ามือสอง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have sold chicken rice in front of a wet market.</span></span> <span class="thai-translation">เคยขายข้าวมันไก่หน้าตลาดสด</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I usually buy printers at the mall.</span></span> <span class="thai-translation">ฉันมักจะซื้อปรินต์เตอร์ที่ห้าง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">pier</span></span> <span class="thai-translation">ท่าเรือ</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">opposite</span></span> <span class="thai-translation">ตรงข้าม</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I was alone.</span></span> <span class="thai-translation">อยู่คนเดียว (อดีต)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I felt relaxed and didn't have a headache.</span></span> <span class="thai-translation">รีเล็ก และไม่ปวดหัว (อดีต)</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I was walking and then I saw money. So, I took it.</span></span> <span class="thai-translation">เดินอยู่ แล้วก็เจอเงิน ก็เลยเอาไป</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">drunk driving</span></span> <span class="thai-translation">เมาแล้วขับ</span></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Verb Forms -->
+            <section id="part7">
+                <h2 class="text-3xl font-bold border-b-4 border-violet-300 pb-2 mb-6">Verb Forms</h2>
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Grammar Point
+                    </h3>
+                    <p class="thai-translation mb-4">หลักไวยากรณ์</p>
+                    <div class="overflow-x-auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><span class="tts-icon" onclick="speakText('V0, base form')">🔊</span>V0 (base form)<p class="thai-translation">รูปแบบพื้นฐาน</p></th>
+                                    <th><span class="tts-icon" onclick="speakText('V1, Present')">🔊</span>V1 (Present)<p class="thai-translation">ปัจจุบัน</p></th>
+                                    <th><span class="tts-icon" onclick="speakText('V2, Past')">🔊</span>V2 (Past)<p class="thai-translation">อดีต</p></th>
+                                    <th><span class="tts-icon" onclick="speakText('V3')">🔊</span>V3<p class="thai-translation">Never have I ever... / I have (n)ever... Experience (ประสบการณ์)</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To be')">🔊</span>To be</td>
+                                    <td><span class="tts-icon" onclick="speakText('is, am, are')">🔊</span>is/am/are</td>
+                                    <td><span class="tts-icon" onclick="speakText('was, were')">🔊</span>was/were</td>
+                                    <td><span class="tts-icon" onclick="speakText('been')">🔊</span>been</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To eat')">🔊</span>To eat</td>
+                                    <td><span class="tts-icon" onclick="speakText('eat')">🔊</span>eat</td>
+                                    <td><span class="tts-icon" onclick="speakText('ate')">🔊</span>ate</td>
+                                    <td><span class="tts-icon" onclick="speakText('eaten')">🔊</span>eaten</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To go')">🔊</span>To go</td>
+                                    <td><span class="tts-icon" onclick="speakText('go')">🔊</span>go</td>
+                                    <td><span class="tts-icon" onclick="speakText('went')">🔊</span>went</td>
+                                    <td><span class="tts-icon" onclick="speakText('gone')">🔊</span>gone</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To drink')">🔊</span>To drink</td>
+                                    <td><span class="tts-icon" onclick="speakText('drink')">🔊</span>drink</td>
+                                    <td><span class="tts-icon" onclick="speakText('drank')">🔊</span>drank</td>
+                                    <td><span class="tts-icon" onclick="speakText('drunk')">🔊</span>drunk</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To smoke')">🔊</span>To smoke</td>
+                                    <td><span class="tts-icon" onclick="speakText('smoke')">🔊</span>smoke</td>
+                                    <td><span class="tts-icon" onclick="speakText('smoked')">🔊</span>smoked</td>
+                                    <td><span class="tts-icon" onclick="speakText('smoked')">🔊</span>smoked</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To have')">🔊</span>To have</td>
+                                    <td><span class="tts-icon" onclick="speakText('has, have')">🔊</span>has/have</td>
+                                    <td><span class="tts-icon" onclick="speakText('had')">🔊</span>had</td>
+                                    <td><span class="tts-icon" onclick="speakText('had')">🔊</span>had</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To bring')">🔊</span>To bring</td>
+                                    <td><span class="tts-icon" onclick="speakText('bring')">🔊</span>bring</td>
+                                    <td><span class="tts-icon" onclick="speakText('brought')">🔊</span>brought</td>
+                                    <td><span class="tts-icon" onclick="speakText('brought')">🔊</span>brought<p class="thai-translation">เอาไป / เอามา + items (mostly)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To take')">🔊</span>To take</td>
+                                    <td><span class="tts-icon" onclick="speakText('take')">🔊</span>take</td>
+                                    <td><span class="tts-icon" onclick="speakText('took')">🔊</span>took</td>
+                                    <td><span class="tts-icon" onclick="speakText('taken')">🔊</span>taken<p class="thai-translation">พา</p></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To sell')">🔊</span>To sell</td>
+                                    <td><span class="tts-icon" onclick="speakText('sell')">🔊</span>sell</td>
+                                    <td><span class="tts-icon" onclick="speakText('sold')">🔊</span>sold</td>
+                                    <td><span class="tts-icon" onclick="speakText('sold')">🔊</span>sold</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="tts-icon" onclick="speakText('To buy')">🔊</span>To buy</td>
+                                    <td><span class="tts-icon" onclick="speakText('buy')">🔊</span>buy</td>
+                                    <td><span class="tts-icon" onclick="speakText('bought')">🔊</span>bought</td>
+                                    <td><span class="tts-icon" onclick="speakText('bought')">🔊</span>bought</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+
+        </main>
+    </div>
+
+    <script>
+        // --- Text-to-Speech Functionality ---
+        const synth = window.speechSynthesis;
+
+        function speakText(textToSpeak) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const cleanText = textToSpeak.replace('🔊', '').trim();
+            if (cleanText) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'en-US';
+                utterance.pitch = 1;
+                utterance.rate = 0.9;
+                utterance.volume = 1;
+                synth.speak(utterance);
+            }
+        }
+    </script>
+</body>
+</html>
+
