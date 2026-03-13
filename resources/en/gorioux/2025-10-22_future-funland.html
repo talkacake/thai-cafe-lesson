@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Lesson: Future Funland</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #f3e8ff; /* Light purple background */
+        }
+        .thai-translation {
+            font-family: 'Sarabun', sans-serif;
+            color: #4b5563;
+        }
+        .tts-icon {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+            user-select: none;
+        }
+        .tts-icon:hover {
+            transform: scale(1.2);
+        }
+        .game-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-left: 8px solid #8b5cf6; /* Purple */
+        }
+        .game-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #6d28d9; /* Deep Purple */
+            margin-bottom: 0.5rem;
+        }
+        .useful-phrases {
+            background-color: #ede9fe; /* Lighter purple */
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .phrase-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd6fe;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-bold text-purple-700"><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Future Funland!</span></h1>
+            <p class="text-2xl mt-2 text-purple-500"><span class="thai-translation">Let's Talk About Tomorrow!</span></p>
+             <div class="mt-4 p-3 bg-purple-100 border border-purple-200 rounded-lg inline-block">
+                <p class="font-semibold">
+                    <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Today, we will play games about our future plans!</span>
+                </p>
+                <p class="thai-translation">วันนี้ เราจะมาเล่นเกมเกี่ยวกับแผนการในอนาคตกัน!</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+
+            <!-- Part 1: Warm-up Game -->
+            <section id="part1" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-purple-300 pb-2 mb-6">Warm-up: What's the Plan?</h2>
+                <p class="thai-translation -mt-4 mb-6">เกมอุ่นเครื่อง: แผนคืออะไร?</p>
+
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        How to Play
+                    </h3>
+                    <p class="thai-translation mb-4">วิธีเล่น</p>
+                    
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText.split('(')[0])">🔊</span><span class="english-text">The teacher will show a picture (e.g., a person with a suitcase, a person with a football). <a href="https://photos.app.goo.gl/ji2CBaktfiUki2Z56" target="_blank" class="text-purple-600 hover:underline font-semibold">(Click here for pictures)</a></span>
+                            <p class="thai-translation ml-6">ครูจะโชว์รูปภาพ (เช่น คนถือกระเป๋าเดินทาง, คนถือลูกฟุตบอล) <a href="https://photos.app.goo.gl/ji2CBaktfiUki2Z56" target="_blank" class="text-purple-600 hover:underline font-semibold">(คลิกที่นี่เพื่อดูรูปภาพ)</a></p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">In turns, students guess the plan using "going to".</span>
+                            <p class="thai-translation ml-6">นักเรียนผลัดกันเดาแผนของคนในภาพ โดยใช้ "going to"</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Phrases <span class="thai-translation">(วลีมีประโยชน์)</span></h4>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('He is going to travel.')">🔊</span><span class="english-text">He is going to travel.</span></span> <span class="thai-translation">เขากำลังจะไปเที่ยว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('She is going to play football.')">🔊</span><span class="english-text">She is going to play football.</span></span> <span class="thai-translation">เธอกำลังจะไปเล่นฟุตบอล</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('They are going to cook.')">🔊</span><span class="english-text">They are going to cook.</span></span> <span class="thai-translation">พวกเขากำลังจะทำอาหาร</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 2: Main Games -->
+            <section id="part2" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-purple-300 pb-2 mb-6">Main Event: Let's Meet Up!</h2>
+                <p class="thai-translation -mt-4 mb-6">เกมหลัก: นัดเจอกันเถอะ!</p>
+                
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 1: The Busy Diary
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 1: ไดอารี่สุดยุ่ง</p>
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Goal:** You must find a free time to have a party with your friends!</span>
+                        <p class="thai-translation">**เป้าหมาย:** คุณต้องหาเวลาว่างเพื่อจัดปาร์ตี้กับเพื่อนๆ ให้ได้!</p>
+                    </p>
+                    
+                    <ol class="list-decimal list-inside space-y-4">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 1 (Main Room):** Look at the example diary. Everyone must **secretly** write down 3 appointments for next week. (e.g., Monday 6 PM - eat dinner with family. Wednesday 8 PM - watch movie.)</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 1 (ห้องรวม):** ดูตัวอย่างไดอารี่ ทุกคนต้อง**แอบ**เขียนนัดหมาย 3 อย่างของตัวเองในสัปดาห์หน้า (เช่น วันจันทร์ 6 โมงเย็น - กินข้าวกับครอบครัว, วันพุธ 2 ทุ่ม - ดูหนัง)</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 2 (Breakout Rooms):** Go into pairs. You must ask questions to find a free time to meet.</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 2 (ห้องย่อย):** เข้าไปจับคู่ในห้องย่อย คุณต้องถามคำถามเพื่อนเพื่อหาเวลาว่างที่ตรงกัน</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 3 (Main Room):** Report back. "We are meeting on [day] at [time]!"</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 3 (ห้องรวม):** กลับมารายงาน "เราจะเจอกันวัน [..] เวลา [..]!"</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Questions & Phrases <span class="thai-translation">(คำถามและวลีมีประโยชน์)</span></h4>
+                        <p class="font-semibold">Asking:</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('What are you doing on Monday?')">🔊</span><span class="english-text">What are you doing on Monday?</span></span> <span class="thai-translation">วันจันทร์คุณทำอะไร?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Are you free on Tuesday at 7 PM?')">🔊</span><span class="english-text">Are you free on Tuesday at 7 PM?</span></span> <span class="thai-translation">วันอังคาร 1 ทุ่มคุณว่างไหม?</span></div>
+                        
+                        <p class="font-semibold mt-4">Answering:</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Sorry, I am visiting my family.')">🔊</span><span class="english-text">Sorry, I am visiting my family.</span></span> <span class="thai-translation">ขอโทษที ฉันไปเยี่ยมครอบครัว</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('I am playing football at 6.')">🔊</span><span class="english-text">I am playing football at 6.</span></span> <span class="thai-translation">ฉันเล่นฟุตบอลตอน 6 โมง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Yes, I am free! Let\'s meet.')">🔊</span><span class="english-text">Yes, I am free! Let's meet.</span></span> <span class="thai-translation">ว่าง! เจอกันเลย</span></div>
+                    </div>
+                </div>
+
+                <!-- Game 2: The Fortune Teller -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 2: The Fortune Teller
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 2: หมอดู</p>
+                     <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Goal:** Practice making predictions with "will".</span>
+                        <p class="thai-translation">**เป้าหมาย:** ฝึกการทำนายอนาคตด้วย "will"</p>
+                    </p>
+                    
+                    <ol class="list-decimal list-inside space-y-4">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 1 (Breakout Rooms):** Go into pairs. One student is the **Fortune Teller** (หมอดู). The other is the **Customer** (ลูกค้า).</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 1 (ห้องย่อย):** เข้าไปจับคู่ในห้องย่อย คนหนึ่งเป็น **หมอดู** อีกคนเป็น **ลูกค้า**</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 2 (Practice):** The Customer asks questions about their future. The Fortune Teller gives answers (predictions).</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 2 (ฝึกฝน):** ลูกค้าถามคำถามเกี่ยวกับอนาคตของตนเอง หมอดูเป็นคนตอบ (ทำนาย)</p>
+                        </li>
+                         <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 3 (Main Room):** The teacher picks one or two "Fortune Tellers" to come to the main room. All other students can ask them questions!</span>
+                            <p class="thai-translation ml-6">**ขั้นที่ 3 (ห้องรวม):** ครูเลือก "หมอดู" 1-2 คนมาที่ห้องรวม นักเรียนคนอื่นๆ สามารถถามคำถามพวกเขาได้เลย!</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Questions & Phrases <span class="thai-translation">(คำถามและวลีมีประโยชน์)</span></h4>
+                        <p class="font-semibold">Customer (ลูกค้า):</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('What will happen to me?')">🔊</span><span class="english-text">What will happen to me?</span></span> <span class="thai-translation">จะเกิดอะไรขึ้นกับฉัน?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Will I be rich?')">🔊</span><span class="english-text">Will I be rich?</span></span> <span class="thai-translation">ฉันจะรวยไหม?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Will I travel?')">🔊</span><span class="english-text">Will I travel?</span></span> <span class="thai-translation">ฉันจะได้ไปเที่ยวไหม?</span></div>
+                        
+                        <p class="font-semibold mt-4">Fortune Teller (หมอดู):</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('You will meet a new friend.')">🔊</span><span class="english-text">You will meet a new friend.</span></span> <span class="thai-translation">คุณจะได้เจอเพื่อนใหม่</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('You will eat something delicious.')">🔊</span><span class="english-text">You will eat something delicious.</span></span> <span class="thai-translation">คุณจะได้กินของอร่อย</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('No, you will not be rich, but you will be happy.')">🔊</span><span class="english-text">No, you will not be rich, but you will be happy.</span></span> <span class="thai-translation">ไม่, คุณจะไม่รวย แต่คุณจะมีความสุข</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 3: Cool-down -->
+            <section id="part3" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-purple-300 pb-2 mb-6">Cool-down & Review</h2>
+                <p class="thai-translation -mt-4 mb-6">สรุปและทบทวน</p>
+                
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        My Future Weekend
+                    </h3>
+                    <p class="thai-translation mb-4">สุดสัปดาห์ในอนาคตของฉัน</p>
+                    
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Each student shares one plan for this weekend.</span>
+                        <p class="thai-translation">นักเรียนแต่ละคนแชร์ 1 แผนการสำหรับสุดสัปดาห์นี้</p>
+                    </p>
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Example Sentences <span class="thai-translation">(ตัวอย่างประโยค)</span></h4>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('This weekend, I am going to watch a movie.')">🔊</span><span class="english-text">This weekend, I am going to watch a movie.</span></span> <span class="thai-translation">สุดสัปดาห์นี้ ฉันจะไปดูหนัง</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('I am going to visit my friend on Saturday.')">🔊</span><span class="english-text">I am going to visit my friend on Saturday.</span></span> <span class="thai-translation">ฉันจะไปเยี่ยมเพื่อนวันเสาร์นี้</span></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Part 4: Extension Activities -->
+            <section id="part4" class="mb-12">
+                <h2 class="text-3xl font-bold border-b-4 border-purple-300 pb-2 mb-6">Extension Activities (If you have extra time)</h2>
+                <p class="thai-translation -mt-4 mb-6">กิจกรรมเสริม (ถ้ามีเวลาเหลือ)</p>
+                
+                <!-- Game 3: Holiday Planner -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 3: Holiday Planner
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 3: วางแผนวันหยุด</p>
+                    <p class="mb-4">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Goal:** Plan a perfect holiday with a travel agent. (Good for pairs in breakout rooms)</span>
+                        <p class="thai-translation">**เป้าหมาย:** วางแผนวันหยุดที่สมบูรณ์แบบกับบริษัททัวร์ (เหมาะสำหรับจับคู่ในห้องย่อย)</p>
+                    </p>
+                    
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">One student is the **Travel Agent** (พนักงานบริษัททัวร์). One is the **Tourist** (นักท่องเที่ยว).</span>
+                            <p class="thai-translation ml-6">นักเรียนคนหนึ่งเป็น **พนักงานบริษัททัวร์** อีกคนเป็น **นักท่องเที่ยว**</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The Tourist wants to go on holiday. The Agent must ask questions to help them.</span>
+                            <p class="thai-translation ml-6">นักท่องเที่ยวต้องการไปเที่ยว พนักงานต้องถามคำถามเพื่อช่วยวางแผน</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Useful Questions & Phrases <span class="thai-translation">(คำถามและวลีมีประโยชน์)</span></h4>
+                        <p class="font-semibold">Travel Agent (พนักงาน):</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('Where are you going to go?')">🔊</span><span class="english-text">Where are you going to go?</span></span> <span class="thai-translation">คุณจะไปที่ไหน?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('When will you travel?')">🔊</span><span class="english-text">When will you travel?</span></span> <span class="thai-translation">คุณจะเดินทางเมื่อไหร่?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('What are you going to do there?')">🔊</span><span class="english-text">What are you going to do there?</span></span> <span class="thai-translation">คุณจะไปทำอะไรที่นั่น?</span></div>
+                        
+                        <p class="font-semibold mt-4">Tourist (นักท่องเที่ยว):</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('I am going to go to Japan.')">🔊</span><span class="english-text">I am going to go to Japan.</span></span> <span class="thai-translation">ฉันจะไปญี่ปุ่น</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('I will go next month.')">🔊</span><span class="english-text">I will go next month.</span></span> <span class="thai-translation">ฉันจะไปเดือนหน้า</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('I am going to eat sushi!')">🔊</span><span class="english-text">I am going to eat sushi!</span></span> <span class="thai-translation">ฉันจะไปกินซูชิ!</span></div>
+                    </div>
+                </div>
+
+                <!-- Game 4: Future Lie Detector -->
+                <div class="game-card">
+                    <h3>
+                        <span class="tts-icon" onclick="speakText(this.parentElement.innerText)">🔊</span>
+                        Game 4: Future Lie Detector
+                    </h3>
+                    <p class="thai-translation mb-4">เกมที่ 4: เครื่องจับเท็จอนาคต</p>
+                     
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">One student says 3 sentences about their future plans. Two are true, one is a **lie**.</span>
+                            <p class="thai-translation ml-6">นักเรียนหนึ่งคนพูด 3 ประโยคเกี่ยวกับแผนในอนาคต 2 ประโยคเป็นเรื่องจริง 1 ประโยคเป็นเรื่อง **โกหก**</p>
+                        </li>
+                        <li>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The other students ask questions to find the lie.</span>
+                            <p class="thai-translation ml-6">นักเรียนคนอื่นๆ ถามคำถามเพื่อหาว่าประโยคไหนโกหก</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <h4 class="font-bold text-lg mb-2">Example <span class="thai-translation">(ตัวอย่าง)</span></h4>
+                        <p class="font-semibold">Student A:</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('1. I am going to buy a new phone this weekend.')">🔊</span><span class="english-text">1. I am going to buy a new phone this weekend.</span></span> <span class="thai-translation">1. ฉันจะซื้อโทรศัพท์ใหม่สุดสัปดาห์นี้</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('2. I am going to cook steak for dinner tonight.')">🔊</span><span class="english-text">2. I am going to cook steak for dinner tonight.</span></span> <span class="thai-translation">2. ฉันจะทำสเต็กเป็นอาหารเย็นนี้</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('3. I will visit my grandmother tomorrow.')">🔊</span><span class="english-text">3. I will visit my grandmother tomorrow.</span></span> <span class="thai-translation">3. ฉันจะไปเยี่ยมย่า/ยายพรุ่งนี้</span></div>
+                        
+                        <p class="font-semibold mt-4">Other Students (asking questions):</p>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('What phone are you going to buy?')">🔊</span><span class="english-text">What phone are you going to buy?</span></span> <span class="thai-translation">คุณจะซื้อโทรศัพท์อะไร?</span></div>
+                        <div class="phrase-item"><span><span class="tts-icon" onclick="speakText('What time are you going to cook?')">🔊</span><span class="english-text">What time are you going to cook?</span></span> <span class="thai-translation">คุณจะทำอาหารกี่โมง?</span></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Text-to-Speech Functionality ---
+        const synth = window.speechSynthesis;
+
+        function speakText(textToSpeak) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const cleanText = textToSpeak.replace('🔊', '').trim();
+            if (cleanText) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'en-US';
+                utterance.pitch = 1;
+                utterance.rate = 0.9;
+                utterance.volume = 1;
+                synth.speak(utterance);
+            }
+        }
+    </script>
+</body>
+</html>
+
+
