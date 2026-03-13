@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Lesson: The Tense Traveler's Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #f0fdfa; /* Light Teal background */
+        }
+        .thai-translation {
+            font-family: 'Sarabun', sans-serif;
+            color: #4b5563;
+        }
+        .tts-icon {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+            user-select: none;
+        }
+        .tts-icon:hover {
+            transform: scale(1.2);
+        }
+        .game-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-left: 8px solid #14b8a6; /* Teal */
+        }
+        .game-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0d9488; /* Deep Teal */
+            margin-bottom: 0.5rem;
+        }
+        .useful-phrases {
+            background-color: #ccfbf1; /* Lighter Teal */
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .phrase-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #99f6e4;
+        }
+        /* New button style */
+        .toggle-th-btn {
+            background-color: #14b8a6; /* Teal */
+            color: white;
+            font-size: 0.75rem; /* 12px */
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: none;
+            vertical-align: middle;
+        }
+        .toggle-th-btn:hover {
+            background-color: #0d9488; /* Deep Teal */
+        }
+        /* Helper class for grouping */
+        .translatable-item .english-text {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-bold text-teal-700 translatable-item">
+                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The Tense Traveler's Club</span>
+                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                <span class="thai-translation" style="display: none;">ชมรมท่องเวลา</span>
+            </h1>
+            <p class="text-2xl mt-2 text-teal-500 translatable-item">
+                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Let's Talk About Past & Future!</span>
+                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                <span class="thai-translation" style="display: none;">มาคุยเรื่องอดีตและอนาคตกัน!</span>
+            </p>
+             <div class="mt-4 p-3 bg-teal-100 border border-teal-200 rounded-lg inline-block translatable-item">
+                <p class="font-semibold">
+                    <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Today, we will recap the past and play games about the future!</span>
+                    <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                </p>
+                <p class="thai-translation" style="display: none;">วันนี้ เราจะทบทวนอดีตและเล่นเกมเกี่ยวกับอนาคตกัน!</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+
+            <!-- Part 1: Warm-up: "My Weekend: Before & After" -->
+            <section id="part1" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-teal-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Warm-up: My Weekend (Past & Future)</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">เกมอุ่นเครื่อง: สุดสัปดาห์ของฉัน (อดีตและอนาคต)</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">How to Play</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">วิธีเล่น</p>
+                    </div>
+                    
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Each student must share TWO sentences.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">นักเรียนแต่ละคนต้องแชร์ 2 ประโยค</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Sentence 1 (Past):** One thing you **did** last weekend.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ประโยคที่ 1 (อดีต):** 1 อย่างที่คุณ **ได้ทำ** ไปเมื่อสุดสัปดาห์ที่แล้ว</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Sentence 2 (Future):** One thing you **are going to do** this weekend.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ประโยคที่ 2 (อนาคต):** 1 อย่างที่คุณ **กำลังจะทำ** สุดสัปดาห์นี้</p>
+                        </li>
+                    </ol>
+
+                    <div class="useful-phrases">
+                        <div class="translatable-item">
+                            <h4 class="font-bold text-lg mb-2">
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Useful Phrases</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </h4>
+                            <span class="thai-translation" style="display: none;">(วลีมีประโยชน์)</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Last weekend, I went to the market.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">สุดสัปดาห์ที่แล้ว ฉันไปตลาดมา</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">This weekend, I am going to watch a movie.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">สุดสัปดาห์นี้ ฉันจะไปดูหนัง</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 2: Main Game: "The Alibi" -->
+            <section id="part2" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-teal-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Main Game 1: The Alibi (Past & Future)</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">เกมหลักที่ 1: สร้างหลักฐาน (อดีตและอนาคต)</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">How to Play</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">วิธีเล่น</p>
+                    </div>
+                    
+                    <!-- UPDATED GAME 1 INSTRUCTIONS -->
+                    <ol class="list-decimal list-inside space-y-4">
+                       <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 1 (Breakout Rooms):** In pairs, students are **Suspects** (ผู้ต้องสงสัย). They must create TWO stories together.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 1 (ห้องย่อย):** นักเรียนจับคู่เป็น **ผู้ต้องสงสัย** พวกเขาต้องสร้าง 2 เรื่องราวด้วยกัน</p>
+                            <ul class="list-disc list-inside ml-8 mt-2 space-y-2">
+                                <li class="translatable-item">
+                                    <div>
+                                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Story 1 (PAST):** Where were you **last night**? (e.g., We went to a party. We ate pizza.)</span>
+                                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                                    </div>
+                                    <p class="thai-translation ml-6" style="display: none;">เรื่องที่ 1 (อดีต): **เมื่อคืนนี้** คุณอยู่ที่ไหน? (เช่น เราไปปาร์ตี้มา เรากินพิซซ่า)</p>
+                                </li>
+                                <li class="translatable-item">
+                                    <div>
+                                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Story 2 (FUTURE):** What is your plan for **tomorrow night**? (e.g., We are going to study. We will not go out.)</span>
+                                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                                    </div>
+                                    <p class="thai-translation ml-6" style="display: none;">เรื่องที่ 2 (อนาคต): แผนของคุณสำหรับ **คืนพรุ่งนี้** คืออะไร? (เช่น เราจะอ่านหนังสือ เราจะไม่ออกไปไหน)</p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 2 (Main Room):** One pair of **Suspects** comes to the main room. All other students are **Detectives** (นักสืบ).</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 2 (ห้องรวม):** ผู้ต้องสงสัย 1 คู่มาที่ห้องรวม นักเรียนคนอื่นๆ ทั้งหมดเป็น **นักสืบ**</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 3 (Split):** The Suspects are split. **Suspect A** stays. **Suspect B** goes back to the breakout room (or mutes & turns off camera).</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 3 (แยกตัว):** ผู้ต้องสงสัยถูกแยกตัว **ผู้ต้องสงสัย A** อยู่ต่อ **ผู้ต้องสงสัย B** กลับไปที่ห้องย่อย (หรือปิดไมค์ ปิดกล้อง)</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 4 (Q&A):** The **Detectives** (other students) ask **Suspect A** questions about their PAST story and FUTURE plan.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 4 (ถาม-ตอบ):** **นักสืบ** (นักเรียนคนอื่นๆ) ถามคำถาม **ผู้ต้องสงสัย A** เกี่ยวกับเรื่องราวในอดีตและแผนในอนาคต</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 5 (Swap!):** **Suspect B** comes back. **Suspect A** leaves. Detectives ask **Suspect B** the same questions!</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 5 (สลับตัว!):** **ผู้ต้องสงสัย B** กลับมา **ผู้ต้องสงสัย A** ออกไป นักสืบถามคำถามเดียวกันกับ **ผู้ต้องสงสัย B**!</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 6 (Result):** If the stories are different, the Detectives win!</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 6 (ผลลัพธ์):** ถ้าเรื่องราวไม่เหมือนกัน นักสืบชนะ!</p>
+                        </li>
+                    </ol>
+                    <!-- END UPDATED INSTRUCTIONS -->
+
+                    <div class="useful-phrases">
+                        <div class="translatable-item">
+                            <h4 class="font-bold text-lg mb-2">
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Detective's Questions</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </h4>
+                            <span class="thai-translation" style="display: none;">(คำถามของนักสืบ)</span>
+                        </div>
+                        <p class="font-semibold translatable-item">
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Recap (Past):</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            <span class="thai-translation" style="display: none;">ทบทวน (อดีต):</span>
+                        </p>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">What are you going to do tomorrow?</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">พรุ่งนี้คุณจะทำอะไร?</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Will you go to the cinema?</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">คุณจะไปดูหนังไหม?</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Are you going to meet friends?</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">คุณจะไปเจอเพื่อนไหม?</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">You won't stay home, will you?</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">คุณจะไม่อยู่บ้านใช่ไหม?</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 4: Additional Vocabulary -->
+            <section id="part4" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-teal-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Additional Vocabulary</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">คำศัพท์เพิ่มเติม</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">harvest the rice</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เกี่ยวข้าว</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Last weekend, I went to my hometown.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เสาร์อาทิตย์ ฉันกลับบ้านเกิด</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">How long was your holiday?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">วันหยุดยาวแค่ไหน</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Yesterday, I went to exercise.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เมื่อวานฉันไปออกกำลังกาย</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">city hall / town hall</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">ศาลากลาง</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Yesterday, I went to Robinson Sriracha Mall.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เมื่อวานฉันไปห้างโรบินสันศรีราชา</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Who did you go with?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">ไปกับใคร</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">On Friday, I'm going to watch a film at the cinema.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">วันศุกร์ จะดูหนังที่โรงหนัง</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Which cinema will you go to?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">จะไปโรงหนังไหน</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">This weekend, I'm going to Bangsaen beach.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เสาร์อาทิตย์นี้ ฉันจะไปหาดบางแสน</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Have you booked the hotel?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">จองโรงแรมหรือยัง</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">This weekend, I'm going to Sports Day.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เสาร์อาทิตย์ ฉันจะไปงานกีฬาสี</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">former/previous/(old) company</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">บริษัทเก่า</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Rondo</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">ลิงชิงบอล</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">tipsy</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">กึ่มๆ</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">dress up</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">แต่งตัว</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">arrive</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">ถึง</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">drunk</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เมา</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">meet</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">เจอ</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Northern dialect</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">ภาษาเหนือ</span></div>
+                    <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">motivation</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">แรงจูงใจ</span></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- Text-to-Speech Functionality ---
+        const synth = window.speechSynthesis;
+
+        function speakText(textToSpeak) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const cleanText = textToSpeak.replace('🔊', '').trim();
+            if (cleanText) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'en-US';
+                utterance.pitch = 1;
+                utterance.rate = 0.9;
+                utterance.volume = 1;
+                synth.speak(utterance);
+            }
+        }
+
+        // --- New Translation Toggle Functionality ---
+        function toggleTranslation(buttonEl) {
+            // Find the closest parent container '.translatable-item'
+            const container = buttonEl.closest('.translatable-item');
+            
+            if (container) {
+                // Find the Thai translation element within this container
+                const thaiEl = container.querySelector('.thai-translation');
+                if (thaiEl) {
+                    // Toggle its display
+                    if (thaiEl.style.display === 'none' || thaiEl.style.display === '') {
+                        // Use 'inline-block' for spans (like in phrase-item) and 'block' for others (like p)
+                        if (thaiEl.tagName === 'SPAN') {
+                            thaiEl.style.display = 'inline-block';
+                        } else {
+                            thaiEl.style.display = 'block';
+                        }
+                    } else {
+                        thaiEl.style.display = 'none';
+                    }
+                }
+            } else {
+                // Fallback for elements not in a .translatable-item, like the h2
+                const parent = buttonEl.parentElement;
+                const thaiEl = parent.nextElementSibling;
+                 if (thaiEl && thaiEl.classList.contains('thai-translation')) {
+                     if (thaiEl.style.display === 'none' || thaiEl.style.display === '') {
+                        thaiEl.style.display = 'block';
+                    } else {
+                        thaiEl.style.display = 'none';
+                    }
+                 }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
