@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilingual Lesson: Taboo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+        }
+        .thai {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .speak-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: #4f46e5; /* indigo-600 */
+            transition: color 0.2s;
+            padding: 0;
+            line-height: 1;
+            margin-left: 0.5rem;
+            flex-shrink: 0;
+        }
+        .speak-btn:hover {
+            color: #3730a3; /* indigo-800 */
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary .arrow {
+            transition: transform 0.2s;
+        }
+        details[open] > summary .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="max-w-3xl mx-auto p-4 sm:p-8 space-y-8">
+
+        <section class="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Taboo</h1>
+            <p class="thai text-2xl text-gray-500 mb-4">เกมทายคำต้องห้าม</p>
+        </section>
+
+        <div class="space-y-4">
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Warm-up</h2>
+                    <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div class="p-6 border-t border-gray-200">
+                    <div id="warmup-questions" class="space-y-4"></div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">What is Taboo?</h2>
+                    <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div class="p-6 border-t border-gray-200">
+                     <p class="thai text-xl text-gray-500 mb-6">เกมทายคำต้องห้ามคืออะไร</p>
+                    <div id="rules-list" class="space-y-4"></div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Rounds 1-3: Let's Play!</h2>
+                    <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div id="rounds-1-to-3" class="p-6 border-t border-gray-200 space-y-6"></div>
+            </details>
+
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Round 4: Reverse Taboo</h2>
+                     <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div id="round-4" class="p-6 border-t border-gray-200 space-y-4"></div>
+            </details>
+            
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Round 5 & 6: Team Challenge</h2>
+                     <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div id="rounds-5-and-6" class="p-6 border-t border-gray-200 space-y-6"></div>
+            </details>
+            
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Reflection</h2>
+                     <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div id="reflection" class="p-6 border-t border-gray-200 space-y-4"></div>
+            </details>
+
+            <details class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">Additional Vocabulary</h2>
+                    <span class="arrow text-indigo-600">▶</span>
+                </summary>
+                <div class="p-6 border-t border-gray-200">
+                    <p class="thai text-xl text-gray-500 mb-6">คำศัพท์เพิ่มเติม</p>
+                    <div id="additional-vocab-list" class="space-y-4"></div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const content = {
+                warmup: [
+                    { en: "How was your weekend?", th: "สุดสัปดาห์เป็นอย่างไรบ้าง?" },
+                    { en: "Did you watch a movie?", th: "ได้ดูหนังบ้างไหม" },
+                    { en: "Did you listen to music?", th: "ได้ฟังเพลงบ้างไหม" },
+                    { en: "Do you have any plans this weekend?", th: "สุดสัปดาห์นี้มีแผนจะทำอะไรไหม" }
+                ],
+                rules: [
+                    { en: '1. One person is the "clue-giver".', th: '1. คนหนึ่งเป็น "คนใบ้คำ"' },
+                    { en: '2. The clue-giver thinks of a secret word.', th: '2. คนใบ้คำคิดคำศัพท์ลับ' },
+                    { en: '3. They must describe the word.', th: '3. พวกเขาต้องอธิบายคำศัพท์นั้น' },
+                    { en: '4. They CANNOT say the secret word or the "taboo" words!', th: '4. ห้ามพูดคำศัพท์ลับหรือ "คำต้องห้าม"!' },
+                    { en: '5. The other students guess the secret word.', th: '5. นักเรียนคนอื่นๆ ทายคำศัพท์ลับ' }
+                ],
+                rounds1to3: [
+                    { title: "Round 1: Food 🍔", instruction: "Take turns being the clue-giver.", instruction_th: "สลับกันเป็นคนใบ้คำ", items: [{ en: 'Fresh garlic', th: 'กระเทียมสด' }, { en: 'onion', th: 'หัวหอม' }, { en: 'marine animals', th: 'สัตว์น้ำ' }, { en: 'Shrimp in Fish Sauce', th: 'กุ้งแช่น้ำปลา' }] },
+                    { title: "Round 2: Movies 🎬", instruction: "", instruction_th: "", items: [{ en: 'Actors', th: 'นักแสดง' }, { en: 'Characters', th: 'ตัวละคร' }, { en: 'Directors', th: 'ผู้กำกับ' }, { en: 'investigation', th: 'การสืบสวน' }, { en: 'Pigtails', th: 'เปียสองข้าง' }, { en: 'blindfold', th: 'ผ้าปิดตา' }, { en: 'The girl is blind.', th: 'เด็กผู้หญิงตาบอด' }, { en: 'GL series', th: 'ซีรีส์ยูริ' }] },
+                    { title: "Round 3: Music 🎵", instruction: "Watch and tell me what you hear.", instruction_th: "ฟังและบอกว่าได้ยินอะไร", items: [{ en: 'Songs', th: 'เพลง' }, { en: 'Genres', th: 'แนวเพลง' }, { en: 'Singers', th: 'นักร้อง' }, { en: 'Dancers', th: 'นักเต้น' }, { en: 'Composers', th: 'นักแต่งเพลง' }, { en: 'Musicians', th: 'นักดนตรี' }, { en: 'She produces her own music.', th: 'ทำเพลงเอง' }, { en: 'He is a person of colour.', th: 'คนผิวสี' }, { en: 'She’s from the West.', th: 'มาจากทางตะวันตก' }, { en: 'She holds an axe to cut trees.', th: 'เธอถือขวานตัดต้นไม้' }], video: "https://www.facebook.com/share/v/17AfBZGUKZ/?mibextid=wwXIfr" }
+                ],
+                round4: [
+                     { en: '1 student is put into a breakout room.', th: 'นักเรียนหนึ่งคนอยู่ในห้องอีกห้องหนึ่ง (แยกห้อง)' },
+                     { en: 'The teacher tells the taboo word to the rest without that person knowing it.', th: 'ครูบอกคำต้องห้ามกับคนที่เหลือ โดยที่ไม่ให้นักเรียนคนนั้นรู้' },
+                     { en: 'The rest tries to get that person to say the taboo word.', th: 'คนที่เหลือพยายามทำให้คนนั้นพูดคำต้องห้าม' },
+                     { en: 'If the person says the taboo word, they lose.', th: 'ถ้าคนนั้นพูดคำต้องห้าม จะแพ้' }
+                ],
+                rounds5and6: [
+                     { title: "Round 5: Reverse Taboo", instruction: "You are split into 2 teams.", instruction_th: "คุณจะถูกแยกออกเป็น 2 ทีม", items: [{en: "Each team thinks of a taboo word for another team and brainstorm how to get the other team to say the taboo word.", th: "แต่ละทีมคิดคำต้องห้ามให้คำอีกทีม และระดมสมองว่า ทำยังไงให้อีกทีมพูดคำต้องห้ามนั้น"}]},
+                     { title: "Round 6: Final Challenge", instruction: "The teacher turns off the speaker.", instruction_th: "ครูปิดลำโพง", items: [{en: "The rest discuss the taboo word for the teacher to guess.", th: "ที่เหลือคิดคำต้องห้ามให้ครูเดา"}, {en: "Each student takes turns to be in a breakout room.", th: ""}, {en: "The teacher gives each person a taboo word without that person knowing it while others do.", th: ""}, {en: "If anyone says a taboo word, they lose.", th: ""}], video: "https://vt.tiktok.com/ZSAGbkCtL/" }
+                ],
+                reflection: [
+                    { en: 'What have you learned today?', th: 'เรียนอะไรใหม่บ้างวันนี้' },
+                    { en: 'What can you remember/recall?', th: 'จำอะไรได้บ้าง' },
+                    { en: 'Is there anything in particular you’d like to focus on?', th: 'มีอะไรอยากโฟกัสเป็นพิเศษไหม' },
+                    { en: 'Have questions, yes or no?', th: 'มีคำถามไหม' }
+                ],
+                additionalVocabulary: [
+                     { en: 'colleagues', th: 'เพื่อนร่วมงาน' }, { en: 'Doctor', th: 'หมอ' }, { en: 'For sure', th: 'แน่นอน' },
+                     { en: 'When will Khun Wild be back in Pattaya?', th: 'คุณวิลจะกลับไปพัทยาเมื่อไร' }, { en: 'When will he be back?', th: 'เขาจะกลับเมื่อไหร่' },
+                     { en: 'Pet', th: 'สัตว์เลี้ยง' }, { en: 'He is supportive.', th: 'เขาเป็นคนซัพพอร์ตที่ดี' }, { en: 'He has compassion.', th: 'เขามีความเห็นอกเห็นใจ' },
+                     { en: 'He encourages me.', th: 'เขาให้กำลังใจ' }, { en: 'He is optimistic/positive-thinking.', th: 'เขาคิดบวก' },
+                     { en: 'Guess', th: 'เดา' }, { en: 'hiking', th: 'เดินเขา' }, { en: 'Uncomfortable', th: 'ไม่อึดอัด' },
+                     { en: 'I’d like to practice to be good at it.', th: 'อยากฝึกจนพูดเก่ง' }
+                 ]
+            };
+
+            function speak(text) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-GB';
+                const voices = window.speechSynthesis.getVoices();
+                const britishVoice = voices.find(voice => voice.lang === 'en-GB');
+                if (britishVoice) utterance.voice = britishVoice;
+                window.speechSynthesis.speak(utterance);
+            }
+
+            function createSpeakerButton(text) {
+                const button = document.createElement('button');
+                button.innerHTML = '🔊';
+                button.className = 'speak-btn';
+                button.setAttribute('aria-label', `Listen to "${text}"`);
+                button.onclick = (e) => { e.stopPropagation(); speak(text); };
+                return button;
+            }
+            
+            function createBilingualListItem(item, container) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'p-3 bg-gray-50 rounded-lg';
+                
+                const enPara = document.createElement('p');
+                enPara.className = 'text-lg font-semibold flex items-center justify-between';
+                enPara.setAttribute('data-speakable', item.en);
+                enPara.textContent = item.en;
+
+                const thPara = document.createElement('p');
+                thPara.className = 'thai text-md text-gray-500 text-right';
+                thPara.textContent = item.th;
+
+                itemDiv.appendChild(enPara);
+                if (item.th) {
+                    itemDiv.appendChild(thPara);
+                }
+                container.appendChild(itemDiv);
+            }
+
+            function initializeApp() {
+                const dynamicContainers = {
+                    'warmup-questions': content.warmup,
+                    'rules-list': content.rules,
+                    'round-4': content.round4,
+                    'reflection': content.reflection,
+                    'additional-vocab-list': content.additionalVocabulary
+                };
+
+                for (const id in dynamicContainers) {
+                    const container = document.getElementById(id);
+                    if (container) {
+                        container.classList.add('dynamic-content');
+                        container.innerHTML = '';
+                        dynamicContainers[id].forEach(item => createBilingualListItem(item, container));
+                    }
+                }
+
+                const rounds1to3Container = document.getElementById('rounds-1-to-3');
+                if (rounds1to3Container) {
+                    rounds1to3Container.classList.add('dynamic-content');
+                    rounds1to3Container.innerHTML = '';
+                    content.rounds1to3.forEach(round => {
+                        const roundDiv = document.createElement('div');
+                        const titleEl = document.createElement('h3');
+                        titleEl.className = 'text-2xl font-bold mb-2';
+                        titleEl.textContent = round.title;
+                        titleEl.setAttribute('data-speakable', round.title);
+                        roundDiv.appendChild(titleEl);
+
+                        if(round.instruction) {
+                            const instructionEl = document.createElement('p');
+                            instructionEl.className = 'italic mb-4';
+                            instructionEl.setAttribute('data-speakable', round.instruction);
+                            instructionEl.innerHTML = `${round.instruction} <span class="thai">(${round.instruction_th})</span>`;
+                            roundDiv.appendChild(instructionEl);
+                        }
+                        const itemsGrid = document.createElement('div');
+                        itemsGrid.className = 'grid grid-cols-2 gap-3';
+                        round.items.forEach(item => createBilingualListItem(item, itemsGrid));
+                        roundDiv.appendChild(itemsGrid);
+                        if(round.video) roundDiv.innerHTML += `<a href="${round.video}" target="_blank" class="mt-4 inline-block text-indigo-600 hover:underline">Watch Video</a>`;
+                        rounds1to3Container.appendChild(roundDiv);
+                    });
+                }
+
+                const rounds5and6Container = document.getElementById('rounds-5-and-6');
+                 if (rounds5and6Container) {
+                    rounds5and6Container.classList.add('dynamic-content');
+                    rounds5and6Container.innerHTML = '';
+                    content.rounds5and6.forEach(round => {
+                        const roundDiv = document.createElement('div');
+                        const titleEl = document.createElement('h3');
+                        titleEl.className = 'text-2xl font-bold mb-2';
+                        titleEl.textContent = round.title;
+                        titleEl.setAttribute('data-speakable', round.title);
+                        roundDiv.appendChild(titleEl);
+                        if(round.instruction) {
+                            const instructionEl = document.createElement('p');
+                            instructionEl.className = 'italic mb-4';
+                            instructionEl.setAttribute('data-speakable', round.instruction);
+                            instructionEl.innerHTML = `${round.instruction} <span class="thai">(${round.instruction_th})</span>`;
+                            roundDiv.appendChild(instructionEl);
+                        }
+                        const itemsList = document.createElement('div');
+                        itemsList.className = 'space-y-3';
+                        round.items.forEach(item => createBilingualListItem(item, itemsList));
+                        roundDiv.appendChild(itemsList);
+                        if(round.video) roundDiv.innerHTML += `<a href="${round.video}" target="_blank" class="mt-4 inline-block text-indigo-600 hover:underline">Watch Video</a>`;
+                        rounds5and6Container.appendChild(roundDiv);
+                    });
+                 }
+                
+                // --- Single Function to Add All Speakers, runs after all content is on the page ---
+                document.querySelectorAll('h1, h2, h3, p, summary, [data-speakable]').forEach(el => {
+                    if (el && !el.classList.contains('thai') && el.textContent.trim() && !el.querySelector('.speak-btn')) {
+                        const text = el.getAttribute('data-speakable') || el.textContent.replace(/▶$/, '').trim();
+                        el.classList.add('flex', 'items-center');
+                         if (el.parentElement && el.parentElement.classList.contains('text-center')) {
+                           el.classList.add('justify-center');
+                        }
+                        if (el.tagName === 'SUMMARY' || el.classList.contains('justify-between')) {
+                            const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
+                            if (textNode) {
+                                el.insertBefore(createSpeakerButton(text), textNode);
+                            } else {
+                                const span = el.querySelector('span');
+                                if(span) el.insertBefore(createSpeakerButton(text), span)
+                            }
+                        } else {
+                            el.appendChild(createSpeakerButton(text));
+                        }
+                    }
+                });
+            }
+
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = initializeApp;
+            } else {
+                initializeApp();
+            }
+        });
+    </script>
+</body>
+</html>
