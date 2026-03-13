@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese New Year 🧧</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fff7ed; /* Light orange/cream */
+        }
+        h1, h2, h3 {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            border: 2px solid #fdba74;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #ea580c;
+        }
+        .btn-icon {
+            cursor: pointer;
+            transition: transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background-color: #f3f4f6;
+            margin-left: 6px;
+            font-size: 0.9rem;
+            border: 1px solid #e5e7eb;
+        }
+        .btn-icon:hover { background-color: #e5e7eb; }
+        .btn-icon:active { transform: scale(0.95); }
+        
+        .script-box {
+            background-color: #fff7ed;
+            border-left: 5px solid #dc2626; /* Red border */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .vocab-card-content {
+            animation: popIn 0.3s ease-out;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+    <script>
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function toggleThai(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+    </script>
+</head>
+<body class="pb-12">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-orange-500 shadow-sm sticky top-0 z-50 border-b-4 border-yellow-400">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+            <div>
+                <div class="flex items-center justify-center md:justify-start gap-2">
+                    <h1 class="text-2xl md:text-3xl font-bold text-white">Chinese New Year 🧧🧨</h1>
+                    <button onclick="speak('Chinese New Year')" class="btn-icon bg-white/20 text-white border-none hover:bg-white/30">🔊</button>
+                    <button onclick="toggleThai('h1-th')" class="btn-icon bg-white/20 text-white border-none hover:bg-white/30">🇹🇭</button>
+                </div>
+                <div id="h1-th" class="hidden text-yellow-200 font-bold mt-1">ตรุษจีน</div>
+            </div>
+            <div class="flex gap-2">
+                <span class="text-xs md:text-sm bg-white/20 text-white py-1 px-3 rounded-full font-semibold border border-white/30">Culture Lesson</span>
+                <span class="text-xs md:text-sm bg-yellow-400 text-red-800 py-1 px-3 rounded-full font-semibold shadow-sm">120 Mins</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-8 space-y-12">
+
+        <!-- PART 1: WARM UP -->
+        <section id="review" class="card p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🧠</span>
+                <h2 class="text-2xl font-bold text-gray-800">1. Warm Up</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Warm Up')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-1-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-1-th" class="hidden text-gray-500 mb-6 text-center">1. อุ่นเครื่อง</p>
+            
+            <div class="text-center mb-6">
+                <p class="text-gray-600">Click to review a random word or sentence!</p>
+            </div>
+            
+            <div class="bg-red-50 p-8 rounded-3xl border-4 border-red-200 flex flex-col items-center justify-center space-y-6 min-h-[250px]">
+                <div id="wordDisplay" class="text-2xl md:text-3xl font-bold text-gray-800 text-center flex flex-col items-center justify-center w-full">
+                    <div class="text-6xl mb-4">🎲</div>
+                    <div>Ready?</div>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="pickRandomWord()" class="bg-red-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-600 transition transform active:scale-95 border-b-4 border-red-700">
+                        SPIN 🎰
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 2: LEAD-IN -->
+        <section id="leadin" class="card p-6 md:p-8 border-orange-400 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🗣️</span>
+                <h2 class="text-2xl font-bold text-gray-800">2. Let's Talk!</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Let\'s Talk!')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-2-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-2-th" class="hidden text-gray-500 mb-6 text-center">2. มาคุยกันเถอะ!</p>
+
+            <div class="bg-orange-50 p-6 rounded-xl">
+                <h3 class="font-bold text-orange-800 text-lg mb-4">Instructions: Discuss in Breakout Rooms</h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">1. Do you celebrate Chinese New Year? How?</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('Do you celebrate Chinese New Year? How?')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-1-th" class="hidden text-orange-600 text-sm">คุณฉลองตรุษจีนไหม? อย่างไร?</p>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">2. Do you like Red Envelopes (Ang Pao)? What do you do with the money?</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('Do you like Red Envelopes? What do you do with the money?')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-2-th" class="hidden text-orange-600 text-sm">คุณชอบอั่งเปาไหม? คุณเอางินไปทำอะไร?</p>
+                    </li>
+                    <li class="flex flex-col gap-1">
+                        <div class="font-bold">3. What is your favorite Chinese food? (Dim sum? Noodles?)</div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('What is your favorite Chinese food?')" class="btn-icon text-xs">🔊 Listen</button>
+                            <button onclick="toggleThai('li-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                        </div>
+                        <p id="li-3-th" class="hidden text-orange-600 text-sm">อาหารจีนที่คุณชอบคืออะไร?</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PART 3: THE VIDEO -->
+        <section id="video" class="card p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">📺</span>
+                <h2 class="text-2xl font-bold text-gray-800">3. The 15 Days of CNY</h2>
+                 <div class="flex gap-2">
+                    <button onclick="speak('The fifteen days of Chinese New Year')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-3-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-3-th" class="hidden text-gray-500 mb-6 text-center">3. 15 วันแห่งตรุษจีน</p>
+
+            <div class="mb-6 text-center">
+                <a href="https://www.youtube.com/watch?v=gHnPw3qnwDE" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition font-bold shadow-md border-b-4 border-red-800">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    Watch Video
+                </a>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Eve -->
+                <div class="script-box">
+                    <p class="text-lg text-gray-800 font-bold mb-2">New Year's Eve 🌑</p>
+                    <p class="text-gray-700">Clean the home 🧹, hang red decorations 🏮, and have a big reunion dinner 🥘.</p>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="speak('New Year\'s Eve. Clean the home, hang red decorations, and have a big reunion dinner.')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('sc-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="sc-1-th" class="hidden text-red-600 mt-1 text-sm">วันส่งท้ายปีเก่า: ทำความสะอาดบ้าน, แขวนของประดับสีแดง, และกินมื้อค่ำรวมญาติ</p>
+                </div>
+
+                <!-- Day 1 -->
+                <div class="script-box">
+                    <p class="text-lg text-gray-800 font-bold mb-2">Day 1: New Clothes 👗</p>
+                    <p class="text-gray-700">Dress up, visit family, and children get <strong>Red Envelopes (Ang Pao)</strong> 🧧.</p>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="speak('Day 1. New Clothes. Dress up, visit family, and children get Red Envelopes.')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('sc-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="sc-2-th" class="hidden text-red-600 mt-1 text-sm">วันที่ 1: แต่งตัวสวยงาม, เยี่ยมญาติ, และเด็กๆ ได้อั่งเปา</p>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="script-box">
+                    <p class="text-lg text-gray-800 font-bold mb-2">Day 2: Hometown 🏡</p>
+                    <p class="text-gray-700">Married daughters visit their parents.</p>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="speak('Day 2. Married daughters visit their parents.')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('sc-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="sc-3-th" class="hidden text-red-600 mt-1 text-sm">วันที่ 2: ลูกสาวที่แต่งงานแล้วกลับไปเยี่ยมพ่อแม่</p>
+                </div>
+
+                <!-- Day 15 -->
+                <div class="script-box">
+                    <p class="text-lg text-gray-800 font-bold mb-2">Day 15: Lantern Festival 🏮</p>
+                    <p class="text-gray-700">The end of the festival. People light lanterns and watch <strong>Dragon Dances</strong> 🐉.</p>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="speak('Day 15. Lantern Festival. People light lanterns and watch Dragon Dances.')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('sc-4-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="sc-4-th" class="hidden text-red-600 mt-1 text-sm">วันที่ 15: เทศกาลโคมไฟ ผู้คนจุดโคมและดูเชิดมังกร</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 4: COMPREHENSION CHECK -->
+        <section id="comprehension" class="card p-6 md:p-8 bg-yellow-50 border-yellow-300">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">📝</span>
+                <h2 class="text-2xl font-bold text-gray-800">4. Comprehension Questions</h2>
+                 <div class="flex gap-2">
+                    <button onclick="speak('Comprehension Questions')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-4-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-4-th" class="hidden text-gray-500 mb-6 text-center">4. คำถามวัดความเข้าใจ</p>
+
+            <div class="space-y-4">
+                <div class="p-3 bg-white rounded-lg border shadow-sm">
+                    <p class="font-bold">1. How long is the Spring Festival?</p>
+                    <div class="flex gap-2 mt-1">
+                        <button onclick="speak('How long is the Spring Festival?')" class="btn-icon text-xs">🔊</button>
+                        <button onclick="toggleThai('q1-th')" class="btn-icon text-xs">🇹🇭</button>
+                    </div>
+                    <p id="q1-th" class="hidden text-orange-500 text-sm">เทศกาลฤดูใบไม้ผลิยาวนานแค่ไหน?</p>
+                    <ul class="ml-4 list-disc text-gray-600">
+                        <li>1 Day</li>
+                        <li>15 Days</li>
+                    </ul>
+                </div>
+
+                <div class="p-3 bg-white rounded-lg border shadow-sm">
+                    <p class="font-bold">2. What do people do on New Year's Eve?</p>
+                     <div class="flex gap-2 mt-1">
+                        <button onclick="speak('What do people do on New Year\'s Eve?')" class="btn-icon text-xs">🔊</button>
+                        <button onclick="toggleThai('q2-th')" class="btn-icon text-xs">🇹🇭</button>
+                    </div>
+                    <p id="q2-th" class="hidden text-orange-500 text-sm">ผู้คนทำอะไรในวันส่งท้ายปีเก่า?</p>
+                    <ul class="ml-4 list-disc text-gray-600">
+                        <li>Clean home & Dinner</li>
+                        <li>Go to school</li>
+                    </ul>
+                </div>
+
+                <div class="p-3 bg-white rounded-lg border shadow-sm">
+                    <p class="font-bold">3. Who receives Red Envelopes?</p>
+                     <div class="flex gap-2 mt-1">
+                        <button onclick="speak('Who receives Red Envelopes?')" class="btn-icon text-xs">🔊</button>
+                        <button onclick="toggleThai('q3-th')" class="btn-icon text-xs">🇹🇭</button>
+                    </div>
+                    <p id="q3-th" class="hidden text-orange-500 text-sm">ใครได้รับซองแดง?</p>
+                    <ul class="ml-4 list-disc text-gray-600">
+                        <li>Children</li>
+                        <li>Parents</li>
+                    </ul>
+                </div>
+
+                 <div class="p-3 bg-white rounded-lg border shadow-sm">
+                    <p class="font-bold">4. What happens on Day 15?</p>
+                     <div class="flex gap-2 mt-1">
+                        <button onclick="speak('What happens on Day 15?')" class="btn-icon text-xs">🔊</button>
+                        <button onclick="toggleThai('q4-th')" class="btn-icon text-xs">🇹🇭</button>
+                    </div>
+                    <p id="q4-th" class="hidden text-orange-500 text-sm">เกิดอะไรขึ้นในวันที่ 15?</p>
+                    <ul class="ml-4 list-disc text-gray-600">
+                        <li>Lantern Festival</li>
+                        <li>Swimming Competition</li>
+                    </ul>
+                </div>
+
+                 <div class="p-3 bg-white rounded-lg border shadow-sm">
+                    <p class="font-bold">5. What animal dance do people watch?</p>
+                     <div class="flex gap-2 mt-1">
+                        <button onclick="speak('What animal dance do people watch?')" class="btn-icon text-xs">🔊</button>
+                        <button onclick="toggleThai('q5-th')" class="btn-icon text-xs">🇹🇭</button>
+                    </div>
+                    <p id="q5-th" class="hidden text-orange-500 text-sm">ผู้คนดูการเชิดสัตว์อะไร?</p>
+                    <ul class="ml-4 list-disc text-gray-600">
+                        <li>Cat Dance</li>
+                        <li>Dragon & Lion Dance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 5: GRAMMAR CORNER -->
+        <section id="grammar" class="card p-6 md:p-8 border-red-500 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">📏</span>
+                <h2 class="text-2xl font-bold text-gray-800">5. Grammar Corner: Traditions</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Grammar Corner: Traditions')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-5-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-5-th" class="hidden text-gray-500 mb-6 text-center">5. มุมไวยากรณ์: ประเพณี (Present Simple)</p>
+
+            <div class="bg-red-50 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-red-800 text-lg mb-4">Structure: Subject + Verb 1 (Present Simple)</h3>
+                <p class="text-gray-700 mb-2">Use this for facts, habits, and traditions.</p>
+                
+                <div class="ml-4 space-y-3">
+                    <div class="bg-white p-2 rounded border border-red-200">
+                        <p>• People <strong>eat</strong> dumplings. 🥟</p>
+                        <button onclick="speak('People eat dumplings.')" class="btn-icon text-xs mt-1">🔊 Listen</button>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-red-200">
+                        <p>• You <strong>clean</strong> your home. 🧹</p>
+                        <button onclick="speak('You clean your home.')" class="btn-icon text-xs mt-1">🔊 Listen</button>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-red-200">
+                        <p>• Children <strong>receive</strong> envelopes. ✉️</p>
+                        <button onclick="speak('Children receive envelopes.')" class="btn-icon text-xs mt-1">🔊 Listen</button>
+                    </div>
+                </div>
+            </div>
+
+             <div class="border-t-2 border-red-100 pt-6">
+                <h3 class="font-bold text-gray-800 mb-4">✍️ Practice: Make Sentences</h3>
+                <p class="mb-4 text-gray-600">What do YOU do on Chinese New Year?</p>
+                <div class="space-y-4">
+                    <p>1. I ______________ (eat).</p>
+                    <p>2. I ______________ (visit).</p>
+                    <p>3. I ______________ (wear).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 6: MAIN ACTIVITIES (Class/Pairs) -->
+        <section id="activities" class="card p-6 md:p-8 border-yellow-400 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">🎭</span>
+                <h2 class="text-2xl font-bold text-gray-800">6. Fun Practice</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Fun Practice')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-6-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-6-th" class="hidden text-gray-500 mb-6 text-center">6. ฝึกฝนอย่างสนุกสนาน (คู่/กลุ่ม)</p>
+
+            <div class="space-y-6">
+                <!-- Role Play -->
+                <div class="bg-yellow-50 rounded-lg p-5 border border-yellow-200">
+                    <h3 class="font-bold text-yellow-800 text-lg mb-2">1. Funny Roleplay: The Empty Envelope 🧧</h3>
+                    <p class="text-gray-700 mb-2"><strong>A (Child):</strong> "Happy New Year! Can I have Ang Pao?"</p>
+                    <p class="text-gray-700 mb-2"><strong>B (Adult):</strong> "Here you go!" (Gives empty envelope)</p>
+                    <p class="text-gray-700 mb-2"><strong>A (Child):</strong> "Wait... it is empty!"</p>
+                    <div class="flex gap-2 mt-2">
+                        <button onclick="speak('Happy New Year! Can I have Ang Pao? Here you go. Wait... it is empty!')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('act-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="act-1-th" class="hidden text-yellow-600 text-sm mt-2">เด็ก: "สวัสดีปีใหม่! ขออั่งเปาได้ไหม?" ผู้ใหญ่: "อะนี่จ้ะ!" เด็ก: "เดี๋ยว... มันว่างเปล่านี่!"</p>
+                    <p class="mt-3 font-bold text-gray-800">Task: Continue the conversation!</p>
+                </div>
+
+                <!-- Debate -->
+                <div class="bg-orange-50 rounded-lg p-5 border border-orange-200">
+                    <h3 class="font-bold text-orange-800 text-lg mb-2">2. Funny Debate 🥊</h3>
+                    <p class="text-gray-700 mb-2"><strong>Topic:</strong> "Pizza is better than Dumplings for Chinese New Year."</p>
+                    <div class="flex gap-2">
+                        <button onclick="speak('Topic: Pizza is better than Dumplings for Chinese New Year.')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('act-2-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="act-2-th" class="hidden text-orange-600 text-sm mt-2">หัวข้อ: "พิซซ่าดีกว่าเกี๊ยวสำหรับวันตรุษจีน"</p>
+                </div>
+
+                <!-- Story -->
+                <div class="bg-red-50 rounded-lg p-5 border border-red-200">
+                    <h3 class="font-bold text-red-800 text-lg mb-2">3. Story Chain 🐲</h3>
+                    <p class="text-gray-700 mb-2"><strong>Start:</strong> "One day, a dragon walked into 7-Eleven..."</p>
+                    <div class="flex gap-2">
+                        <button onclick="speak('Start: One day, a dragon walked into 7-Eleven...')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('act-3-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="act-3-th" class="hidden text-red-600 text-sm mt-2">เริ่มเรื่อง: "วันหนึ่ง มังกรเดินเข้าไปในเซเว่น..."</p>
+                    <p class="mt-2 font-bold text-gray-800">Task: Take turns adding one sentence.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 7: EXTENSION ACTIVITIES (1-on-1) -->
+        <section id="extension" class="card p-6 md:p-8 border-indigo-400 border-4">
+             <div class="flex flex-col mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="text-4xl">🚀</span>
+                    <h2 class="text-2xl font-bold text-gray-800">7. Extension (1-on-1)</h2>
+                    <div class="flex gap-2">
+                        <button onclick="speak('Extension Activities')" class="btn-icon">🔊</button>
+                        <button onclick="toggleThai('h2-7-th')" class="btn-icon">🇹🇭</button>
+                    </div>
+                </div>
+                <p id="h2-7-th" class="hidden text-gray-500 mb-6 text-center">7. กิจกรรมเสริม (สำหรับเรียนตัวต่อตัว)</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Alien Roleplay -->
+                <div class="bg-indigo-50 rounded-lg p-5 border border-indigo-200">
+                    <h3 class="font-bold text-indigo-800 text-lg mb-2">1. Explain to an Alien 👽</h3>
+                    <p class="text-gray-700 mb-2"><strong>Situation:</strong> I am an Alien from Mars. I see red paper everywhere. What is happening?</p>
+                    <div class="flex gap-2">
+                        <button onclick="speak('Situation: I am an Alien from Mars. I see red paper everywhere. What is happening?')" class="btn-icon text-xs">🔊 Listen</button>
+                        <button onclick="toggleThai('ext-1-th')" class="btn-icon text-xs">🇹🇭 TH</button>
+                    </div>
+                    <p id="ext-1-th" class="hidden text-indigo-600 text-sm mt-2">สถานการณ์: ครูเป็นเอเลี่ยน เห็นกระดาษสีแดงเต็มไปหมด เกิดอะไรขึ้น?</p>
+                </div>
+
+                <!-- Interview -->
+                <div class="bg-purple-50 rounded-lg p-5 border border-purple-200">
+                    <h3 class="font-bold text-purple-800 text-lg mb-2">2. Interview the Dragon 🐉</h3>
+                    <p class="text-gray-700 mb-2"><strong>Situation:</strong> I am a Dragon Dancer. Interview me!</p>
+                    <ul class="list-disc pl-5 text-gray-600 text-sm">
+                        <li>"Are you hot in the costume?"</li>
+                        <li>"Do you like drums?"</li>
+                    </ul>
+                </div>
+                
+                 <!-- Debate -->
+                <div class="bg-green-50 rounded-lg p-5 border border-green-200">
+                    <h3 class="font-bold text-green-800 text-lg mb-2">3. Debate: Money vs. Food 💰🥟</h3>
+                    <p class="text-gray-700 mb-2"><strong>Topic:</strong> "Getting Ang Pao is better than eating Reunion Dinner."</p>
+                    <p class="text-gray-600 text-sm">Do you Agree or Disagree? Why?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 8: ADDITIONAL VOCABULARY -->
+        <section id="additional-vocab" class="card p-6 md:p-8 border-teal-500 border-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-4xl">➕</span>
+                <h2 class="text-2xl font-bold text-gray-800">8. Additional Vocabulary</h2>
+                <div class="flex gap-2">
+                    <button onclick="speak('Additional Vocabulary')" class="btn-icon">🔊</button>
+                    <button onclick="toggleThai('h2-8-th')" class="btn-icon">🇹🇭</button>
+                </div>
+            </div>
+            <p id="h2-8-th" class="hidden text-gray-500 mb-6 text-center">8. คำศัพท์เพิ่มเติม</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="additional-vocab-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Massive vocabulary list
+        const vocabData = [
+            {en: "Experience", th: "ประสบการณ์"}, {en: "Travel", th: "ท่องเที่ยว"}, {en: "Eat bugs", th: "กินแมลง"},
+            {en: "Live", th: "อาศัยอยู่"}, {en: "Birthday", th: "วันเกิด"}, {en: "Snake", th: "งู"},
+            {en: "Mole", th: "ตุ่น"}, {en: "Rat / Mouse", th: "หนู"}, {en: "Fat", th: "ไขมัน"},
+            {en: "Mountain", th: "ภูเขา"}, {en: "Fishing", th: "ตกปลา"}, {en: "Cactus", th: "กระบองเพชร"},
+            {en: "Fertiliser", th: "ปุ๋ย"}, {en: "Seedlings", th: "ต้นกล้า"}, {en: "Cold", th: "หนาว"},
+            {en: "Windy", th: "ลมแรง"}, {en: "National park", th: "อุทยานแห่งชาติ"}, {en: "Textbook", th: "หนังสือเรียน"},
+            {en: "Satellite", th: "ดาวเทียม"}, {en: "Evidence", th: "หลักฐาน"}, {en: "Vibe", th: "บรรยากาศ"},
+            {en: "Fermented fish", th: "ปลาร้า"}, {en: "Keep a diary", th: "เขียนไดอารี่"}, {en: "Useful", th: "มีประโยชน์"},
+            {en: "Island", th: "เกาะ"}, {en: "City", th: "เมือง"}, {en: "Roasted duck", th: "เป็ดย่าง"},
+            {en: "Beans", th: "ถั่ว"}, {en: "Cannabis", th: "กัญชา"}, {en: "Detergent", th: "ผงซักฟอก"},
+            {en: "Luggage", th: "กระเป๋าเดินทาง"}, {en: "Haunted house", th: "บ้านผีสิง"}, {en: "Celebrate", th: "ฉลอง"},
+            {en: "Equipment", th: "อุปกรณ์"}, {en: "Preserve eyesight", th: "ถนอมสายตา"}, {en: "Improve focus", th: "พัฒนาโฟกัส"},
+            {en: "Hiking", th: "เดินป่า"}, {en: "Healing", th: "ฮีลใจ"}, {en: "Wildlife", th: "สัตว์ป่า"},
+            {en: "Costume", th: "เครื่องแต่งกาย"}, {en: "Exchange student", th: "นักเรียนแลกเปลี่ยน"}, {en: "PhD", th: "ป.เอก"},
+            {en: "Stationery", th: "เครื่องเขียน"}, {en: "Town hall", th: "ศาลากลาง"}, {en: "Tipsy", th: "กึ่มๆ"},
+            {en: "Motivation", th: "แรงจูงใจ"}, {en: "Beauty contest", th: "ประกวดนางงาม"}, {en: "Make a wish", th: "อธิษฐาน"},
+            {en: "Corals", th: "ปะการัง"}, {en: "Floods", th: "น้ำท่วม"}, {en: "Sweat", th: "เหงื่อ"},
+            {en: "Inequality", th: "ความเหลื่อมล้ำ"}, {en: "Embarrassed", th: "รู้สึกอับอาย"}, {en: "Dignity", th: "ศักดิ์ศรี"},
+            {en: "Pouring rain", th: "ฝนถล่ม"}, {en: "Dam", th: "เขื่อน"}, {en: "Faint", th: "เป็นลม"},
+            {en: "Inhaler", th: "ยาดม"}, {en: "Thunder", th: "ฟ้าร้อง"}, {en: "Victims", th: "ผู้ประสบภัย"},
+            {en: "Society", th: "สังคม"}, {en: "Mindfulness", th: "สติ"}, {en: "Tourist attractions", th: "สถานที่ท่องเที่ยว"},
+            {en: "Foreigners", th: "ต่างชาติ"}, {en: "Weekend", th: "เสาร์อาทิตย์"}, {en: "Red envelopes", th: "ซองแดง"},
+            {en: "Caring", th: "เอาใจใส่"}, {en: "Donate", th: "บริจาค"}, {en: "Make merit", th: "ทำบุญ"},
+            {en: "Lucky draw", th: "จับฉลาก"}, {en: "Justice", th: "ความยุติธรรม"}, {en: "Equality", th: "ความเท่าเทียม"},
+            {en: "Tax refund", th: "คืนภาษี"}, {en: "Grasshoppers", th: "ตั๊กแตน"}, {en: "Push-ups", th: "วิดพื้น"},
+            {en: "Catfish", th: "ปลาดุก"}, {en: "Park", th: "สวน"}, {en: "Rehearse", th: "ซ้อม"},
+            {en: "Employee", th: "พนักงาน"}, {en: "Mall", th: "ห้าง"}, {en: "Have to", th: "ต้อง"},
+            {en: "Snorkeling", th: "ดำน้ำผิวน้ำ"}, {en: "Overseas", th: "ต่างประเทศ"}, {en: "E-sport", th: "อีสปอร์ต"},
+            {en: "Billion", th: "พันล้าน"}, {en: "Passive income", th: "รายได้แบบไม่ต้องทำอะไร"}, {en: "Manga", th: "มังงะ"},
+            {en: "Universe", th: "จักรวาล"}, {en: "Childhood", th: "วัยเด็ก"}, {en: "Cremation", th: "การเผาศพ"},
+            {en: "Shelter", th: "ที่พักอาศัย"}, {en: "Colleagues", th: "เพื่อนร่วมงาน"}, {en: "Fussy", th: "จู้จี้"},
+            {en: "Election", th: "การเลือกตั้ง"},
+            {en: "Have you eaten?", th: "กินข้าวยัง"},
+            {en: "boiled eggs", th: "ไข่ต้ม"},
+            {en: "justice", th: "ความยุติธรรม"},
+            {en: "equality", th: "ความเท่าเทียม"},
+            {en: "injustice", th: "ความไม่ยุติธรรม"},
+            {en: "My hometown has beautiful national parks.", th: "บ้านเกิดของฉันมีอุทยานแห่งชาติที่สวยงาม"},
+            {en: "political parties", th: "พรรคการเมือง"},
+            {en: "doctor's note", th: "ใบรับรองแพทย์"},
+            {en: "What do you want to cut down on?", th: "อยากลดอะไร"},
+            {en: "beauty", th: "ความสวย"},
+            {en: "Where do you want to go?", th: "อยากไปที่ไหน"},
+            {en: "as usual", th: "เหมือนเดิม"},
+            {en: "The 17th", th: "วันที่ 17"},
+            {en: "Policies / Pledges", th: "นโยบาย"},
+            {en: "Candidate", th: "ผู้สมัคร"},
+            {en: "Cast a ballot", th: "ลงคะแนน"},
+            {en: "Not allowed", th: "ไม่อนุญาต"},
+            {en: "Prison", th: "คุก"},
+            {en: "Vomit", th: "อ้วก"},
+            {en: "Negotiate", th: "ต่อรอง"},
+            {en: "Country", th: "ลูกทุ่ง"},
+            {en: "politics", th: "การเมือง"},
+            {en: "Election Commission", th: "กกต."},
+            {en: "district", th: "เขต / ตำบล"},
+            {en: "corruption", th: "คอรัปชั่น"},
+            {en: "brochure", th: "โบรชัวร์"},
+            {en: "topics", th: "หัวข้อ"},
+            {en: "make sentences", th: "แต่งประโยค"},
+            {en: "register marriage", th: "จดทะเบียนสมรส"},
+            {en: "couple", th: "คู่รัก"},
+            {en: "jealous", th: "อิจฉา"},
+            {en: "romances", th: "หนังรัก"},
+            {en: "exaggerated", th: "เวอร์"},
+            {en: "on and off", th: "รักๆเลิกๆ"},
+            {en: "give advice", th: "ให้คำปรึกษา"},
+            {en: "cupid", th: "แม่สื่อ/พ่อสื่อ"},
+            {en: "Buddhist Holy Day", th: "วันพระ"},
+            {en: "holy / sacred", th: "ศักดิ์สิทธิ์"},
+            {en: "so so", th: "เฉยๆ"}
+        ];
+        
+        const emojis = ['🗣️', '📝', '🧠', '💡', '✨', '🔥', '🎲', '🎯', '🚀', '🌟', '🧨', '🧧', '🐉'];
+
+        const additionalVocabList = [
+            { en: "pay respect to ancestors", th: "ไหว้บรรพบุรุษ" },
+            { en: "get", th: "ได้รับ" },
+            { en: "red packet / red envelope", th: "ซองแดง" },
+            { en: "mooncake", th: "ขนมไหว้พระจันทร์" },
+            { en: "I'm old already.", th: "แก่แล้ว" },
+            { en: "Have you been to a national park?", th: "เคยไปอุทยานแห่งชาติไหม" },
+            { en: "Do you have fat in your belly?", th: "มีไขมันในหน้าท้องไหม" },
+            { en: "How do your preserve your eyesight?", th: "ถนอมสายตาตัวเองยังไง" },
+            { en: "morning glory", th: "ผักบุ้ง" },
+            { en: "Blue Light Glasses", th: "แว่นกรองแสงสีฟ้า" },
+            { en: "I have 4 colleagues in Pattaya office.", th: "มีเพื่อนร่วมงานที่ออฟฟิศพัทยา 4 คน" },
+            { en: "K'Ice sits next to me.", th: "คุณไอซ์นั่งข้างๆ" },
+            { en: "I've raised a mouse before.", th: "เคยเลี้ยงหนูมาก่อน" },
+            { en: "What type of mouse is it?", th: "หนูแบบไหน" },
+            { en: "We will be happy.", th: "พวกเราจะมีความสุข" },
+            { en: "What are your positive thoughts about?", th: "ความคิดในแง่บวกของคุณเกี่ยวกับอะไร" },
+            { en: "rice vermicelli", th: "ขนมจีน" },
+            { en: "Chinese spice", th: "เครื่องเทศจีน" },
+            { en: "It's about people celebrating Chinese New Year.", th: "เกี่ยวกับคนฉลองตรุษจีน" },
+            { en: "tradition", th: "ประเพณี" },
+            { en: "ceremony", th: "พิธี" },
+            { en: "extended family", th: "ครอบครัวใหญ่" },
+            { en: "nuclear family / immediate family", th: "ครอบครัวเล็ก" },
+            { en: "Bangkok City pillar shrine", th: "ศาลหลักเมือง" },
+            { en: "joss house", th: "ศาลเจ้า" },
+            { en: "Stuffed Dough Pyramid", th: "ขนมเทียน" },
+            { en: "I used to celebrate it.", th: "เคยฉลอง" },
+            { en: "take a rest", th: "พักผ่อน" },
+            { en: "When I was a child,", th: "ตอนเด็ก" },
+            { en: "I've seen it on Tiktok.", th: "เคยเห็นในติ๊กต็อก" },
+            { en: "facts", th: "ข้อเท็จจริง" },
+            { en: "habits", th: "นิสัย (เชิงกิจวัตร)" },
+            { en: "steamed dumplings", th: "เกี๊ยวนึ่ง" },
+            { en: "wipe mirrors", th: "เช็ดกระจก" },
+            { en: "sweep the floor", th: "กวาดบ้าน" },
+            { en: "I used to give red envelopes to nieces and nephews.", th: "เคยให้ซองแดงกับหลานๆ" },
+            { en: "I've given them to a niece and a nephew.", th: "ให้มันกับหลานสาวหลานชาย" },
+            { en: "Have you ever drunk wine?", th: "เคยกินไวน์ไหม" },
+            { en: "You don't look like someone who doesn't drink.", th: "ดูไม่เหมือนคนไม่ดื่ม" },
+            { en: "What do you like to drink?", th: "ชอบกินน้ำอะไร" },
+            { en: "hair tie", th: "ยางรัดผม" },
+            { en: "waste time", th: "เสียเวลา" },
+            { en: "barely", th: "แทบจะไม่" },
+            { en: "I'm more productive at the office.", th: "ได้งานมากกว่าตอนอยู่ออฟฟิศ" },
+            { en: "When do you wash your hair?", th: "สระผมเมื่อไร" },
+            { en: "sometimes mornings, sometimes night", th: "บางครั้งเช้า บางทีเย็น" },
+            { en: "I don't have a motorcycle.", th: "ไม่มีมอเตอร์ไซค์" },
+            { en: "impromptu", th: "ด้นสด" },
+            { en: "Why is there no money inside?", th: "ทำไมไม่มีเงินข้างใน" },
+            { en: "It's my fault.", th: "ความผิดของฉัน" },
+            { en: "Can you wait for me until the end of the month?", th: "รอถึงสิ้นเดือนได้ไหม" },
+            { en: "represent", th: "เป็นตัวแทน" },
+            { en: "We can buy them at 7-11.", th: "เราซื้อมันได้ที่เซเว่น" },
+            { en: "Many restaurants sell pizza.", th: "ร้านอาหารหลายร้านขายพิซซ่า" },
+            { en: "filling", th: "ไส้" },
+            { en: "Cotton-Wool Cake", th: "ขนมปุยฝ้าย" },
+            { en: "steamed cupcake", th: "ขนมถ้วยฟู" }
+        ];
+
+        function renderAdditionalVocab() {
+            const container = document.getElementById('additional-vocab-grid');
+            additionalVocabList.forEach((item, index) => {
+                const thId = `add-vocab-${index}`;
+                const card = document.createElement('div');
+                card.className = "bg-white border-2 border-teal-100 p-4 rounded-xl hover:shadow-md transition-shadow flex items-start justify-between gap-2";
+                
+                // Add a random emoji if the item doesn't have one explicitly defined
+                const emoji = item.emoji || emojis[Math.floor(Math.random() * emojis.length)];
+
+                card.innerHTML = `
+                    <div class="flex-1">
+                        <div class="text-2xl mb-1">${emoji}</div>
+                        <h3 class="font-bold text-gray-800 text-lg leading-tight mb-1">${item.en}</h3>
+                        <p id="${thId}" class="hidden text-teal-600 font-bold text-sm mt-1 animate-pulse">${item.th}</p>
+                    </div>
+                    <div class="flex flex-col gap-1 shrink-0">
+                         <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🔊</button>
+                         <button onclick="toggleThai('${thId}')" class="btn-icon text-sm h-8 w-8 bg-teal-50 text-teal-700">🇹🇭</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function pickRandomWord() {
+            const display = document.getElementById('wordDisplay');
+            
+            // Animation start
+            display.style.opacity = '0';
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * vocabData.length);
+                const item = vocabData[randomIndex];
+                const uniqueId = 'rand-' + Math.random().toString(36).substr(2, 9);
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                display.innerHTML = `
+                    <div class="vocab-card-content flex flex-col items-center gap-2">
+                        <div class="text-4xl animate-bounce">${randomEmoji}</div>
+                        <div class="text-2xl font-bold text-red-900 text-center">${item.en}</div>
+                        <div class="flex gap-2 mt-2">
+                            <button onclick="speak('${item.en.replace(/'/g, "\\'")}')" class="btn-icon">🔊 Listen</button>
+                            <button onclick="toggleThai('${uniqueId}')" class="btn-icon">🇹🇭 TH</button>
+                        </div>
+                        <div id="${uniqueId}" class="hidden text-lg text-gray-500 font-bold mt-2 text-center">${item.th}</div>
+                    </div>
+                `;
+                
+                // Animation end
+                display.style.opacity = '1';
+            }, 200);
+        }
+
+        // Initialize additional vocab
+        renderAdditionalVocab();
+    </script>
+</body>
+</html>
