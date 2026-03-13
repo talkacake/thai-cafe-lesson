@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Lesson: Loy Krathong Festival Fun!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background-color: #0c1445; /* Deep night blue */
+            background-image: 
+                radial-gradient(circle at 10% 10%, #fde047 1px, transparent 1px),
+                radial-gradient(circle at 80% 90%, #fde047 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, #fde047 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+        .thai-translation {
+            font-family: 'Sarabun', sans-serif;
+            color: #d1d5db;
+        }
+        .tts-icon {
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.2s ease;
+            user-select: none;
+            color: #fde047; /* Yellow for icons */
+        }
+        .tts-icon:hover {
+            transform: scale(1.2);
+        }
+        .game-card {
+            background-color: rgba(255, 255, 255, 0.05); /* Translucent white */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border: 1px solid rgba(253, 224, 71, 0.3); /* Gold border */
+            border-left: 8px solid #fde047; /* Gold */
+        }
+        .game-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fde047; /* Gold */
+            margin-bottom: 0.5rem;
+        }
+        .useful-phrases {
+            background-color: rgba(14, 25, 80, 0.5); /* Darker blue, translucent */
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .phrase-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(253, 224, 71, 0.2); /* Gold */
+        }
+        .toggle-th-btn {
+            background-color: #fde047; /* Gold */
+            color: #0c1445; /* Night blue */
+            font-size: 0.75rem; /* 12px */
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: none;
+            vertical-align: middle;
+        }
+        .toggle-th-btn:hover {
+            background-color: #facc15; /* Darker Gold */
+        }
+        .translatable-item .english-text {
+            vertical-align: middle;
+            color: #f3f4f6; /* Light gray text */
+        }
+        h1, h2 {
+            color: #fde047; /* Gold */
+        }
+        p, li {
+            color: #e5e7eb; /* Light gray text */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-bold translatable-item">
+                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Happy Loy Krathong!</span>
+                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                <span class="thai-translation" style="display: none;">สุขสันต์วันลอยกระทง!</span>
+            </h1>
+            <p class="text-2xl mt-2 translatable-item" style="color: #fde047;">
+                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Let's Talk About the Festival!</span>
+                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                <span class="thai-translation" style="display: none;">มาคุยเรื่องเทศกาลกันเถอะ!</span>
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+
+            <!-- Part 1: Warm-up (Recap) -->
+            <section id="part1" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Warm-up: My Loy Krathong (Past, Experience, Future)</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">อุ่นเครื่อง: ลอยกระทงของฉัน (อดีต, ประสบการณ์, อนาคต)</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">How to Play</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">วิธีเล่น</p>
+                    </div>
+                    
+                    <p class="mb-4 translatable-item">
+                        <div>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Let's review! Each student must share THREE sentences about Loy Krathong.</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </div>
+                        <p class="thai-translation" style="display: none;">มาทบทวนกัน! นักเรียนแต่ละคนต้องแชร์ 3 ประโยคเกี่ยวกับวันลอยกระทง</p>
+                    </p>
+
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**1. Past:** One thing you **did** *last year*. (e.g., "Last year, I **went** to the river.")</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**1. อดีต (Past):** 1 อย่างที่คุณ **ได้ทำ** *เมื่อปีที่แล้ว* (เช่น "ปีที่แล้ว ฉัน**ไป**ที่แม่น้ำ")</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**2. Experience:** One thing you **have done** *in your life*. (e.g., "I **have made** my own krathong.")</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**2. ประสบการณ์ (Experience):** 1 อย่างที่คุณ**เคยทำ** *ในชีวิต* (เช่น "ฉัน**เคยทำ**กระทงของตัวเอง")</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**3. Future:** One plan you have for *tonight*. (e.g., "Tonight, I **am going to** float my krathong.")</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**3. อนาคต (Future):** 1 แผนที่คุณมีสำหรับ *คืนนี้* (เช่น "คืนนี้ ฉัน**จะไป**ลอยกระทง")</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Part 2: Vocabulary & Game -->
+            <section id="part2" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Activity 1: What's in my Krathong?</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">กิจกรรมที่ 1: ในกระทงของฉันมีอะไร?</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">New Words!</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">คำศัพท์ใหม่!</p>
+                    </div>
+
+                    <div class="useful-phrases">
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Krathong</span></span> <span class="thai-translation">กระทง</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Banana leaf</span></span> <span class="thai-translation">ใบตอง</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Banana tree trunk</span></span> <span class="thai-translation">หยวกกล้วย</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Incense</span></span> <span class="thai-translation">ธูป</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Candle</span></span> <span class="thai-translation">เทียน</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Flowers (Marigold, Orchid)</span></span> <span class="thai-translation">ดอกไม้ (ดอกดาวเรือง, กล้วยไม้)</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">To float</span></span> <span class="thai-translation">ลอย</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">To make a wish</span></span> <span class="thai-translation">ขอพร</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Full moon</span></span> <span class="thai-translation">พระจันทร์เต็มดวง</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">River / Canal</span></span> <span class="thai-translation">แม่น้ำ / คลอง</span></div>
+                    </div>
+
+                    <div class="translatable-item mt-6">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">Memory Game</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">เกมความจำ</p>
+                    </div>
+                    <ol class="list-decimal list-inside space-y-3">
+                       <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Teacher starts:** "In my krathong, I have a **candle**."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ครูเริ่ม:** "ในกระทงของฉัน ฉันมี **เทียน**"</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Student 1:** "In my krathong, I have a **candle** and **flowers**."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**นักเรียน 1:** "ในกระทงของฉัน ฉันมี **เทียน** และ **ดอกไม้**"</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Student 2:** "In my krathong, I have a **candle**, **flowers**, and **incense**."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**นักเรียน 2:** "ในกระทงของฉัน ฉันมี **เทียน**, **ดอกไม้**, และ **ธูป**"</p>
+                        </li>
+                         <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Keep going until the chain breaks!</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">เล่นต่อไปเรื่อยๆ จนกว่าจะมีคนลืม!</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- Part 3: Main Game 1 -->
+            <section id="part3" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Activity 2: The Perfect Krathong (Role-play)</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">กิจกรรมที่ 2: กระทงสุดเพอร์เฟค (แสดงบทบาทสมมติ)</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">How to Play</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">วิธีเล่น</p>
+                    </div>
+                    
+                    <ol class="list-decimal list-inside space-y-4">
+                       <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 1 (Breakout Rooms):** Go into pairs. You are **Krathong Designers**. You must plan your *perfect* krathong.</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 1 (ห้องย่อย):** เข้าไปจับคู่ คุณคือ **นักออกแบบกระทง** คุณต้องวางแผนกระทงที่ *เพอร์เฟค* ที่สุด</p>
+                        </li>
+                        <li class="translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Step 2 (Main Room):** Come back and report your plan to the class. We will vote for the best krathong!</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation ml-6" style="display: none;">**ขั้นที่ 2 (ห้องรวม):** กลับมารายงานแผนของคุณให้เพื่อนๆ ฟัง เราจะโหวตให้กระทงที่ดีที่สุด!</p>
+                        </li>
+                    </ol>
+                    
+                    <div class="useful-phrases">
+                        <div class="translatable-item">
+                            <h4 class="font-bold text-lg mb-2">
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Useful Planning Phrases</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </h4>
+                            <span class="thai-translation" style="display: none;">(วลีสำหรับวางแผน)</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"What **are we going to** use?"</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"เราจะใช้อะไรดี?"</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"Our krathong **will be** big and beautiful."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"กระทงของเราจะใหญ่และสวย"</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"We **will use** orchids."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"เราจะใช้ดอกกล้วยไม้"</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"We **won't use** plastic."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"เราจะไม่ใช้พลาสติก"</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"What about bread?"</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"แล้วขนมปังล่ะ?"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Part 4: Main Game 2 -->
+            <section id="part4" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Activity 3: The Eco-Debate</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">กิจกรรมที่ 3: ดีเบตเรื่องสิ่งแวดล้อม</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">The Big Question</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="text-xl font-semibold my-3 translatable-item">
+                            <div>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"Which krathong is BETTER for the river?"</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </div>
+                            <p class="thai-translation" style="display: none;">"กระทงแบบไหน ดีต่อแม่น้ำมากกว่ากัน?"</p>
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <!-- Team 1 -->
+                        <div class="useful-phrases">
+                            <div class="translatable-item">
+                                <h4 class="font-bold text-lg mb-2">
+                                    <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Team 1: Banana Leaf</span>
+                                    <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                                </h4>
+                                <span class="thai-translation" style="display: none;">ทีมที่ 1: ใบตอง</span>
+                            </div>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It is natural."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"มันเป็นธรรมชาติ"</p></p>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It **will not** pollute the water."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"มันจะไม่ทำให้น้ำเสีย"</p></p>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It is beautiful."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"มันสวยงาม"</p></p>
+                        </div>
+                        <!-- Team 2 -->
+                        <div class="useful-phrases">
+                             <div class="translatable-item">
+                                <h4 class="font-bold text-lg mb-2">
+                                    <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Team 2: Bread</span>
+                                    <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                                </h4>
+                                <span class="thai-translation" style="display: none;">ทีมที่ 2: ขนมปัง</span>
+                            </div>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"The fish **will eat** it."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"ปลาจะกินมัน"</p></p>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It is easy to make."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"มันทำง่าย"</p></p>
+                            <p class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It **will not** stay in the river."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation" style="display: none;">"มันจะไม่ลอยอยู่ในแม่น้ำ"</p></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Part 5: Cool-down -->
+            <section id="part5" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Cool-down & Review</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">สรุปและทบทวน</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">My Wish for Tonight</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">คำอธิษฐานของฉันในคืนนี้</p>
+                    </div>
+                    
+                    <p class="mb-4 translatable-item">
+                        <div>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">When you float your krathong, you make a wish for the future. What **will** you wish for?</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </div>
+                        <p class="thai-translation" style="display: none;">เมื่อคุณลอยกระทง คุณจะขอพรสำหรับอนาคต คุณจะขอพรอะไร?</p>
+                    </p>
+                    <div class="useful-phrases">
+                        <div class="translatable-item">
+                            <h4 class="font-bold text-lg mb-2">
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Example Wishes</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </h4>
+                            <span class="thai-translation" style="display: none;">(ตัวอย่างคำอธิษฐาน)</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"I **will wish** for my family to be happy."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"ฉันจะขอพรให้ครอบครัวมีความสุข"</span>
+                        </div>
+                        <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"I **will wish** for good luck."</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"ฉันจะขอพรให้โชคดี"</span>
+                        </div>
+                         <div class="phrase-item translatable-item">
+                            <span>
+                                <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"I **will wish** to be good at English!"</span>
+                                <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                            </span>
+                            <span class="thai-translation" style="display: none;">"ฉันจะขอพรให้เก่งภาษาอังกฤษ!"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 6: Extension Activities -->
+            <section id="part6" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-red-500 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Extension Activities</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display: none;">กิจกรรมเสริม</p>
+                </div>
+                
+                <div class="game-card" style="border-left-color: #ef4444;">
+                    <div class="translatable-item">
+                        <h3>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                            <span class="english-text">Role-play: Tourist & Local</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </h3>
+                        <p class="thai-translation mb-4" style="display: none;">แสดงบทบาทสมมติ: นักท่องเที่ยว & คนท้องถิ่น</p>
+                    </div>
+                    <p class="mb-4 translatable-item">
+                        <div>
+                            <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**Goal:** Practice giving advice and explaining the festival.</span>
+                            <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                        </div>
+                        <p class="thai-translation" style="display: none;">**เป้าหมาย:** ฝึกให้คำแนะนำและอธิบายเกี่ยวกับเทศกาล</p>
+                    </p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**One person** is a **Tourist** who knows nothing.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation ml-6" style="display: none;">**คนหนึ่ง** เป็น **นักท่องเที่ยว** ที่ไม่รู้อะไรเลย</p></li>
+                        <li class="translatable-item"><div><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">**One person** is a **Local** (you!).</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></div><p class="thai-translation ml-6" style="display: none;">**คนหนึ่ง** เป็น **คนท้องถิ่น** (ก็คือคุณ!)</p></li>
+                    </ul>
+
+                    <div class="useful-phrases">
+                        <p class="font-semibold translatable-item"><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Tourist (นักท่องเที่ยว):</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button><span class="thai-translation" style="display: none;">นักท่องเที่ยว:</span></p>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"Excuse me, what is Loy Krathong?"</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"ขอโทษนะครับ/ค่ะ, ลอยกระทงคืออะไร?"</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"Where **should** I go tonight?"</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"คืนนี้ฉัน **ควร** ไปที่ไหนดี?"</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"What **will** I see?"</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"ฉัน **จะ** เห็นอะไรบ้าง?"</span></div>
+                        
+                        <p class="font-semibold mt-4 translatable-item"><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Local (คนท้องถิ่น):</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button><span class="thai-translation" style="display: none;">คนท้องถิ่น:</span></p>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"It is a beautiful festival."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"มันเป็นเทศกาลที่สวยงาม"</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"You **should** go to the river."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"คุณ **ควร** ไปที่แม่น้ำ"</span></div>
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">"You **will see** many people and krathongs."</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display: none;">"คุณ **จะ** เห็นคนเยอะมากและเห็นกระทง"</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW: Additional Vocabulary -->
+            <section id="additional-vocabulary" class="mb-12">
+                <div class="translatable-item">
+                    <h2 class="text-3xl font-bold border-b-4 border-yellow-300 pb-2 mb-6">
+                        <span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span>
+                        <span class="english-text">Additional Vocabulary</span>
+                        <button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button>
+                    </h2>
+                    <p class="thai-translation -mt-4 mb-6" style="display:none;">คำศัพท์เพิ่มเติม</p>
+                </div>
+
+                <div class="game-card">
+                    <div class="useful-phrases">
+                        <!-- Each row: English (with TTS + TH toggle) + Thai (hidden until toggled) -->
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Last year, I went to an island.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ปีที่แล้ว ฉันไปเกาะ</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have collected bamboo from the forest.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ฉันเคยเก็บหน่อไม้จากป่า</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have played games.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">เคยเล่นเกม</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Tonight, I am going to the gym.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">คืนนี้ ฉันไปฟิตเนส</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">beauty contest</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ประกวดนางงาม</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">afro hair</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ทรงผมเอฟโฟร่ (ฟูๆ)</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">solo artist</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ศิลปินเดี่ยว</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">fried banana</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">กล้วยแขก</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">mackerel</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ปลาทู</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Steamed banana blossom with chicken</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">หมกหัวปลีใส่ไก่</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">buddha statue</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">พระพุทธรูป</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">ask for blessings from Goddess of the River</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ขอพรจากพระแม่คงคา</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I used to grow Marigold.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">เคยปลูกดาวเรือง</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I have seen Orchid in the forest.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">เคยเห็นกล้วยไม้ในป่า</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">float lanterns</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ลอยโคม</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">The face doesn't match the neck.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">หน้าลอย / หน้าไม่เข้ากับคอ / สีหน้าไม่แมทกับคอ</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">make a wish</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">อธิษฐาน</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I wish for success.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ขอพรความสำเร็จ</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I wish for happiness.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ขอพรความสุข</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I search for tadpoles.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">หาลูกอ๊อด</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I fish.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ฉันตกปลา</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">To dive</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ดำน้ำ</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">corals</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ปะการัง</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I'd like to go diving to see corals.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">อยากไป</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">banana tree trunk</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">หยวกกล้วย / หัวปลี</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">I make a wish for happiness, health and wealth.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ขอพรความสุข สุขภาพ และความมั่งคั่ง</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">dirty</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">สกปรก</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">We make a wish for good things to come into our lives.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">เราขอพรให้มีสิ่งดีเข้ามาในชีวิต</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Do you believe in making a wish, and it comes true?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">เชื่อในการขอพรแล้วเป็นจริงไหม</span></div>
+
+                        <div class="phrase-item translatable-item"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">Why do you want a rich husband?</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">ทำไมอยากมีสามีรวย</span></div>
+
+                        <div class="phrase-item translatable-item" style="border-bottom:0;"><span><span class="tts-icon" onclick="speakText(this.nextElementSibling.innerText)">🔊</span><span class="english-text">My Krathong is made of bread.</span><button class="toggle-th-btn" onclick="toggleTranslation(this)">TH</button></span><span class="thai-translation" style="display:none;">กระทงฉันทำมาจากขนมปัง</span></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Text-to-Speech Functionality ---
+        const synth = window.speechSynthesis;
+
+        function speakText(textToSpeak) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const cleanText = textToSpeak.replace('🔊', '').trim();
+            if (cleanText) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'en-US';
+                utterance.pitch = 1;
+                utterance.rate = 0.9;
+                utterance.volume = 1;
+                synth.speak(utterance);
+            }
+        }
+
+        // --- Translation Toggle Functionality ---
+        function toggleTranslation(buttonEl) {
+            const container = buttonEl.closest('.translatable-item');
+            if (container) {
+                const thaiEl = container.querySelector('.thai-translation');
+                if (thaiEl) {
+                    if (thaiEl.style.display === 'none' || thaiEl.style.display === '') {
+                        if (thaiEl.tagName === 'SPAN') {
+                            thaiEl.style.display = 'inline-block';
+                        } else {
+                            thaiEl.style.display = 'block';
+                        }
+                    } else {
+                        thaiEl.style.display = 'none';
+                    }
+                }
+            } else {
+                // Fallback for elements not in a .translatable-item, like headings
+                const parent = buttonEl.parentElement;
+                const thaiEl = parent.nextElementSibling;
+                if (thaiEl && thaiEl.classList.contains('thai-translation')) {
+                    thaiEl.style.display = (thaiEl.style.display === 'none' || thaiEl.style.display === '') ? 'block' : 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
