@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: What are you doing?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdfa; /* Light Teal background */
+            color: #3f3f46; 
+        }
+        .content-section {
+            display: none; 
+        }
+        .content-section.active {
+            display: block; 
+        }
+        .nav-button {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 4px solid transparent;
+        }
+        .nav-button.active {
+            border-bottom-color: #0d9488; /* Teal-600 */
+            color: #0f766e; /* Teal-700 */
+        }
+        .speak-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1;
+            margin-left: 8px; /* ml-2 */
+            color: #0d9488; /* teal-700 */
+            transition: all 0.2s ease;
+            padding: 2px;
+            flex-shrink: 0;
+        }
+        .speak-btn:hover {
+            color: #13c0b1;
+            transform: scale(1.1);
+        }
+        .thai-toggle-btn {
+            background-color: #f0f9ff; /* Light blue */
+            color: #0c4a6e; /* Darker blue text */
+            padding: 4px 8px;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+            margin-left: 8px; /* ml-2 */
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0; /* Prevents button from shrinking */
+        }
+        .thai-toggle-btn:hover {
+            background-color: #e0f2fe; /* Hover blue */
+        }
+        .thai-translation {
+            display: none;
+            font-size: 0.9em;
+            color: #6b7280; /* text-gray-500 */
+            margin-top: 4px;
+            padding-left: 8px;
+            border-left: 2px solid #a78bfa; /* purple for translation */
+            width: 100%; /* Ensure it takes full width */
+        }
+        
+        /* Matching Game Styles */
+        .match-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #d1d5db; /* gray-300 */
+        }
+        .match-item:hover {
+            background-color: #fef9c3; /* yellow-100 */
+        }
+        .match-item.selected {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            border-color: #1d4ed8; /* blue-800 */
+        }
+        .match-item.matched {
+            background-color: #4ade80; /* green-400 */
+            color: #166534; /* green-800 */
+            border-color: #22c55e; /* green-500 */
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* Phrase Builder Styles */
+        .phrase-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .phrase-button.selected {
+            background-color: #2563eb;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Comprehension & Quiz Styles */
+        .option-button {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #d1d5db;
+        }
+        .option-button:hover {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .option-button.correct {
+            background-color: #dcfce7; /* green-100 */
+            border-color: #22c55e; /* green-500 */
+        }
+        .option-button.wrong {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-6 max-w-6xl">
+
+        <header class="text-center mb-6">
+            <div>
+                <div class="flex items-center justify-center mb-1">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Lesson 5: What are you doing? 🏃</h1>
+                    <button class="speak-btn" data-speak-text="Lesson 5: What are you doing?">🔊</button>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center justify-center mb-1">
+                    <p class="text-lg text-gray-700">Actions Happening Now</p>
+                    <button class="speak-btn" data-speak-text="Actions Happening Now">🔊</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:space-x-4 bg-white p-4 rounded-lg shadow-sm mb-6 sticky top-2 z-10">
+            <button id="nav-review" class="nav-button active" onclick="showSection('review')">
+                <span class="text-2xl hidden md:inline">📚</span>
+                <span class="block text-sm md:text-lg font-semibold">Review</span>
+                <span class="block text-xs md:text-sm text-gray-500">(ทบทวน)</span>
+            </button>
+            <button id="nav-warmup" class="nav-button" onclick="showSection('warmup')">
+                <span class="text-2xl hidden md:inline">🔥</span>
+                <span class="block text-sm md:text-lg font-semibold">Warm-up</span>
+                <span class="block text-xs md:text-sm text-gray-500">(อุ่นเครื่อง)</span>
+            </button>
+            <button id="nav-words" class="nav-button" onclick="showSection('words')">
+                <span class="text-2xl hidden md:inline">📖</span>
+                <span class="block text-sm md:text-lg font-semibold">The Words</span>
+                <span class="block text-xs md:text-sm text-gray-500">(คำศัพท์)</span>
+            </button>
+            <button id="nav-practice" class="nav-button" onclick="showSection('practice')">
+                <span class="text-2xl hidden md:inline">💬</span>
+                <span class="block text-sm md:text-lg font-semibold">Practice</span>
+                <span class="block text-xs md:text-sm text-gray-500">(ฝึกฝน)</span>
+            </button>
+            <button id="nav-activities" class="nav-button" onclick="showSection('activities')">
+                <span class="text-2xl hidden md:inline">🎮</span>
+                <span class="block text-sm md:text-lg font-semibold">Activities</span>
+                <span class="block text-xs md:text-sm text-gray-500">(กิจกรรม)</span>
+            </button>
+            <button id="nav-quiz" class="nav-button" onclick="showSection('quiz')">
+                <span class="text-2xl hidden md:inline">❓</span>
+                <span class="block text-sm md:text-lg font-semibold">Quiz</span>
+                <span class="block text-xs md:text-sm text-gray-500">(แบบทดสอบ)</span>
+            </button>
+        </nav>
+
+        <main>
+            <!-- Review Section -->
+            <section id="review-section" class="content-section active bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Let's Review!</h2>
+                        <button class="speak-btn" data-speak-text="Let's Review!">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="มาทบทวนกัน!">TH</button>
+                    </div>
+                    <p class="thai-translation mb-4">มาทบทวนกัน!</p>
+                </div>
+
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-600">"is" and "are" can be used for jobs AND actions!</p>
+                        <button class="speak-btn" data-speak-text="'is' and 'are' can be used for jobs AND actions!">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="'is' และ 'are' ใช้ได้ทั้งกับอาชีพและการกระทำ!">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">'is' และ 'are' ใช้ได้ทั้งกับอาชีพและการกระทำ!</p>
+                </div>
+                
+                <div class="p-4 bg-gray-50 rounded-lg" id="match-game-review">
+                    <div>
+                        <div class="flex items-center justify-center mb-1">
+                            <p class="text-center text-gray-500">Match the start to the end.</p>
+                            <button class="speak-btn" data-speak-text="Match the start to the end.">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="จับคู่ส่วนเริ่มต้นกับส่วนท้าย">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4 text-center">จับคู่ส่วนเริ่มต้นกับส่วนท้าย</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-3" id="review-col-1"></div>
+                        <div class="space-y-3" id="review-col-2"></div>
+                    </div>
+                    <button class="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded-full mt-4" onclick="resetGame('review')">Reset</button>
+                </div>
+            </section>
+
+            <!-- Warm-up Section -->
+            <section id="warmup-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                
+                <!-- Let's Talk: Dialogue -->
+                <div class="mb-8">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h2 class="text-2xl font-semibold text-gray-800">Let's Talk!</h2>
+                            <button class="speak-btn" data-speak-text="Let's Talk!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="มาคุยกัน!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">มาคุยกัน!</p>
+                    </div>
+
+                    <div class="space-y-4 bg-gray-50 p-4 rounded-lg shadow-sm">
+                        <div class="p-2">
+                            <div class="flex items-center">
+                                <span class="font-bold">You:</span>
+                                <span class="text-lg ml-2">Hi! What <span class="font-bold text-teal-600">are</span> you <span class="font-bold text-teal-600">doing</span>?</span>
+                                <button class="speak-btn" data-speak-text="Hi! What are you doing?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="สวัสดี! คุณกำลังทำอะไรอยู่?">TH</button>
+                            </div>
+                            <p class="thai-translation">สวัสดี! คุณกำลังทำอะไรอยู่?</p>
+                        </div>
+                        <div class="p-2 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Friend:</span>
+                                <span class="text-lg ml-2">I <span class="font-bold text-teal-600">am</span> <span class="font-bold text-teal-600">reading</span> a book.</span>
+                                <button class="speak-btn" data-speak-text="I am reading a book.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ฉันกำลังอ่านหนังสือ">TH</button>
+                            </div>
+                            <p class="thai-translation">ฉันกำลังอ่านหนังสือ</p>
+                        </div>
+                        <div class="p-2">
+                            <div class="flex items-center">
+                                <span class="font-bold">You:</span>
+                                <span class="text-lg ml-2">What <span class="font-bold text-teal-600">is</span> Sam <span class="font-bold text-teal-600">doing</span>?</span>
+                                <button class="speak-btn" data-speak-text="What is Sam doing?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="แซมกำลังทำอะไรอยู่?">TH</button>
+                            </div>
+                            <p class="thai-translation">แซมกำลังทำอะไรอยู่?</p>
+                        </div>
+                        <div class="p-2 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Friend:</span>
+                                <span class="text-lg ml-2">He <span class="font-bold text-teal-600">is</span> <span class="font-bold text-teal-600">watching</span> TV.</span>
+                                <button class="speak-btn" data-speak-text="He is watching TV.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="เขากำลังดูทีวี">TH</button>
+                            </div>
+                            <p class="thai-translation">เขากำลังดูทีวี</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Let's Notice! -->
+                <div class="mb-8">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h2 class="text-2xl font-semibold text-gray-800">Let's Notice!</h2>
+                            <button class="speak-btn" data-speak-text="Let's Notice!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="สังเกตกัน!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">สังเกตกัน!</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                        <ul class="list-none space-y-2">
+                            <li>
+                                <div class="flex items-center">
+                                    <span class="text-lg">I <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">am</span> + <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">reading</span></span>
+                                    <button class="speak-btn" data-speak-text="I am reading">🔊</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <span class="text-lg">He <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">is</span> + <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">watching</span></span>
+                                    <button class="speak-btn" data-speak-text="He is watching">🔊</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <span class="text-lg">What <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">are</span> you + <span class="font-bold text-teal-600 text-2xl p-1 rounded bg-teal-100">doing</span>?</span>
+                                    <button class="speak-btn" data-speak-text="What are you doing?">🔊</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- Let's Watch -->
+                <div class="bg-teal-50 p-4 rounded-lg shadow-sm mt-8">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h2 class="text-2xl font-semibold text-teal-800">Let's Watch!</h2>
+                            <button class="speak-btn" data-speak-text="Let's Watch!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="มาดูกัน!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">มาดูกัน!</p>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-teal-700">Watch the video. Listen for the "ing" words.</p>
+                            <button class="speak-btn" data-speak-text="Watch the video. Listen for the 'ing' words.">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="ดูวิดีโอ แล้วตั้งใจฟังคำที่ลงท้ายด้วย 'ing'">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">ดูวิดีโอ แล้วตั้งใจฟังคำที่ลงท้ายด้วย 'ing'</p>
+                    </div>
+                    
+                    <div class="aspect-video w-full max-w-lg mx-auto">
+                        <iframe class="w-full h-full rounded-lg shadow-md" src="https://www.youtube.com/embed/tVuVrVr4dvI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Comprehension -->
+                    <div class="mt-8" id="comprehension-container">
+                        <div class="flex items-center">
+                            <h3 class="text-xl font-semibold text-teal-800">Video Check</h3>
+                            <button class="speak-btn" data-speak-text="Video Check">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="เช็คจากวิดีโอ">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">เช็คจากวิดีโอ</p>
+                        <!-- Questions injected by JS -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- The Words Section -->
+            <section id="words-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">The Words</h2>
+                        <button class="speak-btn" data-speak-text="The Words">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="คำศัพท์">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">คำศัพท์</p>
+                </div>
+                
+                <div class="p-4 bg-gray-50 rounded-lg" id="match-game-words">
+                    <div>
+                        <div class="flex items-center justify-center mb-1">
+                            <p class="text-center text-gray-500">Match the picture to the "ing" word.</p>
+                            <button class="speak-btn" data-speak-text="Match the picture to the 'ing' word.">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="จับคู่รูปภาพกับคำกริยาที่เติม 'ing'">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4 text-center">จับคู่รูปภาพกับคำกริยาที่เติม 'ing'</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-3" id="words-col-1"></div>
+                        <div class="space-y-3" id="words-col-2"></div>
+                    </div>
+                    <button class="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded-full mt-4" onclick="resetGame('words')">Reset</button>
+                </div>
+            </section>
+
+            <!-- Practice Section -->
+            <section id="practice-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Practice Building</h2>
+                        <button class="speak-btn" data-speak-text="Practice Building">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="ฝึกสร้างประโยค">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">ฝึกสร้างประโยค</p>
+                </div>
+                
+                <div id="sentence-builder" class="space-y-6">
+                    <div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <h3 class="font-semibold text-lg text-gray-700">1. Choose Subject</h3>
+                                <button class="speak-btn" data-speak-text="1. Choose Subject">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="เลือกประธาน">TH</button>
+                            </div>
+                            <p class="thai-translation mb-3">เลือกประธาน</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3" id="phrase-subjects">
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="I" data-verb="am">I 🙋 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="I">🔊</button></button>
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="He" data-verb="is">He 🧑 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="He">🔊</button></button>
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="She" data-verb="is">She 👩 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="She">🔊</button></button>
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="You" data-verb="are">You 👉 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="You">🔊</button></button>
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="We" data-verb="are">We 🧑‍🤝‍🧑 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="We">🔊</button></button>
+                            <button class="phrase-button subject-btn text-lg font-medium bg-blue-100 text-blue-800 p-4 rounded-lg shadow-sm hover:bg-blue-200" data-value="They" data-verb="are">They 👨‍👩‍👧‍👦 <button class="speak-btn !text-blue-800 !text-lg" data-speak-text="They">🔊</button></button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <h3 class="font-semibold text-lg text-gray-700">2. Choose Action (Verb+ing)</h3>
+                                <button class="speak-btn" data-speak-text="2. Choose Action (Verb+ing)">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="เลือกการกระทำ">TH</button>
+                            </div>
+                            <p class="thai-translation mb-3">เลือกการกระทำ</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3" id="phrase-actions">
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="reading">reading 📖 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="reading">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="eating">eating 🍔 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="eating">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="sleeping">sleeping 😴 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="sleeping">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="drawing">drawing 🎨 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="drawing">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="playing">playing ⚽ <button class="speak-btn !text-green-800 !text-lg" data-speak-text="playing">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="singing">singing 🎤 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="singing">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="dancing">dancing 💃 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="dancing">🔊</button></button>
+                            <button class="phrase-button action-btn text-lg font-medium bg-green-100 text-green-800 p-4 rounded-lg shadow-sm hover:bg-green-200" data-value="swimming">swimming 🏊 <button class="speak-btn !text-green-800 !text-lg" data-speak-text="swimming">🔊</button></button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <h3 class="font-semibold text-lg text-gray-700">3. Your Sentence</h3>
+                                <button class="speak-btn" data-speak-text="3. Your Sentence">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ประโยคของคุณ">TH</button>
+                            </div>
+                            <p class="thai-translation mb-3">ประโยคของคุณ</p>
+                        </div>
+
+                        <div id="sentence-result" class="w-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center h-24 flex items-center justify-center">
+                            <p class="text-2xl font-bold text-gray-500">(Click buttons above)</p>
+                        </div>
+                        <button class="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded-full mt-4" id="clear-sentence-btn">Clear</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Activities Section -->
+            <section id="activities-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Speaking Activities</h2>
+                        <button class="speak-btn" data-speak-text="Speaking Activities">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="กิจกรรมฝึกพูด">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">กิจกรรมฝึกพูด</p>
+                </div>
+
+                <!-- Role Play: Mime -->
+                <div class="mb-8 p-4 bg-yellow-50 rounded-lg shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-yellow-800">1. Mime Game (Charades)</h3>
+                            <button class="speak-btn" data-speak-text="1. Mime Game (Charades)">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="เกมใบ้ท่าทาง">TH</button>
+                        </div>
+                        <p class="thai-translation mb-2">เกมใบ้ท่าทาง</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-gray-700">One person *acts* (like 😴). The other person guesses.</p>
+                            <button class="speak-btn" data-speak-text="One person *acts* (like 😴). The other person guesses.">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="คนหนึ่ง *แสดงท่าทาง* (เช่น 😴) อีกคนทาย">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">คนหนึ่ง *แสดงท่าทาง* (เช่น 😴) อีกคนทาย</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Guesser:</span>
+                                <span class="text-lg ml-2">"<span class="font-bold text-teal-600">Are</span> you <span class="font-bold text-teal-600">sleeping</span>?"</span>
+                                <button class="speak-btn" data-speak-text="Are you sleeping?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="คุณกำลังนอนหลับอยู่หรือเปล่า?">TH</button>
+                            </div>
+                            <p class="thai-translation">คุณกำลังนอนหลับอยู่หรือเปล่า?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Actor:</span>
+                                <span class="text-lg ml-2">"Yes, I <span class="font-bold text-teal-600">am</span>!"</span>
+                                <button class="speak-btn" data-speak-text="Yes, I am!">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ใช่ ฉันกำลังนอนหลับ!">TH</button>
+                            </div>
+                            <p class="thai-translation">ใช่ ฉันกำลังนอนหลับ!</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Guesser:</span>
+                                <span class="text-lg ml-2">"<span class="font-bold text-teal-600">Are</span> you <span class="font-bold text-teal-600">eating</span>?"</span>
+                                <button class="speak-btn" data-speak-text="Are you eating?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="คุณกำลังกินอยู่หรือเปล่า?">TH</button>
+                            </div>
+                            <p class="thai-translation">คุณกำลังกินอยู่หรือเปล่า?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Actor:</span>
+                                <span class="text-lg ml-2">"No, I <span class="font-bold text-teal-600">am not</span>."</span>
+                                <button class="speak-btn" data-speak-text="No, I am not.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ไม่ ฉันไม่ได้กำลังกิน">TH</button>
+                            </div>
+                            <p class="thai-translation">ไม่ ฉันไม่ได้กำลังกิน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaking Game: What's Happening? -->
+                <div class="mb-8 p-4 bg-green-50 rounded-lg shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-green-800">2. Speaking Game: "What's Happening?"</h3>
+                            <button class="speak-btn" data-speak-text="2. Speaking Game: What's Happening?">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="เกิดอะไรขึ้น?">TH</button>
+                        </div>
+                        <p class="thai-translation mb-2">เกิดอะไรขึ้น?</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-gray-700">Look out the window or at a picture. Ask questions.</p>
+                            <button class="speak-btn" data-speak-text="Look out the window or at a picture. Ask questions.">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="มองออกไปนอกหน้าต่างหรือดูรูปภาพ แล้วถามคำถาม">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">มองออกไปนอกหน้าต่างหรือดูรูปภาพ แล้วถามคำถาม</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Person 1:</span>
+                                <span class="text-lg ml-2">"What <span class="font-bold text-teal-600">is</span> the man <span class="font-bold text-teal-600">doing</span>?"</span>
+                                <button class="speak-btn" data-speak-text="What is the man doing?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ผู้ชายคนนั้นกำลังทำอะไร?">TH</button>
+                            </div>
+                            <p class="thai-translation">ผู้ชายคนนั้นกำลังทำอะไร?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Person 2:</span>
+                                <span class="text-lg ml-2">"He <span class="font-bold text-teal-600">is</span> <span class="font-bold text-teal-600">walking</span>."</span>
+                                <button class="speak-btn" data-speak-text="He is walking.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="เขากำลังเดิน">TH</button>
+                            </div>
+                            <p class="thai-translation">เขากำลังเดิน</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Person 1:</span>
+                                <span class="text-lg ml-2">"What <span class="font-bold text-teal-600">are</span> the birds <span class="font-bold text-teal-600">doing</span>?"</span>
+                                <button class="speak-btn" data-speak-text="What are the birds doing?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="พวกนกกำลังทำอะไร?">TH</button>
+                            </div>
+                            <p class="thai-translation">พวกนกกำลังทำอะไร?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Person 2:</span>
+                                <span class="text-lg ml-2">"They <span class="font-bold text-teal-600">are</span> <span class="font-bold text-teal-600">flying</span>."</span>
+                                <button class="speak-btn" data-speak-text="They are flying.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="พวกมันกำลังบิน">TH</button>
+                            </div>
+                            <p class="thai-translation">พวกมันกำลังบิน</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Quiz</h2>
+                        <button class="speak-btn" data-speak-text="Quiz">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="แบบทดสอบ">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">แบบทดสอบ</p>
+                </div>
+                
+                <div class="space-y-6" id="quiz-container">
+                    <!-- Quiz questions will be injected by JS -->
+                </div>
+                <button class="text-lg bg-teal-600 text-white font-semibold px-6 py-2 rounded-lg mt-8 hover:bg-teal-700" id="reset-quiz-btn">Start Over</button>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const allSections = document.querySelectorAll('.content-section');
+        const allNavButtons = document.querySelectorAll('.nav-button');
+        
+        // TTS setup
+        const synth = window.speechSynthesis;
+        let americanVoice = null;
+
+        function setVoice() {
+            if (synth.getVoices().length > 0) {
+                americanVoice = synth.getVoices().find(voice => voice.lang === 'en-US' && (voice.name.includes('Google') || voice.name.includes('Samantha') || voice.name.includes('Alex'))) || synth.getVoices().find(voice => voice.lang === 'en-US');
+            }
+        }
+
+        if (synth) {
+            synth.onvoiceschanged = setVoice;
+            setVoice();
+        }
+
+        function speakText(text) {
+            if (synth && text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                if (americanVoice) {
+                    utterance.voice = americanVoice;
+                } else {
+                    utterance.lang = 'en-US';
+                }
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                synth.speak(utterance);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initGlobalClickListeners(); // Handles TTS and Toggles
+            initReview();
+            initComprehension();
+            initWords();
+            initPractice();
+            initQuiz();
+            
+            allNavButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.id.replace('nav-', '');
+                    showSection(sectionId);
+                });
+            });
+
+            showSection('review'); // Start on Review
+        });
+        
+        function initGlobalClickListeners() {
+            document.body.addEventListener('click', (e) => {
+                const toggleBtn = e.target.closest('.thai-toggle-btn');
+                const speakBtn = e.target.closest('.speak-btn');
+                
+                // Handle Speak Buttons
+                if (speakBtn) {
+                    e.stopPropagation();
+                    const text = speakBtn.dataset.speakText;
+                    if (text) {
+                        speakText(text);
+                    }
+                    return;
+                }
+
+                // Handle Toggle Buttons
+                if (toggleBtn) {
+                    e.stopPropagation();
+                    // NEW LOGIC: Find the parent container (flex) and get its next sibling (translation)
+                    const translationElement = toggleBtn.parentElement.nextElementSibling; 
+                    if (translationElement && translationElement.classList.contains('thai-translation')) {
+                        translationElement.style.display = translationElement.style.display === 'block' ? 'none' : 'block';
+                    }
+                    return;
+                }
+            });
+        }
+
+
+        function showSection(sectionId) {
+            allSections.forEach(section => {
+                section.classList.toggle('active', section.id === `${sectionId}-section`);
+            });
+            allNavButtons.forEach(button => {
+                button.classList.toggle('active', button.id === `nav-${sectionId}`);
+            });
+        }
+        
+        // --- General Matching Game Logic ---
+        function shuffle(array) {
+            let newArr = [...array];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
+        function createMatchingGame(gameId, data) {
+            const col1 = document.getElementById(`${gameId}-col-1`);
+            const col2 = document.getElementById(`${gameId}-col-2`);
+            
+            col1.innerHTML = '';
+            col2.innerHTML = '';
+
+            const definitions = shuffle(data);
+            const terms = shuffle(data);
+
+            definitions.forEach(item => {
+                col1.innerHTML += `
+                    <div class="match-item p-4 rounded-lg bg-white shadow-sm" data-id="${item.id}" data-type="definition" onclick="selectMatchItem(this, '${gameId}')">
+                        <span class="text-lg font-medium">${item.text}</span>
+                        <button class="speak-btn !text-base" data-speak-text="${item.text.split('(')[0].trim()}">🔊</button>
+                    </div>`;
+            });
+            
+            terms.forEach(item => {
+                col2.innerHTML += `
+                    <div class="match-item p-4 rounded-lg bg-white shadow-sm" data-id="${item.id}" data-type="term" onclick="selectMatchItem(this, '${gameId}')">
+                        <span class="text-lg font-medium">${item.match}</span>
+                        <button class="speak-btn !text-base" data-speak-text="${item.match.split('(')[0].trim()}">🔊</button>
+                    </div>`;
+            });
+        }
+
+        function selectMatchItem(element, gameId) {
+            if (element.classList.contains('matched')) return;
+
+            const type = element.dataset.type;
+            const id = element.dataset.id;
+            const gameContainer = document.getElementById(`match-game-${gameId}`);
+            let currentSelection = gameContainer.dataset.selectedItem ? JSON.parse(gameContainer.dataset.selectedItem) : null;
+
+            if (currentSelection) {
+                const selectedElement = document.querySelector(`#match-game-${gameId} [data-id="${currentSelection.id}"][data-type="${currentSelection.type}"]`);
+                
+                if (currentSelection.type !== type && currentSelection.id === id) {
+                    element.classList.add('matched');
+                    selectedElement.classList.add('matched');
+                    gameContainer.dataset.selectedItem = '';
+                    checkGameWin(gameId);
+                } else if (currentSelection.type === type) {
+                    selectedElement.classList.remove('selected');
+                    element.classList.add('selected');
+                    gameContainer.dataset.selectedItem = JSON.stringify({ type, id });
+                } else {
+                    selectedElement.classList.remove('selected');
+                    gameContainer.dataset.selectedItem = '';
+                }
+            } else {
+                element.classList.add('selected');
+                gameContainer.dataset.selectedItem = JSON.stringify({ type, id });
+            }
+        }
+
+        function checkGameWin(gameId) {
+            const gameContainer = document.getElementById(`match-game-${gameId}`);
+            const allItems = gameContainer.querySelectorAll('.match-item');
+            const allMatched = Array.from(allItems).every(item => item.classList.contains('matched'));
+            
+            if (allMatched) {
+                const p = gameContainer.querySelector('p');
+                p.innerText = 'Good job! 🎉';
+                speakText('Good job!');
+            }
+        }
+
+        function resetGame(gameId) {
+            document.getElementById(`match-game-${gameId}`).dataset.selectedItem = '';
+            const p = document.getElementById(`match-game-${gameId}`).querySelector('p');
+            
+            let data, text;
+            if (gameId === 'review') {
+                data = reviewData;
+                text = 'Match the start to the end.';
+            } else {
+                data = wordsData;
+                text = 'Match the picture to the "ing" word.';
+            }
+            p.innerText = text;
+            createMatchingGame(gameId, data);
+        }
+
+        // Section: Review
+        const reviewData = [
+            { id: 'r1', text: 'He is...', match: '...a teacher. 👨‍🏫 (Lesson 4)' },
+            { id: 'r2', text: 'They are...', match: '...happy. 😊 (Lesson 4)' },
+            { id: 'r3', text: 'She is...', match: '...reading. 📖 (Lesson 5)' },
+            { id: 'r4', text: 'We are...', match: '...swimming. 🏊 (Lesson 5)' }
+        ];
+
+        function initReview() {
+            createMatchingGame('review', reviewData);
+        }
+
+        // Section: Warm-up Comprehension
+        const comprehensionData = [
+            {
+                question: "In the video, what is he doing?",
+                thai: "ในวิดีโอ เขากำลังทำอะไร?",
+                emoji: "📖",
+                options: ["He is reading.", "He is sleeping.", "He is eating."],
+                answer: "He is reading."
+            },
+            {
+                question: "In the video, what is she doing?",
+                thai: "ในวิดีโอ เธอกำลังทำอะไร?",
+                emoji: "🍔",
+                options: ["She is drawing.", "She is eating.", "She is singing."],
+                answer: "She is eating."
+            },
+            {
+                question: "In the video, what are they doing?",
+                thai: "ในวิดีโอ พวกเขากำลังทำอะไร?",
+                emoji: "💃",
+                options: ["They are playing.", "They are swimming.", "They are dancing."],
+                answer: "They are dancing."
+            }
+        ];
+
+        function initComprehension() {
+            const container = document.getElementById('comprehension-container');
+            container.innerHTML += comprehensionData.map((q, index) => `
+                <div class="bg-white p-4 rounded-lg shadow-sm mt-4">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <span class="text-2xl mr-3">${q.emoji}</span>
+                            <span class="text-lg font-semibold text-gray-800">${q.question}</span>
+                            <button class="speak-btn" data-speak-text="${q.question}">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="${q.thai}">TH</button>
+                        </div>
+                        <p class="thai-translation mb-3">${q.thai}</p>
+                    </div>
+                    <div class="space-y-2" id="comp-q-${index}">
+                        ${q.options.map(opt => `
+                            <button class="option-button p-3 w-full text-left rounded-lg border" data-answer="${q.answer}" data-selected="${opt}">
+                                ${opt}
+                                <button class="speak-btn !text-base !float-right" data-speak-text="${opt}">🔊</button>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            container.addEventListener('click', (e) => {
+                const optionEl = e.target.closest('.option-button');
+                if (!optionEl || e.target.closest('.speak-btn')) return; // Don't select if speak btn is clicked
+                
+                const selected = optionEl.dataset.selected;
+                const answer = optionEl.dataset.answer;
+                const parent = optionEl.parentElement;
+
+                parent.querySelectorAll('.option-button').forEach(el => {
+                    el.disabled = true;
+                    el.classList.remove('correct', 'wrong');
+                });
+
+                if (selected === answer) {
+                    optionEl.classList.add('correct');
+                    speakText('Correct!');
+                } else {
+                    optionEl.classList.add('wrong');
+                    parent.querySelector(`[data-selected="${answer}"]`).classList.add('correct');
+                    speakText('Try again.');
+                }
+            });
+        }
+
+
+        // Section: Words
+        const wordsData = [
+            { id: 'w1', text: '📖', match: 'reading' },
+            { id: 'w2', text: '🍔', match: 'eating' },
+            { id: 'w3', text: '😴', match: 'sleeping' },
+            { id: 'w4', text: '🎨', match: 'drawing' },
+            { id: 'w5', text: '⚽', match: 'playing' },
+            { id: 'w6', text: '🎤', match: 'singing' },
+            { id: 'w7', text: '💃', match: 'dancing' },
+            { id: 'w8', text: '🏊', match: 'swimming' }
+        ];
+
+        function initWords() {
+            createMatchingGame('words', wordsData);
+        }
+
+        // Section: Practice
+        let selectedSubject = '', selectedVerb = '', selectedAction = '';
+
+        function initPractice() {
+            document.getElementById('phrase-subjects').addEventListener('click', (e) => {
+                const btn = e.target.closest('.subject-btn');
+                if (!btn || e.target.closest('.speak-btn')) return;
+                document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedSubject = btn.dataset.value;
+                selectedVerb = btn.dataset.verb; // Auto-select the verb
+                updateSentence();
+            });
+            document.getElementById('phrase-actions').addEventListener('click', (e) => {
+                const btn = e.target.closest('.action-btn');
+                if (!btn || e.target.closest('.speak-btn')) return;
+                document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAction = btn.dataset.value;
+                updateSentence();
+            });
+            document.getElementById('clear-sentence-btn').addEventListener('click', clearSentence);
+        }
+        
+        function clearSentence() {
+            selectedSubject = ''; selectedVerb = ''; selectedAction = '';
+            document.querySelectorAll('#sentence-builder .phrase-button').forEach(b => b.classList.remove('selected'));
+            updateSentence();
+        }
+
+        function updateSentence() {
+            const resultBox = document.getElementById('sentence-result');
+            if (!selectedSubject) {
+                resultBox.innerHTML = `<p class="text-2xl font-bold text-gray-500">(Click buttons above)</p>`;
+                return;
+            }
+            
+            let phrase = [selectedSubject, selectedVerb, selectedAction].filter(Boolean).join(' ');
+            
+            if (selectedSubject && selectedAction) { // Only show full phrase if subject and action are selected
+                 phrase += '.';
+                 resultBox.innerHTML = `
+                    <p class="text-3xl font-bold text-gray-900">${phrase}</p>
+                    <button class="speak-btn !text-2xl" data-speak-text="${phrase}">🔊</button>
+                 `;
+                 speakText(phrase);
+                 setTimeout(clearSentence, 2000);
+            } else {
+                 resultBox.innerHTML = `
+                    <p class="text-2xl font-bold text-gray-700">${phrase}...</p>
+                    <button class="speak-btn !text-2xl" data-speak-text="${phrase}">🔊</button>
+                 `;
+            }
+        }
+
+
+        // Section: Quiz
+        const quizQuestions = [
+            {
+                question: "She ___ drawing.",
+                thai: "เธอ ___ กำลังวาดรูป",
+                options: ["am", "is", "are"],
+                answer: "is"
+            },
+            {
+                question: "They ___ playing.",
+                thai: "พวกเขา ___ กำลังเล่น",
+                options: ["am", "is", "are"],
+                answer: "are"
+            },
+            {
+                question: "What ___ you doing?",
+                thai: "คุณ ___ กำลังทำอะไร",
+                options: ["am", "is", "are"],
+                answer: "are"
+            },
+            {
+                question: "I ___ singing.",
+                thai: "ฉัน ___ กำลังร้องเพลง",
+                options: ["am", "is", "are"],
+                answer: "am"
+            },
+            {
+                question: "He ___ sleeping.",
+                thai: "เขา ___ กำลังนอนหลับ",
+                options: ["am", "is", "are"],
+                answer: "is"
+            },
+            {
+                question: "What ___ he doing?",
+                thai: "เขา ___ กำลังทำอะไร",
+                options: ["am", "is", "are"],
+                answer: "is"
+            }
+        ];
+        
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            quizQuestions.forEach((q, index) => {
+                const qBlock = document.createElement('div');
+                qBlock.className = 'bg-gray-50 p-4 rounded-lg shadow-sm';
+                
+                let optionsHTML = q.options.map(option => `
+                    <button class="option-button p-3 w-full rounded-lg border" data-answer="${q.answer}" data-selected="${option}">
+                        <span class="text-xl font-bold">${option}</span>
+                        <button class="speak-btn !text-base !float-right" data-speak-text="${option}">🔊</button>
+                    </button>
+                `).join('');
+
+                qBlock.innerHTML = `
+                    <div class="mb-3">
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-2xl font-bold text-gray-800">${index + 1}. ${q.question}</span>
+                                <button class="speak-btn" data-speak-text="${q.question.replace('___', '...')}">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="${q.thai}">TH</button>
+                            </div>
+                            <p class="thai-translation">${q.thai}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2" id="quiz-opt-${index}">
+                        ${optionsHTML}
+                    </div>
+                `;
+                container.appendChild(qBlock);
+            });
+            
+            document.getElementById('reset-quiz-btn').addEventListener('click', initQuiz);
+
+            container.addEventListener('click', (e) => {
+                const optionEl = e.target.closest('.option-button');
+                if (!optionEl || e.target.closest('.speak-btn')) return;
+                
+                const selected = optionEl.dataset.selected;
+                const answer = optionEl.dataset.answer;
+                const parent = optionEl.parentElement;
+
+                parent.querySelectorAll('.option-button').forEach(el => {
+                    el.classList.remove('correct', 'wrong');
+                    el.disabled = true; 
+                });
+
+                if (selected === answer) {
+                    optionEl.classList.add('correct');
+                    speakText('Correct!');
+                } else {
+                    optionEl.classList.add('wrong');
+                    parent.querySelector(`[data-selected="${answer}"]`).classList.add('correct');
+                    speakText('Try again.');
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
