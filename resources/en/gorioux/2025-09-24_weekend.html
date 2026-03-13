@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bilingual Lesson: My Amazing Weekend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+        body { font-family: 'Inter', 'Sarabun', sans-serif; }
+        .thai { font-family: 'Sarabun', sans-serif; }
+        .speak-btn {
+            background: none; border: none; cursor: pointer; font-size: 1.25rem;
+            color: #4f46e5; transition: color 0.2s; padding: 0; line-height: 1;
+            margin-left: 0.5rem; flex-shrink: 0;
+        }
+        .speak-btn:hover { color: #3730a3; }
+        .quiz-option { cursor: pointer; transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7; border-color: #22c55e; }
+        .quiz-option.wrong { background-color: #fee2e2; border-color: #ef4444; }
+        /* visible but excluded from TTS */
+        .no-tts {}
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-3xl mx-auto p-4 sm:p-8 space-y-8">
+
+        <section class="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">My Amazing Weekend</h1>
+            <p class="thai text-2xl text-gray-500 mb-4">สุดสัปดาห์สุดวิเศษของฉัน</p>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold">Warm-up: What did you do?</h2>
+            <p class="thai text-xl text-gray-500 ml-9 mb-6">วอร์มอัพ: คุณทำอะไรมาบ้าง?</p>
+            <div id="warmup-questions" class="space-y-4"></div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold">Grammar Quiz: Past Simple Tense</h2>
+            <p class="thai text-xl text-gray-500 ml-9 mb-4">แบบทดสอบไวยากรณ์: Past Simple Tense (รูปอดีต)</p>
+            <div id="grammar-quiz" class="space-y-6"></div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold">Weekend Activities Word Bank</h2>
+            <p class="thai text-xl text-gray-500 ml-9 mb-6">คลังคำศัพท์: กิจกรรมสุดสัปดาห์</p>
+            <div id="word-bank-categories" class="space-y-6"></div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <div id="tasks-list" class="space-y-8"></div>
+        </section>
+        
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <div id="extension-activities"></div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8 text-center">
+            <h1 class="text-4xl font-bold text-indigo-600">Great Job, Storytellers!</h1>
+            <p class="thai text-2xl text-gray-500 mb-4">เก่งมากเหล่านักเล่าเรื่อง!</p>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold">Reflection</h2>
+            <p class="thai text-xl text-gray-500 ml-9 mb-6">คำถามทบทวนบทเรียน</p>
+            <div id="reflection-questions" class="space-y-4"></div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const content = {
+                warmup: [
+                    { en: "What did you see yesterday?", th: "เมื่อวานนี้คุณเห็นอะไรบ้าง?" },
+                    { en: "Example: 'Yesterday, I saw a cat.'", th: "ตัวอย่าง: 'เมื่อวานนี้ ฉันเห็นแมว'" },
+                ],
+                quiz: [
+                    { question: '1. When do we use Past Simple?', th_question: 'เราใช้ Past Simple เมื่อไหร่?', options: ['For now', 'For the future', 'For finished actions in the past'], answer: 'For finished actions in the past' },
+                    { question: '2. What is an example of regular verbs?', th_question: 'อะไรคือตัวอย่างของกริยาปกติ?', options: ['went', 'watched', 'ate'], answer: 'watched' },
+                    { question: '3. What do we add at the end for regular verbs?', th_question: 'เราเติมอะไรท้ายคำกริยาปกติ?', options: ['-ing', '-s', '-ed'], answer: '-ed' },
+                    { question: '4. What is an example of irregular verbs?', th_question: 'อะไรคือตัวอย่างของกริยาอปรกติ?', options: ['went', 'watched', 'jumped'], answer: 'went' },
+                    { question: '5. Do regular or irregular verbs change completely?', th_question: 'กริยาปกติหรืออปรกติที่เปลี่ยนแปลงรูปไปเลย?', options: ['Regular', 'Irregular'], answer: 'Irregular' }
+                ],
+                tasks: [
+                    {
+                        title_en: 'Breakout Rooms: Weekend Memory Match', title_th: 'ห้องย่อย: เกมจับคู่ความทรงจำสุดสัปดาห์',
+                        details: [
+                            { en: "Ask your partner 'Did you...?' questions about the weekend.", th: 'ถามคำถาม "คุณได้...ไหม?" เกี่ยวกับสุดสัปดาห์กับเพื่อนของคุณ' }
+                        ],
+                        dialogue: [
+                            { person: 'A', line_en: 'Hi! Did you have a good weekend?', th: 'สวัสดี! สุดสัปดาห์ที่ผ่านมาเป็นไงบ้าง?' },
+                            { person: 'B', line_en: 'Yes, I did! It was fun.', th: 'ก็ดีนะ! สนุกดี' },
+                            { person: 'A', line_en: 'Nice! Did you watch a movie?', th: 'เยี่ยมเลย! ได้ดูหนังบ้างไหม?' },
+                            { person: 'B', line_en: "No, I didn't. I played a game.", th: 'ไม่นะ ฉันเล่นเกมน่ะ' },
+                            { person: 'A', line_en: 'Cool! Did you eat pizza?', th: 'เจ๋ง! แล้วได้กินพิซซ่าไหม?' },
+                            { person: 'B', line_en: 'Yes, I did! It was delicious.', th: 'กินสิ! อร่อยมากเลย' }
+                        ]
+                    },
+                    {
+                        title_en: "Main room: Weekend Memory Match", title_th: "ห้องรวม: เกมจับคู่ความทรงจำสุดสัปดาห์",
+                        details: [
+                           { en: "Each student asks 1 question to one student in the hot seat about their weekend.", th: "นักเรียนแต่ละคนถามคำถาม 1 ข้อกับเพื่อนที่อยู่ใน hot seat เกี่ยวกับวันหยุดสุดสัปดาห์"}
+                        ]
+                    },
+                    {
+                        title_en: "Main Room: Our Crazy Weekend Story!", title_th: 'ห้องหลัก: เรื่องราวสุดสัปดาห์สุดป่วนของเรา!',
+                        details: [
+                            { en: "Now, let's make one story together as a team!", th: 'ตอนนี้ เรามาสร้างเรื่องราวหนึ่งเรื่องด้วยกันเป็นทีม!' },
+                            { en: "Each person adds one sentence to the story using a past tense verb.", th: 'แต่ละคนเพิ่มหนึ่งประโยคเพื่อเล่าเรื่องต่อ โดยใช้คำกริยาในรูปอดีต' },
+                            { en: "Example: Teacher starts with 'On Saturday, I went to the park.'", th: "ตัวอย่าง: ครูเริ่มว่า 'เมื่อวันเสาร์ ฉันไปที่สวนสาธารณะ'" }
+                        ],
+                        story: [
+                            { en: "On Saturday, I went(go) to the park.", th: "วันเสาร์ ฉันไปสวน" },
+                            { en: "I got(get) caught in the rain.", th: "ฉันติดฝน" },
+                            { en: "And I changed(change) my mind to go to the mall.", th: "และฉันก็เปลี่ยนใจไปห้าง" },
+                            { en: "There was(is) a traffic jam on the way.", th: "ระหว่างทางรถติด" },
+                            { en: "And I changed(change) to BTS.", th: "ฉันเปลี่ยนไปบีทีเอส" },
+                            { en: "Then I walked(walk) back to my condo.", th: "แล้วฉันก็เดินกลับคอนโด" },
+                            { en: "And I took(take) a shower.", th: "และฉันก็อาบน้ำ" },
+                            { en: "I went(go) to 7-11 because I was hungry.", th: "ฉันไปเซเว่นเพราะหิว" },
+                            { en: "I bought(buy) a hot dog and snacks.", th: "ซื้อฮอทด็อกและขนม" },
+                            { en: "I paid(pay) money to staff.", th: "ฉันจ่ายเงินให้กับพนักงาน" },
+                            { en: "And I forgot(forget) my hot dog.", th: "ฉันลืมฮอทด็อก" },
+                            { en: "I went(go) to 7-11 again.", th: "ไปเซเว่นอีกครั้ง" },
+                            { en: "Then I got(get) my stuff, and I walked(walk) back to my room and ate(eat) them all.", th: "แล้วฉันก็ไปเอาของ และเดินกลับไปห้อง และกินของหมดเลย" },
+                            { en: "And I watched(watch) series on Netflix.", th: "แล้วฉันก็ดูซีรีส์ในเน็ตฟลิกซ์" },
+                            { en: "I then went(go) to sleep.", th: "แล้วฉันก็ไปนอน" }
+                        ]
+                    }
+                ],
+                wordBank: [
+                    { category_en: "Places (สถานที่)", words: [
+                        { en: 'went to the park', th: 'ไปสวนสาธารณะ', emoji: '🌳' },
+                        { en: 'went to the cinema', th: 'ไปโรงภาพยนตร์', emoji: '🎬' },
+                        { en: 'stayed at home', th: 'อยู่บ้าน', emoji: '🏠' },
+                        { en: 'went to a cafe', th: 'ไปคาเฟ่', emoji: '☕' },
+                    ]},
+                    { category_en: "Actions (การกระทำ)", words: [
+                        { en: 'played a game', th: 'เล่นเกม', emoji: '🎮' },
+                        { en: 'watched a movie', th: 'ดูหนัง', emoji: '🍿' },
+                        { en: 'listened to music', th: 'ฟังเพลง', emoji: '🎵' },
+                        { en: 'cooked food', th: 'ทำอาหาร', emoji: '🍳' },
+                        { en: 'read a book', th: 'อ่านหนังสือ', emoji: '📚' },
+                        { en: 'slept', th: 'นอน', emoji: '😴' },
+                    ]},
+                    { category_en: "Food (อาหาร)", words: [
+                        { en: 'ate pizza', th: 'กินพิซซ่า', emoji: '🍕' },
+                        { en: 'ate noodles', th: 'กินก๋วยเตี๋ยว', emoji: '🍜' },
+                        { en: 'ate ice cream', th: 'กินไอศกรีม', emoji: '🍦' },
+                        { en: 'drank juice', th: 'ดื่มน้ำผลไม้', emoji: '🧃' },
+                    ]}
+                ],
+                extension: [
+                    {
+                        title_en: 'Speaking Game 1: Pictionary (Drawing Game)', title_th: 'เกมฝึกพูดที่ 1: เกมวาดภาพทายคำ',
+                        details: [
+                            { en: "I will send one person a secret PAST TENSE phrase from the Word Bank (e.g., 'watched a movie').", th: "ครูจะส่งวลีที่เป็นอดีตจากคลังคำศัพท์ให้คนหนึ่ง (เช่น 'watched a movie')" },
+                            { en: "That person will draw it. The team must guess the full phrase!", th: 'คนนั้นจะต้องวาดรูป และให้ทีมทายวลีทั้งหมด!' }
+                        ]
+                    },
+                    {
+                        title_en: 'Speaking Game 2: Two Truths and a Lie', title_th: 'เกมฝึกพูดที่ 2: 2 เรื่องจริง 1 เรื่องโกหก',
+                        details: [
+                            { en: "Each person thinks of three sentences about their weekend using the PAST TENSE.", th: 'แต่ละคนคิด 3 ประโยคเกี่ยวกับสุดสัปดาห์ของตัวเองโดยใช้ Past Tense' },
+                            { en: "Two sentences are true, one is a lie.", th: 'สองประโยคเป็นเรื่องจริง และหนึ่งประโยคเป็นเรื่องโกหก' },
+                            { en: "The team must ask questions and guess which sentence is the lie!", th: 'ทีมจะต้องถามคำถามและทายว่าประโยคไหนคือเรื่องโกหก!' }
+                        ],
+                        examples: [
+                            [
+                                { en: "Yesterday, I watched Disney Plus for 6 hours.", th: "เมื่อวานดูดิสนีย์พลัส 6 ชั่วโมง" },
+                                { en: "I bathed my dog.*", th: "อาบน้ำให้หมา*" },
+                                { en: "I ate fried boiled eggs with tamarind sauce.", th: "กินไข่ลูกเขย" }
+                            ],
+                            [
+                                { en: "I slept with puppies.", th: "นอนกับลูกหมา" },
+                                { en: "I drove a car to buy food.", th: "ขับรถไปซื้ออาหาร" },
+                                { en: "I was a superman.*", th: "เคยเป็นซุปเปอร์แมน*" }
+                            ],
+                            [
+                                { en: "I drank orange juice.", th: "กินน้ำส้ม" },
+                                { en: "Yesterday I ate fermented fish.", th: "เมื่อวานกินปลาร้า" },
+                                { en: "On Sunday, I went to Central Pattaya Festival.*", th: "วันอาทิตย์ไปเซ็นทรัลพัทยา*" }
+                            ],
+                            [
+                                { en: "Last weekend I was sick and went to see the doctor.", th: "เสาร์อาทิตย์ที่แล้วป่วยและไปหาหมอ" },
+                                { en: "My son took care of me.*", th: "ลูกชายดูแล*" },
+                                { en: "I ate boiled rice.", th: "กินข้าวต้ม" }
+                            ]
+                        ]
+                    }
+                ],
+                reflection: [
+                    { en: "Tell us one word you remember from today.", th: "บอกคำศัพท์ที่จำได้ในวันนี้มาหนึ่งคำ" },
+                    { en: "What do you like the most from today's lesson?", th: "ชอบอะไรมากที่สุดในบทเรียนวันนี้" },
+                    { en: "What's easy?", th: "อะไรที่ง่าย" },
+                    { en: "What's difficult?", th: "อะไรที่ยาก" },
+                    { en: "Is there anything in particular you'd like to focus on?", th: "มีอะไรที่อยากจะเน้นเป็นพิเศษไหม" },
+                    { en: "Do you have any questions?", th: "มีคำถามไหม" }
+                ]
+            };
+
+            // ---------- TTS ----------
+            function speak(text) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'en-GB';
+                const voices = window.speechSynthesis.getVoices();
+                const british = voices.find(v => v.lang === 'en-GB');
+                if (british) utter.voice = british;
+                window.speechSynthesis.speak(utter);
+            }
+
+            function createSpeakerButton(text) {
+                const btn = document.createElement('button');
+                btn.innerHTML = '🔊';
+                btn.className = 'speak-btn';
+                btn.setAttribute('aria-label', `Listen to "${text}"`);
+                btn.onclick = (e) => { e.stopPropagation(); speak(text); };
+                return btn;
+            }
+
+            // Return text for TTS excluding any .no-tts segments and any (...) leftovers
+            function getSpeakableText(el) {
+                if (el.dataset && el.dataset.speakable) {
+                    return el.dataset.speakable.trim();
+                }
+                const clone = el.cloneNode(true);
+                clone.querySelectorAll('.no-tts').forEach(n => n.remove());
+                const raw = (clone.textContent || '').trim();
+                return raw.replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
+            }
+
+            // Wrap (...) with .no-tts and underline the word immediately before it,
+            // then ensure TWO spaces before the underlined word.
+            function underlineBeforeParens(html) {
+                const withNoTTS = html.replace(/\(([^)]+)\)/g, "<span class='no-tts'>($1)</span>");
+                let underlined = withNoTTS.replace(
+                    /(\b[\w'-]+)\s*(<span class='no-tts'>\([^)]*\)<\/span>)/g,
+                    "<u>$1</u>$2"
+                );
+                // Ensure exactly two spaces before each <u> (replacing 0+ spaces)
+                underlined = underlined.replace(/([^>\s])\s*<u>/g, "$1  <u>");
+                return underlined;
+            }
+
+            function createBilingualListItem(item, container) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'p-3 bg-gray-50 rounded-lg';
+
+                const enPara = document.createElement('p');
+                enPara.className = 'text-lg font-semibold';
+                const processed = underlineBeforeParens(item.en || '');
+                enPara.innerHTML = processed;
+                itemDiv.appendChild(enPara);
+
+                const thPara = document.createElement('p');
+                thPara.className = 'thai text-md text-gray-500 ml-9';
+                thPara.textContent = item.th || '';
+                itemDiv.appendChild(thPara);
+
+                container.appendChild(itemDiv);
+            }
+
+            function initializeApp() {
+                // Warm-up
+                const warmupList = document.getElementById('warmup-questions');
+                content.warmup.forEach(q => createBilingualListItem(q, warmupList));
+
+                // Quiz
+                const quizContainer = document.getElementById('grammar-quiz');
+                content.quiz.forEach(q => {
+                    const questionDiv = document.createElement('div');
+
+                    const questionText = document.createElement('p');
+                    questionText.className = 'text-lg mb-1';
+                    questionText.textContent = q.question;
+                    questionDiv.appendChild(questionText);
+
+                    const questionThai = document.createElement('p');
+                    questionThai.className = 'thai text-md text-gray-500 mb-2';
+                    questionThai.textContent = q.th_question;
+                    questionDiv.appendChild(questionThai);
+
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'flex flex-col sm:flex-row gap-2';
+                    q.options.forEach(option => {
+                        const optionButton = document.createElement('button');
+                        optionButton.className = 'quiz-option p-2 border-2 border-gray-300 rounded-lg hover:bg-gray-100 flex-1';
+                        optionButton.textContent = option;
+                        optionButton.dataset.option = option;
+                        optionButton.addEventListener('click', () => {
+                            optionsDiv.querySelectorAll('button').forEach(btn => btn.disabled = true);
+                            if (option === q.answer) {
+                                optionButton.classList.add('correct');
+                            } else {
+                                optionButton.classList.add('wrong');
+                                optionsDiv.querySelector(`button[data-option="${q.answer}"]`).classList.add('correct');
+                            }
+                        });
+                        optionsDiv.appendChild(optionButton);
+                    });
+                    questionDiv.appendChild(optionsDiv);
+                    quizContainer.appendChild(questionDiv);
+                });
+
+                // Word Bank
+                const wordBankCategories = document.getElementById('word-bank-categories');
+                content.wordBank.forEach(category => {
+                    const categoryContainer = document.createElement('div');
+                    const categoryHeader = document.createElement('h3');
+                    categoryHeader.className = 'text-2xl font-bold';
+                    categoryHeader.textContent = category.category_en;
+                    categoryContainer.appendChild(categoryHeader);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-2 sm:grid-cols-3 gap-4 pl-9 pt-3';
+                    category.words.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'bg-gray-200 p-4 rounded-lg text-center';
+                        card.innerHTML = `<div class="text-4xl mb-2">${item.emoji}</div>`;
+                        const p = document.createElement('p');
+                        p.className = 'font-semibold';
+                        p.textContent = item.en;
+                        card.appendChild(p);
+                        card.innerHTML += `<p class="thai text-sm text-gray-600">${item.th}</p>`;
+                        grid.appendChild(card);
+                    });
+                    categoryContainer.appendChild(grid);
+                    wordBankCategories.appendChild(categoryContainer);
+                });
+
+                // Tasks
+                const tasksList = document.getElementById('tasks-list');
+                content.tasks.forEach(task => {
+                    const container = document.createElement('div');
+
+                    const titleHeader = document.createElement('h2');
+                    titleHeader.className = 'text-3xl font-bold';
+                    titleHeader.textContent = task.title_en;
+                    container.appendChild(titleHeader);
+
+                    const titleThai = document.createElement('p');
+                    titleThai.className = 'thai text-xl text-gray-500 ml-9 mb-6';
+                    titleThai.textContent = task.title_th;
+                    container.appendChild(titleThai);
+
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'space-y-3 p-4 border-l-4 border-indigo-200 mt-6';
+                    task.details.forEach(detail => createBilingualListItem(detail, detailsDiv));
+
+                    if (task.dialogue) {
+                        const dialogueHeader = document.createElement('p');
+                        dialogueHeader.className = 'font-bold mt-4 mb-2 text-md';
+                        dialogueHeader.textContent = 'Sample Dialogue (ตัวอย่างบทสนทนา):';
+                        detailsDiv.appendChild(dialogueHeader);
+
+                        const dialogueBox = document.createElement('div');
+                        dialogueBox.className = 'p-3 bg-gray-50 rounded-lg space-y-2';
+
+                        task.dialogue.forEach(line => {
+                            const lineDiv = document.createElement('div');
+
+                            const lineP = document.createElement('p');
+                            lineP.className = 'text-md';
+                            // English part is the only speakable piece (avoids duplicate icons)
+                            const safeText = line.line_en;
+                            lineP.innerHTML = `<span class="font-bold">${line.person}:</span> <span data-speakable>${safeText}</span>`;
+
+                            const lineThai = document.createElement('p');
+                            lineThai.className = 'thai text-sm text-gray-500 pl-4';
+                            lineThai.textContent = line.th;
+
+                            lineDiv.appendChild(lineP);
+                            lineDiv.appendChild(lineThai);
+                            dialogueBox.appendChild(lineDiv);
+                        });
+                        detailsDiv.appendChild(dialogueBox);
+                    }
+
+                    if (task.story) {
+                        const storyHeader = document.createElement('p');
+                        storyHeader.className = 'font-bold mt-4 mb-2 text-md';
+                        storyHeader.textContent = 'Example Story (ตัวอย่างเรื่องเล่า):';
+                        detailsDiv.appendChild(storyHeader);
+
+                        const storyBox = document.createElement('div');
+                        storyBox.className = 'p-3 bg-gray-50 rounded-lg space-y-2';
+
+                        // Story lines: auto underline verb before (...) and exclude (...) from TTS
+                        task.story.forEach(line => createBilingualListItem(line, storyBox));
+
+                        detailsDiv.appendChild(storyBox);
+                    }
+
+                    container.appendChild(detailsDiv);
+                    tasksList.appendChild(container);
+                });
+
+                // Extension
+                const extensionContainer = document.getElementById('extension-activities');
+                const extensionTitle = document.createElement('h2');
+                extensionTitle.className = 'text-3xl font-bold';
+                extensionTitle.textContent = "Speaking Games";
+                extensionContainer.appendChild(extensionTitle);
+
+                content.extension.forEach(task => {
+                    const container = document.createElement('div');
+                    container.className = 'mt-6';
+
+                    const titleHeader = document.createElement('h3');
+                    titleHeader.className = 'text-2xl font-bold';
+                    titleHeader.textContent = task.title_en;
+                    container.appendChild(titleHeader);
+
+                    const titleThai = document.createElement('p');
+                    titleThai.className = 'thai text-lg text-gray-500 ml-9 mb-4';
+                    titleThai.textContent = task.title_th;
+                    container.appendChild(titleThai);
+
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'space-y-3 p-4 border-l-4 border-gray-200 mt-4';
+                    task.details.forEach(detail => createBilingualListItem(detail, detailsDiv));
+
+                    if (task.examples) {
+                        const examplesHeader = document.createElement('p');
+                        examplesHeader.className = 'font-bold mt-4 mb-2 text-md';
+                        examplesHeader.textContent = 'Examples (ตัวอย่าง):';
+                        detailsDiv.appendChild(examplesHeader);
+
+                        task.examples.forEach(exampleSet => {
+                            const exampleBox = document.createElement('div');
+                            exampleBox.className = 'p-3 bg-gray-50 rounded-lg space-y-2 mt-2';
+                            exampleSet.forEach(line => createBilingualListItem(line, exampleBox));
+                            detailsDiv.appendChild(exampleBox);
+                        });
+                    }
+
+                    container.appendChild(detailsDiv);
+                    extensionContainer.appendChild(container);
+                });
+
+                // Reflection
+                const reflectionContainer = document.getElementById('reflection-questions');
+                content.reflection.forEach(q => createBilingualListItem(q, reflectionContainer));
+
+                // ----- Attach TTS buttons -----
+                const candidates = Array.from(document.querySelectorAll('h1, h2, h3, p, li, button.quiz-option, [data-speakable]'));
+                for (const el of candidates) {
+                    if (!el) continue;
+                    if (el.classList.contains('thai')) continue;
+                    if (el.matches('h1, h2, h3, p, li') && el.querySelector('[data-speakable]')) {
+                        continue; // avoid duplicates in dialogue lines
+                    }
+                    if (el.querySelector('.speak-btn')) continue;
+
+                    const speakable = getSpeakableText(el);
+                    if (!speakable) continue;
+
+                    if (!el.hasAttribute('data-speakable')) {
+                        el.classList.add('flex', 'items-center');
+                        if (el.parentElement && el.parentElement.classList.contains('text-center')) {
+                            el.classList.add('justify-center');
+                        }
+                        el.appendChild(createSpeakerButton(speakable));
+                    } else {
+                        el.after(createSpeakerButton(speakable));
+                    }
+                }
+            }
+
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = initializeApp;
+            } else {
+                initializeApp();
+            }
+        });
+    </script>
+</body>
+</html>
