@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bilingual Lesson: Team Wordle Challenge!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter','Sarabun',sans-serif; }
+    .thai { font-family: 'Sarabun',sans-serif; }
+    .play-button .icon { display:block; }
+    .play-button .loader { display:none; }
+    .play-button.loading .icon { display:none; }
+    .play-button.loading .loader { display:block; }
+    .loader {
+      border:2px solid #f3f3f3;border-top:2px solid #4f46e5;border-radius:50%;
+      width:16px;height:16px;animation:spin 1s linear infinite;
+    }
+    @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    .visually-hidden { position:absolute !important; left:-9999px !important; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <noscript>
+    <div class="max-w-3xl mx-auto p-4 sm:p-8">
+      <div class="p-4 bg-red-100 text-red-800 rounded-lg">This page needs JavaScript enabled.</div>
+    </div>
+  </noscript>
+
+  <div class="max-w-3xl mx-auto p-4 sm:p-8 space-y-8">
+    <section class="bg-white rounded-2xl shadow-lg p-8 text-center">
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <button class="play-button" data-text="Team Wordle Challenge!" aria-label="Play: Team Wordle Challenge!">
+          <svg class="icon w-8 h-8 text-indigo-600 hover:text-indigo-800 transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Team Wordle Challenge!</h1>
+      </div>
+      <p class="thai text-2xl text-gray-500 mb-4">เกมทายศัพท์ Wordle แบบทีม!</p>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Warm-up: Let's Chat!" aria-label="Play: Warm-up: Let's Chat!">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Warm-up: Let's Chat!</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-6">วอร์มอัพ: มาคุยกันเถอะ!</p>
+      <div id="warmup-questions" class="space-y-4"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Your Mission: The Word Detectives" aria-label="Play: Your Mission: The Word Detectives">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Your Mission: The Word Detectives</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-4">ภารกิจของพวกคุณ: ทีมนักสืบคำศัพท์</p>
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Today, you are a team of detectives. Your mission is to solve the secret word mystery!" aria-label="Play: Today, you are a team of detectives. Your mission is to solve the secret word mystery!">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <p class="text-lg">Today, you are a team of detectives. Your mission is to solve the secret word mystery!</p>
+      </div>
+      <p class="thai text-md text-gray-500 ml-9 mb-6">วันนี้ พวกคุณคือทีมนักสืบ ภารกิจคือการไขปริศนาคำศัพท์ลับ!</p>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Your Detective Tools: Making Suggestions" aria-label="Play: Your Detective Tools: Making Suggestions">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Your Detective Tools: Making Suggestions</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-4">เครื่องมือนักสืบ: การเสนอแนะ</p>
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="As a team, use these phrases to suggest a word." aria-label="Play: As a team, use these phrases to suggest a word.">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <p class="text-lg">As a team, use these phrases to suggest a word.</p>
+      </div>
+      <p class="thai text-md text-gray-500 ml-9 mb-6">ในฐานะทีม ให้ใช้วลีเหล่านี้เพื่อเสนอคำศัพท์ที่จะทาย</p>
+      <div id="suggestion-phrases" class="p-4 bg-gray-50 rounded-lg space-y-3"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="How to Play Team Wordle" aria-label="Play: How to Play Team Wordle">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">How to Play Team Wordle</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-6">วิธีเล่น Wordle แบบทีม</p>
+      <div id="rules-list" class="space-y-4"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Our Game Board" aria-label="Play: Our Game Board">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Our Game Board</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-6">กระดานเกมของเรา</p>
+      <a href="https://wordly.org/" target="_blank" class="block p-6 bg-indigo-500 text-white text-center rounded-lg text-2xl font-bold hover:bg-indigo-600 transition">
+        wordly.org
+      </a>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div id="tasks-list"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3">
+        <button class="play-button" data-text="Additional Vocabulary" aria-label="Play: Additional Vocabulary">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Additional Vocabulary</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-6">คำศัพท์เพิ่มเติม</p>
+
+      <form id="vocab-form" class="space-y-4">
+        <input type="text" id="eng-vocab-input" placeholder="English Word" class="w-full p-3 border border-gray-300 rounded-lg" />
+        <input type="text" id="thai-vocab-input" placeholder="Thai Translation (คำแปลภาษาไทย)" class="w-full p-3 border border-gray-300 rounded-lg thai" />
+        <button type="submit" class="w-full p-3 bg-indigo-500 text-white font-bold rounded-lg hover:bg-indigo-600 transition">Save (บันทึก)</button>
+      </form>
+
+      <div id="additional-vocab-display" class="mt-6 space-y-3"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex items-center gap-3 mb-6">
+        <button class="play-button" data-text="Word Bank (Review)" aria-label="Play: Word Bank (Review)">
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h2 class="text-3xl font-bold">Word Bank (Review)</h2>
+      </div>
+      <p class="thai text-xl text-gray-500 ml-9 mb-6">คลังคำศัพท์ (ทบทวน)</p>
+      <div id="word-bank-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8 text-center">
+      <div class="flex items-center justify-center gap-3">
+        <button class="play-button" data-text="Great Job, Detectives!" aria-label="Play: Great Job, Detectives!">
+          <svg class="icon w-8 h-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        </button>
+        <h1 class="text-4xl font-bold text-indigo-600">Great Job, Detectives!</h1>
+      </div>
+      <p class="thai text-2xl text-gray-500 mb-4">เก่งมากเหล่านักสืบ!</p>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ------- DATA -------
+      const content = {
+        warmup: [
+          { en: "What is your favorite word in English?", th: "คำศัพท์ภาษาอังกฤษที่คุณชอบที่สุดคือคำว่าอะไร?" },
+          { en: "Can you spell it?", th: "คุณสะกดเป็นไหม?" }
+        ],
+        suggestions: [
+          { en: "Let's try...", th: "ลองคำว่า... กันเถอะ" },
+          { en: "What about...", th: "แล้วคำว่า... ล่ะ" },
+          { en: "How do you spell...?", th: "...สะกดยังไง" },
+          { en: "Maybe the first letter is...", th: "บางทีตัวอักษรแรกอาจจะเป็น..." }
+        ],
+        rules: [
+          { en: "1. Our detective team must guess a secret word.", th: "1. ทีมนักสืบของเราต้องทายคำศัพท์ลับ" },
+          { en: "2. We discuss together and suggest one word.", th: "2. เราจะคุยกันและเสนอหนึ่งคำเพื่อทาย" },
+          { en: "3. The teacher (the Chief Inspector) will type our guess on the website.", th: "3. ครู (สารวัตรใหญ่) จะเป็นคนพิมพ์คำทายของเราบนเว็บไซต์" },
+          { en: "4. The website shows us the color clues:", th: "4. เว็บไซต์จะแสดงสีเป็นคำใบ้ให้เรา:" },
+          { en: "🟩 Green = Correct letter, correct spot.", th: "🟩 สีเขียว = ตัวอักษรถูกต้อง, ตำแหน่งถูกต้อง" },
+          { en: "🟨 Yellow = Correct letter, wrong spot.", th: "🟨 สีเหลือง = ตัวอักษรถูกต้อง, แต่ตำแหน่งผิด" },
+          { en: "⬜ Gray = Wrong letter.", th: "⬜ สีเทา = ตัวอักษรผิด" }
+        ],
+        tasks: [
+          {
+            title_en: "Breakout Rooms: Detective Training",
+            title_th: "ห้องย่อย: ฝึกซ้อมเหล่านักสืบ",
+            details: [
+              { en: "Time: 15 minutes", th: "เวลา: 15 นาที" },
+              { en: "Let's practice in smaller teams first.", th: "มาฝึกซ้อมในทีมเล็กๆ กันก่อน" },
+              { en: "Your team will solve word mysteries.", th: "ทีมของคุณจะต้องไขปริศนาคำศัพท์" }
+            ]
+          },
+          {
+            title_en: "Main Game: The Big Mystery!",
+            title_th: "เกมหลัก: ปริศนาใหญ่!",
+            details: [
+              { en: "Now, we play as one big detective team!", th: "ตอนนี้ เราจะเล่นเป็นทีมนักสืบทีมใหญ่ทีมเดียวกัน!" },
+              { en: "Let's solve word mysteries together!", th: "มาไขปริศนาคำศัพท์ด้วยกันเถอะ!" }
+            ]
+          }
+        ],
+        wordBank: [
+          { en: "CAT", th: "แมว", emoji: "🐱" }, { en: "DOG", th: "สุนัข", emoji: "🐶" },
+          { en: "PIG", th: "หมู", emoji: "🐷" }, { en: "ANT", th: "มด", emoji: "🐜" },
+          { en: "EAT", th: "กิน", emoji: "🍔" }, { en: "RUN", th: "วิ่ง", emoji: "🏃" },
+          { en: "SAD", th: "เศร้า", emoji: "😢" }, { en: "HOT", th: "ร้อน", emoji: "🔥" },
+          { en: "FISH", th: "ปลา", emoji: "🐟" }, { en: "BIRD", th: "นก", emoji: "🐦" },
+          { en: "READ", th: "อ่าน", emoji: "📚" }, { en: "SWIM", th: "ว่ายน้ำ", emoji: "🏊" },
+          { en: "BOOK", th: "หนังสือ", emoji: "📖" }, { en: "HOME", th: "บ้าน", emoji: "🏠" },
+          { en: "RICE", th: "ข้าว", emoji: "🍚" }, { en: "CAKE", th: "เค้ก", emoji: "🍰" }
+        ]
+      };
+      let userAddedVocabulary = [];
+
+      // ------- TTS (Web Speech API) -------
+      const preferred = ["en-GB","en-US","en-AU","en-CA","en-IN","en-NZ"];
+      let voices = [];
+      let chosenVoice = null;
+      let currentUtter = null;
+      let currentBtn = null;
+
+      function refreshVoices() {
+        voices = window.speechSynthesis.getVoices() || [];
+        if (!voices.length) return;
+        for (const tag of preferred) {
+          const v = voices.find(v => v.lang === tag);
+          if (v) { chosenVoice = v; break; }
+        }
+        if (!chosenVoice) chosenVoice = voices.find(v => v.lang?.toLowerCase().startsWith("en")) || null;
+      }
+      if ("onvoiceschanged" in window.speechSynthesis) {
+        window.speechSynthesis.onvoiceschanged = refreshVoices;
+      }
+      refreshVoices();
+
+      // iOS/Safari unlock
+      let primed = false;
+      function primeTTS() {
+        if (primed) return;
+        primed = true;
+        const u = new SpeechSynthesisUtterance(" ");
+        u.volume = 0;
+        window.speechSynthesis.speak(u);
+      }
+      document.addEventListener("pointerdown", primeTTS, { once:true });
+
+      function stopSpeaking() {
+        if (currentUtter) {
+          window.speechSynthesis.cancel();
+          currentUtter = null;
+        }
+        if (currentBtn) {
+          currentBtn.classList.remove("loading");
+          currentBtn = null;
+        }
+      }
+
+      function speak(text, btn) {
+        const toSay = (text || "").replace(/\s+/g," ").trim();
+        if (!toSay) return;
+        stopSpeaking(); // reset previous
+
+        const u = new SpeechSynthesisUtterance(toSay);
+        refreshVoices();
+        if (chosenVoice) {
+          u.voice = chosenVoice;
+          u.lang = chosenVoice.lang || "en-US";
+        } else {
+          u.lang = "en-US";
+        }
+        u.rate = 1; u.pitch = 1; u.volume = 1;
+
+        currentUtter = u; currentBtn = btn;
+        btn?.classList.add("loading");
+
+        u.onend = u.onerror = () => {
+          if (currentBtn === btn) btn.classList.remove("loading");
+          currentUtter = null; currentBtn = null;
+        };
+
+        // Chrome quirk: small delay after cancel()
+        setTimeout(() => window.speechSynthesis.speak(u), 80);
+      }
+
+      document.body.addEventListener("click", (e) => {
+        const btn = e.target.closest(".play-button");
+        if (!btn) return;
+        if (currentBtn === btn && currentUtter) { // toggle
+          stopSpeaking();
+          return;
+        }
+        speak(btn.dataset.text || "", btn);
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") stopSpeaking();
+      });
+
+      // ------- RENDER HELPERS -------
+      function createPlayableBilingualBlock(container, item, options = {}) {
+        const config = {
+          enTag: "p",
+          enClasses: "text-lg font-semibold",
+          thClasses: "thai text-md text-gray-500 ml-9",
+          ...options
+        };
+        const wrapper = document.createElement("div");
+        const enRow = document.createElement("div");
+        enRow.className = "flex items-center gap-3";
+
+        const button = document.createElement("button");
+        button.className = "play-button flex-shrink-0";
+        button.dataset.text = item.en;
+        button.setAttribute("aria-label", `Play: ${item.en}`);
+        button.innerHTML = `
+          <svg class="icon w-6 h-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+          <div class="loader" aria-hidden="true"></div>
+        `;
+
+        const enEl = document.createElement(config.enTag);
+        enEl.className = config.enClasses;
+        enEl.textContent = item.en;
+
+        enRow.appendChild(button);
+        enRow.appendChild(enEl);
+        wrapper.appendChild(enRow);
+
+        if (item.th) {
+          const thEl = document.createElement("p");
+          thEl.className = config.thClasses;
+          thEl.textContent = item.th;
+          wrapper.appendChild(thEl);
+        }
+
+        container.appendChild(wrapper);
+      }
+
+      function renderUserVocabulary() {
+        const display = document.getElementById("additional-vocab-display");
+        display.innerHTML = "";
+        userAddedVocabulary.forEach(item => {
+          const box = document.createElement("div");
+          box.className = "p-3 bg-gray-50 rounded-lg";
+          createPlayableBilingualBlock(box, item, { enClasses: "text-md font-semibold" });
+          display.appendChild(box);
+        });
+      }
+
+      // ------- RENDER PAGE -------
+      const warmupList = document.getElementById("warmup-questions");
+      content.warmup.forEach(q => {
+        const box = document.createElement("div");
+        box.className = "p-3 bg-gray-50 rounded-lg";
+        createPlayableBilingualBlock(box, q);
+        warmupList.appendChild(box);
+      });
+
+      const suggestionList = document.getElementById("suggestion-phrases");
+      content.suggestions.forEach(phrase => {
+        const box = document.createElement("div");
+        createPlayableBilingualBlock(box, phrase, { enClasses: "text-md font-semibold" });
+        suggestionList.appendChild(box);
+      });
+
+      const rulesList = document.getElementById("rules-list");
+      content.rules.forEach(rule => {
+        const box = document.createElement("div");
+        createPlayableBilingualBlock(box, rule, { enClasses: "text-md" });
+        rulesList.appendChild(box);
+      });
+
+      const tasksList = document.getElementById("tasks-list");
+      content.tasks.forEach((task, idx) => {
+        const container = document.createElement("div");
+        if (idx > 0) container.className = "mt-12 pt-8 border-t";
+
+        createPlayableBilingualBlock(container, { en: task.title_en, th: task.title_th }, {
+          enTag: "h2",
+          enClasses: "text-3xl font-bold",
+          thClasses: "thai text-xl text-gray-500 ml-9 mb-6"
+        });
+
+        const detailsDiv = document.createElement("div");
+        detailsDiv.className = "space-y-3 p-4 border-l-4 border-indigo-200 mt-6";
+        task.details.forEach(detail => {
+          const itemWrap = document.createElement("div");
+          createPlayableBilingualBlock(itemWrap, detail, { enClasses: "text-md font-semibold" });
+          detailsDiv.appendChild(itemWrap);
+        });
+        container.appendChild(detailsDiv);
+
+        tasksList.appendChild(container);
+      });
+
+      const wordBankGrid = document.getElementById("word-bank-grid");
+      content.wordBank.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-100 p-4 rounded-lg text-center";
+        card.innerHTML = `
+          <div class="text-4xl mb-2">${item.emoji}</div>
+          <div class="flex items-center justify-center gap-2">
+            <button class="play-button" data-text="${item.en}" aria-label="Play: ${item.en}">
+              <svg class="icon w-5 h-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.348 2.595.341 1.24 1.518 1.905 2.66 1.905H6.44l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" /><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" /></svg>
+              <div class="loader" aria-hidden="true"></div>
+            </button>
+            <p class="font-semibold tracking-widest">${item.en}</p>
+          </div>
+          <p class="thai text-sm text-gray-600">${item.th}</p>
+        `;
+        wordBankGrid.appendChild(card);
+      });
+
+      document.getElementById("vocab-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const eng = document.getElementById("eng-vocab-input").value.trim();
+        const th = document.getElementById("thai-vocab-input").value.trim();
+        if (eng && th) {
+          userAddedVocabulary.push({ en: eng, th });
+          document.getElementById("eng-vocab-input").value = "";
+          document.getElementById("thai-vocab-input").value = "";
+          renderUserVocabulary();
+        }
+      });
+
+      function renderUserVocabulary() {
+        const display = document.getElementById("additional-vocab-display");
+        display.innerHTML = "";
+        userAddedVocabulary.forEach(item => {
+          const box = document.createElement("div");
+          box.className = "p-3 bg-gray-50 rounded-lg";
+          createPlayableBilingualBlock(box, item, { enClasses: "text-md font-semibold" });
+          display.appendChild(box);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
