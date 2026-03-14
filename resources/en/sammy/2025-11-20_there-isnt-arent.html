@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 8: Saying 'No' & Asking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf2f8; /* Light Pink background */
+            color: #3f3f46; 
+        }
+        .content-section {
+            display: none; 
+        }
+        .content-section.active {
+            display: block; 
+        }
+        .nav-button {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 4px solid transparent;
+        }
+        .nav-button.active {
+            border-bottom-color: #db2777; /* Pink-600 */
+            color: #be185d; /* Pink-700 */
+        }
+        .speak-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem; /* text-xl */
+            line-height: 1;
+            margin-left: 8px; /* ml-2 */
+            color: #db2777; /* Pink-600 */
+            transition: all 0.2s ease;
+            padding: 2px;
+            flex-shrink: 0;
+        }
+        .speak-btn:hover {
+            color: #f472b6;
+            transform: scale(1.1);
+        }
+        .thai-toggle-btn {
+            background-color: #f0f9ff; /* Light blue */
+            color: #0c4a6e; /* Darker blue text */
+            padding: 4px 8px;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+            margin-left: 8px; /* ml-2 */
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .thai-toggle-btn:hover {
+            background-color: #e0f2fe; /* Hover blue */
+        }
+        .thai-translation {
+            display: none;
+            font-size: 0.9em;
+            color: #6b7280; /* text-gray-500 */
+            margin-top: 4px;
+            padding-left: 8px;
+            border-left: 2px solid #a78bfa; /* purple for translation */
+            width: 100%; /* Ensure it takes full width */
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #d1d5db;
+        }
+        .quiz-option:hover {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7; /* green-100 */
+            border-color: #22c55e; /* green-500 */
+        }
+        .quiz-option.wrong {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-6 max-w-6xl">
+
+        <header class="text-center mb-6">
+            <div>
+                <div class="flex items-center justify-center mb-1">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Lesson 8: Saying "No" & Asking Questions</h1>
+                    <button class="speak-btn" data-speak-text="Lesson 8: Saying 'No' and Asking Questions">🔊</button>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center justify-center mb-1">
+                    <p class="text-lg text-gray-700">Using "isn't", "aren't", "Is there...?" and "Are there...?"</p>
+                    <button class="speak-btn" data-speak-text="Using isn't, aren't, Is there, and Are there?">🔊</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:space-x-4 bg-white p-4 rounded-lg shadow-sm mb-6 sticky top-2 z-10">
+            <button id="nav-review" class="nav-button active" onclick="showSection('review')">
+                <span class="text-2xl hidden md:inline">📖</span>
+                <span class="block text-sm md:text-lg font-semibold">Review</span>
+                <span class="block text-xs md:text-sm text-gray-500">(ทบทวน)</span>
+            </button>
+            <button id="nav-warmup" class="nav-button" onclick="showSection('warmup')">
+                <span class="text-2xl hidden md:inline">🔥</span>
+                <span class="block text-sm md:text-lg font-semibold">Let's Talk</span>
+                <span class="block text-xs md:text-sm text-gray-500">(คุยกัน)</span>
+            </button>
+            <button id="nav-homework" class="nav-button" onclick="showSection('homework')">
+                <span class="text-2xl hidden md:inline">📚</span>
+                <span class="block text-sm md:text-lg font-semibold">Homework</span>
+                <span class="block text-xs md:text-sm text-gray-500">(การบ้าน)</span>
+            </button>
+            <button id="nav-rules" class="nav-button" onclick="showSection('rules')">
+                <span class="text-2xl hidden md:inline">📏</span>
+                <span class="block text-sm md:text-lg font-semibold">The Rules</span>
+                <span class="block text-xs md:text-sm text-gray-500">(กฎ)</span>
+            </button>
+            <button id="nav-activities" class="nav-button" onclick="showSection('activities')">
+                <span class="text-2xl hidden md:inline">🎮</span>
+                <span class="block text-sm md:text-lg font-semibold">Activities</span>
+                <span class="block text-xs md:text-sm text-gray-500">(กิจกรรม)</span>
+            </button>
+            <button id="nav-extension" class="nav-button" onclick="showSection('extension')">
+                <span class="text-2xl hidden md:inline">✏️</span>
+                <span class="block text-sm md:text-lg font-semibold">Extension</span>
+                <span class="block text-xs md:text-sm text-gray-500">(ฝึกพูด)</span>
+            </button>
+            <button id="nav-quiz" class="nav-button" onclick="showSection('quiz')">
+                <span class="text-2xl hidden md:inline">❓</span>
+                <span class="block text-sm md:text-lg font-semibold">Quiz</span>
+                <span class="block text-xs md:text-sm text-gray-500">(แบบทดสอบ)</span>
+            </button>
+        </nav>
+
+        <main>
+            <!-- Review Section (NEW) -->
+            <section id="review-section" class="content-section active bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Review: Quizlet</h2>
+                        <button class="speak-btn" data-speak-text="Review: Quizlet">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="ทบทวน: Quizlet">TH</button>
+                    </div>
+                    <p class="thai-translation mb-4">ทบทวน: Quizlet</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-600">First, let's review the words from our last lessons on Quizlet.</p>
+                        <button class="speak-btn" data-speak-text="First, let's review the words from our last lessons on Quizlet.">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="ก่อนอื่น เรามาทบทวนคำศัพท์จากบทเรียนที่แล้วใน Quizlet กัน">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">ก่อนอื่น เรามาทบทวนคำศัพท์จากบทเรียนที่แล้วใน Quizlet กัน</p>
+                </div>
+                <a href="https://quizlet.com/th/1108191227/describing-a-room-flash-cards/?i=2s7u0b&x=1jqt" target="_blank" class="block text-center w-full bg-blue-500 text-white font-semibold p-3 rounded-lg hover:bg-blue-600 transition mb-4">
+                    Click here to open Quizlet
+                    <button class="speak-btn !text-base !text-white !ml-2" data-speak-text="Click here to open Quizlet">🔊</button>
+                </a>
+            </section>
+
+            <!-- Warm-up Section (Renamed) -->
+            <section id="warmup-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Let's Talk!</h2>
+                        <button class="speak-btn" data-speak-text="Let's Talk!">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="มาคุยกัน!">TH</button>
+                    </div>
+                    <p class="thai-translation mb-4">มาคุยกัน!</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-600">First, let's review what you know!</p>
+                        <button class="speak-btn" data-speak-text="First, let's review what you know!">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="ก่อนอื่น มาทบทวนสิ่งที่เรารู้กันก่อน!">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">ก่อนอื่น มาทบทวนสิ่งที่เรารู้กันก่อน!</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="text-lg font-medium text-gray-800">Look at your room. What <span class="font-bold text-green-600">is there</span>?</span>
+                                <button class="speak-btn" data-speak-text="Look at your room. What is there?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มองไปรอบๆ ห้องของคุณ มีอะไรบ้าง?">TH</button>
+                            </div>
+                            <p class="thai-translation">มองไปรอบๆ ห้องของคุณ มีอะไรบ้าง?</p>
+                        </div>
+                        <div class="p-2 bg-white rounded-lg mt-2">
+                            <div class="flex items-center">
+                                <span class="font-bold">You (Example):</span>
+                                <span class="text-lg ml-2">"<span class="font-bold text-green-600">There is</span> a bed. <span class="font-bold text-green-600">There are</span> two chairs."</span>
+                                <button class="speak-btn" data-speak-text="There is a bed. There are two chairs.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มีเตียง 1 หลัง มีเก้าอี้ 2 ตัว">TH</button>
+                            </div>
+                            <p class="thai-translation">มีเตียง 1 หลัง มีเก้าอี้ 2 ตัว</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-pink-50 p-4 rounded-lg shadow-sm border-l-4 border-pink-500">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="text-lg font-medium text-gray-800">Great! But... <span class="font-bold text-pink-600">is there</span> an elephant?</span>
+                                <button class="speak-btn" data-speak-text="Great! But... is there an elephant?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="เยี่ยมมาก! แต่ว่า... มีช้างไหม?">TH</button>
+                            </div>
+                            <p class="thai-translation">เยี่ยมมาก! แต่ว่า... มีช้างไหม?</p>
+                        </div>
+                        <div class="p-2 bg-white rounded-lg mt-2">
+                            <div class="flex items-center">
+                                <span class="font-bold">You (Example):</span>
+                                <span class="text-lg ml-2">"No!"</span>
+                            </div>
+                        </div>
+                         <div class="mt-2">
+                            <div class="flex items-center">
+                                <p class="text-gray-600">Today, we practice saying "No" correctly.</p>
+                                <button class="speak-btn" data-speak-text="Today, we practice saying 'No' correctly.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="วันนี้เราจะมาฝึกพูด 'No' ให้ถูกต้องกัน">TH</button>
+                            </div>
+                            <p class="thai-translation">วันนี้เราจะมาฝึกพูด 'No' ให้ถูกต้องกัน</p>
+                        </div>
+                        <div class="mt-1">
+                            <div class="flex items-center">
+                                <p class="text-xl font-bold text-pink-700">"No, <span class="font-bold">there isn't</span>."</p>
+                                <button class="speak-btn" data-speak-text="No, there isn't.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="'No, there isn't.'">TH</button>
+                            </div>
+                            <p class="thai-translation">'No, there isn't.'</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Homework Review Section -->
+            <section id="homework-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Homework Review</h2>
+                        <button class="speak-btn" data-speak-text="Homework Review">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="ทบทวนการบ้าน">TH</button>
+                    </div>
+                    <p class="thai-translation mb-4">ทบทวนการบ้าน</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-600">Let's watch the homework video again.</p>
+                        <button class="speak-btn" data-speak-text="Let's watch the homework video again.">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="เรามาดูวิดีโอการบ้านอีกครั้งกัน">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">เรามาดูวิดีโอการบ้านอีกครั้งกัน</p>
+                </div>
+                
+                <div class="aspect-video w-full max-w-lg mx-auto bg-gray-200 rounded-lg shadow-md">
+                    <iframe class="w-full h-full rounded-lg" src="https://www.youtube.com/embed/xANYRYkNJx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <!-- Comprehension -->
+                <div class="mt-8" id="comprehension-container">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-gray-800">Video Check</h3>
+                            <button class="speak-btn" data-speak-text="Video Check">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="ตรวจสอบจากวิดีโอ">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">ตรวจสอบจากวิดีโอ</p>
+                    </div>
+                    <!-- Questions injected by JS -->
+                </div>
+            </section>
+            
+            <!-- The Rules Section -->
+            <section id="rules-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">The Rules: All 4 Forms</h2>
+                        <button class="speak-btn" data-speak-text="The Rules: All 4 Forms">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="กฎ: ทั้ง 4 รูปแบบ">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">กฎ: ทั้ง 4 รูปแบบ</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Positive -->
+                    <div class="bg-green-50 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-green-700">Positive (+)</h3>
+                        <div class="mt-2">
+                            <div class="flex items-center">
+                                <span class="text-lg">There <span class="font-bold">is a</span> cat.</span>
+                                <button class="speak-btn" data-speak-text="There is a cat.">🔊</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            <span class="text-lg">There <span class="font-bold">are some</span> cats.</span>
+                            <button class="speak-btn" data-speak-text="There are some cats.">🔊</button>
+                        </div>
+                    </div>
+                    <!-- Negative -->
+                    <div class="bg-pink-50 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-pink-700">Negative (-)</h3>
+                        <div class="mt-2">
+                            <div class="flex items-center">
+                                <span class="text-lg">There <span class="font-bold">isn't a</span> cat.</span>
+                                <button class="speak-btn" data-speak-text="There isn't a cat.">🔊</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            <span class="text-lg">There <span class="font-bold">aren't any</span> cats.</span>
+                            <button class="speak-btn" data-speak-text="There aren't any cats.">🔊</button>
+                        </div>
+                    </div>
+                    <!-- Question -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-blue-700">Question (?)</h3>
+                        <div class="mt-2">
+                            <div class="flex items-center">
+                                <span class="text-lg"><span class="font-bold">Is there a</span> cat?</span>
+                                <button class="speak-btn" data-speak-text="Is there a cat?">🔊</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            <span class="text-lg"><span class="font-bold">Are there any</span> cats?</span>
+                            <button class="speak-btn" data-speak-text="Are there any cats?">🔊</button>
+                        </div>
+                    </div>
+                    <!-- Short Answer -->
+                    <div class="bg-yellow-50 p-4 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-yellow-700">Short Answer (Yes/No)</h3>
+                        <div class="mt-2">
+                            <div class="flex items-center">
+                                <span class="text-lg">Yes, <span class="font-bold">there is.</span> / No, <span class="font-bold">there isn't.</span></span>
+                                <button class="speak-btn" data-speak-text="Yes, there is. / No, there isn't.">🔊</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            <span class="text-lg">Yes, <span class="font-bold">there are.</span> / No, <span class="font-bold">there aren't.</span></span>
+                            <button class="speak-btn" data-speak-text="Yes, there are. / No, there aren't.">🔊</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activities Section -->
+            <section id="activities-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Speaking Activities</h2>
+                        <button class="speak-btn" data-speak-text="Speaking Activities">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="กิจกรรมฝึกพูด">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">กิจกรรมฝึกพูด</p>
+                </div>
+
+                <!-- Activity 1: What's Wrong? -->
+                <div class="mb-8 p-4 bg-red-50 rounded-lg shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-red-800">Activity 1: What's Wrong?</h3>
+                            <button class="speak-btn" data-speak-text="Activity 1: What's Wrong?">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="กิจกรรมที่ 1: อะไรผิด?">TH</button>
+                        </div>
+                        <p class="thai-translation mb-2">กิจกรรมที่ 1: อะไรผิด?</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-gray-700">I will say something wrong. You say 'No' and correct me!</p>
+                            <button class="speak-btn" data-speak-text="I will say something wrong. You say 'No' and correct me!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="ฉันจะพูดอะไรผิดบางอย่าง คุณพูดว่า 'ไม่' แล้วแก้ให้ถูก!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">ฉันจะพูดอะไรผิดบางอย่าง คุณพูดว่า 'ไม่' แล้วแก้ให้ถูก!</p>
+                    </div>
+                    
+                    <a href="https://photos.app.goo.gl/5ceLgZvkthPfgVWM8" target="_blank" class="block text-center w-full bg-red-500 text-white font-semibold p-3 rounded-lg hover:bg-red-600 transition mb-4">
+                        Click here to see the "Wrong Room" picture
+                        <button class="speak-btn !text-base !text-white !ml-2" data-speak-text="Click here to see the 'Wrong Room' picture">🔊</button>
+                    </a>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Teacher:</span>
+                                <span class="text-lg ml-2">"In the picture, <span class="font-bold text-gray-500 line-through">there is</span> a toilet in the kitchen."</span>
+                                <button class="speak-btn" data-speak-text="In the picture, there is a toilet in the kitchen.">🔊</button>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">You:</span>
+                                <span class="text-lg ml-2">"No, <span class="font-bold text-red-600">there isn't</span> a toilet in the kitchen!"</span>
+                                <button class="speak-btn" data-speak-text="No, there isn't a toilet in the kitchen!">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ไม่, ไม่มีโถส้วมในห้องครัว!">TH</button>
+                            </div>
+                            <p class="thai-translation">ไม่, ไม่มีโถส้วมในห้องครัว!</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">Teacher:</span>
+                                <span class="text-lg ml-2">"In your room, <span class="font-bold text-gray-500 line-through">there are</span> three cats."</span>
+                                <button class="speak-btn" data-speak-text="In your room, there are three cats.">🔊</button>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">You:</span>
+                                <span class="text-lg ml-2">"No, <span class="font-bold text-red-600">there aren't any</span> cats!"</span>
+                                <button class="speak-btn" data-speak-text="No, there aren't any cats!">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="ไม่, ไม่มีแมวเลย!">TH</button>
+                            </div>
+                            <p class="thai-translation">ไม่, ไม่มีแมวเลย!</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Activity 2: Ask Me! -->
+                <div class="mb-8 p-4 bg-purple-50 rounded-lg shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-purple-800">Activity 2: Ask me about the room!</h3>
+                            <button class="speak-btn" data-speak-text="Activity 2: Ask me about the room!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="กิจกรรมที่ 2: ถามฉันเกี่ยวกับห้องนี้!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-2">กิจกรรมที่ 2: ถามฉันเกี่ยวกับห้องนี้!</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-gray-700">Look at the picture. Ask me questions with "Is there...?" or "Are there...?"</p>
+                            <button class="speak-btn" data-speak-text="Look at the picture. Ask me questions with Is there or Are there?">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="ดูที่ภาพ แล้วถามคำถามฉันด้วย 'Is there...?' หรือ 'Are there...?'">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">ดูที่ภาพ แล้วถามคำถามฉันด้วย 'Is there...?' หรือ 'Are there...?'</p>
+                    </div>
+                    
+                    <a href="https://sora.chatgpt.com/g/gen_01ka0m09ngff38p20qcrj88get" target="_blank" class="block text-center w-full bg-blue-500 text-white font-semibold p-3 rounded-lg hover:bg-blue-600 transition mb-4">
+                        Click here to see the "Messy Room"
+                        <button class="speak-btn !text-base !text-white !ml-2" data-speak-text="Click here to see the Messy Room">🔊</button>
+                    </a>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">A:</span>
+                                <span class="text-lg ml-2">"<span class="font-bold text-purple-600">Is there</span> a lamp?"</span>
+                                <button class="speak-btn" data-speak-text="Is there a lamp?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มีโคมไฟไหม?">TH</button>
+                            </div>
+                            <p class="thai-translation">มีโคมไฟไหม?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">B:</span>
+                                <span class="text-lg ml-2">"Yes, <span class="font-bold text-purple-600">there is</span>."</span>
+                                <button class="speak-btn" data-speak-text="Yes, there is.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มีครับ/ค่ะ">TH</button>
+                            </div>
+                            <p class="thai-translation">มีครับ/ค่ะ</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">A:</span>
+                                <span class="text-lg ml-2">"<span class="font-bold text-purple-600">Are there</span> any books?"</span>
+                                <button class="speak-btn" data-speak-text="Are there any books?">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มีหนังสือบ้างไหม?">TH</button>
+                            </div>
+                            <p class="thai-translation">มีหนังสือบ้างไหม?</p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold">B:</span>
+                                <span class="text-lg ml-2">"Yes, <span class="font-bold text-purple-600">there are</span>."</span>
+                                <button class="speak-btn" data-speak-text="Yes, there are.">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="มีครับ/ค่ะ">TH</button>
+                            </div>
+                            <p class="thai-translation">มีครับ/ค่ะ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 3: Find the Difference -->
+                <div class="mb-8 p-4 bg-blue-50 rounded-lg shadow-sm">
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <h3 class="text-xl font-semibold text-blue-800">Activity 3: Find the Difference</h3>
+                            <button class="speak-btn" data-speak-text="Activity 3: Find the Difference">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="กิจกรรมที่ 3: หาจุดแตกต่าง">TH</button>
+                        </div>
+                        <p class="thai-translation mb-2">กิจกรรมที่ 3: หาจุดแตกต่าง</p>
+                    </div>
+                    <div>
+                        <div class="flex items-center mb-1">
+                            <p class="text-gray-700">Look at the picture. Find 3 differences!</p>
+                            <button class="speak-btn" data-speak-text="Look at the picture. Find 3 differences!">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="ดูที่ภาพ หาจุดแตกต่าง 3 อย่าง!">TH</button>
+                        </div>
+                        <p class="thai-translation mb-4">ดูที่ภาพ หาจุดแตกต่าง 3 อย่าง!</p>
+                    </div>
+                    
+                    <a href="https://photos.app.goo.gl/gxES5VeJiaoqkMdS6" target="_blank" class="block text-center w-full bg-blue-500 text-white font-semibold p-3 rounded-lg hover:bg-blue-600 transition mb-4">
+                        Click here to see "Find the Difference"
+                        <button class="speak-btn !text-base !text-white !ml-2" data-speak-text="Click here to see Find the Difference">🔊</button>
+                    </a>
+
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white rounded-lg">
+                            <div>
+                                <div class="flex items-center">
+                                    <span class="text-lg">In Picture A, <span class="font-bold text-blue-600">there is</span> a cat.</span>
+                                    <button class="speak-btn" data-speak-text="In Picture A, there is a cat.">🔊</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center">
+                                    <span class="text-lg">In Picture B, <span class="font-bold text-red-600">there isn't</span> a cat. <span class="font-bold text-red-600">There is</span> a dog.</span>
+                                    <button class="speak-btn" data-speak-text="In Picture B, there isn't a cat. There is a dog.">🔊</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Extension Section -->
+            <section id="extension-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Extension: Baamboozle Talk</h2>
+                        <button class="speak-btn" data-speak-text="Extension: Baamboozle Talk">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="กิจกรรมเสริม: คุยจากเกม Baamboozle">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">กิจกรรมเสริม: คุยจากเกม Baamboozle</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-700">Let's look at this game. I will ask you questions about *your* house based on the pictures.</p>
+                        <button class="speak-btn" data-speak-text="Let's look at this game. I will ask you questions about your house based on the pictures.">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="มาดูเกมนี้กัน ฉันจะถามคำถามคุณเกี่ยวกับบ้าน *จริงๆ* ของคุณ โดยอิงจากรูปในเกม">TH</button>
+                    </div>
+                    <p class="thai-translation mb-4">มาดูเกมนี้กัน ฉันจะถามคำถามคุณเกี่ยวกับบ้าน *จริงๆ* ของคุณ โดยอิงจากรูปในเกม</p>
+                </div>
+                
+                <a href="https://www.baamboozle.com/game/329421?page=1" target="_blank" class="block text-center w-full bg-pink-500 text-white font-semibold p-3 rounded-lg hover:bg-pink-600 transition mb-4">
+                    Click here to see the "Baamboozle Game"
+                    <button class="speak-btn !text-base !text-white !ml-2" data-speak-text="Click here to see the Baamboozle Game">🔊</button>
+                </a>
+                
+                <div class="space-y-3">
+                    <div class="p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="font-bold">Teacher:</span>
+                            <span class="text-lg ml-2">"(I see 'a TV' in the game)... <span class="font-bold text-blue-600">Is there</span> a TV in your room?"</span>
+                            <button class="speak-btn" data-speak-text="Is there a TV in your room?">🔊</button>
+                            <button class="thai-toggle-btn" data-thai="(ฉันเห็น 'a TV' ในเกม)... ในห้องของคุณมีทีวีไหม?">TH</button>
+                        </div>
+                        <p class="thai-translation">(ฉันเห็น 'a TV' ในเกม)... ในห้องของคุณมีทีวีไหม?</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <span class="font-bold">You (Example):</span>
+                            <span class="text-lg ml-2">"Yes, <span class="font-bold text-green-600">there is</span>." / "No, <span class="font-bold text-pink-600">there isn't</span>."</span>
+                            <button class="speak-btn" data-speak-text="Yes, there is. / No, there isn't.">🔊</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz-section" class="content-section bg-white p-6 rounded-lg shadow-sm">
+                <div>
+                    <div class="flex items-center mb-1">
+                        <h2 class="text-2xl font-semibold text-gray-800">Quiz</h2>
+                        <button class="speak-btn" data-speak-text="Quiz">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="แบบทดสอบ">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">แบบทดสอบ</p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-1">
+                        <p class="text-gray-700">Choose the correct answer.</p>
+                        <button class="speak-btn" data-speak-text="Choose the correct answer.">🔊</button>
+                        <button class="thai-toggle-btn" data-thai="เลือกคำตอบที่ถูกต้อง">TH</button>
+                    </div>
+                    <p class="thai-translation mb-6">เลือกคำตอบที่ถูกต้อง</p>
+                </div>
+                
+                <div class="space-y-6" id="quiz-container">
+                    <!-- Quiz questions will be injected by JS -->
+                </div>
+                <button class="text-lg bg-pink-600 text-white font-semibold px-6 py-2 rounded-lg mt-8 hover:bg-pink-700" id="reset-quiz-btn">Start Over</button>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const allSections = document.querySelectorAll('.content-section');
+        const allNavButtons = document.querySelectorAll('.nav-button');
+        
+        // TTS setup
+        const synth = window.speechSynthesis;
+        let americanVoice = null;
+
+        function setVoice() {
+            if (synth.getVoices().length > 0) {
+                americanVoice = synth.getVoices().find(voice => voice.lang === 'en-US' && (voice.name.includes('Google') || voice.name.includes('Samantha') || voice.name.includes('Alex'))) || synth.getVoices().find(voice => voice.lang === 'en-US');
+            }
+        }
+
+        if (synth) {
+            synth.onvoiceschanged = setVoice;
+            setVoice();
+        }
+
+        function speakText(text) {
+            if (synth && text) {
+                const cleanText = text.split('(')[0].trim();
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                if (americanVoice) {
+                    utterance.voice = americanVoice;
+                } else {
+                    utterance.lang = 'en-US';
+                }
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                synth.speak(utterance);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initGlobalClickListeners(); // Handles TTS and Toggles
+            initComprehension();
+            initQuiz();
+            
+            allNavButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.id.replace('nav-', '');
+                    showSection(sectionId);
+                });
+            });
+
+            showSection('review'); // Start on Review
+        });
+        
+        function initGlobalClickListeners() {
+            document.body.addEventListener('click', (e) => {
+                const toggleBtn = e.target.closest('.thai-toggle-btn');
+                const speakBtn = e.target.closest('.speak-btn');
+                
+                // Handle Speak Buttons
+                if (speakBtn) {
+                    e.stopPropagation();
+                    const text = speakBtn.dataset.speakText;
+                    if (text) {
+                        speakText(text);
+                    }
+                    return;
+                }
+
+                // Handle Toggle Buttons
+                if (toggleBtn) {
+                    e.stopPropagation();
+                    const translationElement = toggleBtn.parentElement.nextElementSibling; 
+                    if (translationElement && translationElement.classList.contains('thai-translation')) {
+                        translationElement.style.display = translationElement.style.display === 'block' ? 'none' : 'block';
+                    }
+                    return;
+                }
+            });
+        }
+
+
+        function showSection(sectionId) {
+            allSections.forEach(section => {
+                section.classList.toggle('active', section.id === `${sectionId}-section`);
+            });
+            allNavButtons.forEach(button => {
+                button.classList.toggle('active', button.id === `nav-${sectionId}`);
+            });
+        }
+        
+        // Comprehension Questions
+        const comprehensionData = [
+            {
+                question: "In the video, is there a computer?",
+                thai: "ในวิดีโอ มีคอมพิวเตอร์ไหม?",
+                options: ["Yes, there is.", "No, there isn't."],
+                answer: "No, there isn't."
+            },
+            {
+                question: "In the video, are there any books?",
+                thai: "ในวิดีโอ มีหนังสือบ้างไหม?",
+                options: ["Yes, there are.", "No, there aren't."],
+                answer: "No, there aren't."
+            },
+            {
+                question: "In the video, is there a clock?",
+                thai: "ในวิดีโอ มีนาฬิกาไหม?",
+                options: ["Yes, there is.", "No, there isn't."],
+                answer: "Yes, there is."
+            }
+        ];
+        
+        function initComprehension() {
+            const container = document.getElementById('comprehension-container');
+            comprehensionData.forEach((q, index) => {
+                const qBlock = document.createElement('div');
+                qBlock.className = 'bg-gray-50 p-4 rounded-lg shadow-sm mt-4';
+                
+                let optionsHTML = q.options.map(option => `
+                    <button class="quiz-option p-3 w-full text-left rounded-lg border" data-answer="${q.answer}" data-selected="${option}">
+                        <span class="text-lg font-medium">${option}</span>
+                        <button class="speak-btn !text-base !float-right" data-speak-text="${option}">🔊</button>
+                    </button>
+                `).join('');
+
+                qBlock.innerHTML = `
+                    <div class="mb-3">
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-lg font-semibold text-gray-800">${q.question}</span>
+                                <button class="speak-btn" data-speak-text="${q.question}">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="${q.thai}">TH</button>
+                            </div>
+                            <p class="thai-translation">${q.thai}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2" id="comp-opt-${index}">
+                        ${optionsHTML}
+                    </div>
+                `;
+                container.appendChild(qBlock);
+            });
+            
+            container.addEventListener('click', (e) => {
+                const optionEl = e.target.closest('.quiz-option');
+                if (!optionEl || e.target.closest('.speak-btn')) return;
+                
+                const selected = optionEl.dataset.selected;
+                const answer = optionEl.dataset.answer;
+                const parent = optionEl.parentElement;
+
+                parent.querySelectorAll('.quiz-option').forEach(el => {
+                    el.classList.remove('correct', 'wrong');
+                    el.disabled = true; 
+                });
+
+                if (selected === answer) {
+                    optionEl.classList.add('correct');
+                    speakText('Correct!');
+                } else {
+                    optionEl.classList.add('wrong');
+                    parent.querySelector(`[data-selected="${answer}"]`).classList.add('correct');
+                    speakText('Try again.');
+                }
+            });
+        }
+
+
+        // Section: Quiz
+        const quizQuestions = [
+            {
+                question: "___ a sofa in the living room.",
+                thai: "___ โซฟาในห้องนั่งเล่น",
+                options: ["There is", "There are"],
+                answer: "There is"
+            },
+            {
+                question: "___ two books on the table.",
+                thai: "___ หนังสือสองเล่มบนโต๊ะ",
+                options: ["There is", "There are"],
+                answer: "There are"
+            },
+            {
+                question: "___ any cats in your room?",
+                thai: "___ แมวในห้องของคุณบ้างไหม?",
+                options: ["Is there", "Are there"],
+                answer: "Are there"
+            },
+            {
+                question: "'Is there a pen?'",
+                thai: "'มีปากกาไหม?'",
+                options: ["Yes, there is.", "Yes, there are."],
+                answer: "Yes, there is."
+            },
+            {
+                question: "___ a big TV.",
+                thai: "___ ทีวีเครื่องใหญ่",
+                options: ["There isn't", "There aren't"],
+                answer: "There isn't"
+            },
+            {
+                question: "___ any cookies.",
+                thai: "___ คุกกี้เลย",
+                options: ["There isn't", "There aren't"],
+                answer: "There aren't"
+            }
+        ];
+        
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            quizQuestions.forEach((q, index) => {
+                const qBlock = document.createElement('div');
+                qBlock.className = 'bg-gray-50 p-4 rounded-lg shadow-sm';
+                
+                let optionsHTML = q.options.map(option => `
+                    <button class="quiz-option p-3 w-full text-left rounded-lg border" data-answer="${q.answer}" data-selected="${option}">
+                        <span class="text-lg font-medium">${option}</span>
+                        <button class="speak-btn !text-base !float-right" data-speak-text="${option}">🔊</button>
+                    </button>
+                `).join('');
+
+                qBlock.innerHTML = `
+                    <div class="mb-3">
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-2xl font-bold text-gray-800">${index + 1}. ${q.question}</span>
+                                <button class="speak-btn" data-speak-text="${q.question.replace('___', '...')}">🔊</button>
+                                <button class="thai-toggle-btn" data-thai="${q.thai}">TH</button>
+                            </div>
+                            <p class="thai-translation">${q.thai}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2" id="quiz-opt-${index}">
+                        ${optionsHTML}
+                    </div>
+                `;
+                container.appendChild(qBlock);
+            });
+            
+            document.getElementById('reset-quiz-btn').addEventListener('click', initQuiz);
+
+            container.addEventListener('click', (e) => {
+                const optionEl = e.target.closest('.quiz-option');
+                if (!optionEl || e.target.closest('.speak-btn')) return;
+                
+                const selected = optionEl.dataset.selected;
+                const answer = optionEl.dataset.answer;
+                const parent = optionEl.parentElement;
+
+                parent.querySelectorAll('.quiz-option').forEach(el => {
+                    el.classList.remove('correct', 'wrong');
+                    el.disabled = true; 
+                });
+
+                if (selected === answer) {
+                    optionEl.classList.add('correct');
+                    speakText('Correct!');
+                } else {
+                    optionEl.classList.add('wrong');
+                    parent.querySelector(`[data-selected="${answer}"]`).classList.add('correct');
+                    speakText('Try again.');
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
