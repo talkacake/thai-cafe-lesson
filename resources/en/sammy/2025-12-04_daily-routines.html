@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routines</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        h4 { margin-bottom: 5px; }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .control-btn {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .control-btn:hover { background-color: #f0f0f0; }
+        .speak-btn { color: #007bff; border-color: #007bff; }
+        .trans-btn { color: #28a745; border-color: #28a745; }
+        .thai-text {
+            display: none;
+            color: #666;
+            font-style: italic;
+            margin-left: 10px;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+        
+        /* Grammar Box Styles */
+        .grammar-box {
+            background-color: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .rule-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        .highlight-at {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Review Card Styles */
+        #review-card-display {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #4caf50;
+        }
+        .review-topic {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .review-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        /* Routine Timeline Styles */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .time-box {
+            background: #2c3e50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-right: 15px;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        /* Standard Components */
+        .big-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .big-btn:hover { background-color: #2980b9; }
+        .reveal-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .answer-box {
+            display: none;
+            background: #fff3e0;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border-left: 3px solid #ff9800;
+        }
+        .role-play-box {
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: white; 
+            margin-bottom: 15px;
+        }
+        .hw-item {
+            margin: 8px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
+        }
+        .story-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        /* Question Block Styles */
+        .question-block {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dotted #999;
+        }
+        .q-label {
+            font-weight: bold;
+            color: #d32f2f;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>
+        Daily Routines
+        <button class="control-btn speak-btn" onclick="speak('Daily Routines')">🔊</button>
+        <button class="control-btn trans-btn" onclick="toggleTrans('h1-trans')">🇹🇭</button>
+        <span id="h1-trans" class="thai-text">กิจวัตรประจำวัน</span>
+    </h1>
+
+    <!-- SECTION 1: STRUCTURE REVIEW -->
+    <div class="section">
+        <h2>
+            1. The Ultimate Review Spin 🌪️
+            <button class="control-btn speak-btn" onclick="speak('The Ultimate Review Spin')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-1-trans')">🇹🇭</button>
+            <span id="h2-1-trans" class="thai-text">วงล้อทบทวนสูงสุด</span>
+        </h2>
+        <p style="text-align:center;">
+            Test your knowledge!
+            <button class="control-btn speak-btn" onclick="speak('Test your knowledge!')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('inst-1-trans')">🇹🇭</button>
+            <span id="inst-1-trans" class="thai-text">ทดสอบความรู้ของคุณ!</span>
+        </p>
+
+        <div id="review-card-display">
+            <p>Click "Spin" to get a question.</p>
+        </div>
+        <button class="big-btn" onclick="spinReview()">Spin Review 🔄</button>
+    </div>
+
+    <!-- SECTION 2: HOMEWORK CHECK -->
+    <div class="section" style="border-color: #ffcc80;">
+        <h2>
+            2. Homework Check 📝
+            <button class="control-btn speak-btn" onclick="speak('Homework Check')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('hw-title-trans')">🇹🇭</button>
+            <span id="hw-title-trans" class="thai-text">ตรวจการบ้าน</span>
+        </h2>
+        <p style="text-align:center;">
+            Read the sentences from your homework.
+            <button class="control-btn speak-btn" onclick="speak('Read the sentences from your homework.')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('hw-inst-trans')">🇹🇭</button>
+            <span id="hw-inst-trans" class="thai-text">อ่านประโยคจากการบ้านของคุณ</span>
+        </p>
+
+        <div class="role-play-box" style="background-color: #fff3e0; border-color: #ffe0b2;">
+            <div class="hw-item">
+                <span>1. Mum gets up at 6:30.</span>
+                <button class="control-btn speak-btn" onclick="speak('Mum gets up at six thirty.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw1-trans')">🇹🇭</button>
+                <span id="hw1-trans" class="thai-text">แม่ตื่นนอนตอน 6:30 น.</span>
+            </div>
+            <div class="hw-item">
+                <span>2. Dad drives his car to work every day.</span>
+                <button class="control-btn speak-btn" onclick="speak('Dad drives his car to work every day.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw2-trans')">🇹🇭</button>
+                <span id="hw2-trans" class="thai-text">พ่อขับรถไปทำงานทุกวัน</span>
+            </div>
+            <div class="hw-item">
+                <span>3. What time do you get up?</span>
+                <button class="control-btn speak-btn" onclick="speak('What time do you get up?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw3-trans')">🇹🇭</button>
+                <span id="hw3-trans" class="thai-text">คุณตื่นนอนกี่โมง?</span>
+            </div>
+            <div class="hw-item">
+                <span>4. How do you go to school?</span>
+                <button class="control-btn speak-btn" onclick="speak('How do you go to school?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw4-trans')">🇹🇭</button>
+                <span id="hw4-trans" class="thai-text">คุณไปโรงเรียนอย่างไร?</span>
+            </div>
+            <div class="hw-item">
+                <span>5. The children love watching TV.</span>
+                <button class="control-btn speak-btn" onclick="speak('The children love watching TV.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw5-trans')">🇹🇭</button>
+                <span id="hw5-trans" class="thai-text">เด็กๆ ชอบดูทีวี</span>
+            </div>
+            <div class="hw-item">
+                <span>6. I don't like shopping.</span>
+                <button class="control-btn speak-btn" onclick="speak('I don\'t like shopping.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw6-trans')">🇹🇭</button>
+                <span id="hw6-trans" class="thai-text">ฉันไม่ชอบซื้อของ</span>
+            </div>
+            <div class="hw-item">
+                <span>7. Mum goes shopping at the weekend.</span>
+                <button class="control-btn speak-btn" onclick="speak('Mum goes shopping at the weekend.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw7-trans')">🇹🇭</button>
+                <span id="hw7-trans" class="thai-text">แม่ไปซื้อของตอนสุดสัปดาห์</span>
+            </div>
+            <div class="hw-item">
+                <span>8. We clean the house on Saturdays.</span>
+                <button class="control-btn speak-btn" onclick="speak('We clean the house on Saturdays.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw8-trans')">🇹🇭</button>
+                <span id="hw8-trans" class="thai-text">พวกเราทำความสะอาดบ้านวันเสาร์</span>
+            </div>
+            <div class="hw-item">
+                <span>9. When does dad watch TV?</span>
+                <button class="control-btn speak-btn" onclick="speak('When does dad watch TV?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw9-trans')">🇹🇭</button>
+                <span id="hw9-trans" class="thai-text">พ่อดูทีวีตอนไหน?</span>
+            </div>
+            <div class="hw-item">
+                <span>10. My brother doesn't cook dinner.</span>
+                <button class="control-btn speak-btn" onclick="speak('My brother doesn\'t cook dinner.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('hw10-trans')">🇹🇭</button>
+                <span id="hw10-trans" class="thai-text">พี่/น้องชายของฉันไม่ทำอาหารเย็น</span>
+            </div>
+            
+            <!-- Comprehension for Homework -->
+            <div class="question-block">
+                <span class="q-label">
+                    ❓ Comprehension Check
+                    <button class="control-btn speak-btn" onclick="speak('Comprehension Check')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('comp-hw-trans')">🇹🇭</button>
+                    <span id="comp-hw-trans" class="thai-text">ตรวจสอบความเข้าใจ</span>
+                </span>
+                
+                <p>
+                    1. Who gets up at 6:30?
+                    <button class="control-btn speak-btn" onclick="speak('Who gets up at six thirty?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q1-hw-trans')">🇹🇭</button>
+                    <span id="q1-hw-trans" class="thai-text">ใครตื่นตอน 6:30?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('hw-q1')">Check Answer</button>
+                <div id="hw-q1" class="answer-box">
+                    <b>Mum.</b>
+                    <button class="control-btn speak-btn" onclick="speak('Mum.')">🔊</button>
+                </div>
+
+                <p style="margin-top:10px;">
+                    2. Does the brother cook dinner?
+                    <button class="control-btn speak-btn" onclick="speak('Does the brother cook dinner?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q2-hw-trans')">🇹🇭</button>
+                    <span id="q2-hw-trans" class="thai-text">พี่/น้องชายทำอาหารเย็นไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('hw-q2')">Check Answer</button>
+                <div id="hw-q2" class="answer-box">
+                    <b>No, he doesn't.</b>
+                    <button class="control-btn speak-btn" onclick="speak('No, he doesn\'t.')">🔊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: FUNNY INPUT -->
+    <div class="section" style="background-color: #e8eaf6;">
+        <h2>
+            3. Funny Stories (Notice the Time!) 🧛‍♂️
+            <button class="control-btn speak-btn" onclick="speak('Funny Stories. Notice the time!')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-3-input-trans')">🇹🇭</button>
+            <span id="h2-3-input-trans" class="thai-text">เรื่องตลก (สังเกตเวลา!)</span>
+        </h2>
+
+        <!-- Story A -->
+        <div class="role-play-box" style="border-left: 5px solid #5c6bc0;">
+            <h3>
+                A. The Vampire's Routine 🦇
+                <button class="control-btn speak-btn" onclick="speak('The Vampire\'s Routine')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('story-a-title-trans')">🇹🇭</button>
+                <span id="story-a-title-trans" class="thai-text">กิจวัตรของแวมไพร์</span>
+            </h3>
+            <p class="story-text">
+                Count Dracula is very busy. He gets up <span class="highlight-at">at</span> 7:00 PM.
+                <button class="control-btn speak-btn" onclick="speak('Count Dracula is very busy. He gets up at 7 PM.')">🔊</button>
+                <br>
+                He brushes his teeth <span class="highlight-at">at</span> 7:15 PM.
+                <button class="control-btn speak-btn" onclick="speak('He brushes his teeth at 7:15 PM.')">🔊</button>
+                <br>
+                He eats "red soup" <span class="highlight-at">at</span> 8:00 PM.
+                <button class="control-btn speak-btn" onclick="speak('He eats red soup at 8 PM.')">🔊</button>
+                <br>
+                He flies to work <span class="highlight-at">at</span> 10:00 PM.
+                <button class="control-btn speak-btn" onclick="speak('He flies to work at 10 PM.')">🔊</button>
+                <br>
+                He goes to bed <span class="highlight-at">at</span> 6:00 AM!
+                <button class="control-btn speak-btn" onclick="speak('He goes to bed at 6 AM!')">🔊</button>
+            </p>
+            <button class="control-btn trans-btn" onclick="toggleTrans('story-vamp-trans')">🇹🇭 Translate Story</button>
+            <div id="story-vamp-trans" class="thai-text" style="display:none; margin-top:10px;">
+                ท่านเคาท์แดร็กคูลายุ่งมาก เขาตื่นนอนตอน 1 ทุ่ม เขาแปรงฟันตอน 1 ทุ่ม 15 น. เขากิน "ซุปสีแดง" ตอน 2 ทุ่ม เขาบินไปทำงานตอน 4 ทุ่ม เขาเข้านอนตอน 6 โมงเช้า!
+            </div>
+
+            <!-- Comprehension for Vampire -->
+            <div class="question-block">
+                <span class="q-label">
+                    ❓ Comprehension Check
+                    <button class="control-btn speak-btn" onclick="speak('Comprehension Check')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('comp-vamp-trans')">🇹🇭</button>
+                    <span id="comp-vamp-trans" class="thai-text">ตรวจสอบความเข้าใจ</span>
+                </span>
+                
+                <p>
+                    1. Does Dracula get up in the morning?
+                    <button class="control-btn speak-btn" onclick="speak('Does Dracula get up in the morning?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q1-vamp-trans')">🇹🇭</button>
+                    <span id="q1-vamp-trans" class="thai-text">แดร็กคูล่าตื่นตอนเช้าไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('vamp-q1')">Check Answer</button>
+                <div id="vamp-q1" class="answer-box">
+                    <b>No. He gets up at 7:00 PM.</b>
+                    <button class="control-btn speak-btn" onclick="speak('No. He gets up at 7:00 PM.')">🔊</button>
+                </div>
+
+                <p style="margin-top:10px;">
+                    2. What does he eat?
+                    <button class="control-btn speak-btn" onclick="speak('What does he eat?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q2-vamp-trans')">🇹🇭</button>
+                    <span id="q2-vamp-trans" class="thai-text">เขากินอะไร?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('vamp-q2')">Check Answer</button>
+                <div id="vamp-q2" class="answer-box">
+                    <b>He eats red soup.</b>
+                    <button class="control-btn speak-btn" onclick="speak('He eats red soup.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story B (Dialogue) -->
+        <div class="role-play-box" style="border-left: 5px solid #ab47bc; margin-top:20px;">
+            <h3>
+                B. The Lazy Cat 🐱
+                <button class="control-btn speak-btn" onclick="speak('The Lazy Cat')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('story-b-title-trans')">🇹🇭</button>
+                <span id="story-b-title-trans" class="thai-text">แมวขี้เกียจ</span>
+            </h3>
+            <p>
+                <b>Dog:</b> Why are you tired?
+                <button class="control-btn speak-btn" onclick="speak('Why are you tired?')">🔊</button>
+            </p>
+            <p>
+                <b>Cat:</b> I work very hard! I get up <span class="highlight-at">at</span> 10:00 AM.
+                <button class="control-btn speak-btn" onclick="speak('I work very hard! I get up at 10 AM.')">🔊</button>
+            </p>
+            <p>
+                <b>Dog:</b> 10 AM? What do you do?
+                <button class="control-btn speak-btn" onclick="speak('10 AM? What do you do?')">🔊</button>
+            </p>
+            <p>
+                <b>Cat:</b> I eat <span class="highlight-at">at</span> 10:30 AM. Then, I sleep <span class="highlight-at">at</span> 11:00 AM.
+                <button class="control-btn speak-btn" onclick="speak('I eat at 10:30 AM. Then, I sleep at 11 AM.')">🔊</button>
+            </p>
+            <p>
+                <b>Dog:</b> Wow. You are very lazy.
+                <button class="control-btn speak-btn" onclick="speak('Wow. You are very lazy.')">🔊</button>
+            </p>
+            <button class="control-btn trans-btn" onclick="toggleTrans('story-cat-trans')">🇹🇭 Translate Dialogue</button>
+            <div id="story-cat-trans" class="thai-text" style="display:none; margin-top:10px;">
+                หมา: ทำไมเธอเหนื่อย?<br>
+                แมว: ฉันทำงานหนักมาก! ฉันตื่นตอน 10 โมงเช้า<br>
+                หมา: 10 โมง? เธอทำอะไร?<br>
+                แมว: ฉันกินข้าวตอน 10:30 น. แล้วฉันก็นอนตอน 11 โมง<br>
+                หมา: ว้าว เธอขี้เกียจจริงๆ
+            </div>
+
+            <!-- Comprehension for Cat -->
+            <div class="question-block">
+                <span class="q-label">
+                    ❓ Comprehension Check
+                    <button class="control-btn speak-btn" onclick="speak('Comprehension Check')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('comp-cat-trans')">🇹🇭</button>
+                    <span id="comp-cat-trans" class="thai-text">ตรวจสอบความเข้าใจ</span>
+                </span>
+                
+                <p>
+                    1. What time does the cat get up?
+                    <button class="control-btn speak-btn" onclick="speak('What time does the cat get up?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q1-cat-trans')">🇹🇭</button>
+                    <span id="q1-cat-trans" class="thai-text">แมวตื่นกี่โมง?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('cat-q1')">Check Answer</button>
+                <div id="cat-q1" class="answer-box">
+                    <b>At 10:00 AM.</b>
+                    <button class="control-btn speak-btn" onclick="speak('At 10:00 AM.')">🔊</button>
+                </div>
+
+                <p style="margin-top:10px;">
+                    2. Is the cat hardworking?
+                    <button class="control-btn speak-btn" onclick="speak('Is the cat hardworking?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q2-cat-trans')">🇹🇭</button>
+                    <span id="q2-cat-trans" class="thai-text">แมวขยันไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('cat-q2')">Check Answer</button>
+                <div id="cat-q2" class="answer-box">
+                    <b>No, the cat is lazy.</b>
+                    <button class="control-btn speak-btn" onclick="speak('No, the cat is lazy.')">🔊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: GRAMMAR FOCUS (Routines + AT) -->
+    <div class="section">
+        <h2>
+            4. Routines & Time (at) ⏰
+            <button class="control-btn speak-btn" onclick="speak('Routines and Time using at')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-4-trans')">🇹🇭</button>
+            <span id="h2-4-trans" class="thai-text">กิจวัตรและเวลา (ใช้ at)</span>
+        </h2>
+
+        <div class="grammar-box">
+            <div style="text-align:center; font-size:1.1rem; margin-bottom:10px;">
+                <b>Structure:</b> Subject + Verb + <span class="highlight-at">at</span> + Time
+                <button class="control-btn speak-btn" onclick="speak('Structure: Subject plus Verb plus at plus Time')">🔊</button>
+            </div>
+            
+            <div class="rule-row">
+                <div>
+                    I get up <span class="highlight-at">at</span> 7:00 AM.
+                    <button class="control-btn speak-btn" onclick="speak('I get up at seven a.m.')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('ex1-trans')">🇹🇭</button>
+                    <span id="ex1-trans" class="thai-text">ฉันตื่นนอนตอน 7 โมงเช้า</span>
+                </div>
+            </div>
+            <div class="rule-row" style="border-bottom:none;">
+                <div>
+                    She sleeps <span class="highlight-at">at</span> 10:00 PM.
+                    <button class="control-btn speak-btn" onclick="speak('She sleeps at ten p.m.')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('ex2-trans')">🇹🇭</button>
+                    <span id="ex2-trans" class="thai-text">เธอนอนตอน 4 ทุ่ม</span>
+                </div>
+            </div>
+        </div>
+        
+        <p style="text-align:center; color:#d32f2f; font-weight:bold;">
+            ⚠️ Don't use "in" or "on" for clock time!
+            <button class="control-btn speak-btn" onclick="speak('Don\'t use in or on for clock time!')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('warning-trans')">🇹🇭</button>
+            <span id="warning-trans" class="thai-text">อย่าใช้ in หรือ on กับเวลาตามนาฬิกา!</span>
+        </p>
+    </div>
+
+    <!-- SECTION 5: THE CLOCK MASTER GAME -->
+    <div class="section">
+        <h2>
+            5. The Clock Master 🧙‍♂️
+            <button class="control-btn speak-btn" onclick="speak('The Clock Master')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-5-trans')">🇹🇭</button>
+            <span id="h2-5-trans" class="thai-text">เจ้านาฬิกา</span>
+        </h2>
+        <p style="text-align:center;">
+            Make a sentence using <b>"at"</b>.
+            <button class="control-btn speak-btn" onclick="speak('Make a sentence using at')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('game-inst-trans')">🇹🇭</button>
+            <span id="game-inst-trans" class="thai-text">แต่งประโยคโดยใช้ at</span>
+        </p>
+
+        <!-- Item 1 -->
+        <div class="timeline-item">
+            <div class="time-box">06:00</div>
+            <div style="flex-grow:1;">
+                <p style="margin:0;">
+                    <b>I / get up</b>
+                    <button class="control-btn speak-btn" onclick="speak('I get up')">🔊</button>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('ans-1')">Check</button>
+                <div id="ans-1" class="answer-box">
+                    I get up <b>at</b> 6:00.
+                    <button class="control-btn speak-btn" onclick="speak('I get up at six.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item">
+            <div class="time-box">08:00</div>
+            <div style="flex-grow:1;">
+                <p style="margin:0;">
+                    <b>She / start work</b>
+                    <button class="control-btn speak-btn" onclick="speak('She start work')">🔊</button>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('ans-2')">Check</button>
+                <div id="ans-2" class="answer-box">
+                    She start<b>s</b> work <b>at</b> 8:00. (Don't forget 'S'!)
+                    <button class="control-btn speak-btn" onclick="speak('She starts work at eight.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item">
+            <div class="time-box">12:30</div>
+            <div style="flex-grow:1;">
+                <p style="margin:0;">
+                    <b>We / have lunch</b>
+                    <button class="control-btn speak-btn" onclick="speak('We have lunch')">🔊</button>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('ans-3')">Check</button>
+                <div id="ans-3" class="answer-box">
+                    We have lunch <b>at</b> 12:30.
+                    <button class="control-btn speak-btn" onclick="speak('We have lunch at twelve thirty.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item">
+            <div class="time-box">23:00</div>
+            <div style="flex-grow:1;">
+                <p style="margin:0;">
+                    <b>He / go to bed</b>
+                    <button class="control-btn speak-btn" onclick="speak('He go to bed')">🔊</button>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('ans-4')">Check</button>
+                <div id="ans-4" class="answer-box">
+                    He go<b>es</b> to bed <b>at</b> 11:00 PM.
+                    <button class="control-btn speak-btn" onclick="speak('He goes to bed at eleven p.m.')">🔊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6: EXTENSION -->
+    <div class="section" style="background-color: #fffde7;">
+        <h2>
+            6. Extension Activities 🚀
+            <button class="control-btn speak-btn" onclick="speak('Extension Activities')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-6-trans')">🇹🇭</button>
+            <span id="h2-6-trans" class="thai-text">กิจกรรมเสริม</span>
+        </h2>
+        
+        <!-- 6.1 Billionaire Interview -->
+        <div class="role-play-box" style="border:1px solid #fbc02d;">
+            <h3>
+                A. The Busy Billionaire 💎
+                <button class="control-btn speak-btn" onclick="speak('The Busy Billionaire')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-title-1')">🇹🇭</button>
+                <span id="ext-title-1" class="thai-text">มหาเศรษฐีผู้ยุ่งเหยิง</span>
+            </h3>
+            <p style="text-align:center;">
+                Interview Mr. Rich about his day.
+                <button class="control-btn speak-btn" onclick="speak('Interview Mister Rich about his day.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-inst-trans')">🇹🇭</button>
+                <span id="ext-inst-trans" class="thai-text">สัมภาษณ์คุณริชเกี่ยวกับวันของเขา</span>
+            </p>
+
+            <div>
+                <p>
+                    <b>Interviewer:</b> What time do you get up?
+                    <button class="control-btn speak-btn" onclick="speak('What time do you get up?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q1-role-trans')">🇹🇭</button>
+                    <span id="q1-role-trans" class="thai-text">คุณตื่นนอนกี่โมง?</span>
+                </p>
+                <p>
+                    <b>Mr. Rich:</b> I get up ____ 5:00 AM.
+                    <button class="reveal-btn" onclick="toggleAnswer('role-ans-1')">Reveal</button>
+                </p>
+                <div id="role-ans-1" class="answer-box">
+                    I get up <b>at</b> 5:00 AM.
+                    <button class="control-btn speak-btn" onclick="speak('I get up at five a.m.')">🔊</button>
+                </div>
+                
+                <hr style="border-top:1px dashed #ccc; margin:15px 0;">
+
+                <p>
+                    <b>Interviewer:</b> What time do you count your money?
+                    <button class="control-btn speak-btn" onclick="speak('What time do you count your money?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q2-role-trans')">🇹🇭</button>
+                    <span id="q2-role-trans" class="thai-text">คุณนับเงินตอนกี่โมง?</span>
+                </p>
+                <p>
+                    <b>Mr. Rich:</b> I count it ____ 9:00 PM.
+                    <button class="reveal-btn" onclick="toggleAnswer('role-ans-2')">Reveal</button>
+                </p>
+                <div id="role-ans-2" class="answer-box">
+                    I count it <b>at</b> 9:00 PM.
+                    <button class="control-btn speak-btn" onclick="speak('I count it at nine p.m.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 Role Play: The Late Student -->
+        <div class="role-play-box" style="border:1px solid #e57373;">
+            <h3>
+                B. Role Play: The Late Student 🏃‍♂️
+                <button class="control-btn speak-btn" onclick="speak('Role Play: The Late Student')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-title-2')">🇹🇭</button>
+                <span id="ext-title-2" class="thai-text">บทบาทสมมติ: นักเรียนสาย</span>
+            </h3>
+            
+            <p>
+                <b>Teacher:</b> Why are you late? Class starts <b>at</b> 9:00.
+                <button class="control-btn speak-btn" onclick="speak('Why are you late? Class starts at nine.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp2-1')">🇹🇭</button>
+                <span id="rp2-1" class="thai-text">ทำไมมาสาย? คาบเรียนเริ่มตอน 9 โมง</span>
+            </p>
+            <p>
+                <b>Student:</b> Sorry! I usually get up ____ 7:00...
+                <button class="control-btn speak-btn" onclick="speak('Sorry! I usually get up at seven...')">🔊</button>
+            </p>
+            <p>
+                <b>Teacher:</b> But today?
+                <button class="control-btn speak-btn" onclick="speak('But today?')">🔊</button>
+            </p>
+            <p>
+                <b>Student:</b> Today I got up ____ 8:45!
+                <button class="reveal-btn" onclick="toggleAnswer('rp2-ans')">Reveal</button>
+            </p>
+            <div id="rp2-ans" class="answer-box">
+                Today I got up <b>at</b> 8:45!
+                <button class="control-btn speak-btn" onclick="speak('Today I got up at eight forty five!')">🔊</button>
+            </div>
+        </div>
+
+        <!-- 6.3 Debate -->
+        <div class="role-play-box" style="border:1px solid #ba68c8;">
+            <h3>
+                C. Debate: Early Bird ☀️ vs. Night Owl 🦉
+                <button class="control-btn speak-btn" onclick="speak('Debate: Early Bird vs Night Owl')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-title-3')">🇹🇭</button>
+                <span id="ext-title-3" class="thai-text">โต้วาที: ตื่นเช้า vs นอนดึก</span>
+            </h3>
+            <div style="display:flex; justify-content:space-around;">
+                <div style="text-align:center;">
+                    <h4>Early Bird</h4>
+                    <div style="margin-bottom:10px;">
+                        <span style="cursor:pointer;" onclick="speak('I see the sun at 6 AM.')">✅ See the sun at 6 AM</span>
+                        <button class="control-btn speak-btn" onclick="speak('See the sun at six a.m.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('deb1-trans')">🇹🇭</button>
+                        <span id="deb1-trans" class="thai-text">เห็นพระอาทิตย์ตอน 6 โมงเช้า</span>
+                    </div>
+                    <div>
+                        <span style="cursor:pointer;" onclick="speak('I have breakfast at 7 AM.')">✅ Breakfast at 7 AM</span>
+                        <button class="control-btn speak-btn" onclick="speak('Breakfast at seven a.m.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('deb2-trans')">🇹🇭</button>
+                        <span id="deb2-trans" class="thai-text">กินข้าวเช้าตอน 7 โมง</span>
+                    </div>
+                </div>
+                <div style="text-align:center; border-left:1px solid #ccc; padding-left:10px;">
+                    <h4>Night Owl</h4>
+                    <div style="margin-bottom:10px;">
+                        <span style="cursor:pointer;" onclick="speak('I play games at 11 PM.')">✅ Play games at 11 PM</span>
+                        <button class="control-btn speak-btn" onclick="speak('Play games at eleven p.m.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('deb3-trans')">🇹🇭</button>
+                        <span id="deb3-trans" class="thai-text">เล่นเกมตอน 5 ทุ่ม</span>
+                    </div>
+                    <div>
+                        <span style="cursor:pointer;" onclick="speak('I sleep at 2 AM.')">✅ Sleep at 2 AM</span>
+                        <button class="control-btn speak-btn" onclick="speak('Sleep at two a.m.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('deb4-trans')">🇹🇭</button>
+                        <span id="deb4-trans" class="thai-text">นอนตอนตี 2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.4 Discussion -->
+        <div class="role-play-box" style="border:1px solid #4db6ac;">
+            <h3>
+                D. Discussion: My Perfect Sunday 🏖️
+                <button class="control-btn speak-btn" onclick="speak('Discussion: My Perfect Sunday')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-title-4')">🇹🇭</button>
+                <span id="ext-title-4" class="thai-text">อภิปราย: วันอาทิตย์ที่สมบูรณ์แบบ</span>
+            </h3>
+            <p>
+                1. What time do you wake up on Sunday?
+                <button class="control-btn speak-btn" onclick="speak('What time do you wake up on Sunday?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('disc1-trans')">🇹🇭</button>
+                <span id="disc1-trans" class="thai-text">คุณตื่นกี่โมงวันอาทิตย์?</span>
+            </p>
+            <p>
+                2. What do you eat <b>at</b> 12:00 PM?
+                <button class="control-btn speak-btn" onclick="speak('What do you eat at twelve p.m.?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('disc2-trans')">🇹🇭</button>
+                <span id="disc2-trans" class="thai-text">คุณกินอะไรตอนเที่ยง?</span>
+            </p>
+            <p>
+                3. What time do you watch TV?
+                <button class="control-btn speak-btn" onclick="speak('What time do you watch TV?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('disc3-trans')">🇹🇭</button>
+                <span id="disc3-trans" class="thai-text">คุณดูทีวีกี่โมง?</span>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // --- REVIEW DATA (Learnt Structures) ---
+    const reviewItems = [
+        { 
+            topic: "Rooms / There is",
+            q: "Describe your bedroom. What is there?",
+            speak: "Describe your bedroom. What is there?",
+            th: "บรรยายห้องนอนของคุณ มีอะไรบ้าง? (ใช้ There is...)"
+        },
+        { 
+            topic: "Object Pronouns",
+            q: "Do you like Tom Cruise? (Answer: Yes, I like ____)",
+            speak: "Do you like Tom Cruise? Answer: Yes, I like him.",
+            th: "คุณชอบทอม ครูซไหม? (ตอบ: Yes, I like him)"
+        },
+        { 
+            topic: "Present Continuous",
+            q: "What are you doing right now?",
+            speak: "What are you doing right now?",
+            th: "ตอนนี้คุณกำลังทำอะไรอยู่?"
+        },
+        { 
+            topic: "Future Simple (Going to)",
+            q: "What are you going to do tomorrow?",
+            speak: "What are you going to do tomorrow?",
+            th: "พรุ่งนี้คุณจะทำอะไร?"
+        },
+        { 
+            topic: "Food Ordering",
+            q: "Order food: 'For here or to go?'",
+            speak: "Order food. For here or to go?",
+            th: "สั่งอาหาร: ทานที่นี่หรือกลับบ้าน?"
+        },
+        { 
+            topic: "Adverbs of Frequency",
+            q: "How often do you exercise?",
+            speak: "How often do you exercise?",
+            th: "คุณออกกำลังกายบ่อยแค่ไหน?"
+        },
+        { 
+            topic: "Present Simple (s/es)",
+            q: "Your mom / cook? (Make a sentence)",
+            speak: "Your mom cooks.",
+            th: "แม่ของคุณทำอาหาร (แต่งประโยค: My mom cooks...)"
+        },
+        { 
+            topic: "Do / Don't",
+            q: "You / eat / spicy food? (Negative)",
+            speak: "I don't eat spicy food.",
+            th: "คุณกินเผ็ดไหม? (ตอบปฏิเสธ: I don't...)"
+        }
+    ];
+
+    // --- FUNCTIONS ---
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Browser TTS not supported.");
+        }
+    }
+
+    function toggleTrans(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === "inline" || el.style.display === "block") ? "none" : "inline";
+    }
+
+    function toggleAnswer(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === "block") {
+            el.style.display = "none";
+        } else {
+            el.style.display = "block";
+        }
+    }
+
+    function spinReview() {
+        const display = document.getElementById('review-card-display');
+        
+        display.innerHTML = '<p>Spinning... 🎲</p>';
+        
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * reviewItems.length);
+            const item = reviewItems[randomIndex];
+            const uniqueId = 'rev-' + Date.now();
+            
+            display.innerHTML = `
+                <div style="width:100%;">
+                    <div class="review-topic">${item.topic}</div>
+                    <div class="review-question">${item.q}</div>
+                    <div style="margin-top:15px;">
+                        <button class="control-btn speak-btn" onclick="speak('${item.speak.replace(/'/g, "\\'")}')">🔊 Listen</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('${uniqueId}')">🇹🇭 TH</button>
+                    </div>
+                    <p id="${uniqueId}" class="thai-text" style="display:none; margin-top:10px;">${item.th}</p>
+                </div>
+            `;
+        }, 500);
+    }
+</script>
+
+</body>
+</html>
