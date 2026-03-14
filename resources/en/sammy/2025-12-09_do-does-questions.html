@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do & Does Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .control-btn {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .control-btn:hover { background-color: #f0f0f0; }
+        .speak-btn { color: #007bff; border-color: #007bff; }
+        .trans-btn { color: #28a745; border-color: #28a745; }
+        .thai-text {
+            display: none;
+            color: #666;
+            font-style: italic;
+            margin-left: 10px;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+
+        /* Grammar Box Styles */
+        .grammar-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .rule-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #bddefd;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .highlight-do { color: #1976d2; font-weight: bold; }
+        .highlight-does { color: #d32f2f; font-weight: bold; }
+
+        /* Vocab Display */
+        #vocab-display {
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 30px;
+            background-color: #fff3e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #ffb74d;
+        }
+        
+        /* Quiz Styles */
+        .quiz-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .quiz-options {
+            margin-top: 10px;
+        }
+        .option-btn {
+            padding: 8px 15px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover { background: #f0f0f0; }
+        .correct { background: #c8e6c9 !important; border-color: #4caf50 !important; color: #2e7d32; }
+        .wrong { background: #ffcdd2 !important; border-color: #f44336 !important; opacity: 0.6; }
+
+        /* Standard Components */
+        .big-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .big-btn:hover { background-color: #2980b9; }
+        
+        .role-play-box {
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: white; 
+            margin-bottom: 15px;
+        }
+        .reveal-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .answer-box {
+            display: none;
+            background: #fff3e0;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border-left: 3px solid #ff9800;
+        }
+        .story-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .comp-check {
+            border-top: 1px dashed #ccc;
+            margin-top: 15px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>
+        Do & Does Questions
+        <button class="control-btn speak-btn" onclick="speak('Do and Does Questions')">🔊</button>
+        <button class="control-btn trans-btn" onclick="toggleTrans('h1-trans')">🇹🇭</button>
+        <span id="h1-trans" class="thai-text">คำถาม Do และ Does</span>
+    </h1>
+
+    <!-- SECTION 1: VOCAB REVIEW -->
+    <div class="section">
+        <h2>
+            1. Massive Review Spin 🌪️
+            <button class="control-btn speak-btn" onclick="speak('Massive Review Spin')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-1-trans')">🇹🇭</button>
+            <span id="h2-1-trans" class="thai-text">วงล้อทบทวนชุดใหญ่</span>
+        </h2>
+        <p style="text-align:center;">
+            Review words from previous lessons.
+            <button class="control-btn speak-btn" onclick="speak('Review words from previous lessons.')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('inst-1-trans')">🇹🇭</button>
+            <span id="inst-1-trans" class="thai-text">ทบทวนคำศัพท์จากบทเรียนก่อนหน้า</span>
+        </p>
+
+        <div id="vocab-display">
+            Click "Spin" to start!
+        </div>
+        <button class="big-btn" onclick="spinVocab()">Spin Vocab 🔄</button>
+    </div>
+
+    <!-- SECTION 2: HOMEWORK CHECK (Do/Does Quiz) -->
+    <div class="section" style="border-color: #ffcc80;">
+        <h2>
+            2. Homework Check: Do or Does? 📝
+            <button class="control-btn speak-btn" onclick="speak('Homework Check: Do or Does?')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-hw-trans')">🇹🇭</button>
+            <span id="h2-hw-trans" class="thai-text">ตรวจการบ้าน: Do หรือ Does?</span>
+        </h2>
+        <p style="text-align:center;">
+            Select the correct word.
+            <button class="control-btn speak-btn" onclick="speak('Select the correct word.')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('inst-2-trans')">🇹🇭</button>
+            <span id="inst-2-trans" class="thai-text">เลือกคำที่ถูกต้อง</span>
+        </p>
+
+        <div id="quiz-container">
+            <!-- Questions generated by JS -->
+        </div>
+    </div>
+
+    <!-- SECTION 3: GRAMMAR FOCUS -->
+    <div class="section">
+        <h2>
+            3. Grammar: Asking Questions ❓
+            <button class="control-btn speak-btn" onclick="speak('Grammar: Asking Questions')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-3-trans')">🇹🇭</button>
+            <span id="h2-3-trans" class="thai-text">ไวยากรณ์: การตั้งคำถาม</span>
+        </h2>
+
+        <!-- Rule Box -->
+        <div class="grammar-box">
+            <h3 style="margin-top:0;">
+                Question Structure
+                <button class="control-btn speak-btn" onclick="speak('Question Structure')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('gram-title-trans')">🇹🇭</button>
+                <span id="gram-title-trans" class="thai-text">โครงสร้างคำถาม</span>
+            </h3>
+            
+            <div class="rule-row">
+                <div>
+                    <b><span class="highlight-do">Do</span></b> + I / You / We / They ...?
+                    <button class="control-btn speak-btn" onclick="speak('Do plus I, You, We, They?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('gram-do-rule')">🇹🇭</button>
+                    <span id="gram-do-rule" class="thai-text">ใช้ Do กับ I, You, We, They</span>
+                </div>
+                <div>
+                    Example: <b>Do</b> you like pizza?
+                    <button class="control-btn speak-btn" onclick="speak('Do you like pizza?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('gram-do-ex')">🇹🇭</button>
+                    <span id="gram-do-ex" class="thai-text">ตัวอย่าง: คุณชอบพิซซ่าไหม?</span>
+                </div>
+            </div>
+            
+            <div class="rule-row" style="border-bottom:none;">
+                <div>
+                    <b><span class="highlight-does">Does</span></b> + He / She / It ...?
+                    <button class="control-btn speak-btn" onclick="speak('Does plus He, She, It?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('gram-does-rule')">🇹🇭</button>
+                    <span id="gram-does-rule" class="thai-text">ใช้ Does กับ He, She, It</span>
+                </div>
+                <div>
+                    Example: <b>Does</b> she play tennis?
+                    <button class="control-btn speak-btn" onclick="speak('Does she play tennis?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('gram-does-ex')">🇹🇭</button>
+                    <span id="gram-does-ex" class="thai-text">ตัวอย่าง: เธอเล่นเทนนิสไหม?</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Short Answers -->
+        <div class="grammar-box" style="background-color: #e8f5e9; border-left-color: #4caf50;">
+            <h3 style="margin-top:0;">
+                Short Answers
+                <button class="control-btn speak-btn" onclick="speak('Short Answers')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('short-ans-title')">🇹🇭</button>
+                <span id="short-ans-title" class="thai-text">การตอบแบบสั้น</span>
+            </h3>
+            <p>
+                <b>Yes, I do.</b> / <b>No, I don't.</b>
+                <button class="control-btn speak-btn" onclick="speak('Yes I do. No I don\'t.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('short-ans-1')">🇹🇭</button>
+                <span id="short-ans-1" class="thai-text">ใช่ / ไม่ใช่</span>
+            </p>
+            <p>
+                <b>Yes, she does.</b> / <b>No, she doesn't.</b>
+                <button class="control-btn speak-btn" onclick="speak('Yes she does. No she doesn\'t.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('short-ans-2')">🇹🇭</button>
+                <span id="short-ans-2" class="thai-text">ใช่ (เธอทำ) / ไม่ใช่ (เธอไม่ทำ)</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- SECTION 4: PRACTICE -->
+    <div class="section">
+        <h2>
+            4. Practice: The Interviewer 🎤
+            <button class="control-btn speak-btn" onclick="speak('Practice: The Interviewer')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-4-trans')">🇹🇭</button>
+            <span id="h2-4-trans" class="thai-text">ฝึกฝน: ผู้สัมภาษณ์</span>
+        </h2>
+        <p style="text-align:center;">
+            Translate these questions into English.
+            <button class="control-btn speak-btn" onclick="speak('Translate these questions into English.')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('inst-4-trans')">🇹🇭</button>
+            <span id="inst-4-trans" class="thai-text">แปลคำถามเหล่านี้เป็นภาษาอังกฤษ</span>
+        </p>
+
+        <div class="role-play-box">
+            <p>
+                1. คุณชอบพิซซ่าไหม?
+                <button class="control-btn speak-btn" onclick="speak('Do you like pizza?')">🔊 Answer</button>
+            </p>
+            <button class="reveal-btn" onclick="toggleAnswer('prac1')">Show Answer</button>
+            <div id="prac1" class="answer-box">
+                <b>Do</b> you like pizza?
+            </div>
+        </div>
+
+        <div class="role-play-box">
+            <p>
+                2. แม่ของคุณทำอาหารไหม? (แม่ = She)
+                <button class="control-btn speak-btn" onclick="speak('Does your mom cook?')">🔊 Answer</button>
+            </p>
+            <button class="reveal-btn" onclick="toggleAnswer('prac2')">Show Answer</button>
+            <div id="prac2" class="answer-box">
+                <b>Does</b> your mom cook?
+            </div>
+        </div>
+
+        <div class="role-play-box">
+            <p>
+                3. พวกเขาอาศัยอยู่ในกรุงเทพไหม?
+                <button class="control-btn speak-btn" onclick="speak('Do they live in Bangkok?')">🔊 Answer</button>
+            </p>
+            <button class="reveal-btn" onclick="toggleAnswer('prac3')">Show Answer</button>
+            <div id="prac3" class="answer-box">
+                <b>Do</b> they live in Bangkok?
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: EXTENSION ACTIVITIES -->
+    <div class="section" style="background-color: #fffde7;">
+        <h2>
+            5. Extension Activities 🤪
+            <button class="control-btn speak-btn" onclick="speak('Extension Activities')">🔊</button>
+            <button class="control-btn trans-btn" onclick="toggleTrans('h2-5-trans')">🇹🇭</button>
+            <span id="h2-5-trans" class="thai-text">กิจกรรมเสริม</span>
+        </h2>
+
+        <!-- 5.1 Funny Story -->
+        <div class="role-play-box" style="border-left: 5px solid #ab47bc;">
+            <h3>
+                A. The Alien Tourist 👽
+                <button class="control-btn speak-btn" onclick="speak('The Alien Tourist')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-a-trans')">🇹🇭</button>
+                <span id="ext-a-trans" class="thai-text">นักท่องเที่ยวต่างดาว</span>
+            </h3>
+            <p class="story-text">
+                Zog is from Mars. He visits Earth. He <b>doesn't</b> eat pizza. He eats cars!
+                <button class="control-btn speak-btn" onclick="speak('Zog is from Mars. He visits Earth. He doesn\'t eat pizza. He eats cars!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('story-a-1')">🇹🇭</button>
+                <span id="story-a-1" class="thai-text">ซ็อกมาจากดาวอังคาร เขามาเที่ยวโลก เขาไม่กินพิซซ่า เขากินรถยนต์!</span>
+                <br>
+                He <b>doesn't</b> sleep in a bed. He sleeps in the clouds.
+                <button class="control-btn speak-btn" onclick="speak('He doesn\'t sleep in a bed. He sleeps in the clouds.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('story-a-2')">🇹🇭</button>
+                <span id="story-a-2" class="thai-text">เขาไม่นอนบนเตียง เขานอนบนก้อนเมฆ</span>
+            </p>
+            
+            <div class="comp-check">
+                <p>
+                    <b>Question 1:</b> Does Zog eat pizza?
+                    <button class="control-btn speak-btn" onclick="speak('Does Zog eat pizza?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q1-zog')">🇹🇭</button>
+                    <span id="q1-zog" class="thai-text">คำถาม 1: ซ็อกกินพิซซ่าไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('zog-q1')">Check Answer</button>
+                <div id="zog-q1" class="answer-box">
+                    No, he doesn't. (He eats cars!)
+                    <button class="control-btn speak-btn" onclick="speak('No, he doesn\'t. He eats cars!')">🔊</button>
+                </div>
+
+                <p style="margin-top:10px;">
+                    <b>Question 2:</b> Does he sleep in a bed?
+                    <button class="control-btn speak-btn" onclick="speak('Does he sleep in a bed?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q2-zog')">🇹🇭</button>
+                    <span id="q2-zog" class="thai-text">คำถาม 2: เขานอนบนเตียงไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('zog-q2')">Check Answer</button>
+                <div id="zog-q2" class="answer-box">
+                    No, he doesn't.
+                    <button class="control-btn speak-btn" onclick="speak('No, he doesn\'t.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5.2 Funny Dialogue -->
+        <div class="role-play-box" style="border-left: 5px solid #ff7043;">
+            <h3>
+                B. The Forgetful Grandpa 👴
+                <button class="control-btn speak-btn" onclick="speak('The Forgetful Grandpa')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-b-trans')">🇹🇭</button>
+                <span id="ext-b-trans" class="thai-text">คุณปู่ขี้ลืม</span>
+            </h3>
+            <p>
+                <b>Grandpa:</b> Do you see my glasses?
+                <button class="control-btn speak-btn" onclick="speak('Do you see my glasses?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('dial-1')">🇹🇭</button>
+                <span id="dial-1" class="thai-text">ปู่: หลานเห็นแว่นตาปู่ไหม?</span>
+            </p>
+            <p>
+                <b>Grandma:</b> No, I don't. Do you wear them?
+                <button class="control-btn speak-btn" onclick="speak('No, I don\'t. Do you wear them?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('dial-2')">🇹🇭</button>
+                <span id="dial-2" class="thai-text">ย่า: ไม่เห็นค่ะ คุณใส่อยู่หรือเปล่า?</span>
+            </p>
+            <p>
+                <b>Grandpa:</b> Oh! Yes, I do. They are on my head!
+                <button class="control-btn speak-btn" onclick="speak('Oh! Yes, I do. They are on my head!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('dial-3')">🇹🇭</button>
+                <span id="dial-3" class="thai-text">ปู่: โอ้! ใช่แล้ว อยู่บนหัวนี่เอง!</span>
+            </p>
+            
+            <div class="comp-check">
+                <p>
+                    <b>Question:</b> Does Grandpa have his glasses?
+                    <button class="control-btn speak-btn" onclick="speak('Does Grandpa have his glasses?')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('q-gp')">🇹🇭</button>
+                    <span id="q-gp" class="thai-text">คำถาม: ปู่มีแว่นตาไหม?</span>
+                </p>
+                <button class="reveal-btn" onclick="toggleAnswer('gp-q1')">Check Answer</button>
+                <div id="gp-q1" class="answer-box">
+                    Yes, he does. (They are on his head!)
+                    <button class="control-btn speak-btn" onclick="speak('Yes, he does.')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5.3 Funny Role-Play -->
+        <div class="role-play-box" style="border-left: 5px solid #26a69a;">
+            <h3>
+                C. Role Play: The Bad Detective 🕵️‍♂️
+                <button class="control-btn speak-btn" onclick="speak('Role Play: The Bad Detective')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-c-trans')">🇹🇭</button>
+                <span id="ext-c-trans" class="thai-text">บทบาทสมมติ: นักสืบจอมเปิ่น</span>
+            </h3>
+            <p style="text-align:center;">
+                Ask silly questions!
+                <button class="control-btn speak-btn" onclick="speak('Ask silly questions!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp-inst')">🇹🇭</button>
+                <span id="rp-inst" class="thai-text">ถามคำถามตลกๆ!</span>
+            </p>
+            <p>
+                <b>Detective:</b> Do you brush your teeth with soup?
+                <button class="control-btn speak-btn" onclick="speak('Do you brush your teeth with soup?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp-q1')">🇹🇭</button>
+                <span id="rp-q1" class="thai-text">นักสืบ: คุณแปรงฟันด้วยซุปใช่ไหม?</span>
+            </p>
+            <p>
+                <b>Suspect:</b> No, I don't!
+                <button class="control-btn speak-btn" onclick="speak('No, I don\'t!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp-a1')">🇹🇭</button>
+                <span id="rp-a1" class="thai-text">ผู้ต้องสงสัย: ไม่ใช่!</span>
+            </p>
+            <hr>
+            <p>
+                <b>Detective:</b> Does your cat fly airplanes?
+                <button class="control-btn speak-btn" onclick="speak('Does your cat fly airplanes?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp-q2')">🇹🇭</button>
+                <span id="rp-q2" class="thai-text">นักสืบ: แมวของคุณขับเครื่องบินใช่ไหม?</span>
+            </p>
+            <p>
+                <b>Suspect:</b> No, it doesn't!
+                <button class="control-btn speak-btn" onclick="speak('No, it doesn\'t!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('rp-a2')">🇹🇭</button>
+                <span id="rp-a2" class="thai-text">ผู้ต้องสงสัย: ไม่ใช่!</span>
+            </p>
+        </div>
+
+        <!-- 5.4 Speaking Game -->
+        <div class="role-play-box" style="border-left: 5px solid #ec407a;">
+            <h3>
+                D. Game: The "Yes/No" Taboo 🚫
+                <button class="control-btn speak-btn" onclick="speak('Game: The Yes No Taboo')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-d-trans')">🇹🇭</button>
+                <span id="ext-d-trans" class="thai-text">เกม: ห้ามพูด Yes หรือ No</span>
+            </h3>
+            <p>
+                Ask a question. Answer <b>WITHOUT</b> saying "Yes" or "No".
+                <button class="control-btn speak-btn" onclick="speak('Ask a question. Answer WITHOUT saying Yes or No.')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('gm-inst')">🇹🇭</button>
+                <span id="gm-inst" class="thai-text">ถามคำถาม ตอบโดยห้ามพูดว่า Yes หรือ No</span>
+            </p>
+            <p>
+                <b>Q:</b> Do you like ice cream?
+                <button class="control-btn speak-btn" onclick="speak('Do you like ice cream?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('gm-q')">🇹🇭</button>
+                <span id="gm-q" class="thai-text">คำถาม: คุณชอบไอศกรีมไหม?</span>
+            </p>
+            <p>
+                <b>A:</b> I love it! (✅ Correct) / Yes (❌ Wrong)
+                <button class="control-btn speak-btn" onclick="speak('I love it!')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('gm-a')">🇹🇭</button>
+                <span id="gm-a" class="thai-text">คำตอบ: ฉันชอบมันมาก! (ถูก) / ใช่ (ผิด)</span>
+            </p>
+        </div>
+
+        <!-- 5.5 Funny Debate -->
+        <div class="role-play-box" style="border-left: 5px solid #7e57c2;">
+            <h3>
+                E. Debate: Do Cats Rule the World? 🐱👑
+                <button class="control-btn speak-btn" onclick="speak('Debate: Do Cats Rule the World?')">🔊</button>
+                <button class="control-btn trans-btn" onclick="toggleTrans('ext-e-trans')">🇹🇭</button>
+                <span id="ext-e-trans" class="thai-text">โต้วาที: แมวครองโลกใช่หรือไม่?</span>
+            </h3>
+            <div style="display:flex; justify-content:space-around;">
+                <div style="text-align:center;">
+                    <h4>
+                        Team "Yes, they do"
+                        <button class="control-btn speak-btn" onclick="speak('Team Yes they do')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('team-yes')">🇹🇭</button>
+                        <span id="team-yes" class="thai-text">ทีม "ใช่"</span>
+                    </h4>
+                    <p>
+                        They sleep all day.
+                        <button class="control-btn speak-btn" onclick="speak('They sleep all day.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-1')">🇹🇭</button>
+                        <span id="arg-1" class="thai-text">มันนอนทั้งวัน</span>
+                    </p>
+                    <p>
+                        Humans feed them.
+                        <button class="control-btn speak-btn" onclick="speak('Humans feed them.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-2')">🇹🇭</button>
+                        <span id="arg-2" class="thai-text">มนุษย์ให้อาหารมัน</span>
+                    </p>
+                    <p>
+                        Humans clean for them.
+                        <button class="control-btn speak-btn" onclick="speak('Humans clean for them.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-3')">🇹🇭</button>
+                        <span id="arg-3" class="thai-text">มนุษย์ทำความสะอาดให้มัน</span>
+                    </p>
+                </div>
+                <div style="text-align:center; border-left:1px solid #ccc; padding-left:10px;">
+                    <h4>
+                        Team "No, they don't"
+                        <button class="control-btn speak-btn" onclick="speak('Team No they don\'t')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('team-no')">🇹🇭</button>
+                        <span id="team-no" class="thai-text">ทีม "ไม่ใช่"</span>
+                    </h4>
+                    <p>
+                        They don't have jobs.
+                        <button class="control-btn speak-btn" onclick="speak('They don\'t have jobs.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-4')">🇹🇭</button>
+                        <span id="arg-4" class="thai-text">มันไม่มีงานทำ</span>
+                    </p>
+                    <p>
+                        They can't drive cars.
+                        <button class="control-btn speak-btn" onclick="speak('They can\'t drive cars.')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-5')">🇹🇭</button>
+                        <span id="arg-5" class="thai-text">มันขับรถไม่ได้</span>
+                    </p>
+                    <p>
+                        Dogs are better!
+                        <button class="control-btn speak-btn" onclick="speak('Dogs are better!')">🔊</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('arg-6')">🇹🇭</button>
+                        <span id="arg-6" class="thai-text">สุนัขดีกว่า!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- DATA ---
+    const vocabList = [
+        {en: "stir-fried basil", th: "ผัดกะเพรา"},
+        {en: "I don't like both.", th: "ไม่ชอบทั้งคู่"},
+        {en: "make your bed", th: "เก็บที่นอน"},
+        {en: "wardrobe", th: "ตู้เสื้อผ้า"},
+        {en: "What time do you get up?", th: "ตื่นกี่โมง"},
+        {en: "I used to ride a bicycle.", th: "เคยขี่จักรยาน"},
+        {en: "mashed potatoes", th: "มันบด"},
+        {en: "fortune cookies", th: "คุกกี้เสี่ยงทาย"},
+        {en: "What's in your fridge?", th: "อะไรอยู่ในตู้เย็นคุณบ้าง"},
+        {en: "Turn on the light", th: "เปิดไฟ"},
+        {en: "I always make my bed.", th: "เก็บที่นอนเสมอ"},
+        {en: "An early bird sees the Sun at 6AM.", th: "คนชอบตื่นเช้าเห็นพระอาทิตย์ตอน 6 โมงเช้า"},
+        {en: "She goes to work at 8am.", th: "เธอไปทำงาน 8 โมง"},
+        {en: "What kind?", th: "แบบไหน"},
+        {en: "For here or to go?", th: "กินนี่ หรือกลับบ้าน"},
+        {en: "I'm listening to the teacher.", th: "ฟังครูอยู่"},
+        {en: "He's riding a motorcycle.", th: "เขาขี่มอเตอร์ไซค์"},
+        {en: "What are you going to do tomorrow?", th: "จะทำอะไรพรุ่งนี้"},
+        {en: "I'm going to the gym this Saturday.", th: "ฉันจะไปฟิตเนสวันเสาร์นี้"},
+        {en: "We are walking in pairs.", th: "พวกเราเดินเป็นคู่"},
+        {en: "lawn mower", th: "เครื่องตัดหญ้า"},
+        {en: "I never work.", th: "ไม่เคยทำงาน"},
+        {en: "discipline", th: "วินัย"}
+    ];
+
+    const quizQuestions = [
+        { q: "_________ her cat drink milk?", ans: "Does", th: "แมวของเธอดื่มนมไหม?" },
+        { q: "Where _________ the King live?", ans: "does", th: "พระราชาประทับที่ไหน?" },
+        { q: "What time ______ he go to school?", ans: "does", th: "เขาไปโรงเรียนกี่โมง?" },
+        { q: "When ______ you go on holiday?", ans: "do", th: "คุณไปเที่ยววันหยุดเมื่อไหร่?" },
+        { q: "_________ your parents work at the hospital?", ans: "Do", th: "พ่อแม่ของคุณทำงานที่โรงพยาบาลไหม?" },
+        { q: "_________ your sister play tennis?", ans: "Does", th: "พี่สาว/น้องสาวของคุณเล่นเทนนิสไหม?" },
+        { q: "_______ our teacher live in Santa Cruz?", ans: "Does", th: "ครูของพวกเราอาศัยอยู่ในซานตาครูซไหม?" },
+        { q: "________ your pen work?", ans: "Does", th: "ปากกาของคุณใช้ได้ไหม?" },
+        { q: "___________ the dog swim?", ans: "Does", th: "สุนัขว่ายน้ำไหม?" },
+        { q: "What ______ you eat for dinner?", ans: "do", th: "คุณกินอะไรเป็นมื้อเย็น?" },
+        { q: "__________ she ride her bike to school?", ans: "Does", th: "เธอปั่นจักรยานไปโรงเรียนไหม?" },
+        { q: "_________ you drink Coca-cola?", ans: "Do", th: "คุณดื่มโค้กไหม?" },
+        { q: "________ I have to do my homework?", ans: "Do", th: "ฉันต้องทำการบ้านไหม?" },
+        { q: "________ they work at the bank?", ans: "Do", th: "พวกเขาทำงานที่ธนาคารไหม?" },
+        { q: "__________ he have any brothers or sisters?", ans: "Does", th: "เขามีพี่น้องไหม?" },
+        { q: "________ we go to school on Saturday?", ans: "Do", th: "พวกเราไปโรงเรียนวันเสาร์ไหม?" },
+        { q: "Where _________ she live?", ans: "does", th: "เธออาศัยอยู่ที่ไหน?" },
+        { q: "Where ______ you live?", ans: "do", th: "คุณอาศัยอยู่ที่ไหน?" },
+        { q: "_______ you sit next to Pablo in English class?", ans: "Do", th: "คุณนั่งข้างปาโบลในวิชาภาษาอังกฤษไหม?" },
+        { q: "____________ Mary and Sara eat breakfast together?", ans: "Do", th: "แมรี่และซาร่ากินมื้อเช้าด้วยกันไหม?" },
+        { q: "___________ Daniel play the guitar?", ans: "Does", th: "แดเนียลเล่นกีตาร์ไหม?" },
+        { q: "_______ he like football?", ans: "Does", th: "เขาชอบฟุตบอลไหม?" },
+        { q: "__________ you watch TV on Mondays?", ans: "Do", th: "คุณดูทีวีทุกวันจันทร์ไหม?" }
+    ];
+
+    // --- INITIALIZATION ---
+    window.onload = function() {
+        const container = document.getElementById('quiz-container');
+        quizQuestions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'quiz-item';
+            const uniqueId = 'quiz-q-' + index;
+            
+            // Determine options (Start with Capital if sentence start)
+            const isStart = item.q.trim().startsWith('_');
+            const op1 = isStart ? "Do" : "do";
+            const op2 = isStart ? "Does" : "does";
+            
+            div.innerHTML = `
+                <div style="font-weight:500;">
+                    ${index + 1}. ${item.q}
+                    <button class="control-btn speak-btn" onclick="speak('${item.q.replace(/_/g, 'blank').replace(/'/g, "\\'")}')">🔊</button>
+                    <button class="control-btn trans-btn" onclick="toggleTrans('${uniqueId}')">🇹🇭</button>
+                    <span id="${uniqueId}" class="thai-text">${item.th}</span>
+                </div>
+                <div class="quiz-options">
+                    <button class="option-btn" onclick="checkQuiz(this, '${item.ans}', '${op1}')">${op1}</button>
+                    <button class="option-btn" onclick="checkQuiz(this, '${item.ans}', '${op2}')">${op2}</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    };
+
+    // --- FUNCTIONS ---
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Browser TTS not supported.");
+        }
+    }
+
+    function toggleTrans(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === "inline" || el.style.display === "block") ? "none" : "inline";
+    }
+
+    function toggleAnswer(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === "block") {
+            el.style.display = "none";
+        } else {
+            el.style.display = "block";
+            speak(el.innerText);
+        }
+    }
+
+    function spinVocab() {
+        const display = document.getElementById('vocab-display');
+        display.innerHTML = '<p>Spinning... 🎲</p>';
+        
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * vocabList.length);
+            const item = vocabList[randomIndex];
+            const uniqueId = 'voc-' + Date.now();
+            
+            display.innerHTML = `
+                <div style="width:100%;">
+                    <p style="font-size:1.4rem; font-weight:bold; margin-bottom:10px;">${item.en}</p>
+                    <div style="margin-top:10px;">
+                        <button class="control-btn speak-btn" onclick="speak('${item.en.replace(/'/g, "\\'")}')">🔊 Listen</button>
+                        <button class="control-btn trans-btn" onclick="toggleTrans('${uniqueId}')">🇹🇭 TH</button>
+                    </div>
+                    <p id="${uniqueId}" class="thai-text" style="display:none; margin-top:15px; font-size:1.1rem; color:#d35400;">${item.th}</p>
+                </div>
+            `;
+        }, 500);
+    }
+
+    function checkQuiz(btn, correctAnswer, btnValue) {
+        // Reset siblings
+        const parent = btn.parentElement;
+        const siblings = parent.getElementsByClassName('option-btn');
+        for (let sib of siblings) {
+            sib.classList.remove('correct', 'wrong');
+        }
+
+        // Check answer
+        if (btnValue.toLowerCase() === correctAnswer.toLowerCase()) {
+            btn.classList.add('correct');
+            speak("Correct!");
+        } else {
+            btn.classList.add('wrong');
+            speak("Try again.");
+        }
+    }
+</script>
+
+</body>
+</html>
