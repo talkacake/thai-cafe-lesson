@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple VS Continuous Review</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background-color: #fff;
+        }
+        
+        /* Buttons */
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.1s, background-color 0.2s;
+            margin: 5px;
+        }
+        .btn:hover { background-color: #2980b9; transform: scale(1.02); }
+        .btn:active { transform: scale(0.98); }
+        
+        .btn-audio { background-color: #f1c40f; color: #333; }
+        .btn-trans { background-color: #2ecc71; }
+        .btn-check { background-color: #9b59b6; }
+
+        .big-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        /* Vocab Display */
+        #vocab-card {
+            text-align: center;
+            padding: 30px;
+            background-color: #e8f6f3;
+            border-radius: 10px;
+            border: 2px dashed #1abc9c;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .vocab-text { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .thai-text { color: #7f8c8d; font-size: 1.1rem; display: none; margin-top: 5px; }
+        .emoji-display { font-size: 3rem; margin-bottom: 10px; }
+
+        /* Quiz Styles */
+        .quiz-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+        .quiz-q { font-size: 1.2rem; font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;}
+        .quiz-input {
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 80px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .quiz-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            font-weight: bold;
+        }
+        .correct { background-color: #d4edda; color: #155724; }
+        .incorrect { background-color: #f8d7da; color: #721c24; }
+
+        /* Floating Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        /* Vocab List Style */
+        .vocab-list-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .vocab-list-item:last-child { border-bottom: none; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Present Simple VS Continuous ⏳🏃‍♂️</h1>
+    
+    <!-- SECTION 1: VOCAB REVIEW -->
+    <div class="section">
+        <h2>1. Vocab Review Spin 🎰</h2>
+        <p style="text-align:center;">Make a sentence with the word you see!</p>
+        
+        <div id="vocab-card">
+            <div id="v-emoji" class="emoji-display">🎲</div>
+            <div id="v-text" class="vocab-text">Click Spin!</div>
+            <div id="v-thai" class="thai-text">...</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-audio" onclick="speakCurrentVocab()">🔊 Listen</button>
+            <button class="btn btn-trans" onclick="toggleVocabThai()">🇹🇭 TH</button>
+        </div>
+        <button class="btn big-btn" onclick="spinVocab()">SPIN VOCAB 🔄</button>
+    </div>
+
+    <!-- SECTION 2: HOMEWORK CHECK -->
+    <div class="section" style="background-color: #fff8e1; border-color: #ffca28;">
+        <h2>2. Homework Check 📝</h2>
+        <div style="text-align:center; font-size: 1.2rem;">
+            <p>Did you do your homework?</p>
+            <label style="cursor:pointer; margin-right: 20px;">
+                <input type="radio" name="hw" onclick="hwCheck(true)"> Yes ✅
+            </label>
+            <label style="cursor:pointer;">
+                <input type="radio" name="hw" onclick="hwCheck(false)"> No ❌
+            </label>
+            <p id="hw-msg" style="font-weight:bold; margin-top:15px; min-height: 1.5em;"></p>
+        </div>
+    </div>
+
+    <!-- SECTION 3: THE QUIZ -->
+    <div class="section">
+        <h2>3. Quiz: Complete the Questions ❓</h2>
+        <p style="text-align:center;">
+            Fill in the blank with: <br>
+            <span style="color:#2980b9; font-weight:bold; font-size:1.2rem;">Do / Does / Is / Are</span>
+        </p>
+
+        <!-- Q1 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                1. <input type="text" id="q1" class="quiz-input" placeholder="..."> 
+                you texting your friend? 📱
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(1, 'are')">Check</button>
+            </div>
+            <div id="fb-1" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                2. <input type="text" id="q2" class="quiz-input" placeholder="..."> 
+                she use a spoon to eat soup? 🥄
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(2, 'does')">Check</button>
+            </div>
+            <div id="fb-2" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                3. <input type="text" id="q3" class="quiz-input" placeholder="..."> 
+                he buying skinny jeans? 👖
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(3, 'is')">Check</button>
+            </div>
+            <div id="fb-3" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                4. <input type="text" id="q4" class="quiz-input" placeholder="..."> 
+                you get up at 7am every day? ⏰
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(4, 'do')">Check</button>
+            </div>
+            <div id="fb-4" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                5. <input type="text" id="q5" class="quiz-input" placeholder="..."> 
+                you watching a horror movie? 👻
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(5, 'are')">Check</button>
+            </div>
+            <div id="fb-5" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                6. <input type="text" id="q6" class="quiz-input" placeholder="..."> 
+                he go to the bedroom? 💡
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(6, 'does')">Check</button>
+            </div>
+            <div id="fb-6" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                7. <input type="text" id="q7" class="quiz-input" placeholder="..."> 
+                we walking in the park? 🌳
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(7, 'are')">Check</button>
+            </div>
+            <div id="fb-7" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                8. <input type="text" id="q8" class="quiz-input" placeholder="..."> 
+                the room have a toaster? 🍞
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(8, 'does')">Check</button>
+            </div>
+            <div id="fb-8" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                9. <input type="text" id="q9" class="quiz-input" placeholder="..."> 
+                she washing dishes right now? 🍽️
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(9, 'is')">Check</button>
+            </div>
+            <div id="fb-9" class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="quiz-item">
+            <div class="quiz-q">
+                10. <input type="text" id="q10" class="quiz-input" placeholder="..."> 
+                you like both colors? 🙅‍♂️
+            </div>
+            <div class="controls" style="justify-content: flex-start;">
+                <button class="btn btn-check" onclick="checkFillIn(10, 'do')">Check</button>
+            </div>
+            <div id="fb-10" class="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: PRODUCTION -->
+    <div class="section" style="border-color: #9b59b6;">
+        <h2>4. Your Turn! 🎤</h2>
+        <p>Try to make <b>2 questions</b>. One for Habit (Simple), One for Now (Continuous).</p>
+        
+        <div class="quiz-item" style="border-left-color: #9b59b6;">
+            <b>Prompt A:</b> Ask about "Hobbies" 🥅 (Habit)
+            <br><i>(Example: Do you have...?)</i>
+        </div>
+
+        <div class="quiz-item" style="border-left-color: #9b59b6;">
+            <b>Prompt B:</b> Ask about "Eating" 🍗 (Now)
+            <br><i>(Example: Are you eating...?)</i>
+        </div>
+    </div>
+
+    <!-- SECTION 5: ADDITIONAL VOCABULARY -->
+    <div class="section" style="background-color: #fce4ec; border-color: #f48fb1;">
+        <h2>5. Additional Vocabulary 📚</h2>
+        <div style="max-height: 300px; overflow-y: auto; background: #fafafa; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+             <div class="vocab-list-item"><b>textbooks</b> <span>หนังสือเรียน</span> <span>📚📑✍️</span> <button class="btn-audio" onclick="speak('textbooks')">🔊</button></div>
+             <div class="vocab-list-item"><b>vocab(ulary)</b> <span>คำศัพท์</span> <span>📖🔤📝</span> <button class="btn-audio" onclick="speak('vocabulary')">🔊</button></div>
+             <div class="vocab-list-item"><b>topic</b> <span>หัวข้อ</span> <span>📌📋💡</span> <button class="btn-audio" onclick="speak('topic')">🔊</button></div>
+             <div class="vocab-list-item"><b>What happened?</b> <span>เกิดอะไรขึ้น</span> <span>❓🧐💥</span> <button class="btn-audio" onclick="speak('What happened?')">🔊</button></div>
+             <div class="vocab-list-item"><b>What's your favorite animal?</b> <span>ชอบสัตว์อะไรที่สุด</span> <span>🐾❤️❓</span> <button class="btn-audio" onclick="speak('What is your favorite animal?')">🔊</button></div>
+             <div class="vocab-list-item"><b>I've never seen it before.</b> <span>ไม่เคยเห็นมาก่อน</span> <span>🚫👀🆕</span> <button class="btn-audio" onclick="speak('I have never seen it before.')">🔊</button></div>
+             <div class="vocab-list-item"><b>agree</b> <span>เห็นด้วย</span> <span>🤝✅🆗</span> <button class="btn-audio" onclick="speak('agree')">🔊</button></div>
+             <div class="vocab-list-item"><b>I'm used to playing soccer.</b> <span>ฉันชินกับการเล่นฟุตบอล</span> <span>⚽🏃‍♂️🔄</span> <button class="btn-audio" onclick="speak('I am used to playing soccer.')">🔊</button></div>
+             <div class="vocab-list-item"><b>I used to play soccer.</b> <span>ฉันเคยเล่นฟุตบอล</span> <span>⚽🏃‍♂️🕰️</span> <button class="btn-audio" onclick="speak('I used to play soccer.')">🔊</button></div>
+             <div class="vocab-list-item"><b>Do you have a swimming pool?</b> <span>มีสระว่ายน้ำไหม</span> <span>🏡🏊‍♂️❓</span> <button class="btn-audio" onclick="speak('Do you have a swimming pool?')">🔊</button></div>
+             <div class="vocab-list-item"><b>Do you swim?</b> <span>ว่ายน้ำไหม</span> <span>🏊‍♂️🌊❓</span> <button class="btn-audio" onclick="speak('Do you swim?')">🔊</button></div>
+             <div class="vocab-list-item"><b>Curry</b> <span>แกง</span> <span>🍛🌶️🍲</span> <button class="btn-audio" onclick="speak('Curry')">🔊</button></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- VOCAB DATA ---
+    const vocabList = [
+        {en: "I'm a student.", th: "เป็นนักเรียน", em: "👨‍🎓"},
+        {en: "stir-fried basil", th: "ผัดกะเพรา", em: "🍃"},
+        {en: "make your bed", th: "เก็บที่นอน", em: "🛏️"},
+        {en: "bookmark", th: "ที่คั่นหนังสือ", em: "🔖"},
+        {en: "at the cinema", th: "ที่โรงหนัง", em: "🍿"},
+        {en: "leave the crust", th: "ทิ้งขอบไว้", em: "🍕"},
+        {en: "skinny jeans", th: "ยีนส์ขาเดฟ", em: "👖"},
+        {en: "straight jeans", th: "ยีนส์ขากระบอก", em: "👖"},
+        {en: "go to bed late", th: "นอนดึก", em: "🌑"},
+        {en: "get up early", th: "ตื่นเช้า", em: "☀️"},
+        {en: "owl", th: "นกฮูก", em: "🦉"},
+        {en: "Have you ever wrapped gifts?", th: "เคยห่อของขวัญไหม", em: "🎁"},
+        {en: "What did you eat?", th: "กินอะไรมา", em: "🍽️"},
+        {en: "wardrobe", th: "ตู้เสื้อผ้า", em: "🚪"},
+        {en: "To bake", th: "ทำขนม / อบ", em: "🧁"},
+        {en: "Toasts", th: "ขนมปังปิ้ง", em: "🍞"},
+        {en: "Forks", th: "ส้อม", em: "🍴"},
+        {en: "Knives", th: "มีด", em: "🔪"},
+        {en: "Turn on the light", th: "เปิดไฟ", em: "💡"},
+        {en: "closet", th: "ตู้เสื้อผ้า", em: "🚪"},
+        {en: "hangers", th: "ไม้แขวนเสื้อ", em: "👕"},
+        {en: "liquid soap", th: "สบู่น้ำ", em: "🧴"},
+        {en: "bar soap", th: "สบู่ก้อน", em: "🧼"},
+        {en: "shower head", th: "ฝักบัว", em: "🚿"},
+        {en: "vegetables", th: "ผัก", em: "🥦"},
+        {en: "Cash", th: "เงินสด", em: "💵"},
+        {en: "Card", th: "บัตร", em: "💳"},
+        {en: "garlic", th: "กระเทียม", em: "🧄"},
+        {en: "wonton soup", th: "เกี๊ยวน้ำ", em: "🍜"},
+        {en: "fortune cookies", th: "คุกกี้เสี่ยงทาย", em: "🥠"},
+        {en: "mashed potatoes", th: "มันฝรั่งบด", em: "🥔"},
+        {en: "soccer player", th: "นักบอล", em: "⚽"},
+        {en: "singer", th: "นักร้อง", em: "🎤"},
+        {en: "spoon", th: "ช้อน", em: "🥄"},
+        {en: "cuddly", th: "ขี้อ้อน", em: "😽"},
+        {en: "loyal", th: "ซื่อสัตย์", em: "🐕"},
+        {en: "angry", th: "โกรธ", em: "😡"},
+        {en: "scared", th: "กลัว", em: "😱"},
+        {en: "Many minions are together.", th: "มินเนี่ยนหลายตัวอยู่ด้วยกัน", em: "🍌"},
+        {en: "Charlie is writing on the wall.", th: "ชาลีกำลังเขียนผนัง", em: "✍️"},
+        {en: "I'm having breakfast.", th: "กินอาหารเช้าอยู่", em: "🍳"},
+        {en: "He's looking for a book.", th: "เขากำลังหาหนังสือ", em: "📚"},
+        {en: "Is it raining?", th: "ฝนตกอยู่ไหม", em: "🌧️"},
+        {en: "I'm texting.", th: "ส่งข้อความอยู่", em: "📱"},
+        {en: "I'm making an omelette.", th: "ทำออมเล็ตอยู่", em: "🥚"},
+        {en: "Are you laughing?", th: "หัวเราะอยู่ไหม", em: "😂"},
+        {en: "He's riding a motorcycle.", th: "เขาขี่มอเตอร์ไซค์", em: "🏍️"},
+        {en: "He's riding a bicycle.", th: "เขาขี่จักรยานอยู่", em: "🚲"},
+        {en: "He is singing.", th: "เขาร้องเพลงอยู่", em: "🎶"},
+        {en: "Market", th: "ตลาด", em: "🏪"},
+        {en: "I'm going to the gym this Saturday.", th: "ฉันจะไปฟิตเนสวันเสาร์นี้", em: "💪"},
+        {en: "pillows", th: "หมอน", em: "🛌"},
+        {en: "A/C", th: "แอร์", em: "❄️"},
+        {en: "toothbrushes", th: "แปรงสีฟัน", em: "🪥"},
+        {en: "I am washing clothes.", th: "ฉันซักผ้าอยู่", em: "🧺"},
+        {en: "stairs", th: "บันได", em: "🪜"},
+        {en: "ghosts", th: "ผี", em: "👻"},
+        {en: "usually", th: "มักจะ", em: "📅"},
+        {en: "sometimes", th: "บางครั้ง", em: "🌗"},
+        {en: "noisy", th: "เสียงดัง", em: "📢"},
+        {en: "bones", th: "กระดูก", em: "☠️"},
+        {en: "bracelets", th: "กำไล", em: "💍"},
+        {en: "lawn mower", th: "เครื่องตัดหญ้า", em: "🚜"},
+        {en: "wear", th: "ใส่", em: "👗"},
+        {en: "use", th: "ใช้", em: "🖐️"},
+        {en: "magnificent", th: "อลังการ", em: "✨"},
+        {en: "comfortable", th: "สบาย", em: "😌"},
+        {en: "lettuce", th: "ผักกาด", em: "🥬"},
+        {en: "discipline", th: "วินัย", em: "🫡"},
+        {en: "colorful t-shirts", th: "เสื้อยืดที่มีสีสันสดใส", em: "👕"},
+        {en: "lately", th: "ช่วงนี้", em: "⏰"},
+        {en: "Scary", th: "น่ากลัว", em: "👹"},
+        {en: "It's catchy.", th: "มันติดหู", em: "🎵"},
+        {en: "cinema", th: "โรงหนัง", em: "🎥"},
+        {en: "travel", th: "เที่ยว", em: "✈️"},
+        {en: "brotherhood", th: "ความเป็นพี่ชายน้องชาย", em: "🤜🤛"},
+        {en: "hairband", th: "ที่คาดผม", em: "🎀"},
+        {en: "painkiller", th: "ยาแก้ปวด", em: "💊"},
+        {en: "actor", th: "นักแสดง", em: "🎭"},
+        {en: "princess", th: "เจ้าหญิง", em: "👸"},
+        {en: "An elephant lives in Africa.", th: "ช้างอยู่ที่แอฟริกา", em: "🐘"},
+        {en: "She is eating an ice-cream.", th: "เธอกำลังกินไอติม", em: "🍦"},
+        {en: "If you have an umbrella, you will not get wet.", th: "ถ้ามีร่ม จะไม่เปียก", em: "☔️"},
+        {en: "I'm scared of a mouse.", th: "กลัวหนู", em: "😱🐭"},
+        {en: "Everyone is sitting on a chair.", th: "ทุกคนนั่งอยู่บนเก้าอี้", em: "🪑"},
+        {en: "She buys an egg from a grocery store.", th: "เธอซื้อไข่จากร้านขายของชำ (เป็นปกติ)", em: "🥚"},
+        {en: "I'm watching an ant walk.", th: "ฉันกำลังดูมดเดิน", em: "👀🐜"},
+        {en: "He takes a door.", th: "เขาเอาประตูไป", em: "🚪"},
+        {en: "hurt", th: "เจ็บ", em: "🤕"},
+        {en: "A rhino lives in a zoo.", th: "แรดอยู่ในสวนสัตว์", em: "🦏"},
+        {en: "I'm playing games on a computer.", th: "ฉันเล่นเกมอยู่ในคอม", em: "🎮"},
+        {en: "A monkey likes bananas.", th: "ลิงชอบกล้วย", em: "🐒🍌"},
+        {en: "roasted chicken", th: "ไก่อบ", em: "🍗"},
+        {en: "To have a cold", th: "เป็นหวัด", em: "🤧"},
+        {en: "waterpark", th: "สวนน้ำ", em: "💦🎢"},
+        {en: "roast", th: "อบ (อาหาร)", em: "🍠"},
+        {en: "bake", th: "อบ (ขนม)", em: "🧁"},
+        {en: "hobbies", th: "งานอดิเรก", em: "🥅"},
+        {en: "Horror", th: "หนังผี / ซีรีส์ผี", em: "👻"},
+        {en: "tidy", th: "เรียบร้อย", em: "🧹"},
+        {en: "Hurry", th: "รีบ", em: "🌀"},
+        {en: "gamble", th: "พนัน", em: "🎰"},
+        {en: "She's using a spoon.", th: "เธอกำลังใช้ช้อน", em: "🥄"},
+        {en: "How was your day?", th: "วันนี้เป็นยังไงบ้าง", em: "🌤️❓🗣️"},
+        {en: "I was walking in the park.", th: "เดินในสวนมา", em: "🚶🌳🍃"},
+        {en: "both", th: "ทั้งคู่", em: "✌️👯‍♂️"},
+        {en: "entertainment", th: "ความบันเทิง", em: "🎬🍿🎭"},
+        {en: "politics", th: "การเมือง", em: "🏛️🗳️📢"},
+        {en: "Toaster", th: "เครื่องปิ้งขนมปัง", em: "🍞🔥🔌"},
+        {en: "neither of them", th: "ไม่ทั้งคู่", em: "🙅‍♂️🚫2️⃣"},
+        {en: "wash dishes", th: "ล้างจาน", em: "🍽️🧼🧽"},
+        {en: "textbooks", th: "หนังสือเรียน", em: "📚📑✍️"},
+        {en: "vocab(ulary)", th: "คำศัพท์", em: "📖🔤📝"},
+        {en: "topic", th: "หัวข้อ", em: "📌📋💡"},
+        {en: "What happened?", th: "เกิดอะไรขึ้น", em: "❓🧐💥"},
+        {en: "What's your favorite animal?", th: "ชอบสัตว์อะไรที่สุด", em: "🐾❤️❓"},
+        {en: "I've never seen it before.", th: "ไม่เคยเห็นมาก่อน", em: "🚫👀🆕"},
+        {en: "agree", th: "เห็นด้วย", em: "🤝✅🆗"},
+        {en: "I'm used to playing soccer.", th: "ฉันชินกับการเล่นฟุตบอล", em: "⚽🏃‍♂️🔄"},
+        {en: "I used to play soccer.", th: "ฉันเคยเล่นฟุตบอล", em: "⚽🏃‍♂️🕰️"},
+        {en: "Do you have a swimming pool?", th: "มีสระว่ายน้ำไหม", em: "🏡🏊‍♂️❓"},
+        {en: "Do you swim?", th: "ว่ายน้ำไหม", em: "🏊‍♂️🌊❓"},
+        {en: "Curry", th: "แกง", em: "🍛🌶️🍲"}
+    ];
+
+    let currentVocab = {};
+
+    function spinVocab() {
+        // Animation
+        document.getElementById('v-text').innerText = "Spinning...";
+        document.getElementById('v-emoji').innerText = "🎲";
+        document.getElementById('v-thai').style.display = 'none';
+
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * vocabList.length);
+            currentVocab = vocabList[randomIndex];
+            
+            document.getElementById('v-text').innerText = currentVocab.en;
+            document.getElementById('v-emoji').innerText = currentVocab.em || "✨";
+            document.getElementById('v-thai').innerText = currentVocab.th;
+        }, 300);
+    }
+
+    function toggleVocabThai() {
+        const thaiEl = document.getElementById('v-thai');
+        if (thaiEl.style.display === 'block') {
+            thaiEl.style.display = 'none';
+        } else {
+            thaiEl.style.display = 'block';
+        }
+    }
+
+    function speakCurrentVocab() {
+        if(currentVocab.en) {
+            speak(currentVocab.en);
+        } else {
+            speak("Please spin first.");
+        }
+    }
+
+    // --- HOMEWORK CHECK ---
+    function hwCheck(isDone) {
+        const msg = document.getElementById('hw-msg');
+        if (isDone) {
+            msg.innerText = "Awesome! Good job! 🎉";
+            msg.style.color = "green";
+            speak("Awesome! Good job!");
+        } else {
+            msg.innerText = "That's okay! We will do it together now. 💪";
+            msg.style.color = "#d35400";
+            speak("That's okay! We will do it together now.");
+        }
+    }
+
+    // --- QUIZ LOGIC (FILL IN THE BLANK) ---
+    function checkFillIn(qId, correctAnswer) {
+        const inputEl = document.getElementById(`q${qId}`);
+        const feedbackEl = document.getElementById(`fb-${qId}`);
+        const studentAnswer = inputEl.value.trim().toLowerCase();
+
+        if (studentAnswer === correctAnswer) {
+            feedbackEl.innerHTML = `✅ Correct! (<b>${correctAnswer.charAt(0).toUpperCase() + correctAnswer.slice(1)}</b>)`;
+            feedbackEl.className = "quiz-feedback correct";
+            speak("Correct!");
+        } else {
+            feedbackEl.innerHTML = `❌ Try again! (Hint: <b>${correctAnswer.charAt(0).toUpperCase() + correctAnswer.slice(1)}</b>)`;
+            feedbackEl.className = "quiz-feedback incorrect";
+            speak("Try again.");
+        }
+        feedbackEl.style.display = 'block';
+    }
+
+    // --- TTS UTILITY ---
+    function speak(text) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Init
+    spinVocab();
+
+</script>
+
+</body>
+</html>
